@@ -1,0 +1,17 @@
+{#- Buttons whose link may still be TBC. Until the URL is set, the Register button keeps
+    its look for review but isn't a link (PLAN.md 5.2, S3). -#}
+
+{%- macro registerButton(reg, class="") -%}
+{%- if reg.url | isSet -%}
+<a class="btn btn--primary {{ class }}" href="{{ reg.url }}">{{ reg.label }}</a>
+{%- else -%}
+<a class="btn btn--primary is-disabled {{ class }}" role="link" aria-disabled="true" title="Registration link TBC">{{ reg.label }}<span class="visually-hidden"> (link TBC)</span></a>
+{%- endif -%}
+{%- endmacro -%}
+
+{#- The optional outlined button (Consent form). Hidden entirely until it has a link. -#}
+{%- macro secondaryButton(sec, class="") -%}
+{%- if sec.url | isSet -%}
+<a class="btn btn--outline {{ class }}" href="{{ sec.url }}">{{ sec.label }}</a>
+{%- endif -%}
+{%- endmacro -%}

@@ -3,3 +3,5 @@ _site/
 screenshots/
 oakmun-src/
 .DS_Store
+# Raw video goes here for npm run media; only the encoded output is committed.
+src/assets/video/source/

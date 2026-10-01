@@ -1,0 +1,175 @@
+{
+  "name": "Oakridge JMUN",
+  "fullName": "Oakridge Junior Model United Nations",
+  "wordmark": [
+    "Oakridge",
+    "JMUN"
+  ],
+  "chapter": "XIV",
+  "chapterNote": "Chapter number TBC",
+  "year": 2026,
+  "start": "2026-10-30T08:00:00+05:30",
+  "end": "2026-10-31T23:59:00+05:30",
+  "city": "Hyderabad",
+  "venue": "Oakridge International School, Gachibowli, Hyderabad",
+  "venueShort": "Oakridge International School, Gachibowli",
+  "url": "https://TBC",
+  "crest": "",
+  "description": "Oakridge Junior Model United Nations is a two-day conference for students in Grades 6 to 8, held at Oakridge International School, Gachibowli.",
+  "announcement": {
+    "enabled": true,
+    "text": "Registration opens soon (TBC)",
+    "link": ""
+  },
+  "nav": {
+    "left": [
+      {
+        "label": "Committees",
+        "url": "/committees/"
+      },
+      {
+        "label": "Secretariat",
+        "url": "/secretariat/"
+      },
+      {
+        "label": "Allocations",
+        "url": "/allocations/"
+      }
+    ],
+    "right": [
+      {
+        "label": "Schedule",
+        "url": "/#schedule"
+      },
+      {
+        "label": "Resources",
+        "url": "/resources/"
+      }
+    ],
+    "more": {
+      "label": "More",
+      "items": [
+        {
+          "label": "Social Night",
+          "url": "/social-night/"
+        },
+        {
+          "label": "New to MUN?",
+          "url": "/new-to-mun/"
+        },
+        {
+          "label": "FAQ",
+          "url": "/#faq"
+        }
+      ]
+    },
+    "register": {
+      "label": "Register",
+      "url": "TBC"
+    },
+    "secondary": {
+      "label": "Consent form",
+      "url": ""
+    }
+  },
+  "contact": {
+    "email": "TBC",
+    "instagram": ""
+  },
+  "stats": {
+    "delegates": "350+",
+    "days": 2,
+    "chapter": "XIV"
+  },
+  "theme": {
+    "enabled": false,
+    "words": [
+      "TBC"
+    ],
+    "highlight": 1,
+    "caption": "TBC"
+  },
+  "sgLetter": {
+    "name": "Vihaan T.",
+    "role": "Secretary-General",
+    "photo": "",
+    "signature": "",
+    "paragraphs": [
+      "Placeholder letter from the Secretary-General (TBC)."
+    ]
+  },
+  "sponsors": [],
+  "allocations": {
+    "rounds": [
+      {
+        "name": "Round 1",
+        "date": "TBC",
+        "note": "TBC"
+      }
+    ],
+    "matrixUrl": "",
+    "status": "Registration opens soon (TBC)"
+  },
+  "intro": {
+    "countries": [
+      "India",
+      "France",
+      "Japan",
+      "Brazil",
+      "Kenya",
+      "Germany",
+      "Canada",
+      "Egypt",
+      "Mexico",
+      "Norway",
+      "Chile",
+      "Ghana",
+      "Italy",
+      "Peru",
+      "Spain",
+      "Nepal",
+      "Qatar",
+      "Fiji",
+      "China",
+      "Sweden",
+      "Cuba",
+      "Ireland",
+      "Oman",
+      "Greece"
+    ]
+  },
+  "footer": {
+    "quickLinks": [
+      {
+        "label": "Committees",
+        "url": "/committees/"
+      },
+      {
+        "label": "Secretariat",
+        "url": "/secretariat/"
+      },
+      {
+        "label": "Allocations",
+        "url": "/allocations/"
+      },
+      {
+        "label": "Schedule",
+        "url": "/#schedule"
+      },
+      {
+        "label": "Resources",
+        "url": "/resources/"
+      },
+      {
+        "label": "New to MUN?",
+        "url": "/new-to-mun/"
+      },
+      {
+        "label": "FAQ",
+        "url": "/#faq"
+      }
+    ],
+    "copyright": "© 2026 Oakridge International School",
+    "credit": "Design based on the Oakridge MUN XVI website by Srijai Kodali"
+  }
+}

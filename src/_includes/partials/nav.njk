@@ -1,0 +1,61 @@
+{%- from "partials/icons.njk" import icon -%}
+{%- from "partials/buttons.njk" import registerButton, secondaryButton -%}
+{%- set links = site.nav -%}
+<div class="nav-anchor">
+  <nav class="nav" aria-label="Main" data-nav>
+    <div class="nav__pill">
+      <div class="nav__bg" aria-hidden="true"></div>
+
+      <div class="nav__side nav__side--left">
+        <a class="wordmark nav__wordmark" href="/"{% if page.url == "/" %} aria-current="page"{% endif %}>{{ site.wordmark[0] }} <span>{{ site.wordmark[1] }}</span></a>
+        <ul class="nav__links" role="list">
+          {%- for link in links.left %}
+          <li><a class="nav__link" href="{{ link.url }}"{% if link.url | isActive(page.url) %} aria-current="page"{% endif %}>{{ link.label }}</a></li>
+          {%- endfor %}
+        </ul>
+      </div>
+
+      {#- Decorative while the pill is open; becomes the "show navigation" button once collapsed. -#}
+      <button class="nav__crest" type="button" tabindex="-1" aria-hidden="true" aria-label="Show navigation" data-nav-crest>
+        {%- include "partials/crest.njk" -%}
+      </button>
+
+      <div class="nav__side nav__side--right">
+        <ul class="nav__links" role="list">
+          {%- for link in links.right %}
+          <li><a class="nav__link" href="{{ link.url }}"{% if link.url | isActive(page.url) %} aria-current="page"{% endif %}>{{ link.label }}</a></li>
+          {%- endfor %}
+          <li class="nav__more" data-more>
+            <button class="nav__link nav__more-btn" type="button" aria-expanded="false" aria-controls="nav-more" data-more-btn>{{ links.more.label }}{{ icon("chevron-down") }}</button>
+            <ul class="nav__drop" id="nav-more" role="list">
+              {%- for item in links.more.items %}
+              <li><a href="{{ item.url }}"{% if item.url | isActive(page.url) %} aria-current="page"{% endif %}>{{ item.label }}</a></li>
+              {%- endfor %}
+            </ul>
+          </li>
+        </ul>
+        <div class="nav__actions">
+          {{ secondaryButton(links.secondary, "btn--nav") }}
+          {{ registerButton(links.register, "btn--nav nav__register") }}
+          <button class="nav__menu" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="Open menu" data-menu-btn>
+            <span class="nav__menu-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="nav-sheet" id="nav-sheet" role="dialog" aria-modal="true" aria-label="Menu" inert data-lenis-prevent data-sheet>
+    <div class="nav-sheet__inner">
+      <ul class="nav-sheet__links" role="list">
+        {%- for link in links.left.concat(links.right, links.more.items) %}
+        <li><a class="nav-sheet__link" href="{{ link.url }}"{% if link.url | isActive(page.url) %} aria-current="page"{% endif %}>{{ link.label }}</a></li>
+        {%- endfor %}
+      </ul>
+      <div class="nav-sheet__actions">
+        {{ secondaryButton(links.secondary, "btn--block") }}
+        {{ registerButton(links.register, "btn--block") }}
+      </div>
+    </div>
+  </div>
+</div>

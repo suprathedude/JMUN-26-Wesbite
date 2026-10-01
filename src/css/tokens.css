@@ -1,0 +1,149 @@
+/* Design tokens. Every colour, size and timing used by the site lives here.
+   Values follow SPEC.md section 3; hex values are taken from OakMUN's CSS. */
+
+:root {
+  /* Blue ramp, darkest to lightest */
+  --blue-950: #03080f;
+  --blue-940: #020c1a;
+  --blue-900: #001223;
+  --blue-850: #001a35;
+  --blue-800: #001e3c;
+  --blue-750: #002548;
+  --blue-700: #003057; /* main navy */
+  --blue-650: #003566;
+  --blue-600: #003d6e;
+  --blue-500: #1a5a90;
+  --navy: var(--blue-700);
+
+  /* Teal light */
+  --teal: #30cdd7;
+  --teal-dark: #1e96a5;
+  --teal-light: #b4ebf5;
+  --teal-marquee: #27b0bd;
+
+  /* Text: warm white, used at fixed opacity steps */
+  --ink: #faf5ed;
+
+  /* Accents (mainly the schedule legend) */
+  --gold: #e1aa28;
+  --sand: #bc9a6e;
+  --yellow: #ffcb00;
+  --peach: #f0b4a0;
+  --red: #ff3750;
+
+  /* Social Night */
+  --sn-brown-1: #2e1400;
+  --sn-brown-2: #1c0a00;
+  --sn-brown-3: #0f0500;
+  --sn-gold: #ffd700;
+  --sn-amber: #e8a020;
+  --sn-cream: #fff0a0;
+  --sn-pumpkin: #ff7a1a;
+
+  /* Channel triplets, so components can use rgb(var(--x-rgb) / alpha) instead of raw values */
+  --ink-rgb: 250 245 237;
+  --teal-rgb: 48 205 215;
+  --teal-dark-rgb: 30 150 165;
+  --teal-light-rgb: 180 235 245;
+  --navy-rgb: 0 48 87;
+  --sand-rgb: 188 154 110;
+  --gold-rgb: 225 170 40;
+  --night-rgb: 1 3 8; /* nav pill and mobile sheet */
+  --drop-rgb: 3 10 22; /* nav dropdown */
+  --shadow-rgb: 0 0 0;
+
+  /* Ink opacity steps */
+  --ink-100: var(--ink);
+  --ink-85: rgb(var(--ink-rgb) / 0.85); /* lead text */
+  --ink-75: rgb(var(--ink-rgb) / 0.75); /* body */
+  --ink-60: rgb(var(--ink-rgb) / 0.6); /* secondary */
+  --ink-55: rgb(var(--ink-rgb) / 0.55); /* nav links at rest */
+  --ink-50: rgb(var(--ink-rgb) / 0.5); /* captions; nothing readable goes lower */
+
+  /* Gradients (the only ones allowed, SPEC 3.1) */
+  --grad-primary: linear-gradient(180deg, var(--teal) 0%, var(--teal-dark) 100%);
+  --grad-number: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 55%, var(--teal) 100%);
+  --grad-overlay: linear-gradient(
+    135deg,
+    rgb(var(--navy-rgb) / 0.72) 0%,
+    rgb(var(--teal-dark-rgb) / 0.45) 50%,
+    rgb(0 20 40 / 0.78) 100%
+  );
+  --grad-strip: linear-gradient(90deg, var(--teal-dark) 0%, var(--teal) 50%, var(--teal-dark) 100%);
+  --grad-stat: linear-gradient(145deg, #0a2040 0%, #061628 60%, #030e1a 100%);
+  --grad-hairline: linear-gradient(90deg, transparent, rgb(var(--teal-rgb) / 0.3), transparent);
+  --grad-bar: linear-gradient(90deg, var(--teal), transparent);
+
+  /* Borders */
+  --border-glass: 1px solid rgb(var(--ink-rgb) / 0.07);
+  --border-card: 1px solid rgb(var(--teal-rgb) / 0.12);
+  --border-card-hover: 1px solid rgb(var(--teal-rgb) / 0.35);
+  --border-ghost: 1px solid rgb(var(--ink-rgb) / 0.14);
+
+  /* Radii */
+  --radius-pill: 999px;
+  --radius-card: 16px;
+  --radius-tile: 24px;
+  --radius-control: 12px; /* nav buttons, timeline events */
+  --radius-count: 9px;
+
+  /* Shadows */
+  --shadow-btn: 0 8px 24px rgb(var(--teal-rgb) / 0.25);
+  --shadow-btn-hover: 0 14px 32px rgb(var(--teal-rgb) / 0.45);
+  --shadow-nav: 0 8px 40px rgb(var(--shadow-rgb) / 0.4), inset 0 1px 0 rgb(var(--ink-rgb) / 0.04);
+  --shadow-card-hover: 0 16px 48px rgb(var(--shadow-rgb) / 0.4);
+  --shadow-chip: 0 4px 16px rgb(var(--teal-rgb) / 0.3);
+
+  /* Type */
+  --font-sans: "Montserrat", "Montserrat Fallback", system-ui, sans-serif;
+  --fs-hero: clamp(2.6rem, 5.5vw, 5.5rem);
+  --fs-page: clamp(3rem, 9vw, 7.5rem);
+  --fs-section: clamp(2.2rem, 4vw, 3.6rem);
+  --fs-wheel: clamp(2rem, 4vw, 3.4rem);
+  --fs-card: clamp(1.05rem, 1.8vw, 1.3rem);
+  --fs-body: 1rem;
+  --fs-lead: 1.125rem;
+  --fs-label: 0.72rem;
+  --fs-nav: 0.7rem;
+  --fs-button: 0.78rem;
+  --track-label: 0.2em;
+  --track-nav: 0.1em;
+  --track-button: 0.08em;
+  --measure: 68ch;
+
+  /* Motion */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-snap: cubic-bezier(0.2, 0.9, 0.3, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-hover: 0.2s;
+  --dur-snap: 0.18s;
+  --dur-open: 0.3s;
+  --dur-enter: 0.6s;
+
+  /* Layout */
+  --content-max: 1200px;
+  --text-max: 680px;
+  --gutter: 56px;
+  --section-pad: 120px;
+  --nav-top: 16px;
+
+  /* Layers */
+  --z-strip: 60;
+  --z-sheet: 90;
+  --z-nav: 100;
+  --z-skip: 200;
+}
+
+@media (max-width: 980px) {
+  :root {
+    --gutter: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --gutter: 20px;
+    --section-pad: 72px;
+    --nav-top: 10px;
+  }
+}

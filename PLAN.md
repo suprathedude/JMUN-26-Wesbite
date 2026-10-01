@@ -1,6 +1,6 @@
 # OakJMUN 2026 website: build plan (Task 0)
 
-**Status: waiting for Supratiik's approval. No site code has been written yet.**
+**Status: approved by Supratiik on 1 October 2026, with every recommendation in section 6 (D1 to D7).**
 
 This plan is based on `SPEC.md`, `CLAUDE.md`, all 24 frames in `reference/`, and a subagent's read of OakMUN's source (`srijai-k/FINAL-OAKMUN`, main @ `999b1b7`, the 14 top-level HTML files). The subagent's full report, with file and line references for every value, is saved as `docs/oakmun-source-study.md` so later tasks can port values without re-reading OakMUN.
 

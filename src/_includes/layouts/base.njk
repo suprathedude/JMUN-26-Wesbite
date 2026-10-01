@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if title %}{{ title }} | {% endif %}{{ site.name }} {{ site.year }}</title>
+  <meta name="description" content="{{ description or site.description }}">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#003057">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/site.css">
+  {%- for sheet in pageCss %}
+  <link rel="stylesheet" href="/css/pages/{{ sheet }}.css">
+  {%- endfor %}
+  {%- if site.announcement.enabled %}
+  <script>try{if(sessionStorage.getItem("oakjmun-strip")==="{{ site.announcement.text | hash }}")document.documentElement.classList.add("strip-off")}catch(e){}</script>
+  {%- endif %}
+  <script type="importmap">{"imports":{"lenis":"/js/vendor/lenis.mjs"}}</script>
+  <script type="module" src="/js/nav.js"></script>
+  <script type="module" src="/js/smooth-scroll.js"></script>
+  {%- for module in pageJs %}
+  <script type="module" src="/js/{{ module }}.js"></script>
+  {%- endfor %}
+</head>
+<body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
+  <a class="skip-link" href="#main">Skip to content</a>
+  {% include "partials/announcement.njk" %}
+  {% include "partials/nav.njk" %}
+  <main id="main" tabindex="-1">
+    {{ content | safe }}
+  </main>
+  {% include "partials/footer.njk" %}
+</body>
+</html>

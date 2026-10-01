@@ -1,0 +1,157 @@
+// npm run shots
+// Full-page screenshots of every page in _site at 390x844 and 1440x900, plus a few
+// interaction states (collapsed nav, dropdown, mobile menu, tablet nav), saved to
+// screenshots/. Run `npm run build` first.
+//
+//   npm run shots                 every page and every state
+//   npm run shots -- home faq     only pages whose name contains one of the words
+//
+// On a new machine, install the browser once: npx playwright install chromium
+import { chromium } from "playwright";
+import { mkdir, readdir, stat } from "node:fs/promises";
+import path from "node:path";
+import { serve } from "./lib/serve.mjs";
+
+const SITE = "_site";
+const OUT = "screenshots";
+const filters = process.argv.slice(2).filter((a) => !a.startsWith("-"));
+
+const VIEWPORTS = [
+  { width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true },
+  { width: 1440, height: 900, deviceScaleFactor: 1, isMobile: false, hasTouch: false },
+];
+
+// Playwright wants the size inside `viewport`; the rest are context options.
+const contextFor = ({ width, height, ...rest }, reducedMotion) => ({
+  viewport: { width, height },
+  ...rest,
+  reducedMotion,
+});
+
+async function findPages(dir, base = dir) {
+  const pages = [];
+  for (const entry of await readdir(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) pages.push(...(await findPages(full, base)));
+    else if (entry.name === "index.html" || entry.name === "404.html") {
+      const rel = path.relative(base, full).split(path.sep).join("/");
+      const url = "/" + rel.replace(/index\.html$/, "");
+      const name = rel === "index.html" ? "home" : rel.replace(/\/?index\.html$/, "").replace(/\.html$/, "").replaceAll("/", "-");
+      pages.push({ url, name });
+    }
+  }
+  return pages.sort((a, b) => a.url.localeCompare(b.url));
+}
+
+// Scroll to the bottom and back so lazy images and on-view effects have run.
+async function settle(page) {
+  await page.evaluate(async () => {
+    for (const img of document.querySelectorAll('img[loading="lazy"]')) img.loading = "eager";
+    const step = innerHeight * 0.8;
+    for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
+      scrollTo(0, y);
+      await new Promise((r) => setTimeout(r, 60));
+    }
+    scrollTo(0, 0);
+    await document.fonts.ready;
+  });
+  await page.waitForTimeout(300);
+}
+
+// Interaction states worth checking after nav or homepage changes.
+const STATES = [
+  {
+    name: "home-nav-collapsed-1440",
+    viewport: VIEWPORTS[1],
+    async run(page) {
+      await page.mouse.move(700, 600);
+      await page.mouse.wheel(0, 900);
+      await page.waitForTimeout(1200);
+    },
+  },
+  {
+    name: "home-nav-restored-1440",
+    viewport: VIEWPORTS[1],
+    async run(page) {
+      await page.mouse.move(700, 600);
+      await page.mouse.wheel(0, 900);
+      await page.waitForTimeout(1000);
+      await page.mouse.wheel(0, -250);
+      await page.waitForTimeout(1000);
+    },
+  },
+  {
+    name: "home-nav-more-open-1440",
+    viewport: VIEWPORTS[1],
+    async run(page) {
+      await page.hover("[data-more-btn]");
+      await page.waitForTimeout(500);
+    },
+  },
+  {
+    name: "home-menu-open-390",
+    viewport: VIEWPORTS[0],
+    async run(page) {
+      await page.click("[data-menu-btn]");
+      await page.waitForTimeout(500);
+    },
+  },
+  { name: "home-nav-1024", viewport: { width: 1024, height: 768, deviceScaleFactor: 1 }, async run() {} },
+  { name: "home-nav-1250", viewport: { width: 1250, height: 800, deviceScaleFactor: 1 }, async run() {} },
+];
+
+const wanted = (name) => filters.length === 0 || filters.some((f) => name.includes(f));
+
+async function main() {
+  try {
+    await stat(SITE);
+  } catch {
+    console.error(`No ${SITE}/ folder. Run "npm run build" first.`);
+    process.exit(1);
+  }
+  await mkdir(OUT, { recursive: true });
+  const { server, origin } = await serve(SITE);
+  const browser = await chromium.launch();
+  let count = 0;
+
+  try {
+    for (const viewport of VIEWPORTS) {
+      // Reduced motion gives stable final states (no intro, no count-up in progress).
+      const context = await browser.newContext(contextFor(viewport, "reduce"));
+      const page = await context.newPage();
+      for (const { url, name } of await findPages(SITE)) {
+        if (!wanted(name)) continue;
+        await page.goto(origin + url, { waitUntil: "networkidle" });
+        await settle(page);
+        const file = path.join(OUT, `${name}-${viewport.width}.png`);
+        await page.screenshot({ path: file, fullPage: true });
+        console.log(file);
+        count++;
+      }
+      await context.close();
+    }
+
+    for (const state of STATES) {
+      if (!wanted(state.name)) continue;
+      const context = await browser.newContext(contextFor(state.viewport, "no-preference"));
+      const page = await context.newPage();
+      await page.goto(origin + "/", { waitUntil: "networkidle" });
+      await page.evaluate(() => document.fonts.ready);
+      await state.run(page);
+      const file = path.join(OUT, `${state.name}.png`);
+      await page.screenshot({ path: file });
+      console.log(file);
+      count++;
+      await context.close();
+    }
+  } finally {
+    await browser.close();
+    server.close();
+  }
+  console.log(`${count} screenshots in ${OUT}/`);
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

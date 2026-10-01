@@ -1,0 +1,16 @@
+{%- from "partials/icons.njk" import icon -%}
+{%- set note = site.announcement -%}
+{%- if note.enabled and note.text -%}
+<div class="strip" role="region" aria-label="Announcement" data-strip data-key="{{ note.text | hash }}">
+  <div class="strip__inner">
+    <p class="strip__text">
+      {%- if note.link | isSet -%}
+      <a href="{{ note.link }}">{{ note.text }}</a>
+      {%- else -%}
+      {{ note.text }}
+      {%- endif -%}
+    </p>
+    <button class="strip__close" type="button" aria-label="Dismiss announcement" data-strip-close>{{ icon("x") }}</button>
+  </div>
+</div>
+{%- endif -%}

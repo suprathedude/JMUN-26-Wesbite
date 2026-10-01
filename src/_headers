@@ -1,0 +1,26 @@
+# Cloudflare Pages response headers.
+# https://developers.cloudflare.com/pages/configuration/headers/
+#
+# HTML keeps Cloudflare's default, Cache-Control: public, max-age=0, must-revalidate,
+# so a new deploy shows up straight away.
+#
+# CSS, JS and fonts get a content hash in their file names at build time
+# (scripts/lib/hash-assets.mjs) and images from eleventy-img are hashed too, so a
+# changed file always has a new URL and these can be cached for a year.
+# Other files (PDFs, the favicon) keep their names, so they use the default.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/css/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/img/*
+  Cache-Control: public, max-age=31536000, immutable

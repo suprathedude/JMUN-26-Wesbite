@@ -1,0 +1,46 @@
+[
+  {
+    "question": "Who can take part?",
+    "answer": "Students in Grades 6 to 8 from Oakridge and invited schools."
+  },
+  {
+    "question": "I've never done MUN. Is that okay?",
+    "answer": "Yes. Lots of delegates are at their first conference, and every Grade 6 delegate is new to MUN. Our guide for first-timers explains how a committee works, step by step.",
+    "link": {
+      "label": "Read the guide for first-timers",
+      "url": "/new-to-mun/"
+    }
+  },
+  {
+    "question": "How do I register?",
+    "answer": "Registration details TBC. The link will appear here and in the bar at the top of every page when registration opens."
+  },
+  {
+    "question": "How are committees and countries given out?",
+    "answer": "In allocation rounds after you register. The Allocations page lists the rounds and their dates.",
+    "link": {
+      "label": "See the allocation rounds",
+      "url": "/allocations/"
+    }
+  },
+  {
+    "question": "Can I bring my phone or laptop?",
+    "answer": "Yes, but phones are limited during committee sessions."
+  },
+  {
+    "question": "What's the dress code?",
+    "answer": "Dress code TBC."
+  },
+  {
+    "question": "Are there awards?",
+    "answer": "Yes: Best Delegate, Outstanding Delegate, Honourable Mention and Verbal Mention. The chairs of each committee decide who receives them."
+  },
+  {
+    "question": "Will I get a certificate?",
+    "answer": "Yes. Every delegate gets a certificate."
+  },
+  {
+    "question": "Who do I contact?",
+    "answer": "Email the Secretariat. Address TBC."
+  }
+]

@@ -1,6 +1,7 @@
 import { readFileSync, rmSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { hashAssets } from "./scripts/lib/hash-assets.mjs";
+import { validateData } from "./scripts/lib/validate-data.mjs";
 
 const FONT_DIR = "node_modules/@fontsource-variable/montserrat/files";
 const iconCache = new Map();
@@ -68,6 +69,13 @@ export default function (eleventyConfig) {
   // Production builds start from an empty _site (so old hashed files don't pile up) and
   // fingerprint CSS, JS and fonts afterwards so _headers can cache them for a year.
   eleventyConfig.on("eleventy.before", ({ directories, runMode }) => {
+    // Catch data-file mistakes first. A production build stops; `npm run dev` just warns.
+    const problems = validateData();
+    if (problems.length) {
+      const message = `Problems in src/_data:\n  ${problems.join("\n  ")}`;
+      if (runMode === "build") throw new Error(message);
+      console.warn(message);
+    }
     if (runMode === "build") rmSync(directories.output, { recursive: true, force: true });
   });
   eleventyConfig.on("eleventy.after", async ({ directories, runMode }) => {

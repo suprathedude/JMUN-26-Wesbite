@@ -1,0 +1,84 @@
+// Checks the data files in src/_data for the mistakes that are easy to make when
+// editing JSON on GitHub's website. Each problem names the file, the item and the fix.
+// Runs before every build (eleventy.config.js); a failed check stops the build, so a
+// broken edit never replaces the live site.
+import { readFileSync, existsSync } from "node:fs";
+import path from "node:path";
+
+const DATA = "src/_data";
+const CATEGORIES = ["General Assembly", "Council", "Agency", "Assembly", "Crisis", "Press"];
+const EVENT_TYPES = ["committee", "ceremony", "social", "meal", "break", "end"];
+const GUIDE_STATUS = ["coming-soon", "available"];
+const GROUPS = ["leadership", "usg"];
+
+const load = (name) => JSON.parse(readFileSync(path.join(DATA, name), "utf8"));
+const list = (values) => values.map((v) => `"${v}"`).join(", ");
+
+// Asset paths in the data are relative to src/, e.g. "assets/img/committees/disec.jpg".
+const missingFile = (p) => p && !/^https?:/.test(p) && !existsSync(path.join("src", p.replace(/^\//, "")));
+
+export function validateData() {
+  const problems = [];
+  const add = (file, where, message) => problems.push(`${file}, ${where}: ${message}`);
+
+  const site = load("site.json");
+  for (const key of ["start", "end"]) {
+    if (Number.isNaN(Date.parse(site[key]))) add("site.json", key, `"${site[key]}" isn't a date like 2026-10-30T08:00:00+05:30.`);
+  }
+  if (missingFile(site.crest)) add("site.json", "crest", `there's no file at src/${site.crest}.`);
+
+  const committees = load("committees.json");
+  const slugs = new Set();
+  committees.forEach((c, i) => {
+    const where = `committee ${i + 1} (${c.code || "no code"})`;
+    if (!/^[a-z0-9-]+$/.test(c.slug ?? "")) add("committees.json", where, `slug "${c.slug}" must be lower case letters, numbers and hyphens (it becomes the web address).`);
+    if (slugs.has(c.slug)) add("committees.json", where, `slug "${c.slug}" is used twice.`);
+    slugs.add(c.slug);
+    for (const field of ["code", "name", "agenda", "overview"]) {
+      if (!c[field]) add("committees.json", where, `"${field}" is empty. Use "TBC" if it isn't known yet.`);
+    }
+    if (!CATEGORIES.includes(c.category)) add("committees.json", where, `category "${c.category}" must be one of ${list(CATEGORIES)}.`);
+    if (!GUIDE_STATUS.includes(c.guide?.status)) add("committees.json", where, `guide status "${c.guide?.status}" must be one of ${list(GUIDE_STATUS)}.`);
+    if (c.guide?.status === "available" && !c.guide.file) add("committees.json", where, `the guide is "available" but "file" is empty.`);
+    for (const field of ["image", "logo"]) {
+      if (missingFile(c[field])) add("committees.json", where, `there's no file at src/${c[field]} (${field}).`);
+    }
+    if (missingFile(c.guide?.file)) add("committees.json", where, `there's no guide PDF at src/${c.guide.file}.`);
+    (c.eb ?? []).forEach((m, j) => {
+      if (missingFile(m.photo)) add("committees.json", `${where}, EB member ${j + 1}`, `there's no photo at src/${m.photo}.`);
+    });
+  });
+
+  load("secretariat.json").forEach((p, i) => {
+    const where = `person ${i + 1} (${p.name || "no name"})`;
+    if (!p.name || !p.role) add("secretariat.json", where, "needs a name and a role.");
+    if (!GROUPS.includes(p.group)) add("secretariat.json", where, `group "${p.group}" must be one of ${list(GROUPS)}.`);
+    if (missingFile(p.photo)) add("secretariat.json", where, `there's no photo at src/${p.photo}.`);
+  });
+
+  const ids = new Set();
+  load("schedule.json").days.forEach((day, i) => {
+    const where = `day ${i + 1}`;
+    if (ids.has(day.id)) add("schedule.json", where, `id "${day.id}" is used twice.`);
+    ids.add(day.id);
+    day.events.forEach((e, j) => {
+      if (!EVENT_TYPES.includes(e.type)) add("schedule.json", `${where}, event ${j + 1} (${e.title})`, `type "${e.type}" must be one of ${list(EVENT_TYPES)}.`);
+    });
+  });
+
+  load("faq.json").forEach((item, i) => {
+    if (!item.question || !item.answer) add("faq.json", `item ${i + 1}`, "needs a question and an answer.");
+  });
+
+  const resources = load("resources.json");
+  for (const group of ["documents", "ipGuides"]) {
+    resources[group].forEach((doc, i) => {
+      if (missingFile(doc.file)) add("resources.json", `${group} ${i + 1} (${doc.title})`, `there's no file at src/${doc.file}.`);
+    });
+  }
+  resources.researchLinks.forEach((link, i) => {
+    if (!/^https:\/\//.test(link.url ?? "")) add("resources.json", `researchLinks ${i + 1} (${link.title})`, "the url must start with https://");
+  });
+
+  return problems;
+}

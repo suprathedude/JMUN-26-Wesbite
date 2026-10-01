@@ -1,0 +1,107 @@
+{
+  "note": "Times TBC. The order of the closing ceremony and Social Night is also TBC.",
+  "days": [
+    {
+      "id": "day-1",
+      "label": "Day 1",
+      "date": "2026-10-30",
+      "dateLabel": "Friday 30 October",
+      "events": [
+        {
+          "start": "TBC",
+          "end": "TBC",
+          "title": "Registration",
+          "type": "ceremony",
+          "tag": "Arrival"
+        },
+        {
+          "start": "TBC",
+          "end": "TBC",
+          "title": "Opening ceremony",
+          "type": "ceremony"
+        },
+        {
+          "start": "TBC",
+          "end": "TBC",
+          "title": "Break",
+          "type": "break"
+        },
+        {
+          "start": "TBC",
+          "end": "TBC",
+          "title": "Committee session 1",
+          "type": "committee"
+        },
+        {
+          "start": "TBC",
+          "end": "TBC",
+          "title": "Lunch",
+          "type": "meal"
+        },
+        {
+          "start": "TBC",
+          "end": "TBC",
+          "title": "Committee session 2",
+          "type": "committee"
+        },
+        {
+          "start": "TBC",
+          "end": "TBC",
+          "title": "Dispersal",
+          "type": "end"
+        }
+      ]
+    },
+    {
+      "id": "day-2",
+      "label": "Day 2",
+      "date": "2026-10-31",
+      "dateLabel": "Saturday 31 October",
+      "events": [
+        {
+          "start": "TBC",
+          "end": "TBC",
+          "title": "Committee session 3",
+          "type": "committee"
+        },
+        {
+          "start": "TBC",
+          "end": "TBC",
+          "title": "Break",
+          "type": "break"
+        },
+        {
+          "start": "TBC",
+          "end": "TBC",
+          "title": "Committee session 4",
+          "type": "committee"
+        },
+        {
+          "start": "TBC",
+          "end": "TBC",
+          "title": "Lunch",
+          "type": "meal"
+        },
+        {
+          "start": "TBC",
+          "end": "TBC",
+          "title": "Closing ceremony",
+          "type": "ceremony"
+        },
+        {
+          "start": "TBC",
+          "end": "TBC",
+          "title": "Social Night",
+          "type": "social",
+          "place": "MPH"
+        },
+        {
+          "start": "TBC",
+          "end": "TBC",
+          "title": "Dispersal",
+          "type": "end"
+        }
+      ]
+    }
+  ]
+}

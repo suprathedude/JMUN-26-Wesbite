@@ -1,0 +1,65 @@
+{
+  "documents": [
+    {
+      "title": "Rules of Procedure",
+      "description": "How debate works in committee: speeches, motions, points and voting. (TBC)",
+      "file": ""
+    },
+    {
+      "title": "Delegation Guidelines",
+      "description": "What delegates and faculty advisors need to know before and during the conference. (TBC)",
+      "file": ""
+    },
+    {
+      "title": "Consent Form",
+      "description": "The form a parent or guardian signs before the conference. (TBC)",
+      "file": ""
+    }
+  ],
+  "ipGuides": [
+    {
+      "title": "Journalism",
+      "description": "How International Press delegates write and file their articles. (TBC)",
+      "image": "",
+      "file": ""
+    },
+    {
+      "title": "Photography",
+      "description": "How International Press delegates take and caption their photos. (TBC)",
+      "image": "",
+      "file": ""
+    }
+  ],
+  "researchLinks": [
+    {
+      "title": "UN official site",
+      "url": "https://www.un.org/",
+      "description": "The United Nations' own website, with news, documents and a page for every member country."
+    },
+    {
+      "title": "UN Research Guides",
+      "url": "https://research.un.org/",
+      "description": "Library guides that show how to find UN resolutions, speeches and voting records."
+    },
+    {
+      "title": "UN Digital Library",
+      "url": "https://digitallibrary.un.org/",
+      "description": "Search past resolutions, speeches and reports by topic or by country."
+    },
+    {
+      "title": "UN News",
+      "url": "https://news.un.org/en/news",
+      "description": "Daily news from across the United Nations."
+    },
+    {
+      "title": "UN Treaty Collection",
+      "url": "https://treaties.un.org/",
+      "description": "The texts of international treaties, and which countries have signed them."
+    },
+    {
+      "title": "International Law and Justice",
+      "url": "https://www.un.org/en/global-issues/international-law-and-justice",
+      "description": "How international law works, and the courts that apply it."
+    }
+  ]
+}

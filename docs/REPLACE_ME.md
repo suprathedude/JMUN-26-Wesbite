@@ -27,3 +27,14 @@ None yet. Task 5 adds the committee photos and logo circles allowed by SPEC 7.4.
 | `sgLetter` | one placeholder paragraph, no photo or signature | Vihaan's letter, photo and signature. |
 | `allocations` | one round, dates TBC | The real rounds and the allocation matrix link. |
 | `intro.countries` | 24 placeholder countries | Optional: names from the real allocation matrix. |
+
+## Placeholder values in the other data files
+
+| File | What's TBC |
+| --- | --- |
+| `committees.json` | Every agenda. The two-sentence overviews are factual but need the Secretariat's check (each ends "(Overview TBC)"). Photos and logo circles (Task 5 adds borrowed ones for 9 committees; ECOSOC, UNEP and UNICEF have none). Background guides. EB names, photos and bios. |
+| `secretariat.json` | Every photo and Instagram handle, and the second USG of Technology's name. |
+| `schedule.json` | Every start and end time, and whether the closing ceremony comes before or after Social Night. |
+| `faq.json` | How to register, the dress code, and the contact email. |
+| `resources.json` | The Rules of Procedure, Delegation Guidelines and Consent Form files; both International Press style guides and their photos. |
+| `socialNight.json` | Start and finish time, costume rules, the programme, the photo-booth picture, and three of the four FAQ answers. |

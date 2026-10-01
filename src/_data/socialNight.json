@@ -1,0 +1,27 @@
+{
+  "date": "Saturday 31 October",
+  "place": "MPH",
+  "time": "TBC",
+  "dressCode": "Costumes TBC",
+  "expect": "A Halloween evening in the MPH for every delegate, after the second day of committee sessions. Programme TBC.",
+  "photoBooth": "A camera rig takes a short looping 3D photo from several angles. Your photo is sent only to you, and we only take photos of students whose parents have given consent.",
+  "photoBoothImage": "",
+  "faq": [
+    {
+      "question": "Do I have to wear a costume?",
+      "answer": "Costume rules TBC."
+    },
+    {
+      "question": "What time does it start and finish?",
+      "answer": "Times TBC."
+    },
+    {
+      "question": "Can parents come?",
+      "answer": "TBC."
+    },
+    {
+      "question": "How do I get my photo-booth picture?",
+      "answer": "It's sent only to you, and only if your parents have given consent. Details TBC."
+    }
+  ]
+}

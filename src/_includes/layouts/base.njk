@@ -13,9 +13,8 @@
   {%- for sheet in pageCss %}
   <link rel="stylesheet" href="/css/pages/{{ sheet }}.css">
   {%- endfor %}
-  {%- if site.announcement.enabled %}
-  <script>try{if(sessionStorage.getItem("oakjmun-strip")==="{{ site.announcement.text | hash }}")document.documentElement.classList.add("strip-off")}catch(e){}</script>
-  {%- endif %}
+  {#- Runs before first paint: marks JS as available, and hides a strip dismissed earlier this session. #}
+  <script>document.documentElement.classList.add("js");{% if site.announcement.enabled %}try{if(sessionStorage.getItem("oakjmun-strip")==="{{ site.announcement.text | hash }}")document.documentElement.classList.add("strip-off")}catch(e){}{% endif %}</script>
   <script type="importmap">{"imports":{"lenis":"/js/vendor/lenis.mjs"}}</script>
   <script type="module" src="/js/nav.js"></script>
   <script type="module" src="/js/smooth-scroll.js"></script>

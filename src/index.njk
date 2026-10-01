@@ -1,23 +1,288 @@
 ---
 layout: layouts/base.njk
 description: Oakridge Junior Model United Nations 2026, 30 and 31 October at Oakridge International School, Gachibowli, Hyderabad.
+pageCss: [home]
+pageJs: [countdown, marquee, stats, schedule, wheel, faq]
 ---
-{#- Placeholder homepage for Task 1: enough height to test the nav. Task 3 builds the real sections. -#}
-<section class="stub-hero">
-  <div>
-    <h1 class="t-hero">{{ site.wordmark[0] }} <span>{{ site.wordmark[1] }}</span></h1>
-    <p class="stub__note">Homepage sections TBC.</p>
+{%- from "partials/icons.njk" import icon -%}
+{%- from "partials/buttons.njk" import registerButton -%}
+{%- from "partials/faq.njk" import faqList -%}
+{%- set dates = site.start | eventDates(site.end) -%}
+
+{#- 2. Hero (reference/02). The placard intro (Task 4) will play over this. -#}
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__bg" aria-hidden="true">
+    {%- if site.hero.image %}
+    <img class="hero__img" src="/{{ site.hero.image }}" alt="" loading="eager" fetchpriority="high" sizes="100vw" eleventy:widths="800,1200,1600">
+    {%- endif %}
+    <div class="hero__overlay"></div>
+    <div class="hero__dots"></div>
+    <div class="orb hero__orb--a"></div>
+    <div class="orb hero__orb--b"></div>
+    <div class="hero__watermark">{{ site.chapter }}</div>
+  </div>
+
+  <div class="hero__content">
+    <p class="hero__meta">Chapter {{ site.chapter }} · {{ dates }} · {{ site.city }}</p>
+    <h1 class="t-hero hero__title" id="hero-title">{{ site.wordmark[0] }} <span>{{ site.wordmark[1] }}</span></h1>
+    <div class="hero__actions">
+      {{ registerButton(site.nav.register) }}
+      <a class="btn btn--ghost" href="/committees/">Explore committees</a>
+    </div>
+    <div class="countdown" role="img" aria-label="The conference starts on {{ site.start | dayMonth }} {{ site.year }}" data-countdown data-start="{{ site.start }}" data-end="{{ site.end }}" data-during="Happening now" data-after="See you next year">
+      {%- for unit in [["d", "Days"], ["h", "Hours"], ["m", "Mins"], ["s", "Secs"]] %}
+      {%- if not loop.first %}<span class="countdown__sep" aria-hidden="true">:</span>{% endif %}
+      <span class="countdown__unit" aria-hidden="true">
+        <span class="countdown__value" data-unit="{{ unit[0] }}">00</span>
+        <span class="countdown__label">{{ unit[1] }}</span>
+      </span>
+      {%- endfor %}
+      <span class="countdown__status" data-countdown-status></span>
+    </div>
   </div>
 </section>
-<section class="section stub-section stub-section--alt" id="schedule" aria-labelledby="schedule-title">
+
+{#- 3. Committee marquees (reference/05): teal codes to the left, navy names to the right, slower. -#}
+<div aria-hidden="true">
+  {%- for strip in [["", "code"], ["marquee--navy", "name"]] %}
+  <div class="marquee {{ strip[0] }}" data-marquee>
+    <div class="marquee__track">
+      {%- for copy in [1, 2] %}
+      <div class="marquee__group">
+        {%- for round in [1, 2] %}{% for c in committees %}
+        <span class="marquee__item">{{ c[strip[1]] }}</span><span class="marquee__dot"></span>
+        {%- endfor %}{% endfor %}
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+  {%- endfor %}
+</div>
+
+{#- 4. Theme (reference/03, 04). Only the "announced soon" band until theme.enabled is true. -#}
+{%- if site.theme.enabled %}
+<section class="theme" aria-labelledby="theme-title" data-theme-reveal>
+  <div class="theme__stage">
+    <div class="theme__intro" aria-hidden="true" data-theme-intro>
+      <p class="theme__pre">Presenting the</p>
+      <p class="theme__big">Conference theme</p>
+    </div>
+    <div class="theme__body">
+      <p class="t-label" data-reveal>Conference theme</p>
+      <h2 class="theme__title" id="theme-title">
+        {%- for word in site.theme.words %}
+        <span class="theme__word{% if loop.index == site.theme.highlight %} is-highlight{% endif %}" data-reveal style="--i: {{ loop.index }}">{{ word }}</span>
+        {%- endfor %}
+      </h2>
+      <span class="theme__divider" data-reveal style="--i: {{ site.theme.words | length + 1 }}"></span>
+      <p class="theme__caption" data-reveal style="--i: {{ site.theme.words | length + 2 }}">{{ site.theme.caption }}</p>
+    </div>
+  </div>
+</section>
+<script type="module" src="/js/theme-reveal.js"></script>
+{%- else %}
+<section class="theme-band" aria-label="Conference theme">
+  <p class="theme-band__text">Conference theme announced soon</p>
+</section>
+{%- endif %}
+
+{#- 5. Stats (reference/05). Numbers come from site.json; the committee count from committees.json. -#}
+<section class="stats" aria-label="Oakridge JMUN in numbers">
   <div class="container">
-    <h2 class="t-section t-section--bar" id="schedule-title">Schedule</h2>
-    <p class="stub__note">Schedule TBC.</p>
+    <ul class="stats__grid" role="list">
+      {%- for stat in [
+        { label: "Delegates", value: site.stats.delegates },
+        { label: "Committees", value: committees | length },
+        { label: "Days", value: site.stats.days },
+        { label: "Chapter", value: site.stats.chapter }
+      ] %}
+      {%- set parts = stat.value | countParts %}
+      <li class="stat">
+        <span class="stat__num" aria-hidden="true"{% if parts %} data-count="{{ parts.num }}" data-suffix="{{ parts.suffix }}"{% endif %}>{{ stat.value }}</span>
+        <span class="stat__label"><span class="visually-hidden">{{ stat.value }} </span>{{ stat.label }}</span>
+      </li>
+      {%- endfor %}
+    </ul>
   </div>
 </section>
-<section class="section stub-section" id="faq" aria-labelledby="faq-title">
+
+{#- 6. Letter from the Secretary-General (reference/06) -#}
+{%- set sg = site.sgLetter %}
+<section class="section letter" aria-labelledby="letter-title">
+  <div class="orb letter__orb" aria-hidden="true"></div>
+  <div class="container letter__grid">
+    <div class="letter__photo">
+      {%- if sg.photo %}
+      <img src="/{{ sg.photo }}" alt="{{ sg.name }}, {{ sg.role }}" sizes="(max-width: 768px) 320px, 380px" eleventy:widths="400,800">
+      {%- else %}
+      <span class="photo-tbc">Photo TBC</span>
+      {%- endif %}
+    </div>
+    <div>
+      <h2 class="letter__title" id="letter-title">A letter from the {{ sg.role }}</h2>
+      <div class="letter__body">
+        {%- for paragraph in sg.paragraphs %}
+        <p>{{ paragraph }}</p>
+        {%- endfor %}
+      </div>
+      <div class="letter__sign">
+        {%- if sg.signature %}
+        <img class="letter__signature" src="/{{ sg.signature }}" alt="" eleventy:widths="320">
+        {%- endif %}
+        <p class="letter__name">{{ sg.name }}</p>
+        <p class="letter__role">{{ sg.role }}, {{ site.name }} {{ site.year }}</p>
+      </div>
+      <a class="text-link" href="/secretariat/">Meet the Secretariat</a>
+    </div>
+  </div>
+</section>
+
+{#- 7. Schedule (reference/07): day tabs, legend, timeline -#}
+{%- set tagFor = { committee: "Committee", ceremony: "Ceremony", social: "Social", meal: "Meal", break: "Break", end: "End of day" } %}
+<section class="section schedule" id="schedule" aria-labelledby="schedule-title" data-schedule>
   <div class="container">
-    <h2 class="t-section" id="faq-title">FAQ</h2>
-    <p class="stub__note">Questions and answers TBC.</p>
+    <div class="schedule__head">
+      <div class="schedule__intro">
+        <h2 class="t-section t-section--bar" id="schedule-title">Conference schedule</h2>
+        <ul class="legend" role="list">
+          <li><span class="legend__dot" style="--dot: var(--teal)"></span>Committee</li>
+          <li><span class="legend__dot" style="--dot: var(--gold)"></span>Ceremony</li>
+          <li><span class="legend__dot" style="--dot: var(--teal-dark)"></span>Social</li>
+          <li><span class="legend__dot" style="--dot: var(--sand)"></span>Meal</li>
+          <li><span class="legend__dot" style="--dot: var(--teal-light)"></span>Break</li>
+        </ul>
+        {%- if schedule.note %}<p class="schedule__note">{{ schedule.note }}</p>{% endif %}
+      </div>
+      <div class="tabs" role="tablist" aria-label="Conference days">
+        {%- for day in schedule.days %}
+        <button class="tab" type="button" role="tab" id="tab-{{ day.id }}" aria-controls="{{ day.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}" tabindex="{{ 0 if loop.first else -1 }}">{{ day.label }}<span class="tab__date">, {{ day.dateLabel }}</span></button>
+        {%- endfor %}
+      </div>
+    </div>
+
+    {%- for day in schedule.days %}
+    {%- set num = ("0" ~ loop.index) if loop.index < 10 else (loop.index | string) %}
+    <div class="day" id="{{ day.id }}" role="tabpanel" aria-labelledby="tab-{{ day.id }}" tabindex="0"{% if not loop.first %} data-inactive{% endif %}>
+      <div class="day__head">
+        <span class="day__num" aria-hidden="true">{{ num }}</span>
+        <div>
+          <p class="day__label">{{ day.label }}</p>
+          <p class="day__date">{{ day.dateLabel }}</p>
+        </div>
+      </div>
+      <span class="day__ghost" aria-hidden="true">{{ num }}</span>
+      <ol class="timeline" role="list">
+        {%- for e in day.events %}
+        <li class="tl-item">
+          <div class="tl-time">
+            <span class="tl-range">
+              {%- if e.start == "TBC" -%}Time TBC
+              {%- elif e.end -%}{{ e.start }} to {{ e.end }}
+              {%- else -%}{{ e.start }} onwards{%- endif -%}
+            </span>
+            {%- set dur = e.start | duration(e.end) %}
+            {%- if dur %}<span class="tl-dur">{{ dur }}</span>{% endif %}
+          </div>
+          <div class="tl-event tl-event--{{ e.type }}">
+            <p class="tl-title">
+              {%- if e.link %}<a href="{{ e.link }}">{{ e.title }}</a>{% else %}{{ e.title }}{% endif -%}
+              {%- if e.place %}<span class="tl-place">{{ e.place }}</span>{% endif -%}
+            </p>
+            <span class="tl-tag">{{ e.tag or tagFor[e.type] }}</span>
+          </div>
+        </li>
+        {%- endfor %}
+      </ol>
+    </div>
+    {%- endfor %}
   </div>
 </section>
+
+{#- 8. Committees at a glance (reference/08) -#}
+<section class="section glance" aria-labelledby="glance-title">
+  <div class="container glance__grid">
+    <div class="glance__copy">
+      <h2 class="t-section" id="glance-title">Committees at a glance.</h2>
+      <p class="glance__text">{{ site.home.glanceText | fill({ count: committees | length | numberWord }) }}</p>
+      <a class="btn btn--primary" href="/committees/">Explore committees</a>
+    </div>
+    <div class="wheel" data-wheel>
+      <ul class="wheel__list" role="list">
+        {%- for c in committees %}
+        <li class="wheel__item">
+          <a class="wheel__link" href="/committees/{{ c.slug }}/">
+            <span class="wheel__icon" aria-hidden="true">
+              {%- if c.logo %}<img src="/{{ c.logo }}" alt="" eleventy:widths="160">{% else %}{{ icon("globe") }}{% endif -%}
+            </span>
+            <span class="wheel__name">{{ c.code }}<span class="visually-hidden">: {{ c.name }}</span></span>
+          </a>
+        </li>
+        {%- endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+
+{#- 9. More than debate (reference/10) -#}
+<section class="section debate" aria-labelledby="debate-title">
+  <div class="orb debate__orb" aria-hidden="true"></div>
+  <div class="container">
+    <h2 class="t-section debate__title" id="debate-title">More than <em>debate.</em></h2>
+    <p class="debate__text">{{ site.home.debateText }}</p>
+    <div class="debate__grid">
+      <article class="card card--night">
+        <span class="moon" aria-hidden="true"></span>
+        <span class="card__bar" aria-hidden="true"></span>
+        <p class="card__tag">{{ socialNight.day }}, {{ socialNight.date }}</p>
+        <h3 class="card__title">Social Night</h3>
+        <p class="card__sub">Halloween edition</p>
+        <p class="card__text">{{ socialNight.expect }}</p>
+        <a class="card__link" href="/social-night/">About Social Night</a>
+      </article>
+      <article class="card">
+        <span class="card__bar" aria-hidden="true"></span>
+        <p class="card__tag">For first-timers</p>
+        <h3 class="card__title">New to MUN?</h3>
+        <p class="card__text">{{ site.home.newToMunText }}</p>
+        <a class="card__link" href="/new-to-mun/">Read the guide</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+{#- 10. FAQ (reference/09) -#}
+<section class="section faq" id="faq" aria-labelledby="faq-title">
+  <div class="container faq__inner">
+    <h2 class="t-page" id="faq-title">FAQ</h2>
+    <p class="faq__intro">{{ site.home.faqIntro }}</p>
+    {{ faqList(faq, "faq") }}
+  </div>
+</section>
+
+{#- 11. Closing banner. Hidden only if the register link is removed entirely. -#}
+{%- if site.nav.register.url %}
+<section class="closing" aria-labelledby="closing-title">
+  <div class="container closing__inner">
+    <h2 class="closing__title" id="closing-title">{{ site.home.closing | fill({ date: site.start | dayMonth }) }}</h2>
+    {{ registerButton(site.nav.register) }}
+  </div>
+</section>
+{%- endif %}
+
+{#- 12. Sponsors (reference/11): only when site.json lists some -#}
+{%- if site.sponsors | length %}
+<section class="sponsors" aria-labelledby="sponsors-title">
+  <div class="container">
+    <h2 class="sponsors__title" id="sponsors-title">Our sponsors</h2>
+    <ul class="sponsors__list" role="list">
+      {%- for s in site.sponsors %}
+      <li class="sponsors__item">
+        {%- if s.url %}<a href="{{ s.url }}" rel="noopener">{% endif -%}
+        <img src="/{{ s.logo }}" alt="{{ s.name }}" eleventy:widths="400">
+        {%- if s.url %}</a>{% endif -%}
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+{%- endif %}

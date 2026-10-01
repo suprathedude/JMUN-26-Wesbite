@@ -93,7 +93,8 @@
           "end": "TBC",
           "title": "Social Night",
           "type": "social",
-          "place": "MPH"
+          "place": "MPH",
+          "link": "/social-night/"
         },
         {
           "start": "TBC",

@@ -1,0 +1,21 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: committees
+  size: 1
+  alias: committee
+permalink: "/committees/{{ committee.slug }}/"
+eleventyComputed:
+  title: "{{ committee.code }}"
+  description: "{{ committee.name }} at Oakridge JMUN 2026."
+---
+{#- Placeholder committee page so links resolve. Task 5 builds the real layout (SPEC 9.3). -#}
+<section class="stub">
+  <div class="container">
+    <p class="t-label">{{ committee.category }}</p>
+    <h1 class="t-page">{{ committee.code }}</h1>
+    <p class="t-lead">{{ committee.name }}</p>
+    <p class="stub__note t-body">{{ committee.overview }}</p>
+    <p class="stub__note t-body">Agenda: {{ committee.agenda }}. Full committee page TBC.</p>
+  </div>
+</section>

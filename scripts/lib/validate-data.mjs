@@ -26,6 +26,11 @@ export function validateData() {
     if (Number.isNaN(Date.parse(site[key]))) add("site.json", key, `"${site[key]}" isn't a date like 2026-10-30T08:00:00+05:30.`);
   }
   if (missingFile(site.crest)) add("site.json", "crest", `there's no file at src/${site.crest}.`);
+  if (missingFile(site.hero?.image)) add("site.json", "hero.image", `there's no file at src/${site.hero.image}.`);
+  if (missingFile(site.sgLetter?.photo)) add("site.json", "sgLetter.photo", `there's no file at src/${site.sgLetter.photo}.`);
+  (site.sponsors ?? []).forEach((s, i) => {
+    if (!s.logo || missingFile(s.logo)) add("site.json", `sponsor ${i + 1} (${s.name})`, `needs a logo file; there's nothing at src/${s.logo}.`);
+  });
 
   const committees = load("committees.json");
   const slugs = new Set();

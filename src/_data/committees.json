@@ -6,8 +6,8 @@
     "category": "General Assembly",
     "agenda": "Agenda TBC",
     "overview": "DISEC is the First Committee of the UN General Assembly, where every member country has a seat. It deals with weapons, disarmament and threats to peace between countries. (Overview TBC)",
-    "image": "",
-    "logo": "",
+    "image": "assets/img/committees/disec.jpg",
+    "logo": "assets/img/logos/disec.png",
     "guide": {
       "status": "coming-soon",
       "file": ""
@@ -40,8 +40,8 @@
     "category": "General Assembly",
     "agenda": "Agenda TBC",
     "overview": "SOCHUM is the Third Committee of the UN General Assembly, where every member country has a seat. It discusses human rights and social questions such as the rights of children, refugees and women. (Overview TBC)",
-    "image": "",
-    "logo": "",
+    "image": "assets/img/committees/sochum.jpg",
+    "logo": "assets/img/logos/sochum.png",
     "guide": {
       "status": "coming-soon",
       "file": ""
@@ -108,8 +108,8 @@
     "category": "Council",
     "agenda": "Agenda TBC",
     "overview": "The Human Rights Council has 47 member countries and meets in Geneva. It looks at human rights problems around the world and what countries should do about them. (Overview TBC)",
-    "image": "",
-    "logo": "",
+    "image": "assets/img/committees/unhrc.jpg",
+    "logo": "assets/img/logos/unhrc.png",
     "guide": {
       "status": "coming-soon",
       "file": ""
@@ -142,8 +142,8 @@
     "category": "Council",
     "agenda": "Agenda TBC",
     "overview": "The Security Council is responsible for keeping international peace and security. It has 15 members, and five of them (China, France, Russia, the United Kingdom and the United States) can veto a resolution. (Overview TBC)",
-    "image": "",
-    "logo": "",
+    "image": "assets/img/committees/unsc.jpg",
+    "logo": "assets/img/logos/unsc.png",
     "guide": {
       "status": "coming-soon",
       "file": ""
@@ -176,8 +176,8 @@
     "category": "Agency",
     "agenda": "Agenda TBC",
     "overview": "The World Health Organization is the UN agency for health. It works on disease outbreaks, vaccines and helping countries build better health systems. (Overview TBC)",
-    "image": "",
-    "logo": "",
+    "image": "assets/img/committees/who.jpg",
+    "logo": "assets/img/logos/who.png",
     "guide": {
       "status": "coming-soon",
       "file": ""
@@ -278,8 +278,8 @@
     "category": "Agency",
     "agenda": "Agenda TBC",
     "overview": "UNODC helps countries deal with illegal drugs, organised crime and corruption. It is based in Vienna. (Overview TBC)",
-    "image": "",
-    "logo": "",
+    "image": "assets/img/committees/unodc.jpg",
+    "logo": "assets/img/logos/unodc.png",
     "guide": {
       "status": "coming-soon",
       "file": ""
@@ -312,8 +312,8 @@
     "category": "Assembly",
     "agenda": "Agenda TBC",
     "overview": "The Lok Sabha is the lower house of India's Parliament, with 543 elected members. Here delegates represent members of parliament and their parties instead of countries. (Overview TBC)",
-    "image": "",
-    "logo": "",
+    "image": "assets/img/committees/lok-sabha.jpg",
+    "logo": "assets/img/logos/lok-sabha.png",
     "guide": {
       "status": "coming-soon",
       "file": ""
@@ -346,8 +346,8 @@
     "category": "Crisis",
     "agenda": "Agenda TBC",
     "overview": "In a Joint Crisis Committee, two or more cabinets sit on opposite sides of the same crisis. Delegates play individual people, and new events arrive while the committee is in session. (Overview TBC)",
-    "image": "",
-    "logo": "",
+    "image": "assets/img/committees/jcc.jpg",
+    "logo": "assets/img/logos/jcc.png",
     "guide": {
       "status": "coming-soon",
       "file": ""
@@ -380,8 +380,8 @@
     "category": "Press",
     "agenda": "Agenda TBC",
     "overview": "International Press delegates are the conference's journalists and photographers. Instead of debating, they report on the committees, write articles and take photos. (Overview TBC)",
-    "image": "",
-    "logo": "",
+    "image": "assets/img/committees/ip.jpg",
+    "logo": "assets/img/logos/ip.png",
     "guide": {
       "status": "coming-soon",
       "file": ""

@@ -11,7 +11,13 @@ Everything on the site that's a placeholder, and what should replace it. Search 
 
 ## Borrowed from OakMUN
 
-None yet. Task 5 adds the committee photos and logo circles allowed by SPEC 7.4.
+Allowed by SPEC 7.4 (generic UN-room photos and committee logo circles), taken from `srijai-k/FINAL-OAKMUN` (MIT licence, copy in `docs/OAKMUN-LICENSE.txt`). Replace them with OakJMUN's own when they exist.
+
+| What | Our file | OakMUN source | Notes |
+| --- | --- | --- | --- |
+| Hero background (PLAN.md D4) | `src/assets/img/hero/hero-placeholder.jpg` | `public/committee_photos/unsc.jpg` | The General Assembly hall, cropped, black and white, softened. Replace with a photo or short video of the MPH or a committee room, then set `hero.image` (or `hero.video`) in `site.json`. |
+| Committee photos (9) | `src/assets/img/committees/<slug>.jpg` | `public/committee_photos/` (`disec`, `unga_sochum`, `unhrc`, `unsc`, `who`, `unodc`, `lok_sabha`, `jcc-1`, `IP`) | Converted to black and white by `npm run media` (PLAN.md D2). ECOSOC, UNEP and UNICEF have none and show "Photo TBC". |
+| Committee logo circles (9) | `src/assets/img/logos/<slug>.png` | `public/new_logos/<name> (1).png` | Trimmed to the emblem and resized to 320 px. DISEC, UNSC and UNODC all use the plain UN emblem. ECOSOC, UNEP and UNICEF show a globe icon instead. |
 
 ## Placeholder values in `src/_data/site.json`
 

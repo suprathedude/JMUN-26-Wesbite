@@ -16,6 +16,10 @@
   "url": "https://TBC",
   "crest": "",
   "description": "Oakridge Junior Model United Nations is a two-day conference for students in Grades 6 to 8, held at Oakridge International School, Gachibowli.",
+  "hero": {
+    "image": "assets/img/hero/hero-placeholder.jpg",
+    "video": ""
+  },
   "announcement": {
     "enabled": true,
     "text": "Registration opens soon (TBC)",
@@ -75,6 +79,13 @@
   "contact": {
     "email": "TBC",
     "instagram": ""
+  },
+  "home": {
+    "glanceText": "{count} committees, each with its own agenda and its own chairs. Background guides go up on each committee's page as they're released.",
+    "debateText": "Social Night on the second evening, and a step-by-step guide for anyone at their first conference.",
+    "newToMunText": "What happens in a committee session, what to say and what to bring, explained step by step.",
+    "faqIntro": "Quick answers for delegates, parents and faculty advisors.",
+    "closing": "Your first committee starts on {date}."
   },
   "stats": {
     "delegates": "350+",

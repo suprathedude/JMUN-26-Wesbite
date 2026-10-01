@@ -5,6 +5,8 @@
 //
 //   npm run shots                 every page and every state
 //   npm run shots -- home faq     only pages whose name contains one of the words
+//   npm run shots -- --sections   also save each <section> of each page separately,
+//                                 in screenshots/sections/, for comparing with reference/
 //
 // On a new machine, install the browser once: npx playwright install chromium
 import { chromium } from "playwright";
@@ -15,6 +17,7 @@ import { serve } from "./lib/serve.mjs";
 const SITE = "_site";
 const OUT = "screenshots";
 const filters = process.argv.slice(2).filter((a) => !a.startsWith("-"));
+const withSections = process.argv.includes("--sections");
 
 const VIEWPORTS = [
   { width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true },
@@ -43,8 +46,11 @@ async function findPages(dir, base = dir) {
   return pages.sort((a, b) => a.url.localeCompare(b.url));
 }
 
-// Scroll to the bottom and back so lazy images and on-view effects have run.
+// Scroll to the bottom and back so lazy images and on-view effects have run. Full-page
+// captures count as off-screen, so sections using content-visibility: auto are forced to
+// draw here (visitors scrolling the real page see them normally).
 async function settle(page) {
+  await page.addStyleTag({ content: "* { content-visibility: visible !important; }" });
   await page.evaluate(async () => {
     for (const img of document.querySelectorAll('img[loading="lazy"]')) img.loading = "eager";
     const step = innerHeight * 0.8;
@@ -56,6 +62,27 @@ async function settle(page) {
     await document.fonts.ready;
   });
   await page.waitForTimeout(300);
+}
+
+// Each top-level block in <main>, cropped from the full page.
+async function shootSections(page, name, width) {
+  const dir = path.join(OUT, "sections");
+  await mkdir(dir, { recursive: true });
+  const blocks = await page.evaluate(() =>
+    [...document.querySelectorAll("main > *")].map((el) => {
+      const r = el.getBoundingClientRect();
+      const label = el.id || el.className.split(" ").filter(Boolean).pop() || el.tagName.toLowerCase();
+      return { label, y: r.top + scrollY, h: r.height };
+    }),
+  );
+  let saved = 0;
+  for (const [i, b] of blocks.entries()) {
+    if (b.h < 1) continue;
+    const file = path.join(dir, `${name}-${String(i + 1).padStart(2, "0")}-${b.label}-${width}.png`);
+    await page.screenshot({ path: file, fullPage: true, clip: { x: 0, y: b.y, width, height: Math.min(b.h, 3000) } });
+    saved++;
+  }
+  return saved;
 }
 
 // Interaction states worth checking after nav or homepage changes.
@@ -96,6 +123,14 @@ const STATES = [
       await page.waitForTimeout(500);
     },
   },
+  {
+    name: "home-wheel-1440",
+    viewport: VIEWPORTS[1],
+    async run(page) {
+      await page.evaluate(() => document.querySelector(".glance")?.scrollIntoView({ block: "start" }));
+      await page.waitForTimeout(2400);
+    },
+  },
   { name: "home-nav-1024", viewport: { width: 1024, height: 768, deviceScaleFactor: 1 }, async run() {} },
   { name: "home-nav-1250", viewport: { width: 1250, height: 800, deviceScaleFactor: 1 }, async run() {} },
 ];
@@ -127,6 +162,7 @@ async function main() {
         await page.screenshot({ path: file, fullPage: true });
         console.log(file);
         count++;
+        if (withSections) count += await shootSections(page, name, viewport.width);
       }
       await context.close();
     }

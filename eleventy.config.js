@@ -2,6 +2,7 @@ import { readFileSync, rmSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { hashAssets } from "./scripts/lib/hash-assets.mjs";
 import { validateData } from "./scripts/lib/validate-data.mjs";
+import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 
 const FONT_DIR = "node_modules/@fontsource-variable/montserrat/files";
 const iconCache = new Map();
@@ -20,6 +21,17 @@ export default function (eleventyConfig) {
   });
   eleventyConfig.addPassthroughCopy({ "src/_headers": "_headers" });
   eleventyConfig.addPassthroughCopy({ "src/assets/favicon.svg": "assets/favicon.svg" });
+
+  // Every <img> becomes a <picture> with avif and webp sizes (SPEC 5). Lazy by default; the
+  // hero sets loading="eager" and fetchpriority="high" itself. Per image, eleventy:widths
+  // picks the sizes to make.
+  eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
+    formats: ["avif", "webp", "auto"],
+    widths: [400, 800, 1200, 1600],
+    htmlOptions: {
+      imgAttributes: { loading: "lazy", decoding: "async" },
+    },
+  });
 
   // src/css/site.11ty.js bundles the shared stylesheets; rebuild when any of them change.
   eleventyConfig.addWatchTarget("src/css/");
@@ -46,6 +58,44 @@ export default function (eleventyConfig) {
     const day = (d) => d.toLocaleDateString("en-GB", { ...opts, day: "numeric" });
     const monthYear = e.toLocaleDateString("en-GB", { ...opts, month: "long", year: "numeric" });
     return `${day(s)} and ${day(e)} ${monthYear}`;
+  });
+
+  // "Twelve" for 12, for sentences that start with a count.
+  const WORDS = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
+    "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen", "Twenty"];
+  eleventyConfig.addFilter("numberWord", (n) => WORDS[n] ?? String(n));
+
+  // "30 October" from an ISO date.
+  eleventyConfig.addFilter("dayMonth", (iso) =>
+    new Date(iso).toLocaleDateString("en-GB", { timeZone: "Asia/Kolkata", day: "numeric", month: "long" }),
+  );
+
+  // Fills {tokens} in copy from site.json, e.g. "{count} committees".
+  eleventyConfig.addFilter("fill", (text, values = {}) =>
+    String(text).replace(/\{(\w+)\}/g, (match, key) => (key in values ? values[key] : match)),
+  );
+
+  // "1 hr", "30 min", "1.5 hrs" between two times like "8:00 am" and "9:30 am"; empty if
+  // either is missing or TBC.
+  const minutes = (t) => {
+    const m = String(t ?? "").trim().toLowerCase().match(/^(\d{1,2}):(\d{2})\s*(am|pm)$/);
+    if (!m) return null;
+    return ((Number(m[1]) % 12) + (m[3] === "pm" ? 12 : 0)) * 60 + Number(m[2]);
+  };
+  eleventyConfig.addFilter("duration", (start, end) => {
+    const a = minutes(start);
+    const b = minutes(end);
+    if (a === null || b === null || b <= a) return "";
+    const mins = b - a;
+    if (mins < 60) return `${mins} min`;
+    const hrs = mins / 60;
+    return `${Number.isInteger(hrs) ? hrs : hrs.toFixed(1).replace(/\.0$/, "")} ${hrs === 1 ? "hr" : "hrs"}`;
+  });
+
+  // Splits "350+" into a number to count up to and a suffix; null for "XIV".
+  eleventyConfig.addFilter("countParts", (value) => {
+    const match = String(value).match(/^(\d+)(.*)$/);
+    return match ? { num: Number(match[1]), suffix: match[2] } : null;
   });
 
   // Lucide icons, inlined from lucide-static with the spec's 1.5 px stroke.

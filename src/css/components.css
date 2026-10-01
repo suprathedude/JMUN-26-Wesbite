@@ -1017,3 +1017,69 @@ html.is-locked {
   text-transform: uppercase;
   color: var(--ink-60);
 }
+
+/* ---------- Placard (SPEC 10): the intro, New to MUN? and the 404 ---------- */
+
+/* A raised tent card: white face about 3.2:1, a 4 px teal strip on top, the name in navy,
+   and a short handle below. Sized in em so a row can scale it with font-size. */
+.placard {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 16px; /* 168 x 52 px face */
+}
+
+.placard__face {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 10.5em;
+  height: 3.25em;
+  padding: 0.25em 0.5em 0;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--paper);
+  box-shadow: 0 0.4em 1.2em rgb(var(--shadow-rgb) / 0.35);
+  color: var(--navy);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.placard__face::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0.25em;
+  background: var(--teal);
+}
+
+.placard__name {
+  font-size: 0.95em;
+}
+
+/* Long country names step down a size */
+.placard--long .placard__name {
+  font-size: 0.78em;
+}
+
+.placard--longer .placard__name {
+  font-size: 0.64em;
+}
+
+.placard__handle {
+  width: 0.25em;
+  height: 1.125em;
+  border-radius: 0 0 0.125em 0.125em;
+  background: var(--blue-500);
+}
+
+@media (max-width: 768px) {
+  .placard {
+    font-size: 11.43px; /* 120 x 38 px face */
+  }
+}

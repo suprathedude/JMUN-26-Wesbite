@@ -241,6 +241,64 @@
   }
 }
 
+/* ---------- Placard intro (SPEC 10) ---------- */
+
+/* html.intro is set in <head> before the first paint when the intro will play, so the
+   headline never flashes. If the script fails to arrive, the failsafe shows it anyway. */
+.intro .hero__content > * {
+  opacity: 0;
+  animation: intro-failsafe 0.4s ease 3.2s forwards;
+}
+
+/* While the intro plays, the nav pill skips its background blur: the hero under it changes
+   every frame, so the blur would be redrawn every frame (the main cause of dropped frames in
+   the throttled trace). The pill is 97% opaque, so nobody sees the difference. */
+.intro-running .nav__bg {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+@keyframes intro-failsafe {
+  to {
+    opacity: 1;
+  }
+}
+
+.intro-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: none;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.intro .intro-layer,
+.intro-running .intro-layer {
+  display: block;
+}
+
+/* Translucent, never opaque: the hero picture underneath stays the LCP element. */
+.intro-wash {
+  position: absolute;
+  inset: 0;
+  background: rgb(var(--wash-rgb) / 0.7);
+}
+
+/* Each row has an invisible "desk line" at its bottom edge; placards rise from behind it. */
+.intro-row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  overflow: clip;
+}
+
+.intro-row .placard {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
 /* ---------- Marquees (reference/05, plus the slower navy strip) ---------- */
 
 .marquee {

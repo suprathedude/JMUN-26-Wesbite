@@ -24,6 +24,7 @@
   /* Text: warm white, used at fixed opacity steps */
   --ink: #faf5ed;
   --white: #ffffff; /* countdown digits only */
+  --paper: #ffffff; /* placard faces */
 
   /* Accents (mainly the schedule legend) */
   --gold: #e1aa28;
@@ -53,6 +54,7 @@
   --drop-rgb: 3 10 22; /* nav dropdown */
   --shadow-rgb: 0 0 0;
   --white-rgb: 255 255 255;
+  --wash-rgb: 0 18 35; /* the intro's navy wash */
   --orb-navy-rgb: 0 60 110; /* OakMUN's deep-blue orb */
   --card-rgb: 0 30 60; /* item card fill */
   --sn-gold-rgb: 255 200 0;

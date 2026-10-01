@@ -131,6 +131,33 @@ const STATES = [
       await page.waitForTimeout(2400);
     },
   },
+  {
+    name: "home-intro-1440",
+    intro: true,
+    viewport: VIEWPORTS[1],
+    async run(page) {
+      // Freeze the placard intro at 1.25 s: every placard up, nothing leaving yet.
+      await page.evaluate(() => {
+        for (const a of document.getAnimations()) {
+          a.pause();
+          a.currentTime = 1250;
+        }
+      });
+    },
+  },
+  {
+    name: "home-intro-390",
+    intro: true,
+    viewport: VIEWPORTS[0],
+    async run(page) {
+      await page.evaluate(() => {
+        for (const a of document.getAnimations()) {
+          a.pause();
+          a.currentTime = 800;
+        }
+      });
+    },
+  },
   { name: "home-nav-1024", viewport: { width: 1024, height: 768, deviceScaleFactor: 1 }, async run() {} },
   { name: "home-nav-1250", viewport: { width: 1250, height: 800, deviceScaleFactor: 1 }, async run() {} },
 ];
@@ -170,10 +197,13 @@ async function main() {
     for (const state of STATES) {
       if (!wanted(state.name)) continue;
       const context = await browser.newContext(contextFor(state.viewport, "no-preference"));
+      // Only the intro states should see the placard intro; elsewhere it would hide the hero.
+      if (!state.intro) await context.addInitScript(() => sessionStorage.setItem("oakjmun-intro", "1"));
       const page = await context.newPage();
-      await page.goto(origin + "/", { waitUntil: "networkidle" });
+      await page.goto(origin + "/", { waitUntil: state.intro ? "domcontentloaded" : "networkidle" });
       await page.evaluate(() => document.fonts.ready);
       await state.run(page);
+      if (state.intro) await page.waitForTimeout(150);
       const file = path.join(OUT, `${state.name}.png`);
       await page.screenshot({ path: file });
       console.log(file);

@@ -1,6 +1,8 @@
-// A tiny static server for _site, used by the screenshot script. It mirrors how
-// Cloudflare Pages resolves URLs: /path/ -> /path/index.html, unknown -> /404.html.
+// A tiny static server for _site, used by the screenshot script and for local speed checks.
+// It mirrors how Cloudflare Pages resolves URLs (/path/ -> /path/index.html, unknown ->
+// /404.html) and, like Cloudflare, compresses text with brotli or gzip.
 import { createServer } from "node:http";
+import { brotliCompressSync, gzipSync } from "node:zlib";
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 
@@ -50,8 +52,20 @@ export function serve(dir, port = 0) {
       file = path.join(root, "404.html");
       status = 404;
     }
-    const body = await readFile(file);
-    res.writeHead(status, { "Content-Type": TYPES[path.extname(file)] ?? "application/octet-stream" });
+    let body = await readFile(file);
+    const type = TYPES[path.extname(file)] ?? "application/octet-stream";
+    const headers = { "Content-Type": type, Vary: "Accept-Encoding" };
+    const accepts = String(req.headers["accept-encoding"] ?? "");
+    if (/^(text\/|application\/json|image\/svg)/.test(type)) {
+      if (accepts.includes("br")) {
+        body = brotliCompressSync(body);
+        headers["Content-Encoding"] = "br";
+      } else if (accepts.includes("gzip")) {
+        body = gzipSync(body);
+        headers["Content-Encoding"] = "gzip";
+      }
+    }
+    res.writeHead(status, headers);
     res.end(body);
   });
   return new Promise((resolve) => {

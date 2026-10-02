@@ -106,8 +106,24 @@ export default function (eleventyConfig) {
   // How many committees have a released background guide (guide.file set).
   eleventyConfig.addFilter("guidesOut", (list) => (list ?? []).filter((c) => isSet(c?.guide?.file)).length);
 
+  // How many schedule events of one type there are across the days, e.g. committee sessions.
+  eleventyConfig.addFilter("countEvents", (days, type) =>
+    (days ?? []).flatMap((day) => day.events ?? []).filter((e) => e.type === type).length,
+  );
+
   // Items whose field equals a value: secretariat | where("group", "usg").
   eleventyConfig.addFilter("where", (list, key, value) => (list ?? []).filter((item) => item?.[key] === value));
+
+  // People in rows by their "row" number, lowest first, in the file's order within a row:
+  // secretariat | where("group", "usg") | rows.
+  eleventyConfig.addFilter("rows", (people) => {
+    const rows = new Map();
+    for (const person of people ?? []) {
+      if (!rows.has(person.row)) rows.set(person.row, []);
+      rows.get(person.row).push(person);
+    }
+    return [...rows.entries()].sort((a, b) => a[0] - b[0]).map(([, row]) => row);
+  });
 
   // "VT" for "Vihaan T."; "TBC" for a name that's still TBC (PLAN.md 5.2, S7).
   eleventyConfig.addFilter("initials", (name) => {

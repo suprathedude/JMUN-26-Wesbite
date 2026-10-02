@@ -27,7 +27,7 @@
   --white: #ffffff; /* countdown digits only */
   --paper: #ffffff; /* placard faces */
 
-  /* Accents (mainly the schedule legend) */
+  /* Accents from OakMUN, used sparingly (sand on Resources, yellow and peach on New to MUN) */
   --gold: #e1aa28;
   --sand: #bc9a6e;
   --yellow: #ffcb00;
@@ -144,6 +144,7 @@
   --z-strip: 60;
   --z-sheet: 90;
   --z-nav: 100;
+  --z-cursor: 150; /* the Secretariat's pointer follower */
   --z-skip: 200;
 }
 

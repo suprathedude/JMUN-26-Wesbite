@@ -1,5 +1,39 @@
 [
   {
+    "slug": "unsc",
+    "code": "UNSC",
+    "name": "United Nations Security Council",
+    "category": "Council",
+    "agenda": "Agenda TBC",
+    "overview": "The Security Council is responsible for keeping international peace and security. It has 15 members, and five of them (China, France, Russia, the United Kingdom and the United States) can veto a resolution. (Overview TBC)",
+    "image": "assets/img/committees/unsc.jpg",
+    "logo": "assets/img/logos/unsc.png",
+    "guide": {
+      "status": "coming-soon",
+      "file": ""
+    },
+    "eb": [
+      {
+        "role": "Chair",
+        "name": "",
+        "photo": "",
+        "bio": ""
+      },
+      {
+        "role": "Vice Chair",
+        "name": "",
+        "photo": "",
+        "bio": ""
+      },
+      {
+        "role": "Rapporteur",
+        "name": "",
+        "photo": "",
+        "bio": ""
+      }
+    ]
+  },
+  {
     "slug": "disec",
     "code": "DISEC",
     "name": "Disarmament and International Security Committee",
@@ -8,74 +42,6 @@
     "overview": "DISEC is the First Committee of the UN General Assembly, where every member country has a seat. It deals with weapons, disarmament and threats to peace between countries. (Overview TBC)",
     "image": "assets/img/committees/disec.jpg",
     "logo": "assets/img/logos/disec.png",
-    "guide": {
-      "status": "coming-soon",
-      "file": ""
-    },
-    "eb": [
-      {
-        "role": "Chair",
-        "name": "",
-        "photo": "",
-        "bio": ""
-      },
-      {
-        "role": "Vice Chair",
-        "name": "",
-        "photo": "",
-        "bio": ""
-      },
-      {
-        "role": "Rapporteur",
-        "name": "",
-        "photo": "",
-        "bio": ""
-      }
-    ]
-  },
-  {
-    "slug": "sochum",
-    "code": "SOCHUM",
-    "name": "Social, Humanitarian and Cultural Committee",
-    "category": "General Assembly",
-    "agenda": "Agenda TBC",
-    "overview": "SOCHUM is the Third Committee of the UN General Assembly, where every member country has a seat. It discusses human rights and social questions such as the rights of children, refugees and women. (Overview TBC)",
-    "image": "assets/img/committees/sochum.jpg",
-    "logo": "assets/img/logos/sochum.png",
-    "guide": {
-      "status": "coming-soon",
-      "file": ""
-    },
-    "eb": [
-      {
-        "role": "Chair",
-        "name": "",
-        "photo": "",
-        "bio": ""
-      },
-      {
-        "role": "Vice Chair",
-        "name": "",
-        "photo": "",
-        "bio": ""
-      },
-      {
-        "role": "Rapporteur",
-        "name": "",
-        "photo": "",
-        "bio": ""
-      }
-    ]
-  },
-  {
-    "slug": "ecosoc",
-    "code": "ECOSOC",
-    "name": "Economic and Social Council",
-    "category": "Council",
-    "agenda": "Agenda TBC",
-    "overview": "ECOSOC is one of the six main parts of the United Nations, with 54 member countries. It coordinates the UN's work on the economy, society and the environment. (Overview TBC)",
-    "image": "",
-    "logo": "",
     "guide": {
       "status": "coming-soon",
       "file": ""
@@ -136,14 +102,14 @@
     ]
   },
   {
-    "slug": "unsc",
-    "code": "UNSC",
-    "name": "United Nations Security Council",
-    "category": "Council",
+    "slug": "lok-sabha",
+    "code": "Lok Sabha",
+    "name": "Lok Sabha (Indian Parliament)",
+    "category": "Assembly",
     "agenda": "Agenda TBC",
-    "overview": "The Security Council is responsible for keeping international peace and security. It has 15 members, and five of them (China, France, Russia, the United Kingdom and the United States) can veto a resolution. (Overview TBC)",
-    "image": "assets/img/committees/unsc.jpg",
-    "logo": "assets/img/logos/unsc.png",
+    "overview": "The Lok Sabha is the lower house of India's Parliament, with 543 elected members. Here delegates represent members of parliament and their parties instead of countries. (Overview TBC)",
+    "image": "assets/img/committees/lok-sabha.jpg",
+    "logo": "assets/img/logos/lok-sabha.png",
     "guide": {
       "status": "coming-soon",
       "file": ""
@@ -204,12 +170,46 @@
     ]
   },
   {
-    "slug": "unep",
-    "code": "UNEP",
-    "name": "United Nations Environment Programme",
+    "slug": "unodc",
+    "code": "UNODC",
+    "name": "United Nations Office on Drugs and Crime",
     "category": "Agency",
     "agenda": "Agenda TBC",
-    "overview": "UNEP is the UN's voice on the environment, based in Nairobi. It works on climate change, nature and pollution. (Overview TBC)",
+    "overview": "UNODC helps countries deal with illegal drugs, organised crime and corruption. It is based in Vienna. (Overview TBC)",
+    "image": "assets/img/committees/unodc.jpg",
+    "logo": "assets/img/logos/unodc.png",
+    "guide": {
+      "status": "coming-soon",
+      "file": ""
+    },
+    "eb": [
+      {
+        "role": "Chair",
+        "name": "",
+        "photo": "",
+        "bio": ""
+      },
+      {
+        "role": "Vice Chair",
+        "name": "",
+        "photo": "",
+        "bio": ""
+      },
+      {
+        "role": "Rapporteur",
+        "name": "",
+        "photo": "",
+        "bio": ""
+      }
+    ]
+  },
+  {
+    "slug": "uncsw",
+    "code": "UNCSW",
+    "name": "United Nations Commission on the Status of Women",
+    "category": "Commission",
+    "agenda": "Agenda TBC",
+    "overview": "The Commission on the Status of Women is the main UN body working for gender equality and the rights of women and girls. It has 45 member countries and meets every March in New York. (Overview TBC)",
     "image": "",
     "logo": "",
     "guide": {
@@ -272,82 +272,14 @@
     ]
   },
   {
-    "slug": "unodc",
-    "code": "UNODC",
-    "name": "United Nations Office on Drugs and Crime",
-    "category": "Agency",
-    "agenda": "Agenda TBC",
-    "overview": "UNODC helps countries deal with illegal drugs, organised crime and corruption. It is based in Vienna. (Overview TBC)",
-    "image": "assets/img/committees/unodc.jpg",
-    "logo": "assets/img/logos/unodc.png",
-    "guide": {
-      "status": "coming-soon",
-      "file": ""
-    },
-    "eb": [
-      {
-        "role": "Chair",
-        "name": "",
-        "photo": "",
-        "bio": ""
-      },
-      {
-        "role": "Vice Chair",
-        "name": "",
-        "photo": "",
-        "bio": ""
-      },
-      {
-        "role": "Rapporteur",
-        "name": "",
-        "photo": "",
-        "bio": ""
-      }
-    ]
-  },
-  {
-    "slug": "lok-sabha",
-    "code": "Lok Sabha",
-    "name": "Lok Sabha (Indian Parliament)",
-    "category": "Assembly",
-    "agenda": "Agenda TBC",
-    "overview": "The Lok Sabha is the lower house of India's Parliament, with 543 elected members. Here delegates represent members of parliament and their parties instead of countries. (Overview TBC)",
-    "image": "assets/img/committees/lok-sabha.jpg",
-    "logo": "assets/img/logos/lok-sabha.png",
-    "guide": {
-      "status": "coming-soon",
-      "file": ""
-    },
-    "eb": [
-      {
-        "role": "Chair",
-        "name": "",
-        "photo": "",
-        "bio": ""
-      },
-      {
-        "role": "Vice Chair",
-        "name": "",
-        "photo": "",
-        "bio": ""
-      },
-      {
-        "role": "Rapporteur",
-        "name": "",
-        "photo": "",
-        "bio": ""
-      }
-    ]
-  },
-  {
-    "slug": "jcc",
-    "code": "JCC",
-    "name": "Joint Crisis Committee",
+    "slug": "fcc",
+    "code": "FCC",
+    "name": "Futuristic Crisis Committee",
     "category": "Crisis",
     "agenda": "Agenda TBC",
-    "overview": "In a Joint Crisis Committee, two or more cabinets sit on opposite sides of the same crisis. Delegates play individual people, and new events arrive while the committee is in session. (Overview TBC)",
-    "image": "assets/img/committees/jcc.jpg",
-    "logo": "assets/img/logos/jcc.png",
+    "overview": "A crisis committee set in the future. In a crisis committee, delegates respond to events as they happen instead of debating one fixed agenda. (Overview TBC)",
+    "image": "",
+    "logo": "",
     "guide": {
       "status": "coming-soon",
       "file": ""
@@ -374,14 +306,48 @@
     ]
   },
   {
-    "slug": "ip",
-    "code": "IP",
-    "name": "International Press",
-    "category": "Press",
+    "slug": "copuos",
+    "code": "COPUOS",
+    "name": "Committee on the Peaceful Uses of Outer Space",
+    "category": "General Assembly",
     "agenda": "Agenda TBC",
-    "overview": "International Press delegates are the conference's journalists and photographers. Instead of debating, they report on the committees, write articles and take photos. (Overview TBC)",
-    "image": "assets/img/committees/ip.jpg",
-    "logo": "assets/img/logos/ip.png",
+    "overview": "COPUOS was set up by the UN General Assembly in 1959 to look after the peaceful use and exploration of outer space. It has more than 100 member countries and meets in Vienna. (Overview TBC)",
+    "image": "",
+    "logo": "",
+    "guide": {
+      "status": "coming-soon",
+      "file": ""
+    },
+    "eb": [
+      {
+        "role": "Chair",
+        "name": "",
+        "photo": "",
+        "bio": ""
+      },
+      {
+        "role": "Vice Chair",
+        "name": "",
+        "photo": "",
+        "bio": ""
+      },
+      {
+        "role": "Rapporteur",
+        "name": "",
+        "photo": "",
+        "bio": ""
+      }
+    ]
+  },
+  {
+    "slug": "doomsday",
+    "code": "Doomsday",
+    "name": "Doomsday Committee (name TBC)",
+    "category": "Crisis",
+    "agenda": "Agenda TBC",
+    "overview": "In a crisis committee, delegates respond to events as they happen instead of debating one fixed agenda. (Overview TBC)",
+    "image": "",
+    "logo": "",
     "guide": {
       "status": "coming-soon",
       "file": ""

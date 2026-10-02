@@ -3,7 +3,7 @@
   "days": [
     {
       "id": "day-1",
-      "label": "Day 1",
+      "label": "Day one",
       "date": "2026-10-30",
       "dateLabel": "Friday 30 October",
       "events": [
@@ -54,7 +54,7 @@
     },
     {
       "id": "day-2",
-      "label": "Day 2",
+      "label": "Day two",
       "date": "2026-10-31",
       "dateLabel": "Saturday 31 October",
       "events": [

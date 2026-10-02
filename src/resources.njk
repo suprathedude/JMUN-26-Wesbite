@@ -2,7 +2,7 @@
 layout: layouts/base.njk
 title: Resources
 eleventyComputed:
-  description: "Background guides, procedure documents, International Press style guides and research links for {{ site.name }} {{ site.year }}."
+  description: "Background guides, procedure documents and research links for {{ site.name }} {{ site.year }}."
 permalink: /resources/
 pageCss: [resources]
 pageJs: [filters]
@@ -58,18 +58,6 @@ pageJs: [filters]
     </div>
   </div>
 </section>
-
-<section class="res-section" aria-labelledby="ip-title">
-  <div class="container">
-    <h2 class="t-section t-section--bar" id="ip-title">International Press style guides</h2>
-    <div class="res-grid res-grid--two">
-      {%- for g in resources.ipGuides %}
-      {{ guideCard({ tag: "Style guide", title: g.title, text: g.description, image: g.image, file: g.file, linkLabel: "Open PDF", level: 3 }) }}
-      {%- endfor %}
-    </div>
-  </div>
-</section>
-
 <section class="res-section" aria-labelledby="docs-title">
   <div class="container">
     <h2 class="t-section t-section--bar" id="docs-title">Essential documents</h2>

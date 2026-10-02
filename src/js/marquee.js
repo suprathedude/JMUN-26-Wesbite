@@ -1,4 +1,4 @@
-// Committee marquees: paused when off-screen or when the tab is hidden (SPEC 3.4).
+// Committee marquee: paused when off-screen or when the tab is hidden (SPEC 3.4).
 // The movement itself is a CSS animation; reduced motion turns it off in CSS.
 const strips = document.querySelectorAll("[data-marquee]");
 

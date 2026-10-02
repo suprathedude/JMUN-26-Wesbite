@@ -53,21 +53,17 @@ intro: true
   </div>
 </section>
 
-{#- 3. Committee marquees (reference/05): teal codes to the left, navy names to the right, slower. -#}
-<div aria-hidden="true">
-  {%- for strip in [["", "code"], ["marquee--navy", "name"]] %}
-  <div class="marquee {{ strip[0] }}" data-marquee>
-    <div class="marquee__track">
-      {%- for copy in [1, 2] %}
-      <div class="marquee__group">
-        {%- for round in [1, 2] %}{% for c in committees %}
-        <span class="marquee__item">{{ c[strip[1]] }}</span><span class="marquee__dot"></span>
-        {%- endfor %}{% endfor %}
-      </div>
-      {%- endfor %}
+{#- 3. Committee marquee (reference/05): the committee codes, moving right to left. -#}
+<div class="marquee" aria-hidden="true" data-marquee>
+  <div class="marquee__track">
+    {%- for copy in [1, 2] %}
+    <div class="marquee__group">
+      {%- for round in [1, 2] %}{% for c in committees %}
+      <span class="marquee__item">{{ c.code }}</span><span class="marquee__dot"></span>
+      {%- endfor %}{% endfor %}
     </div>
+    {%- endfor %}
   </div>
-  {%- endfor %}
 </div>
 
 {#- 4. Theme (reference/03, 04). Only the "announced soon" band until theme.enabled is true. -#}
@@ -148,62 +144,50 @@ intro: true
   </div>
 </section>
 
-{#- 7. Schedule (reference/07): day tabs, legend, timeline -#}
+{#- 7. Schedule (reference/07; layout from OakMUN XVI's later schedule): the days one under
+    another, each with a line down the left that fills as you scroll. -#}
 {%- set tagFor = { committee: "Committee", ceremony: "Ceremony", social: "Social", meal: "Meal", break: "Break", end: "End of day" } %}
 <section class="section schedule" id="schedule" aria-labelledby="schedule-title" data-schedule>
   <div class="container">
     <div class="schedule__head">
+      <h2 class="t-section" id="schedule-title">Conference schedule</h2>
       <div class="schedule__intro">
-        <h2 class="t-section t-section--bar" id="schedule-title">Conference schedule</h2>
-        <ul class="legend" role="list">
-          <li><span class="legend__dot" style="--dot: var(--teal)"></span>Committee</li>
-          <li><span class="legend__dot" style="--dot: var(--gold)"></span>Ceremony</li>
-          <li><span class="legend__dot" style="--dot: var(--teal-dark)"></span>Social</li>
-          <li><span class="legend__dot" style="--dot: var(--sand)"></span>Meal</li>
-          <li><span class="legend__dot" style="--dot: var(--teal-light)"></span>Break</li>
-        </ul>
-        {%- if schedule.note %}<p class="schedule__note">{{ schedule.note }}</p>{% endif %}
-      </div>
-      <div class="tabs" role="tablist" aria-label="Conference days">
-        {%- for day in schedule.days %}
-        <button class="tab" type="button" role="tab" id="tab-{{ day.id }}" aria-controls="{{ day.id }}" aria-selected="{{ 'true' if loop.first else 'false' }}" tabindex="{{ 0 if loop.first else -1 }}">{{ day.label }}<span class="tab__date">, {{ day.dateLabel }}</span></button>
-        {%- endfor %}
+        <p class="schedule__summary">{{ schedule.days | length | numberWord }} days, {{ schedule.days | countEvents("committee") | numberWord | lower }} committee sessions.</p>
+        {%- if schedule.note %}
+        <p class="schedule__note">{{ schedule.note }}</p>
+        {%- endif %}
       </div>
     </div>
 
     {%- for day in schedule.days %}
-    {%- set num = ("0" ~ loop.index) if loop.index < 10 else (loop.index | string) %}
-    <div class="day" id="{{ day.id }}" role="tabpanel" aria-labelledby="tab-{{ day.id }}" tabindex="0"{% if not loop.first %} data-inactive{% endif %}>
-      <div class="day__head">
-        <span class="day__num" aria-hidden="true">{{ num }}</span>
-        <div>
-          <p class="day__label">{{ day.label }}</p>
-          <p class="day__date">{{ day.dateLabel }}</p>
-        </div>
-      </div>
-      <span class="day__ghost" aria-hidden="true">{{ num }}</span>
-      <ol class="timeline" role="list">
-        {%- for e in day.events %}
-        <li class="tl-item">
-          <div class="tl-time">
-            <span class="tl-range">
+    <div class="sched-day" id="{{ day.id }}">
+      <h3 class="sched-day__title" data-reveal>{{ day.label }} <span class="sched-day__date">{{ day.dateLabel }}</span></h3>
+      <div class="sched-day__body" data-line>
+        <span class="sched-line" aria-hidden="true"><span class="sched-line__fill"></span></span>
+        <ol class="sched-list" role="list">
+          {%- for e in day.events %}
+          <li class="sched-item" data-reveal>
+            <span class="sched-item__dot" aria-hidden="true"></span>
+            <p class="sched-item__time">
               {%- if e.start == "TBC" -%}Time TBC
-              {%- elif e.end -%}{{ e.start }} to {{ e.end }}
+              {%- elif e.end and e.end != "TBC" -%}{{ e.start }} to {{ e.end }}
               {%- else -%}{{ e.start }} onwards{%- endif -%}
-            </span>
-            {%- set dur = e.start | duration(e.end) %}
-            {%- if dur %}<span class="tl-dur">{{ dur }}</span>{% endif %}
-          </div>
-          <div class="tl-event tl-event--{{ e.type }}">
-            <p class="tl-title">
-              {%- if e.link %}<a href="{{ e.link }}">{{ e.title }}</a>{% else %}{{ e.title }}{% endif -%}
-              {%- if e.place %}<span class="tl-place">{{ e.place }}</span>{% endif -%}
             </p>
-            <span class="tl-tag">{{ e.tag or tagFor[e.type] }}</span>
-          </div>
-        </li>
-        {%- endfor %}
-      </ol>
+            <div class="sched-item__text">
+              <p class="sched-item__title">
+                {%- if e.link %}<a href="{{ e.link }}">{{ e.title }}</a>{% else %}{{ e.title }}{% endif -%}
+              </p>
+              <p class="sched-item__meta">
+                <span>{{ e.tag or tagFor[e.type] }}</span>
+                {%- set dur = e.start | duration(e.end) %}
+                {%- if dur %}<span>{{ dur }}</span>{% endif %}
+                {%- if e.place %}<span>{{ e.place }}</span>{% endif %}
+              </p>
+            </div>
+          </li>
+          {%- endfor %}
+        </ol>
+      </div>
     </div>
     {%- endfor %}
   </div>

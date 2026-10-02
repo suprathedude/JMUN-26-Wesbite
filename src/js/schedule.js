@@ -1,53 +1,81 @@
-// Schedule day tabs (ARIA tabs pattern, automatic activation) and the timeline entrance:
-// rows slide in once per day, the first time that day is shown (SPEC 9.1, item 7).
+// Schedule timeline (SPEC 9.1, item 7; layout from OakMUN XVI's later schedule). Each day's
+// line fills teal as the page scrolls, down to a point 65% of the way down the screen, and an
+// event's dot lights once the fill reaches it. Day titles and rows fade in the first time they
+// come on screen. Only transform and opacity change. With reduced motion the lines are drawn in
+// full and nothing moves.
 const section = document.querySelector("[data-schedule]");
+const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-if (section) {
-  const tabs = [...section.querySelectorAll('[role="tab"]')];
-  const panels = tabs.map((tab) => document.getElementById(tab.getAttribute("aria-controls")));
-  const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const entered = new Set();
+if (section && !calm && "IntersectionObserver" in window) {
+  const ANCHOR = 0.65; // how far down the screen the fill reaches
+  const days = [...section.querySelectorAll("[data-line]")].map((body) => ({
+    body,
+    fill: body.querySelector(".sched-line__fill"),
+    items: [...body.querySelectorAll(".sched-item")],
+    height: 0,
+    dotY: [], // each dot's centre, from the top of the day's line
+  }));
+  let frame = 0;
+  let onScreen = false;
 
-  const enter = (panel) => {
-    if (calm || entered.has(panel)) return;
-    entered.add(panel);
-    panel.querySelectorAll(".tl-item").forEach((item, i) => {
-      item.style.transitionDelay = `${i * 60}ms`;
-      item.classList.add("is-in");
+  const measure = () => {
+    for (const day of days) {
+      day.height = day.body.offsetHeight;
+      day.dotY = day.items.map((item) => {
+        const dot = item.querySelector(".sched-item__dot");
+        return item.offsetTop + dot.offsetTop + dot.offsetHeight / 2;
+      });
+    }
+  };
+
+  const update = () => {
+    frame = 0;
+    const anchor = innerHeight * ANCHOR;
+    // Read every position first, then write, so the browser lays out once.
+    const reach = days.map((day) => anchor - day.body.getBoundingClientRect().top);
+    days.forEach((day, d) => {
+      const progress = Math.min(1, Math.max(0, reach[d] / day.height));
+      day.fill.style.transform = `scaleY(${progress.toFixed(4)})`;
+      day.items.forEach((item, i) => item.classList.toggle("is-lit", reach[d] >= day.dotY[i]));
     });
   };
 
-  const select = (index, moveFocus = false) => {
-    tabs.forEach((tab, i) => {
-      const on = i === index;
-      tab.setAttribute("aria-selected", String(on));
-      tab.tabIndex = on ? 0 : -1;
-      panels[i].toggleAttribute("data-inactive", !on);
-    });
-    if (moveFocus) tabs[index].focus();
-    enter(panels[index]);
+  const request = () => {
+    if (!frame) frame = requestAnimationFrame(update);
   };
 
-  tabs.forEach((tab, i) => {
-    tab.addEventListener("click", () => select(i));
-    tab.addEventListener("keydown", (event) => {
-      const next = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[event.key];
-      if (next === undefined) return;
-      event.preventDefault();
-      select((next + tabs.length) % tabs.length, true);
-    });
-  });
+  measure();
+  update();
+  section.classList.add("is-live");
 
-  if (!calm && "IntersectionObserver" in window) {
-    section.classList.add("is-entering");
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        observer.disconnect();
-        enter(panels[tabs.findIndex((tab) => tab.getAttribute("aria-selected") === "true")]);
-      },
-      { threshold: 0.15 },
-    );
-    observer.observe(section);
-  }
+  new IntersectionObserver(([entry]) => {
+    onScreen = entry.isIntersecting;
+    if (onScreen) request();
+  }).observe(section);
+
+  addEventListener(
+    "scroll",
+    () => {
+      if (onScreen) request();
+    },
+    { passive: true },
+  );
+
+  // Re-measure when the layout changes: a resize, or the web font arriving.
+  new ResizeObserver(() => {
+    measure();
+    request();
+  }).observe(section);
+
+  const reveal = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add("is-in");
+        reveal.unobserve(entry.target);
+      }
+    },
+    { rootMargin: "0px 0px -8% 0px" },
+  );
+  section.querySelectorAll("[data-reveal]").forEach((el) => reveal.observe(el));
 }

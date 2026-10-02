@@ -6,7 +6,7 @@ import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 
 const DATA = "src/_data";
-const CATEGORIES = ["General Assembly", "Council", "Agency", "Assembly", "Crisis", "Press"];
+const CATEGORIES = ["General Assembly", "Council", "Agency", "Commission", "Assembly", "Crisis", "Press"];
 const EVENT_TYPES = ["committee", "ceremony", "social", "meal", "break", "end"];
 const GUIDE_STATUS = ["coming-soon", "available"];
 const GROUPS = ["leadership", "usg"];
@@ -80,10 +80,19 @@ export function validateData() {
     });
   });
 
+  // "row" puts people side by side on the page: everyone with the same number shares a row.
+  const rowGroups = new Map();
   load("secretariat.json").forEach((p, i) => {
     const where = `person ${i + 1} (${p.name || "no name"})`;
     if (!p.name || !p.role) add("secretariat.json", where, "needs a name and a role.");
     if (!GROUPS.includes(p.group)) add("secretariat.json", where, `group "${p.group}" must be one of ${list(GROUPS)}.`);
+    if (!Number.isInteger(p.row) || p.row < 1) {
+      add("secretariat.json", where, `"row" must be a whole number like 3, with no quote marks.`);
+    } else if (rowGroups.has(p.row) && rowGroups.get(p.row) !== p.group) {
+      add("secretariat.json", where, `row ${p.row} already has people from the "${rowGroups.get(p.row)}" group. Give "${p.group}" people their own row number.`);
+    } else {
+      rowGroups.set(p.row, p.group);
+    }
     if (missingFile(p.photo)) add("secretariat.json", where, `there's no photo at src/${p.photo}.`);
   });
 
@@ -103,7 +112,7 @@ export function validateData() {
 
   const resources = load("resources.json");
   for (const group of ["documents", "ipGuides"]) {
-    resources[group].forEach((doc, i) => {
+    (resources[group] ?? []).forEach((doc, i) => {
       if (missingFile(doc.file)) add("resources.json", `${group} ${i + 1} (${doc.title})`, `there's no file at src/${doc.file}.`);
     });
   }

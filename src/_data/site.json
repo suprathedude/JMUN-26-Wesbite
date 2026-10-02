@@ -91,7 +91,8 @@
     "intro": "{count} committees, one weekend. Find yours."
   },
   "secretariatPage": {
-    "intro": "The students who plan and run Oakridge JMUN 2026."
+    "intro": "The students who plan and run Oakridge JMUN 2026.",
+    "blurbTBC": "Profile TBC."
   },
   "resourcesPage": {
     "intro": "Background guides, procedure documents and research links, added here as they're released.",
@@ -100,7 +101,7 @@
     "guidesAll": "All background guides out"
   },
   "stats": {
-    "delegates": "350+",
+    "delegates": "450+",
     "days": 2,
     "chapter": "XIV"
   },

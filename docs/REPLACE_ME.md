@@ -3,7 +3,7 @@
 Everything on the site that's a placeholder, and what should replace it. [HOW_TO_UPDATE.md](HOW_TO_UPDATE.md) shows how to make each change on GitHub's website.
 
 Two ways to find what's left:
-- **Search for `TBC`** in `src/_data/`. Every placeholder value contains it; there were 87 when the site was finished.
+- **Search for `TBC`** in `src/_data/`. Every placeholder value contains it; there were 87 at the last count (2 October).
 - **Look for `""`.** An empty value means "not set yet": a photo, a link, a name or a PDF that doesn't exist yet. The site handles each one: a "Photo TBC" tile, initials, "EB announced soon", "Coming soon", or a hidden button.
 
 ## Before launch
@@ -33,8 +33,8 @@ SPEC 7.4 allows generic UN-room photos and committee logo circles from `srijai-k
 | What | Our file | OakMUN source | Notes |
 | --- | --- | --- | --- |
 | Hero background (PLAN.md D4) | `src/assets/img/hero/hero-placeholder.jpg` | `public/committee_photos/unsc.jpg` | The General Assembly hall, cropped, black and white, softened. Replace it with a photo or short video of the MPH or a committee room. **Photo:** upload it and set `hero.image` in `site.json`. **Video (20 s or less):** this needs a laptop. Save it as `src/assets/video/source/hero.mp4` and run `npm run media`, which makes `src/assets/video/hero.av1.webm`, `hero.h264.mp4` and a poster image. Commit those, then set `hero.video` to `assets/video/hero` and `hero.image` to `assets/img/hero-poster.jpg`. |
-| Committee photos (9) | `src/assets/img/committees/<slug>.jpg` | `public/committee_photos/` (`disec`, `unga_sochum`, `unhrc`, `unsc`, `who`, `unodc`, `lok_sabha`, `jcc-1`, `IP`) | Made black and white (PLAN.md D2). ECOSOC, UNEP and UNICEF have none and show "Photo TBC". The IP photo is also the Journalism style guide's photo on Resources. |
-| Committee logo circles (9) | `src/assets/img/logos/<slug>.png` | `public/new_logos/<name> (1).png` | Trimmed to the emblem and resized to 320 px. DISEC, UNSC and UNODC all use the plain UN emblem. ECOSOC, UNEP and UNICEF show a globe icon instead. |
+| Committee photos (6) | `src/assets/img/committees/<slug>.jpg` | `public/committee_photos/` (`unsc`, `disec`, `unhrc`, `lok_sabha`, `who`, `unodc`) | Made black and white (PLAN.md D2). UNCSW, UNICEF, FCC, COPUOS and Doomsday have none and show "Photo TBC". |
+| Committee logo circles (6) | `src/assets/img/logos/<slug>.png` | `public/new_logos/<name> (1).png` | Trimmed to the emblem and resized to 320 px. DISEC, UNSC and UNODC all use the plain UN emblem. UNCSW, UNICEF, FCC, COPUOS and Doomsday show a globe icon instead. |
 | Research link list | `resources.json` → `researchLinks` | OakMUN's Resources page | Six public UN websites. Keep, change or add to them. |
 
 ## Placeholder values, file by file
@@ -57,14 +57,15 @@ SPEC 7.4 allows generic UN-room photos and committee logo circles from `srijai-k
 | `allocations` | One round, "Date TBC (for registrations received by TBC)"; `status` "Registration opens soon (TBC)"; `matrixUrl` `""`, so the button reads "Opens with Round 1 (TBC)"; `intro` and `matrixText` end "TBC" | The real rounds (name, date, note each), the status, the matrix link, and the two texts without "TBC" |
 | `intro.countries` | 24 placeholder countries for the homepage intro | Optional: names from the real allocation matrix |
 
-### `committees.json` (12 committees)
+### `committees.json` (11 committees)
 
 | Field | Now | Needed |
 | --- | --- | --- |
-| `agenda` | "Agenda TBC" (all 12) | Each agenda |
-| `overview` | Two factual sentences ending "(Overview TBC)" (all 12) | The Secretariat's check, then remove "(Overview TBC)" |
-| `image`, `logo` | `""` for ECOSOC, UNEP and UNICEF; borrowed for the rest | OakJMUN photos and logo circles |
-| `guide.file` | `""` (all 12), shown as "Coming soon" | Each background guide PDF |
+| `agenda` | "Agenda TBC" (all 11) | Each agenda |
+| `overview` | Two factual sentences ending "(Overview TBC)" (all 11). FCC's and Doomsday's only say they're crisis committees. | The Secretariat's check, then remove "(Overview TBC)"; the crisis premise for FCC and Doomsday |
+| `name` of Doomsday | "Doomsday Committee (name TBC)", category Crisis | Its full name, and its category if it isn't a crisis committee |
+| `image`, `logo` | `""` for UNCSW, UNICEF, FCC, COPUOS and Doomsday; borrowed for the rest | OakJMUN photos and logo circles |
+| `guide.file` | `""` (all 11), shown as "Coming soon" | Each background guide PDF |
 | `eb` | Three roles per committee with `name`, `photo` and `bio` all `""`, shown as "EB announced soon" | Each chair's name, photo and bio |
 
 ### `secretariat.json` (14 people)
@@ -73,6 +74,7 @@ SPEC 7.4 allows generic UN-room photos and committee logo circles from `srijai-k
 | --- | --- | --- |
 | `name` of person 14 | "Name TBC" (the second USG of Technology) | Their name |
 | `photo`, `signature` | `""` for everyone; cards show initials in a teal ring | Photos (and signatures, if you want them on the cards) |
+| `blurb` | `""` for everyone, shown as "Profile TBC." (the text is `secretariatPage.blurbTBC` in `site.json`) | One short line each |
 | `instagram` | `""` for everyone; the back of a card has no Instagram button | Handles, if they want them shown |
 
 ### `schedule.json`
@@ -95,7 +97,6 @@ SPEC 7.4 allows generic UN-room photos and committee logo circles from `srijai-k
 | Field | Now | Needed |
 | --- | --- | --- |
 | `documents` (Rules of Procedure, Delegation Guidelines, Consent Form) | Descriptions end "(TBC)"; `file` `""`, shown as "Coming soon" | The PDFs, and the descriptions checked |
-| `ipGuides` (Journalism, Photography) | Descriptions end "(TBC)"; `file` `""`; Photography has no photo | The PDFs, and a photo for Photography |
 
 ### `socialNight.json`
 

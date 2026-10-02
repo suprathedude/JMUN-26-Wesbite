@@ -30,6 +30,20 @@ function collectText() {
     const parts = m[1].split(/[\s,/]+/).filter(Boolean).map(Number);
     return { rgb: parts.slice(0, 3), alpha: parts.length > 3 ? parts[3] : 1 };
   };
+  // The face of a flip card that's turned away (backface-visibility: hidden, rotated past 90
+  // degrees by itself and its ancestors) isn't drawn, so its text isn't on screen.
+  const facingAway = (el) => {
+    for (let face = el; face; face = face.parentElement) {
+      if (getComputedStyle(face).backfaceVisibility !== "hidden") continue;
+      let m = new DOMMatrix();
+      for (let a = face; a; a = a.parentElement) {
+        const t = getComputedStyle(a).transform;
+        if (t && t !== "none") m = new DOMMatrix(t).multiply(m);
+      }
+      if (m.m33 < 0) return true;
+    }
+    return false;
+  };
   const items = [];
   for (const el of document.querySelectorAll("body *")) {
     if (el.dataset.contrastDone) continue;
@@ -40,6 +54,7 @@ function collectText() {
     const cs = getComputedStyle(el);
     if (cs.visibility === "hidden" || cs.display === "none") continue;
     if (cs.backgroundClip === "text" || cs.webkitBackgroundClip === "text") continue; // gradient text: checked by eye
+    if (facingAway(el)) continue;
     const boxes = own.map((n) => {
       const range = document.createRange();
       range.selectNodeContents(n);

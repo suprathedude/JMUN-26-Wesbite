@@ -1,7 +1,7 @@
 {#- Filter chips for committee categories (SPEC 9.2): "All", then each category in use, in the
     spec's order with plural labels, then any other category under its own name. -#}
 {%- macro categoryChips(list, label="Filter by type") -%}
-{%- set names = { "General Assembly": "General Assembly", "Council": "Councils", "Agency": "Agencies", "Assembly": "Assembly", "Crisis": "Crisis", "Press": "Press" } -%}
+{%- set names = { "General Assembly": "General Assembly", "Council": "Councils", "Agency": "Agencies", "Commission": "Commissions", "Assembly": "Assembly", "Crisis": "Crisis", "Press": "Press" } -%}
 {%- set used = [] -%}
 {%- for c in list %}{% if c.category not in used %}{% set used = (used.push(c.category), used) %}{% endif %}{% endfor -%}
 <div class="chips" role="group" aria-label="{{ label }}">

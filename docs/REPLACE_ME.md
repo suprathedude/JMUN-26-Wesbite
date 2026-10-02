@@ -43,4 +43,5 @@ Allowed by SPEC 7.4 (generic UN-room photos and committee logo circles), taken f
 | `schedule.json` | Every start and end time, and whether the closing ceremony comes before or after Social Night. |
 | `faq.json` | How to register, the dress code, and the contact email. |
 | `resources.json` | The Rules of Procedure, Delegation Guidelines and Consent Form files; both International Press style guides and their photos. |
-| `socialNight.json` | Start and finish time, costume rules, the programme, the photo-booth picture, and three of the four FAQ answers. |
+| `socialNight.json` | Start and finish time, costume rules, the programme, the photo-booth picture (`photoBoothImage`; until it's set the page shows "Photo TBC"), and the FAQ answers. |
+| `newToMun.json` | Whether committees ask for position papers, whether laptops are allowed, the exact phone rule, and where and when registration is. USG Policy should check the steps, phrases and glossary against OakJMUN's rules of procedure (the note at the bottom of the page says so). |

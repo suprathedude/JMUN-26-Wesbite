@@ -1,0 +1,169 @@
+{
+  "intro": {
+    "label": "For first-time delegates",
+    "text": [
+      "Model United Nations (MUN) is a role-play of the real United Nations. You speak for a country, and you work with the other delegates in your committee on a real world problem until the committee votes on a plan to solve it."
+    ],
+    "placard": "Your country"
+  },
+  "stepsIntro": "Every committee follows these steps, in this order. Your chairs run each one and tell you what comes next, so you don't need to remember it all.",
+  "steps": [
+    {
+      "title": "Roll call",
+      "text": "The chair reads out every country in the committee. When you hear yours, raise your placard and say \"present\", or \"present and voting\" if you promise not to abstain in the final vote."
+    },
+    {
+      "title": "Setting the agenda",
+      "text": "If the committee has more than one topic, it votes on which one to discuss first. With one topic, this step takes a minute."
+    },
+    {
+      "title": "General Speakers List",
+      "text": "Delegates add their country to a list and take turns giving a short speech on what their country thinks. Your opening speech goes here."
+    },
+    {
+      "title": "Moderated caucus",
+      "text": "A shorter debate on one part of the topic. A delegate suggests it, the committee votes, and then the chair picks speakers one at a time."
+    },
+    {
+      "title": "Unmoderated caucus",
+      "text": "Free time to leave your seat and talk. Find the countries that agree with you and start writing your ideas down together."
+    },
+    {
+      "title": "Working papers",
+      "text": "Each group of countries writes its ideas on paper. A working paper is a first draft, so it doesn't need a set format."
+    },
+    {
+      "title": "Draft resolution",
+      "text": "When a working paper is rewritten in the proper format, with countries signed up to support it, it becomes a draft resolution. The committee debates it and can change it."
+    },
+    {
+      "title": "Voting by placard",
+      "text": "The chair asks who is for, who is against and who abstains, and you raise your placard each time. If more countries vote for it than against, the draft resolution passes."
+    }
+  ],
+  "checklistIntro": "Do these in the weeks before {date}.",
+  "checklist": [
+    {
+      "title": "Read your background guide.",
+      "text": "It explains your committee's topic. Find it on your committee's page or on Resources once it's released."
+    },
+    {
+      "title": "Research your country's view.",
+      "text": "What has your country said or done about the topic? The research links on Resources are a good place to start."
+    },
+    {
+      "title": "Write a 60 to 90-second opening speech.",
+      "text": "Say who you are, what your country thinks and what you'd like the committee to do. Practise it out loud with a timer."
+    },
+    {
+      "title": "Write a position paper if your committee asks for one (TBC).",
+      "text": "Your chairs will tell you if they want one and how long it should be."
+    }
+  ],
+  "onTheDay": [
+    {
+      "title": "What to bring",
+      "icon": "backpack",
+      "items": [
+        "A notebook and two pens",
+        "Your opening speech and research notes",
+        "A water bottle",
+        "Your laptop, if your committee allows one (TBC)"
+      ]
+    },
+    {
+      "title": "Your phone",
+      "icon": "smartphone",
+      "items": [
+        "You can bring your phone, but you can only use it at set times during committee sessions.",
+        "The exact phone rule is TBC."
+      ]
+    },
+    {
+      "title": "Where to go",
+      "icon": "map-pin",
+      "items": [
+        "On the first morning, go to registration before anything else (place and time TBC).",
+        "Someone from the Secretariat will show you to your committee room."
+      ]
+    }
+  ],
+  "phrasesIntro": "Not sure what to say? Read these out as they're written, with your own country's name.",
+  "phrases": [
+    {
+      "when": "To join the speakers list",
+      "text": "The delegate of India would like to be added to the speakers list."
+    },
+    {
+      "when": "To ask for a moderated caucus",
+      "text": "Motion for a moderated caucus on [topic], total time 10 minutes, speaking time 1 minute."
+    },
+    {
+      "when": "When you finish your speech",
+      "text": "The delegate yields the floor back to the chair."
+    },
+    {
+      "when": "To ask another delegate a question",
+      "text": "Point of information to the delegate of France."
+    }
+  ],
+  "glossary": [
+    {
+      "term": "Present / present and voting",
+      "definition": "What you say at roll call. \"Present and voting\" means you won't abstain when the committee votes on a draft resolution."
+    },
+    {
+      "term": "Placard",
+      "definition": "The card with your country's name on it. You raise it to speak, to answer roll call and to vote."
+    },
+    {
+      "term": "GSL",
+      "definition": "Short for General Speakers List: the list of countries waiting to give a speech."
+    },
+    {
+      "term": "Moderated caucus",
+      "definition": "A short debate on one part of the topic, where the chair picks each speaker."
+    },
+    {
+      "term": "Unmoderated caucus",
+      "definition": "Free time to leave your seat, talk to other delegates and write together."
+    },
+    {
+      "term": "Yield",
+      "definition": "Giving away the rest of your speaking time: to the chair, to another delegate or to questions."
+    },
+    {
+      "term": "Point of order",
+      "definition": "Used when you think the rules weren't followed correctly."
+    },
+    {
+      "term": "Point of information",
+      "definition": "A question to a delegate about the speech they just gave."
+    },
+    {
+      "term": "Point of personal privilege",
+      "definition": "Used when something stops you taking part, for example if you can't hear the speaker or the room is too cold."
+    },
+    {
+      "term": "Bloc",
+      "definition": "A group of countries that agree with each other and work together."
+    },
+    {
+      "term": "Working paper",
+      "definition": "A first draft of a bloc's ideas, with no set format."
+    },
+    {
+      "term": "Draft resolution",
+      "definition": "A working paper written in the proper format and supported by enough countries to be debated and voted on."
+    },
+    {
+      "term": "Preambulatory clause",
+      "definition": "A line at the start of a resolution that explains the problem and what has already been done. Each one starts with a word like \"Recognising\" or \"Noting\"."
+    },
+    {
+      "term": "Operative clause",
+      "definition": "A numbered line that says what the committee will do. Each one starts with a verb like \"Encourages\" or \"Calls upon\"."
+    }
+  ],
+  "note": "Procedure may differ slightly at OakJMUN. Check with USG Policy (TBC)."
+}

@@ -8,7 +8,7 @@
 
 .alloc {
   position: relative;
-  padding: calc(var(--section-pad) + 16px) 0 clamp(48px, 7vw, 80px);
+  padding: calc(var(--section-pad) + 48px) 0 clamp(48px, 7vw, 80px);
 }
 
 .alloc__orb--a {
@@ -29,40 +29,6 @@
 
 .alloc__inner {
   position: relative;
-}
-
-/* "Oakridge JMUN XIV | Delegate assignments | dates" above the title */
-.alloc__meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 16px;
-  margin-bottom: 28px;
-  font-size: var(--fs-label);
-  font-weight: 700;
-  letter-spacing: var(--track-label);
-  line-height: 1.4;
-  text-transform: uppercase;
-  color: var(--ink-50);
-}
-
-.alloc__meta > span + span {
-  padding-left: 16px;
-  border-left: 1px solid rgb(var(--teal-rgb) / 0.2);
-}
-
-.alloc__meta .alloc__tag {
-  padding: 5px 14px;
-  border: 1px solid rgb(var(--teal-rgb) / 0.35);
-  border-radius: 6px;
-  background: rgb(var(--teal-rgb) / 0.06);
-  font-weight: 800;
-  color: var(--teal);
-}
-
-.alloc__meta .alloc__tag + span {
-  border-left: 0;
-  padding-left: 0;
 }
 
 /* The teal bar hangs outside the text column, as OakMUN's does */
@@ -267,22 +233,6 @@
 
   .rounds__date {
     grid-column: 2;
-  }
-
-  /* Stacked, so a wrapped line never starts with a divider */
-  .alloc__meta {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
-  .alloc__meta > span + span {
-    padding-left: 0;
-    border-left: 0;
-  }
-
-  .alloc__meta .alloc__tag {
-    margin-bottom: 4px;
   }
 
   .alloc__facts {

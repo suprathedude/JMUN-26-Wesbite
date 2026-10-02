@@ -32,7 +32,7 @@
 
 .res-head {
   position: relative;
-  padding: calc(var(--section-pad) + 16px) 0 56px;
+  padding: calc(var(--section-pad) + 48px) 0 56px;
 }
 
 .res-head__inner {
@@ -41,14 +41,6 @@
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: end;
   gap: 32px;
-}
-
-.res-head__eyebrow {
-  margin-bottom: 20px;
-}
-
-.res-head__eyebrow span {
-  white-space: nowrap;
 }
 
 .res-head__text {
@@ -87,26 +79,6 @@
   line-height: 1.4;
   text-transform: uppercase;
   color: var(--teal);
-}
-
-/* "01 Background guides": a large faint number beside each section title (reference/21, 23) */
-.res-title {
-  display: flex;
-  align-items: flex-end;
-  gap: 20px;
-}
-
-.res-title__num {
-  flex-shrink: 0;
-  font-size: clamp(3.5rem, 6vw, 5.25rem);
-  font-weight: 900;
-  letter-spacing: -0.06em;
-  line-height: 0.78;
-  color: rgb(var(--teal-rgb) / 0.12);
-}
-
-.res-title .t-section {
-  padding-bottom: 2px;
 }
 
 .res-section {
@@ -293,6 +265,12 @@
     padding-block: 48px;
   }
 
+  /* 16 px minimum for running text on phones */
+  .doc__text,
+  .link-card__text {
+    font-size: 1rem;
+  }
+
   .res-head__inner {
     grid-template-columns: 1fr;
   }
@@ -303,17 +281,6 @@
 
   .res-head__mark {
     display: none;
-  }
-
-  /* Number above the title, so a long title can wrap under itself */
-  .res-title {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .res-title__num {
-    font-size: 3rem;
   }
 
   .res-head__pill {

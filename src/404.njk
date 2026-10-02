@@ -3,11 +3,18 @@ layout: layouts/base.njk
 title: Page not found
 permalink: /404.html
 eleventyExcludeFromCollections: true
+pageCss: [not-found]
 ---
-{#- Task 7 adds the "POINT OF ORDER" placard. -#}
-<section class="stub stub--centre">
-  <div class="container">
-    <h1 class="t-page">Page not found</h1>
-    <p class="stub__note t-body">This page doesn't exist. <a class="t-teal" href="/">Go to the homepage</a> or <a class="t-teal" href="/committees/">see the committees</a>.</p>
+{%- from "partials/placard.njk" import placard -%}
+{#- SPEC 9.9: one raised placard above the line, with a link home and to Committees. -#}
+<section class="nf" aria-labelledby="nf-title">
+  <div class="orb nf__orb" aria-hidden="true"></div>
+  <div class="container nf__inner">
+    {{ placard("Point of order", "placard--sign placard--rise nf__placard") }}
+    <h1 class="nf__title" id="nf-title">This page doesn't exist.</h1>
+    <div class="nf__actions">
+      <a class="btn btn--primary" href="/">Go to the homepage</a>
+      <a class="btn btn--outline" href="/committees/">See the committees</a>
+    </div>
   </div>
 </section>

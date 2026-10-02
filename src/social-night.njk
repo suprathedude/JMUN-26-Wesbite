@@ -1,11 +1,80 @@
 ---
 layout: layouts/base.njk
 title: Social Night
+description: Social Night, Halloween edition, on Saturday 31 October in the MPH at Oakridge JMUN 2026. What to expect, what to wear, the 3D photo booth and answers to common questions.
 permalink: /social-night/
+pageCss: [social-night]
+pageJs: [social-night, faq]
+bodyClass: page-night
 ---
-<section class="stub ">
-  <div class="container">
-    <h1 class="t-page">Social Night</h1>
-    <p class="stub__note t-body">This page is being built. Content TBC.</p>
+{%- from "partials/faq.njk" import faqList -%}
+{%- from "partials/cobweb.njk" import cobweb -%}
+{%- set sn = socialNight -%}
+{%- set time = sn.time if (sn.time | isSet) else "Time TBC" -%}
+
+{#- Hero: reference/24's layout. OakMUN's globe becomes the moon; bats and embers are added
+    by social-night.js (none with reduced motion, fewer on phones, paused off-screen). -#}
+<section class="sn-hero" aria-labelledby="sn-title" data-night>
+  <div class="sn-sky" aria-hidden="true" data-sky></div>
+  {{ cobweb("cobweb--hero") }}
+  <div class="container sn-hero__grid">
+    <div class="sn-hero__art" aria-hidden="true">
+      <div class="moon-lg">
+        <span class="moon-lg__crater moon-lg__crater--1"></span>
+        <span class="moon-lg__crater moon-lg__crater--2"></span>
+        <span class="moon-lg__crater moon-lg__crater--3"></span>
+        <span class="moon-lg__crater moon-lg__crater--4"></span>
+      </div>
+    </div>
+    <div class="sn-hero__text">
+      <h1 class="sn-hero__title" id="sn-title">Social Night <span>{{ sn.edition }}</span></h1>
+      <p class="sn-hero__meta">{{ sn.date }} · {{ sn.place }} · {{ time }}</p>
+      <a class="btn sn-btn" href="/#schedule">See the schedule</a>
+    </div>
+  </div>
+</section>
+
+<section class="sn-info" aria-label="Details">
+  <div class="container sn-info__grid">
+    <div class="sn-info__item">
+      <h2 class="sn-info__title">What to expect</h2>
+      <p>{{ sn.expect }}</p>
+    </div>
+    <div class="sn-info__item">
+      <h2 class="sn-info__title">What to wear</h2>
+      <p>{{ sn.dressCode }}</p>
+    </div>
+    <div class="sn-info__item">
+      <h2 class="sn-info__title">When and where</h2>
+      <dl class="sn-when">
+        <div><dt>Day</dt><dd>{{ sn.day }}, {{ sn.date }}</dd></div>
+        <div><dt>Place</dt><dd>{{ sn.place }}</dd></div>
+        <div><dt>Time</dt><dd>{{ sn.time }}</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="section sn-booth" aria-labelledby="booth-title">
+  <div class="container sn-booth__grid">
+    <div class="sn-booth__text">
+      <h2 class="t-section sn-title" id="booth-title">3D photo booth</h2>
+      <p class="sn-booth__lead">{{ sn.photoBooth }}</p>
+    </div>
+    <div class="sn-booth__media">
+      {%- if sn.photoBoothImage | isSet %}
+      <img src="/{{ sn.photoBoothImage }}" alt="The 3D photo booth" sizes="(max-width: 768px) 100vw, 520px" eleventy:widths="400,800">
+      {%- else %}
+      <span class="photo-tbc">Photo TBC</span>
+      {%- endif %}
+    </div>
+  </div>
+</section>
+
+<section class="section sn-faq" aria-labelledby="sn-faq-title">
+  {{ cobweb("cobweb--faq") }}
+  <div class="container sn-faq__inner">
+    <h2 class="t-section sn-title" id="sn-faq-title">Questions</h2>
+    {{ faqList(sn.faq, "sn-faq") }}
   </div>
 </section>

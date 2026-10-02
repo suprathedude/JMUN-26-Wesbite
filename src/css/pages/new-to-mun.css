@@ -1,0 +1,467 @@
+/* New to MUN? (SPEC 9.7). For 11-year-olds at their first conference: short lines, big
+   steps, and the brighter accents as panels with navy text. */
+
+/* ---------- Hero: reference/24's layout, with a raised placard in the circle ---------- */
+
+.ntm-hero {
+  position: relative;
+  overflow: clip;
+  padding: calc(var(--section-pad) + 24px) 0 72px;
+  background:
+    radial-gradient(circle, rgb(var(--teal-rgb) / 0.055) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(180deg, var(--blue-800) 0%, var(--blue-700) 100%);
+}
+
+.ntm-hero__orb {
+  top: -24%;
+  left: -12%;
+  width: 760px;
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgb(var(--teal-dark-rgb) / 0.22) 0%, transparent 65%);
+}
+
+.ntm-hero__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: center;
+  gap: 64px;
+}
+
+.ntm-hero__art {
+  order: 2;
+  display: flex;
+  justify-content: center;
+}
+
+/* Circles are the Oakridge connecting shape; the placard is raised in front of one. */
+.ntm-hero__circle {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(440px, 100%);
+  aspect-ratio: 1;
+  border: 1px solid rgb(var(--teal-rgb) / 0.2);
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 42%, rgb(var(--teal-dark-rgb) / 0.3) 0%, rgb(var(--teal-dark-rgb) / 0.06) 55%, transparent 72%);
+  box-shadow:
+    0 0 120px rgb(var(--teal-rgb) / 0.1),
+    inset 0 0 80px rgb(var(--teal-rgb) / 0.06);
+}
+
+.ntm-hero__circle::before {
+  content: "";
+  position: absolute;
+  inset: 11%;
+  border: 1px solid rgb(var(--teal-rgb) / 0.08);
+  border-radius: 50%;
+}
+
+/* The tilt uses rotate, not transform, so it stays put while the rise animation runs */
+.ntm-hero__placard {
+  font-size: 30px;
+  rotate: -4deg;
+}
+
+.ntm-hero__title {
+  margin-top: 18px;
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+.ntm-hero__title span {
+  display: block;
+}
+
+.ntm-hero__lead {
+  max-width: 560px;
+  margin-top: 28px;
+  font-size: var(--fs-lead);
+  color: var(--ink-85);
+}
+
+.ntm-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 36px;
+}
+
+/* A short line under each section title */
+.ntm-intro {
+  max-width: 600px;
+  margin-top: 20px;
+  font-size: var(--fs-lead);
+  color: var(--ink-75);
+}
+
+/* ---------- How a committee session runs: a numbered sequence ---------- */
+
+.ntm-steps {
+  background: var(--blue-700);
+}
+
+.ntm-steps__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: start;
+  gap: 80px;
+}
+
+.ntm-steps__head {
+  position: sticky;
+  top: 120px;
+}
+
+.steps {
+  display: grid;
+}
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  column-gap: 22px;
+  padding-bottom: 36px;
+}
+
+/* The line joining one step's number to the next */
+.step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: 56px;
+  bottom: 4px;
+  left: 25.5px;
+  width: 1px;
+  background: rgb(var(--teal-rgb) / 0.22);
+}
+
+.step__num {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgb(var(--teal-rgb) / 0.4);
+  border-radius: 50%;
+  background: rgb(var(--teal-rgb) / 0.08);
+  font-size: 1rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--teal);
+}
+
+.step__title {
+  padding-top: 12px;
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.step__text {
+  max-width: 520px;
+  margin-top: 8px;
+  color: var(--ink-75);
+}
+
+/* ---------- Before the conference: a checklist ---------- */
+
+.ntm-prep {
+  padding-block: 96px;
+  background: var(--blue-750);
+}
+
+.checklist {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 56px;
+  margin-top: 40px;
+}
+
+.check {
+  display: flex;
+  gap: 16px;
+  padding-block: 22px;
+  border-top: 1px solid rgb(var(--teal-rgb) / 0.14);
+}
+
+.check__icon {
+  flex-shrink: 0;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--teal);
+}
+
+.check__title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+}
+
+.check__text {
+  margin-top: 6px;
+  color: var(--ink-75);
+}
+
+/* ---------- On the day: three bright panels, navy text ---------- */
+
+.ntm-day {
+  padding-block: 96px;
+  background: var(--blue-700);
+}
+
+.day-panels {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.day-panel {
+  padding: 30px 28px 32px;
+  border-radius: var(--radius-card);
+  background: var(--teal-light);
+  color: var(--navy);
+}
+
+.day-panel:nth-child(2) {
+  background: var(--yellow);
+}
+
+.day-panel:nth-child(3) {
+  background: var(--peach);
+}
+
+.day-panel__icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgb(var(--navy-rgb) / 0.1);
+  font-size: 1.4rem;
+}
+
+.day-panel__title {
+  margin-top: 18px;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+}
+
+.day-panel__list {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+  padding-left: 1.1em;
+  line-height: 1.55;
+}
+
+.day-panel__list li::marker {
+  color: rgb(var(--navy-rgb) / 0.55);
+}
+
+/* ---------- Say it like a delegate: phrases on white placards ---------- */
+
+.ntm-say {
+  background: var(--blue-800);
+}
+
+.phrases {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 36px 32px;
+  margin-top: 44px;
+}
+
+.phrase {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.phrase__face {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  padding: 30px 30px 28px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--paper);
+  box-shadow: 0 16px 40px rgb(var(--shadow-rgb) / 0.35);
+  color: var(--navy);
+}
+
+/* The placard's teal strip */
+.phrase__face::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--teal);
+}
+
+.phrase__when {
+  font-size: var(--fs-label);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: rgb(var(--navy-rgb) / 0.72);
+}
+
+.phrase__text {
+  margin-top: 12px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.phrase__handle {
+  width: 10px;
+  height: 28px;
+  border-radius: 0 0 4px 4px;
+  background: var(--blue-500);
+}
+
+/* ---------- Glossary ---------- */
+
+.ntm-words {
+  background: var(--blue-700);
+}
+
+.glossary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 56px;
+  margin-top: 40px;
+}
+
+.glossary__item {
+  padding-block: 20px;
+  border-top: 1px solid rgb(var(--teal-rgb) / 0.14);
+}
+
+.glossary dt {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--ink-100);
+}
+
+.glossary dd {
+  margin-top: 6px;
+  color: var(--ink-75);
+}
+
+.ntm-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: 680px;
+  margin-top: 48px;
+  padding: 16px 20px;
+  border-left: 3px solid var(--teal);
+  border-radius: 0 var(--radius-control) var(--radius-control) 0;
+  background: rgb(var(--teal-rgb) / 0.06);
+  color: var(--ink-85);
+}
+
+.ntm-note .icon {
+  flex-shrink: 0;
+  margin-top: 0.3em;
+  color: var(--teal);
+}
+
+/* ---------- Smaller screens ---------- */
+
+@media (max-width: 980px) {
+  .ntm-steps__grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .ntm-steps__head {
+    position: static;
+  }
+
+  .day-panels {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ntm-hero {
+    padding: calc(var(--section-pad) + 40px) 0 64px;
+  }
+
+  /* The placard sits above the title, smaller */
+  .ntm-hero__grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .ntm-hero__art {
+    order: 0;
+    justify-content: flex-start;
+  }
+
+  .ntm-hero__circle {
+    width: 200px;
+  }
+
+  .ntm-hero__placard {
+    font-size: 14px;
+  }
+
+  .ntm-hero__lead {
+    margin-top: 22px;
+  }
+
+  .ntm-prep,
+  .ntm-day {
+    padding-block: 64px;
+  }
+
+  .checklist,
+  .phrases,
+  .glossary {
+    grid-template-columns: 1fr;
+  }
+
+  .step {
+    grid-template-columns: 44px minmax(0, 1fr);
+    column-gap: 16px;
+    padding-bottom: 28px;
+  }
+
+  .step__num {
+    width: 44px;
+    height: 44px;
+  }
+
+  .step:not(:last-child)::before {
+    top: 48px;
+    left: 21.5px;
+  }
+
+  .step__title {
+    padding-top: 8px;
+    font-size: 1.2rem;
+  }
+
+  .phrase__face {
+    padding: 26px 22px 24px;
+  }
+
+  .phrase__text {
+    font-size: 1.1rem;
+  }
+}

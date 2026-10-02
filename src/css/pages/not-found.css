@@ -1,0 +1,61 @@
+/* 404 (SPEC 9.9): a single raised placard, "Point of order", above the line. */
+
+.nf {
+  position: relative;
+  overflow: clip;
+  display: grid;
+  align-items: center;
+  min-height: min(86vh, 860px);
+  padding: calc(var(--section-pad) + 32px) 0 var(--section-pad);
+  background:
+    radial-gradient(circle, rgb(var(--teal-rgb) / 0.055) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(180deg, var(--blue-800) 0%, var(--blue-700) 100%);
+  text-align: center;
+}
+
+.nf__orb {
+  top: 50%;
+  left: 50%;
+  width: 820px;
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgb(var(--teal-dark-rgb) / 0.2) 0%, transparent 62%);
+  transform: translate(-50%, -58%);
+}
+
+.nf__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Tilted with rotate, so the rise animation (transform) doesn't undo it */
+.nf__placard {
+  font-size: 30px;
+  rotate: -3deg;
+}
+
+.nf__title {
+  margin-top: 48px;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.nf__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 36px;
+}
+
+@media (max-width: 768px) {
+  .nf__placard {
+    font-size: 19px;
+  }
+
+  .nf__title {
+    margin-top: 36px;
+  }
+}

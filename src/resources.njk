@@ -23,7 +23,6 @@ pageJs: [filters]
 <header class="res-head">
   <div class="container res-head__inner">
     <div>
-      <p class="t-label res-head__eyebrow"><span>{{ site.name }} {{ site.chapter }}</span> · <span>{{ site.start | eventDates(site.end) }}</span></p>
       <h1 class="t-page">Resources.</h1>
       <p class="res-head__text">{{ rp.intro }}</p>
     </div>
@@ -42,7 +41,7 @@ pageJs: [filters]
     line in committees.json (guide.file) plus the PDF. -#}
 <section class="res-section" aria-labelledby="guides-title" data-filters data-noun="background guides">
   <div class="container">
-    <div class="res-title"><span class="res-title__num" aria-hidden="true">01</span><h2 class="t-section" id="guides-title">Background guides</h2></div>
+    <h2 class="t-section t-section--bar" id="guides-title">Background guides</h2>
     <div class="filters res-filters">
       {{ categoryChips(committees, "Filter background guides by type") }}
     </div>
@@ -61,7 +60,7 @@ pageJs: [filters]
 
 <section class="res-section" aria-labelledby="ip-title">
   <div class="container">
-    <div class="res-title"><span class="res-title__num" aria-hidden="true">02</span><h2 class="t-section" id="ip-title">International Press style guides</h2></div>
+    <h2 class="t-section t-section--bar" id="ip-title">International Press style guides</h2>
     <div class="res-grid res-grid--two">
       {%- for g in resources.ipGuides %}
       {{ guideCard({ tag: "Style guide", title: g.title, text: g.description, image: g.image, file: g.file, linkLabel: "Open PDF", level: 3 }) }}
@@ -72,7 +71,7 @@ pageJs: [filters]
 
 <section class="res-section" aria-labelledby="docs-title">
   <div class="container">
-    <div class="res-title"><span class="res-title__num" aria-hidden="true">03</span><h2 class="t-section" id="docs-title">Essential documents</h2></div>
+    <h2 class="t-section t-section--bar" id="docs-title">Essential documents</h2>
     <ul class="docs" role="list">
       {%- for d in resources.documents %}
       {%- set ready = d.file | isSet %}
@@ -94,7 +93,7 @@ pageJs: [filters]
 
 <section class="res-section res-section--last" aria-labelledby="links-title">
   <div class="container">
-    <div class="res-title"><span class="res-title__num" aria-hidden="true">04</span><h2 class="t-section" id="links-title">Research links</h2></div>
+    <h2 class="t-section t-section--bar" id="links-title">Research links</h2>
     <ul class="links" role="list">
       {%- for l in resources.researchLinks %}
       <li>

@@ -196,6 +196,22 @@ const STATES = [
       await page.waitForTimeout(300);
     },
   },
+  {
+    name: "social-night-sky-1440",
+    path: "/social-night/",
+    viewport: VIEWPORTS[1],
+    async run(page) {
+      await page.waitForTimeout(1500);
+    },
+  },
+  {
+    name: "social-night-sky-390",
+    path: "/social-night/",
+    viewport: VIEWPORTS[0],
+    async run(page) {
+      await page.waitForTimeout(1500);
+    },
+  },
   { name: "home-nav-1024", viewport: { width: 1024, height: 768, deviceScaleFactor: 1 }, async run() {} },
   { name: "home-nav-1250", viewport: { width: 1250, height: 800, deviceScaleFactor: 1 }, async run() {} },
 ];

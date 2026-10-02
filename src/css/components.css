@@ -743,49 +743,6 @@ html.is-locked {
   }
 }
 
-/* ---------- Placeholder pages (replaced task by task) ---------- */
-
-.stub {
-  min-height: 72vh;
-  padding-top: calc(var(--section-pad) + 60px);
-  padding-bottom: var(--section-pad);
-}
-
-.stub--centre {
-  text-align: center;
-}
-
-.stub__note {
-  margin-top: 24px;
-  color: var(--ink-60);
-}
-
-.stub--centre .stub__note {
-  margin-inline: auto;
-}
-
-.stub-hero {
-  display: grid;
-  place-items: center;
-  min-height: max(640px, 100svh);
-  padding: 140px var(--gutter) 80px;
-  background: var(--blue-950);
-  text-align: center;
-}
-
-.stub-hero .t-hero span {
-  display: block;
-  color: var(--teal);
-}
-
-.stub-section {
-  min-height: 90vh;
-}
-
-.stub-section--alt {
-  background: linear-gradient(180deg, var(--blue-800) 0%, var(--blue-750) 100%);
-}
-
 /* ---------- Item card (SPEC 8.6): More than debate, guides, documents ---------- */
 
 .card {
@@ -1093,6 +1050,39 @@ html.is-locked {
   }
 }
 
+/* A sign rather than a country: the face fits the words (the 404's "Point of order") */
+.placard--sign .placard__face {
+  width: auto;
+  padding-inline: 1.1em;
+}
+
+.placard--sign .placard__name {
+  font-size: 0.95em;
+}
+
+/* Raised once as the page opens (New to MUN? and the 404) */
+@keyframes placard-rise {
+  from {
+    opacity: 0;
+    transform: translateY(45%);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.placard--rise {
+  animation: placard-rise 0.8s var(--ease-out-expo) 0.15s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .placard--rise {
+    animation: none;
+  }
+}
+
 /* ---------- Filter band: chips and search (SPEC 8.4), committees and resources ---------- */
 
 .filters {
@@ -1289,6 +1279,13 @@ html.is-locked {
 .guide__topic {
   font-size: 0.9rem;
   color: var(--ink-75);
+}
+
+/* 16 px minimum for running text on phones */
+@media (max-width: 768px) {
+  .guide__topic {
+    font-size: 1rem;
+  }
 }
 
 .guide__foot {

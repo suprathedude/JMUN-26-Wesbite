@@ -88,5 +88,35 @@ export function validateData() {
     if (!/^https:\/\//.test(link.url ?? "")) add("resources.json", `researchLinks ${i + 1} (${link.title})`, "the url must start with https://");
   });
 
+  const guide = load("newToMun.json");
+  for (const key of ["steps", "checklist", "onTheDay", "phrases", "glossary"]) {
+    if (!Array.isArray(guide[key]) || guide[key].length === 0) add("newToMun.json", key, "needs at least one item.");
+  }
+  (guide.steps ?? []).forEach((s, i) => {
+    if (!s.title || !s.text) add("newToMun.json", `step ${i + 1}`, "needs a title and a text.");
+  });
+  (guide.checklist ?? []).forEach((c, i) => {
+    if (!c.title) add("newToMun.json", `checklist item ${i + 1}`, "needs a title.");
+  });
+  (guide.onTheDay ?? []).forEach((p, i) => {
+    const where = `onTheDay ${i + 1} (${p.title || "no title"})`;
+    if (!p.title || !Array.isArray(p.items)) add("newToMun.json", where, "needs a title and a list of items.");
+    if (p.icon && !existsSync(`node_modules/lucide-static/icons/${p.icon}.svg`)) {
+      add("newToMun.json", where, `there's no icon called "${p.icon}". Use a name from lucide.dev/icons.`);
+    }
+  });
+  (guide.phrases ?? []).forEach((p, i) => {
+    if (!p.when || !p.text) add("newToMun.json", `phrase ${i + 1}`, "needs a when and a text.");
+  });
+  (guide.glossary ?? []).forEach((t, i) => {
+    if (!t.term || !t.definition) add("newToMun.json", `glossary ${i + 1}`, "needs a term and a definition.");
+  });
+
+  const night = load("socialNight.json");
+  if (missingFile(night.photoBoothImage)) add("socialNight.json", "photoBoothImage", `there's no file at src/${night.photoBoothImage}.`);
+  (night.faq ?? []).forEach((item, i) => {
+    if (!item.question || !item.answer) add("socialNight.json", `faq ${i + 1}`, "needs a question and an answer.");
+  });
+
   return problems;
 }

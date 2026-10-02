@@ -85,6 +85,7 @@
   --grad-bar: linear-gradient(90deg, var(--teal), transparent);
   --grad-word: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 60%); /* highlighted theme word */
   --grad-night: linear-gradient(150deg, var(--sn-brown-1) 0%, var(--sn-brown-2) 50%, var(--sn-brown-3) 100%);
+  --grad-sky: linear-gradient(180deg, var(--blue-900) 0%, var(--blue-900) 35%, var(--sn-brown-3) 100%); /* Social Night hero (SPEC 9.8) */
 
   /* Borders */
   --border-glass: 1px solid rgb(var(--ink-rgb) / 0.07);

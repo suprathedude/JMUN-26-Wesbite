@@ -1,11 +1,125 @@
 ---
 layout: layouts/base.njk
 title: New to MUN?
+description: A guide for first-time delegates at Oakridge JMUN 2026. How a committee session runs, what to prepare, what to say and what the words mean.
 permalink: /new-to-mun/
+pageCss: [new-to-mun]
 ---
-<section class="stub ">
+{%- from "partials/icons.njk" import icon -%}
+{%- from "partials/placard.njk" import placard -%}
+{%- from "partials/buttons.njk" import registerButton -%}
+{%- set g = newToMun -%}
+
+{#- Hero: the event-page layout from reference/24, with a raised placard where OakMUN has its globe. -#}
+<section class="ntm-hero" aria-labelledby="ntm-title">
+  <div class="orb ntm-hero__orb" aria-hidden="true"></div>
+  <div class="container ntm-hero__grid">
+    <div class="ntm-hero__art" aria-hidden="true">
+      <div class="ntm-hero__circle">
+        {{ placard(g.intro.placard, "ntm-hero__placard placard--rise") }}
+      </div>
+    </div>
+    <div class="ntm-hero__text">
+      <p class="t-label">{{ g.intro.label }}</p>
+      <h1 class="ntm-hero__title" id="ntm-title">New to <span class="t-teal">MUN?</span> <span>Start here.</span></h1>
+      {%- for p in g.intro.text %}
+      <p class="ntm-hero__lead">{{ p }}</p>
+      {%- endfor %}
+      <div class="ntm-hero__actions">
+        {{ registerButton(site.nav.register) }}
+        <a class="btn btn--outline" href="#session">How a session runs</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{#- A real sequence, so it's numbered (SPEC 9.7). -#}
+<section class="section ntm-steps" id="session" aria-labelledby="session-title">
+  <div class="container ntm-steps__grid">
+    <div class="ntm-steps__head">
+      <h2 class="t-section t-section--bar" id="session-title">How a committee session runs</h2>
+      <p class="ntm-intro">{{ g.stepsIntro }}</p>
+    </div>
+    <ol class="steps" role="list">
+      {%- for s in g.steps %}
+      <li class="step">
+        <span class="step__num" aria-hidden="true">{{ ("0" ~ loop.index) if loop.index < 10 else loop.index }}</span>
+        <h3 class="step__title">{{ s.title }}</h3>
+        <p class="step__text">{{ s.text }}</p>
+      </li>
+      {%- endfor %}
+    </ol>
+  </div>
+</section>
+
+<section class="section ntm-prep" aria-labelledby="prep-title">
   <div class="container">
-    <h1 class="t-page">New to MUN?</h1>
-    <p class="stub__note t-body">This page is being built. Content TBC.</p>
+    <h2 class="t-section t-section--bar" id="prep-title">Before the conference</h2>
+    <p class="ntm-intro">{{ g.checklistIntro | fill({ date: site.start | dayMonth }) }}</p>
+    <ul class="checklist" role="list">
+      {%- for c in g.checklist %}
+      <li class="check">
+        <span class="check__icon" aria-hidden="true">{{ icon("circle-check") }}</span>
+        <div>
+          <h3 class="check__title">{{ c.title }}</h3>
+          <p class="check__text">{{ c.text }}</p>
+        </div>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+
+{#- The brighter accents as panel backgrounds, with navy text (SPEC 9.7). -#}
+<section class="section ntm-day" aria-labelledby="day-title">
+  <div class="container">
+    <h2 class="t-section t-section--bar" id="day-title">On the day</h2>
+    <div class="day-panels">
+      {%- for p in g.onTheDay %}
+      <div class="day-panel">
+        <span class="day-panel__icon" aria-hidden="true">{{ icon(p.icon) }}</span>
+        <h3 class="day-panel__title">{{ p.title }}</h3>
+        <ul class="day-panel__list">
+          {%- for item in p.items %}
+          <li>{{ item }}</li>
+          {%- endfor %}
+        </ul>
+      </div>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+{#- Each phrase is a small white placard to read out (SPEC 9.7). -#}
+<section class="section ntm-say" aria-labelledby="say-title">
+  <div class="container">
+    <h2 class="t-section t-section--bar" id="say-title">Say it like a delegate</h2>
+    <p class="ntm-intro">{{ g.phrasesIntro }}</p>
+    <ul class="phrases" role="list">
+      {%- for p in g.phrases %}
+      <li class="phrase">
+        <div class="phrase__face">
+          <h3 class="phrase__when">{{ p.when }}</h3>
+          <p class="phrase__text">“{{ p.text }}”</p>
+        </div>
+        <span class="phrase__handle" aria-hidden="true"></span>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="section ntm-words" id="glossary" aria-labelledby="glossary-title">
+  <div class="container">
+    <h2 class="t-section t-section--bar" id="glossary-title">Glossary</h2>
+    <dl class="glossary">
+      {%- for t in g.glossary %}
+      <div class="glossary__item">
+        <dt>{{ t.term }}</dt>
+        <dd>{{ t.definition }}</dd>
+      </div>
+      {%- endfor %}
+    </dl>
+    <p class="ntm-note">{{ icon("info") }}<span>{{ g.note }}</span></p>
   </div>
 </section>

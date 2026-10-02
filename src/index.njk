@@ -2,7 +2,7 @@
 layout: layouts/base.njk
 description: Oakridge Junior Model United Nations 2026, 30 and 31 October at Oakridge International School, Gachibowli, Hyderabad.
 pageCss: [home]
-pageJs: [intro-placards, countdown, marquee, stats, schedule, wheel, faq]
+pageJs: [intro-placards, hero-video, countdown, marquee, stats, schedule, wheel, faq]
 intro: true
 ---
 {%- from "partials/icons.njk" import icon -%}
@@ -15,6 +15,10 @@ intro: true
   <div class="hero__bg" aria-hidden="true">
     {%- if site.hero.image %}
     <img class="hero__img" src="/{{ site.hero.image }}" alt="" loading="eager" fetchpriority="high" sizes="100vw" eleventy:widths="800,1200,1600">
+    {%- if site.hero.video | isSet %}
+    {#- Sources are added by hero-video.js, so phones and reduced motion never download it. -#}
+    <video class="hero__video" muted loop playsinline preload="none" aria-hidden="true" data-hero-video data-webm="/{{ site.hero.video }}.av1.webm" data-mp4="/{{ site.hero.video }}.h264.mp4"></video>
+    {%- endif %}
     {%- endif %}
     <div class="hero__overlay"></div>
     <div class="hero__dots"></div>

@@ -31,6 +31,7 @@ pageJs: [filters]
 
   <div class="tiles">
     {%- for c in committees %}
+    {%- set eager = loop.index <= 4 %}
     {% include "partials/committee-tile.njk" %}
     {%- endfor %}
   </div>

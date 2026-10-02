@@ -29,13 +29,29 @@
   background: linear-gradient(to bottom, transparent 45%, var(--blue-950) 100%);
 }
 
-.hero__img {
+.hero__img,
+.hero__video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   opacity: 0.22;
+}
+
+/* The video fades in over its poster once it's actually playing */
+.hero__video {
+  opacity: 0;
+  transition: opacity 0.8s var(--ease-standard);
+}
+
+.hero__video.is-playing {
+  opacity: 0.22;
+}
+
+.hero__bg:has(.hero__video.is-playing) .hero__img {
+  opacity: 0;
+  transition: opacity 0.8s var(--ease-standard);
 }
 
 /* OakMUN multiplies the overlay into the picture; without the blend it reads far lighter. */
@@ -103,7 +119,7 @@
   letter-spacing: 0.28em;
   line-height: 1.5;
   text-transform: uppercase;
-  color: var(--ink-75);
+  color: var(--ink-85);
 }
 
 .hero__meta::before,
@@ -794,6 +810,12 @@
   color: var(--ink-60);
 }
 
+@media (max-width: 768px) {
+  .schedule__note {
+    font-size: 1rem; /* 16 px minimum for running text on phones */
+  }
+}
+
 .tabs {
   display: none;
   gap: 6px;
@@ -984,6 +1006,7 @@
 .tl-event--meal {
   --c: var(--sand-rgb);
   --dot: var(--sand);
+  --tag: color-mix(in srgb, var(--sand) 65%, var(--ink)); /* sand alone is too dark for small text */
   --tint: 0.08;
   --edge: 0.13;
 }
@@ -1052,7 +1075,7 @@
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--dot);
+  color: var(--tag, var(--dot));
 }
 
 @media (hover: hover) {
@@ -1288,10 +1311,19 @@
 
 /* ---------- More than debate (reference/10) ---------- */
 
+/* Skipped until it's near the screen, so the italic font for "debate." loads late */
 .debate {
   position: relative;
   overflow: hidden;
   background: var(--blue-900);
+  content-visibility: auto;
+  contain-intrinsic-size: auto 760px;
+}
+
+@media (max-width: 768px) {
+  .debate {
+    contain-intrinsic-size: auto 970px;
+  }
 }
 
 .debate__orb {

@@ -23,6 +23,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/assets/favicon.svg": "assets/favicon.svg" });
   // Background guides and other documents (PDFs keep their names; see src/_headers).
   eleventyConfig.addPassthroughCopy("src/assets/docs/**/*.pdf");
+  eleventyConfig.addPassthroughCopy("src/assets/video/*.{webm,mp4}"); // npm run media's output, not the sources
 
   // Every <img> becomes a <picture> with avif and webp sizes (SPEC 5). Lazy by default; the
   // hero sets loading="eager" and fetchpriority="high" itself. Per image, eleventy:widths

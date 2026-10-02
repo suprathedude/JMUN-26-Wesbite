@@ -116,18 +116,25 @@
   pointer-events: none;
 }
 
+/* A dark pill, so the label stays readable over the brightest part of any photo */
 .tile__category {
   position: absolute;
-  top: 20px;
+  top: 18px;
   left: 0;
   right: 0;
+  width: max-content;
+  max-width: calc(100% - 24px);
+  margin-inline: auto;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  background: rgb(var(--wash-rgb) / 0.8);
   font-size: var(--fs-label);
   font-weight: 800;
   letter-spacing: 0.16em;
+  line-height: 1.4;
   text-align: center;
   text-transform: uppercase;
-  text-shadow: 0 1px 8px rgb(var(--shadow-rgb) / 0.6);
-  color: var(--ink-85);
+  color: var(--ink-100);
 }
 
 .tile__code {
@@ -255,14 +262,15 @@
   }
 
   .tile__category {
-    top: 14px;
+    top: 12px;
+    padding: 4px 10px;
     font-size: 0.7rem;
     letter-spacing: 0.12em;
   }
 
   .tile__name {
     margin-top: 10px;
-    font-size: 0.9rem;
+    font-size: 1rem; /* 16 px minimum for running text on phones */
   }
 }
 

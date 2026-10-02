@@ -15,7 +15,7 @@ Allowed by SPEC 7.4 (generic UN-room photos and committee logo circles), taken f
 
 | What | Our file | OakMUN source | Notes |
 | --- | --- | --- | --- |
-| Hero background (PLAN.md D4) | `src/assets/img/hero/hero-placeholder.jpg` | `public/committee_photos/unsc.jpg` | The General Assembly hall, cropped, black and white, softened. Replace with a photo or short video of the MPH or a committee room, then set `hero.image` (or `hero.video`) in `site.json`. |
+| Hero background (PLAN.md D4) | `src/assets/img/hero/hero-placeholder.jpg` | `public/committee_photos/unsc.jpg` | The General Assembly hall, cropped, black and white, softened. Replace with a photo or short video of the MPH or a committee room. For a photo, set `hero.image` in `site.json`. For a video (20 s or less), save it as `src/assets/video/source/hero.mp4`, run `npm run media`, then set `hero.video` to `assets/video/hero` and `hero.image` to the poster it made, `assets/img/hero-poster.jpg`. |
 | Committee photos (9) | `src/assets/img/committees/<slug>.jpg` | `public/committee_photos/` (`disec`, `unga_sochum`, `unhrc`, `unsc`, `who`, `unodc`, `lok_sabha`, `jcc-1`, `IP`) | Converted to black and white by `npm run media` (PLAN.md D2). ECOSOC, UNEP and UNICEF have none and show "Photo TBC". The IP photo is also the Journalism style guide's photo on Resources (`resources.json`). |
 | Committee logo circles (9) | `src/assets/img/logos/<slug>.png` | `public/new_logos/<name> (1).png` | Trimmed to the emblem and resized to 320 px. DISEC, UNSC and UNODC all use the plain UN emblem. ECOSOC, UNEP and UNICEF show a globe icon instead. |
 

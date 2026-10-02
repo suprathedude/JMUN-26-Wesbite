@@ -155,6 +155,7 @@
 
 @media (max-width: 768px) {
   :root {
+    --fs-label: 0.75rem; /* 12 px on phones: Lighthouse's floor for legible text */
     --gutter: 20px;
     --section-pad: 72px;
     --nav-top: 10px;

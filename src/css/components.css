@@ -1278,7 +1278,7 @@ html.is-locked {
 
 .guide__topic {
   font-size: 0.9rem;
-  color: var(--ink-75);
+  color: var(--ink-85);
 }
 
 /* 16 px minimum for running text on phones */

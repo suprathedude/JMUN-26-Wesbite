@@ -10,9 +10,10 @@
 //
 // On a new machine, install the browser once: npx playwright install chromium
 import { chromium } from "playwright";
-import { mkdir, readdir, stat } from "node:fs/promises";
+import { mkdir, stat } from "node:fs/promises";
 import path from "node:path";
 import { serve } from "./lib/serve.mjs";
+import { findPages } from "./lib/pages.mjs";
 
 const SITE = "_site";
 const OUT = "screenshots";
@@ -30,21 +31,6 @@ const contextFor = ({ width, height, ...rest }, reducedMotion) => ({
   ...rest,
   reducedMotion,
 });
-
-async function findPages(dir, base = dir) {
-  const pages = [];
-  for (const entry of await readdir(dir, { withFileTypes: true })) {
-    const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) pages.push(...(await findPages(full, base)));
-    else if (entry.name === "index.html" || entry.name === "404.html") {
-      const rel = path.relative(base, full).split(path.sep).join("/");
-      const url = "/" + rel.replace(/index\.html$/, "");
-      const name = rel === "index.html" ? "home" : rel.replace(/\/?index\.html$/, "").replace(/\.html$/, "").replaceAll("/", "-");
-      pages.push({ url, name });
-    }
-  }
-  return pages.sort((a, b) => a.url.localeCompare(b.url));
-}
 
 // Scroll to the bottom and back so lazy images and on-view effects have run. Full-page
 // captures count as off-screen, so sections using content-visibility: auto are forced to

@@ -27,6 +27,13 @@ export function validateData() {
   }
   if (missingFile(site.crest)) add("site.json", "crest", `there's no file at src/${site.crest}.`);
   if (missingFile(site.hero?.image)) add("site.json", "hero.image", `there's no file at src/${site.hero.image}.`);
+  // hero.video is a name without an extension, e.g. "assets/video/hero", for the two files
+  // npm run media makes from src/assets/video/source/hero.mp4.
+  if (site.hero?.video && !/TBC/.test(site.hero.video)) {
+    for (const ext of [".av1.webm", ".h264.mp4"]) {
+      if (missingFile(site.hero.video + ext)) add("site.json", "hero.video", `there's no file at src/${site.hero.video}${ext}. Run npm run media first.`);
+    }
+  }
   if (missingFile(site.sgLetter?.photo)) add("site.json", "sgLetter.photo", `there's no file at src/${site.sgLetter.photo}.`);
   (site.sponsors ?? []).forEach((s, i) => {
     if (!s.logo || missingFile(s.logo)) add("site.json", `sponsor ${i + 1} (${s.name})`, `needs a logo file; there's nothing at src/${s.logo}.`);

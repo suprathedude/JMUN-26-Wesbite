@@ -67,9 +67,9 @@ export default function (eleventyConfig) {
     "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen", "Twenty"];
   eleventyConfig.addFilter("numberWord", (n) => WORDS[n] ?? String(n));
 
-  // "30 October" from an ISO date.
-  eleventyConfig.addFilter("dayMonth", (iso) =>
-    new Date(iso).toLocaleDateString("en-GB", { timeZone: "Asia/Kolkata", day: "numeric", month: "long" }),
+  // "30 October" from an ISO date; "30 Oct" with dayMonth("short").
+  eleventyConfig.addFilter("dayMonth", (iso, month = "long") =>
+    new Date(iso).toLocaleDateString("en-GB", { timeZone: "Asia/Kolkata", day: "numeric", month }),
   );
 
   // Fills {tokens} in copy from site.json, e.g. "{count} committees".
@@ -98,6 +98,32 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("countParts", (value) => {
     const match = String(value).match(/^(\d+)(.*)$/);
     return match ? { num: Number(match[1]), suffix: match[2] } : null;
+  });
+
+  // How many committees have a released background guide (guide.file set).
+  eleventyConfig.addFilter("guidesOut", (list) => (list ?? []).filter((c) => isSet(c?.guide?.file)).length);
+
+  // Items whose field equals a value: secretariat | where("group", "usg").
+  eleventyConfig.addFilter("where", (list, key, value) => (list ?? []).filter((item) => item?.[key] === value));
+
+  // "VT" for "Vihaan T."; "TBC" for a name that's still TBC (PLAN.md 5.2, S7).
+  eleventyConfig.addFilter("initials", (name) => {
+    if (/TBC/.test(name ?? "")) return "TBC";
+    return String(name ?? "")
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((word) => word[0].toUpperCase())
+      .join("");
+  });
+
+  // "un.org" from "https://www.un.org/en/".
+  eleventyConfig.addFilter("domain", (url) => {
+    try {
+      return new URL(url).hostname.replace(/^www\./, "");
+    } catch {
+      return "";
+    }
   });
 
   // Lucide icons, inlined from lucide-static with the spec's 1.5 px stroke.

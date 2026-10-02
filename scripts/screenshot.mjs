@@ -176,6 +176,26 @@ const STATES = [
     viewport: VIEWPORTS[0],
     async run() {},
   },
+  {
+    name: "secretariat-flipped-1440",
+    path: "/secretariat/",
+    viewport: VIEWPORTS[1],
+    async run(page) {
+      await page.evaluate(() => scrollTo(0, 330));
+      await page.locator(".person__flip").nth(1).click();
+      await page.waitForTimeout(900);
+    },
+  },
+  {
+    name: "resources-guides-filtered-390",
+    path: "/resources/",
+    viewport: VIEWPORTS[0],
+    async run(page) {
+      await page.getByRole("button", { name: "Crisis" }).first().click();
+      await page.locator("#guides-title").evaluate((el) => el.scrollIntoView({ block: "start" }));
+      await page.waitForTimeout(300);
+    },
+  },
   { name: "home-nav-1024", viewport: { width: 1024, height: 768, deviceScaleFactor: 1 }, async run() {} },
   { name: "home-nav-1250", viewport: { width: 1250, height: 800, deviceScaleFactor: 1 }, async run() {} },
 ];

@@ -90,6 +90,15 @@
   "committeesPage": {
     "intro": "{count} committees, one weekend. Find yours."
   },
+  "secretariatPage": {
+    "intro": "The students who plan and run Oakridge JMUN 2026."
+  },
+  "resourcesPage": {
+    "intro": "Background guides, procedure documents and research links, added here as they're released.",
+    "guidesNone": "Background guides coming soon",
+    "guidesSome": "{count} of {total} background guides out",
+    "guidesAll": "All background guides out"
+  },
   "stats": {
     "delegates": "350+",
     "days": 2,
@@ -114,15 +123,17 @@
   },
   "sponsors": [],
   "allocations": {
+    "intro": "After you register, you're given a committee and a country in allocation rounds. Each round covers the registrations received before its date. Dates TBC.",
     "rounds": [
       {
         "name": "Round 1",
-        "date": "TBC",
-        "note": "TBC"
+        "date": "Date TBC",
+        "note": "for registrations received by TBC"
       }
     ],
+    "status": "Registration opens soon (TBC)",
     "matrixUrl": "",
-    "status": "Registration opens soon (TBC)"
+    "matrixText": "The full list of committees and countries, and which delegate has each one. (TBC)"
   },
   "intro": {
     "countries": [

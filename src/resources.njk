@@ -1,11 +1,111 @@
 ---
 layout: layouts/base.njk
 title: Resources
+description: Background guides, procedure documents, International Press style guides and research links for Oakridge JMUN 2026.
 permalink: /resources/
+pageCss: [resources]
+pageJs: [filters]
 ---
-<section class="stub ">
+{%- from "partials/icons.njk" import icon -%}
+{%- from "partials/guide-card.njk" import guideCard -%}
+{%- from "partials/category-chips.njk" import categoryChips -%}
+
+{%- set rp = site.resourcesPage -%}
+{%- set out = committees | guidesOut -%}
+{%- set total = committees | length -%}
+
+{#- One backdrop for the whole page, so the glows carry on behind every section. -#}
+<div class="res-page">
+<div class="orb res-page__orb res-page__orb--a" aria-hidden="true"></div>
+<div class="orb res-page__orb res-page__orb--b" aria-hidden="true"></div>
+<div class="orb res-page__orb res-page__orb--c" aria-hidden="true"></div>
+
+<header class="res-head">
+  <div class="container res-head__inner">
+    <div>
+      <p class="t-label res-head__eyebrow"><span>{{ site.name }} {{ site.chapter }}</span> · <span>{{ site.start | eventDates(site.end) }}</span></p>
+      <h1 class="t-page">Resources.</h1>
+      <p class="res-head__text">{{ rp.intro }}</p>
+    </div>
+    <div class="res-head__side">
+      <span class="res-head__mark" aria-hidden="true">{{ site.chapter }}</span>
+      <p class="res-head__pill">
+        {%- if out == 0 %}{{ rp.guidesNone }}
+        {%- elif out == total %}{{ rp.guidesAll }}
+        {%- else %}{{ rp.guidesSome | fill({ count: out, total: total }) }}{% endif -%}
+      </p>
+    </div>
+  </div>
+</header>
+
+{#- Background guides: the same entries as the committee pages, so releasing a guide is one
+    line in committees.json (guide.file) plus the PDF. -#}
+<section class="res-section" aria-labelledby="guides-title" data-filters data-noun="background guides">
   <div class="container">
-    <h1 class="t-page">Resources</h1>
-    <p class="stub__note t-body">This page is being built. Content TBC.</p>
+    <div class="res-title"><span class="res-title__num" aria-hidden="true">01</span><h2 class="t-section" id="guides-title">Background guides</h2></div>
+    <div class="filters res-filters">
+      {{ categoryChips(committees, "Filter background guides by type") }}
+    </div>
+    <p class="visually-hidden" role="status" aria-live="polite" data-count></p>
+    <div class="res-grid">
+      {%- for c in committees %}
+      {{ guideCard({
+        tag: c.category, title: c.code, text: c.name, image: c.image, file: c.guide.file,
+        linkLabel: "Open PDF", level: 3,
+        attrs: 'data-item data-category="' ~ c.category ~ '"'
+      }) }}
+      {%- endfor %}
+    </div>
   </div>
 </section>
+
+<section class="res-section" aria-labelledby="ip-title">
+  <div class="container">
+    <div class="res-title"><span class="res-title__num" aria-hidden="true">02</span><h2 class="t-section" id="ip-title">International Press style guides</h2></div>
+    <div class="res-grid res-grid--two">
+      {%- for g in resources.ipGuides %}
+      {{ guideCard({ tag: "Style guide", title: g.title, text: g.description, image: g.image, file: g.file, linkLabel: "Open PDF", level: 3 }) }}
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="res-section" aria-labelledby="docs-title">
+  <div class="container">
+    <div class="res-title"><span class="res-title__num" aria-hidden="true">03</span><h2 class="t-section" id="docs-title">Essential documents</h2></div>
+    <ul class="docs" role="list">
+      {%- for d in resources.documents %}
+      {%- set ready = d.file | isSet %}
+      <li class="doc{% if ready %} is-ready{% endif %}">
+        <span class="doc__icon" aria-hidden="true">{{ icon("file-text") }}</span>
+        <div class="doc__body">
+          <span class="doc__pill">{{ "PDF" if ready else "Coming soon" }}</span>
+          <h3 class="doc__title">
+            {%- if ready %}<a href="/{{ d.file }}" target="_blank" rel="noopener">{{ d.title }} ↗<span class="visually-hidden"> (PDF, opens in a new tab)</span></a>
+            {%- else %}{{ d.title }}{% endif -%}
+          </h3>
+          <p class="doc__text">{{ d.description }}</p>
+        </div>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="res-section res-section--last" aria-labelledby="links-title">
+  <div class="container">
+    <div class="res-title"><span class="res-title__num" aria-hidden="true">04</span><h2 class="t-section" id="links-title">Research links</h2></div>
+    <ul class="links" role="list">
+      {%- for l in resources.researchLinks %}
+      <li>
+        <a class="link-card" href="{{ l.url }}" target="_blank" rel="noopener">
+          <span class="link-card__domain">{{ l.url | domain }}</span>
+          <span class="link-card__title">{{ l.title }} ↗<span class="visually-hidden"> (opens in a new tab)</span></span>
+          <span class="link-card__text">{{ l.description }}</span>
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+</div>

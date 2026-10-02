@@ -15,8 +15,8 @@ eleventyComputed:
 {%- set index = pagination.pageNumber -%}
 {%- set next = committees[(index + 1) % (committees | length)] -%}
 {%- set agendas = c.agenda if (c.agenda | dump)[0] == "[" else [c.agenda] -%}
-{%- set guideReady = c.guide.file | isSet -%}
 {%- from "partials/icons.njk" import icon -%}
+{%- from "partials/guide-card.njk" import guideCard -%}
 
 {#- Hero card (reference/14) -#}
 <section class="c-hero" aria-labelledby="committee-title">
@@ -56,22 +56,7 @@ eleventyComputed:
 
   <div class="c-grid">
     {#- Background guide card. Releasing a guide = setting guide.file to its PDF. -#}
-    <article class="guide">
-      {%- if c.image %}
-      <img class="guide__img" src="/{{ c.image }}" alt="" sizes="(max-width: 768px) 100vw, 600px" eleventy:widths="400,800">
-      {%- endif %}
-      <span class="guide__tag">{{ c.code }}</span>
-      <h2 class="guide__title">Background guide</h2>
-      <p class="guide__topic">{{ agendas | join("; ") }}</p>
-      <div class="guide__foot">
-        {%- if guideReady %}
-        <span class="guide__status is-ready">Available</span>
-        <a class="guide__link" href="/{{ c.guide.file }}" target="_blank" rel="noopener">Open background guide ↗<span class="visually-hidden"> (PDF, opens in a new tab)</span></a>
-        {%- else %}
-        <span class="guide__status">Coming soon</span>
-        {%- endif %}
-      </div>
-    </article>
+    {{ guideCard({ tag: c.code, title: "Background guide", text: agendas | join("; "), image: c.image, file: c.guide.file, linkLabel: "Open background guide" }) }}
   </div>
 
   {#- Executive board (SPEC 8.6). An empty name reads "EB announced soon". -#}

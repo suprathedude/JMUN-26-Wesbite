@@ -1,6 +1,6 @@
 {#- One committee tile (SPEC 8.6, reference/12 and 13). Expects `c`, a committee. -#}
 {%- set len = c.code | length -%}
-<a class="tile" href="/committees/{{ c.slug }}/" data-category="{{ c.category }}" data-search="{{ (c.code ~ ' ' ~ c.name ~ ' ' ~ c.category) | lower }}">
+<a class="tile" href="/committees/{{ c.slug }}/" data-item data-category="{{ c.category }}" data-search="{{ (c.code ~ ' ' ~ c.name ~ ' ' ~ c.category) | lower }}">
   <span class="tile__visual">
     {%- if c.image %}
     <img src="/{{ c.image }}" alt="" sizes="(max-width: 400px) 320px, (max-width: 768px) 50vw, 400px" eleventy:widths="400,800">

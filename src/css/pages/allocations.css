@@ -1,0 +1,308 @@
+/* Allocations (SPEC 9.5, reference/19 and 20) */
+
+.alloc-page {
+  position: relative;
+  overflow: clip;
+  background: var(--blue-950);
+}
+
+.alloc {
+  position: relative;
+  padding: calc(var(--section-pad) + 16px) 0 clamp(48px, 7vw, 80px);
+}
+
+.alloc__orb--a {
+  top: -20%;
+  left: -12%;
+  width: 760px;
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgb(var(--teal-dark-rgb) / 0.3) 0%, transparent 65%);
+}
+
+.alloc__orb--b {
+  top: 18%;
+  right: -14%;
+  width: 820px;
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgb(var(--orb-navy-rgb) / 0.55) 0%, transparent 65%);
+}
+
+.alloc__inner {
+  position: relative;
+}
+
+/* "Oakridge JMUN XIV | Delegate assignments | dates" above the title */
+.alloc__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  margin-bottom: 28px;
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--track-label);
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--ink-50);
+}
+
+.alloc__meta > span + span {
+  padding-left: 16px;
+  border-left: 1px solid rgb(var(--teal-rgb) / 0.2);
+}
+
+.alloc__meta .alloc__tag {
+  padding: 5px 14px;
+  border: 1px solid rgb(var(--teal-rgb) / 0.35);
+  border-radius: 6px;
+  background: rgb(var(--teal-rgb) / 0.06);
+  font-weight: 800;
+  color: var(--teal);
+}
+
+.alloc__meta .alloc__tag + span {
+  border-left: 0;
+  padding-left: 0;
+}
+
+/* The teal bar hangs outside the text column, as OakMUN's does */
+.alloc__title-wrap {
+  margin-left: -31px;
+  padding-left: 28px;
+  border-left: 3px solid rgb(var(--teal-rgb) / 0.38);
+}
+
+.alloc__title {
+  font-size: clamp(3.2rem, 8vw, 8rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 0.88;
+}
+
+.alloc__title span {
+  display: block;
+  color: var(--teal);
+}
+
+.alloc__text {
+  max-width: 620px;
+  margin-top: 40px;
+  font-size: var(--fs-lead);
+  color: var(--ink-75);
+}
+
+.rounds {
+  display: grid;
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.rounds__item {
+  display: grid;
+  grid-template-columns: 6px minmax(110px, max-content) 1fr;
+  align-items: baseline;
+  gap: 4px 16px;
+}
+
+.rounds__dot {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 8px rgb(var(--teal-rgb) / 0.6);
+  transform: translateY(-2px);
+}
+
+.rounds__name {
+  color: var(--ink-100);
+}
+
+.rounds__date {
+  color: var(--ink-75);
+}
+
+.rounds__note {
+  color: var(--ink-60);
+}
+
+.status-pill {
+  display: inline-flex;
+  margin-top: 40px;
+  padding: 10px 22px;
+  border: 1px solid rgb(var(--teal-rgb) / 0.35);
+  border-radius: var(--radius-pill);
+  background: rgb(var(--teal-rgb) / 0.06);
+  box-shadow: 0 0 24px rgb(var(--teal-rgb) / 0.12);
+  font-size: var(--fs-label);
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+/* "12 committees | 2 days | 30 Oct start date" */
+.alloc__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 0;
+  max-width: 660px;
+  margin-top: 48px;
+  padding-top: 28px;
+  border-top: 1px solid rgb(var(--teal-rgb) / 0.12);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink-50);
+}
+
+.alloc__facts li {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding-right: 28px;
+}
+
+.alloc__facts li + li {
+  padding-left: 28px;
+  border-left: 1px solid rgb(var(--teal-rgb) / 0.12);
+}
+
+.alloc__facts strong {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-transform: none;
+  color: var(--ink-100);
+}
+
+/* Matrix card, over a faint grid that fades out at its edges (mask colours only set opacity) */
+.matrix {
+  position: relative;
+  padding: clamp(56px, 8vw, 96px) 0 var(--section-pad);
+  background: radial-gradient(ellipse 46% 50% at 50% 50%, rgb(var(--teal-dark-rgb) / 0.14), transparent 70%);
+}
+
+.matrix::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  left: 50%;
+  width: min(900px, 100%);
+  transform: translateX(-50%);
+  border-top: 1px solid rgb(var(--teal-rgb) / 0.12);
+  background:
+    linear-gradient(rgb(var(--teal-rgb) / 0.04) 1px, transparent 1px) 0 0 / 48px 48px,
+    linear-gradient(90deg, rgb(var(--teal-rgb) / 0.04) 1px, transparent 1px) 0 0 / 48px 48px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 18%, black 82%, transparent);
+  mask-image: linear-gradient(90deg, transparent, black 18%, black 82%, transparent);
+  pointer-events: none;
+}
+
+.matrix .container {
+  position: relative;
+}
+
+.matrix__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 620px;
+  margin-inline: auto;
+  padding: clamp(36px, 6vw, 52px) clamp(24px, 6vw, 56px);
+  border: 1px solid rgb(var(--teal-rgb) / 0.14);
+  border-radius: var(--radius-tile);
+  background: rgb(var(--teal-rgb) / 0.04);
+  box-shadow:
+    0 0 80px rgb(var(--teal-rgb) / 0.08),
+    inset 0 1px 0 rgb(var(--teal-rgb) / 0.1);
+  text-align: center;
+}
+
+.matrix__icon {
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border: 1px solid rgb(var(--teal-rgb) / 0.25);
+  border-radius: var(--radius-card);
+  background: rgb(var(--teal-rgb) / 0.1);
+  font-size: 1.6rem;
+  color: var(--teal);
+}
+
+.matrix__title {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.matrix__text {
+  max-width: 440px;
+  color: var(--ink-75);
+}
+
+.matrix__btn {
+  margin-top: 12px;
+  white-space: normal;
+}
+
+.btn.is-off {
+  opacity: 0.6;
+  box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .alloc__title-wrap {
+    margin-left: 0;
+    padding-left: 18px;
+  }
+
+  .rounds__item {
+    grid-template-columns: 6px 1fr;
+  }
+
+  .rounds__date {
+    grid-column: 2;
+  }
+
+  /* Stacked, so a wrapped line never starts with a divider */
+  .alloc__meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .alloc__meta > span + span {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .alloc__meta .alloc__tag {
+    margin-bottom: 4px;
+  }
+
+  .alloc__facts {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-content: start;
+  }
+
+  .alloc__facts li {
+    flex-direction: column;
+    gap: 6px;
+    padding-right: 16px;
+    white-space: nowrap;
+  }
+
+  .alloc__facts li + li {
+    padding-left: 16px;
+  }
+
+  .alloc__facts strong {
+    font-size: 1.5rem;
+  }
+}

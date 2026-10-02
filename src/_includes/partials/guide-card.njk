@@ -1,0 +1,31 @@
+{#- A photo card with a status and an optional PDF link: background guides on committee pages
+    and Resources, and the International Press style guides. Releasing a guide is setting its
+    file; the card then reads "Available" with an open link.
+      g.tag, g.title, g.text   labels
+      g.image                  photo path (optional; a navy tile without one)
+      g.file                   PDF path (optional)
+      g.linkLabel              e.g. "Open background guide"
+      g.level                  heading level, default 2
+      g.attrs                  extra attributes for filtering -#}
+{%- macro guideCard(g) -%}
+{%- set ready = g.file | isSet -%}
+{%- set h = "h" ~ (g.level or 2) -%}
+<article class="guide{% if not g.image %} guide--plain{% endif %}" {{ g.attrs | safe if g.attrs }}>
+  {%- if g.image %}
+  <img class="guide__img" src="/{{ g.image }}" alt="" sizes="(max-width: 768px) 100vw, 600px" eleventy:widths="400,800">
+  {%- else %}
+  <span class="guide__tbc">Photo TBC</span>
+  {%- endif %}
+  <span class="guide__tag">{{ g.tag }}</span>
+  <{{ h }} class="guide__title">{{ g.title }}</{{ h }}>
+  {%- if g.text %}<p class="guide__topic">{{ g.text }}</p>{% endif %}
+  <div class="guide__foot">
+    {%- if ready %}
+    <span class="guide__status is-ready">Available</span>
+    <a class="guide__link" href="/{{ g.file }}" target="_blank" rel="noopener">{{ g.linkLabel or "Open PDF" }} ↗<span class="visually-hidden"> ({{ g.title }}, PDF, opens in a new tab)</span></a>
+    {%- else %}
+    <span class="guide__status">Coming soon</span>
+    {%- endif %}
+  </div>
+</article>
+{%- endmacro -%}

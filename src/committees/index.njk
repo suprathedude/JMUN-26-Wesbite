@@ -7,10 +7,7 @@ pageCss: [committees]
 pageJs: [filters]
 ---
 {%- from "partials/icons.njk" import icon -%}
-{#- Chip labels for each category, in the order SPEC 9.2 gives. Only categories in use appear. -#}
-{%- set chipLabels = { "General Assembly": "General Assembly", "Council": "Councils", "Agency": "Agencies", "Assembly": "Assembly", "Crisis": "Crisis", "Press": "Press" } -%}
-{%- set used = [] -%}
-{%- for c in committees %}{% if c.category not in used %}{% set used = (used.push(c.category), used) %}{% endif %}{% endfor -%}
+{%- from "partials/category-chips.njk" import categoryChips -%}
 
 <header class="listing-head">
   <div class="orb listing-head__orb" aria-hidden="true"></div>
@@ -20,19 +17,9 @@ pageJs: [filters]
   </div>
 </header>
 
-<section class="container" aria-label="All committees" data-filters>
+<section class="container" aria-label="All committees" data-filters data-noun="committees" data-param="category" data-pill="View committee">
   <div class="filters">
-    <div class="chips" role="group" aria-label="Filter by type">
-      <span class="chips__label" aria-hidden="true">Filter:</span>
-      <button class="chip" type="button" aria-pressed="true" data-filter="all">All</button>
-      {%- for key, label in chipLabels %}{% if key in used %}
-      <button class="chip" type="button" aria-pressed="false" data-filter="{{ key }}">{{ label }}</button>
-      {%- endif %}{% endfor %}
-      {#- Any other category gets a chip too, named as it is in committees.json. -#}
-      {%- for key in used %}{% if key not in chipLabels %}
-      <button class="chip" type="button" aria-pressed="false" data-filter="{{ key }}">{{ key }}</button>
-      {%- endif %}{% endfor %}
-    </div>
+    {{ categoryChips(committees) }}
     <div class="search">
       {{ icon("search") }}
       <label class="visually-hidden" for="committee-search">Search committees</label>

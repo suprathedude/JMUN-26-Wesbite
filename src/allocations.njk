@@ -1,11 +1,64 @@
 ---
 layout: layouts/base.njk
 title: Allocations
+description: How committees and countries are given out at Oakridge JMUN 2026, the allocation rounds and the allocation matrix.
 permalink: /allocations/
+pageCss: [allocations]
 ---
-<section class="stub ">
-  <div class="container">
-    <h1 class="t-page">Allocations</h1>
-    <p class="stub__note t-body">This page is being built. Content TBC.</p>
-  </div>
-</section>
+{%- from "partials/icons.njk" import icon -%}
+{%- set a = site.allocations -%}
+
+{#- One backdrop for both sections, so the glow carries on behind the matrix card. -#}
+<div class="alloc-page">
+  <div class="orb alloc__orb alloc__orb--a" aria-hidden="true"></div>
+  <div class="orb alloc__orb alloc__orb--b" aria-hidden="true"></div>
+
+  <section class="alloc" aria-labelledby="alloc-title">
+    <div class="container alloc__inner">
+      <p class="alloc__meta">
+        <span class="alloc__tag">{{ site.name }} {{ site.chapter }}</span>
+        <span>Delegate assignments</span>
+        <span>{{ site.start | eventDates(site.end) }}</span>
+      </p>
+      <div class="alloc__title-wrap">
+        <h1 class="alloc__title" id="alloc-title">Committee <span>Allocations.</span></h1>
+      </div>
+      <p class="alloc__text">{{ a.intro }}</p>
+
+      <h2 class="visually-hidden">Allocation rounds</h2>
+      <ul class="rounds" role="list">
+        {%- for r in a.rounds %}
+        <li class="rounds__item">
+          <span class="rounds__dot" aria-hidden="true"></span>
+          <strong class="rounds__name">{{ r.name }}:</strong>
+          <span class="rounds__date">{{ r.date }}{% if r.note %} <span class="rounds__note">({{ r.note }})</span>{% endif %}</span>
+        </li>
+        {%- endfor %}
+      </ul>
+
+      <p class="status-pill"><span class="visually-hidden">Status: </span>{{ a.status }}</p>
+
+      <ul class="alloc__facts" role="list">
+        <li><strong>{{ committees | length }}</strong> committees</li>
+        <li><strong>{{ site.stats.days }}</strong> days</li>
+        <li><strong>{{ site.start | dayMonth("short") }}</strong> start date</li>
+      </ul>
+    </div>
+  </section>
+
+  {#- Allocation matrix card (reference/20). Disabled until matrixUrl is set. -#}
+  <section class="matrix" aria-labelledby="matrix-title">
+    <div class="container">
+      <div class="matrix__card">
+        <span class="matrix__icon" aria-hidden="true">{{ icon("sheet") }}</span>
+        <h2 class="matrix__title" id="matrix-title">Allocation matrix</h2>
+        <p class="matrix__text">{{ a.matrixText }}</p>
+        {%- if a.matrixUrl | isSet %}
+        <a class="btn btn--primary matrix__btn" href="{{ a.matrixUrl }}" target="_blank" rel="noopener">Open allocation matrix ↗<span class="visually-hidden"> (opens in a new tab)</span></a>
+        {%- else %}
+        <a class="btn btn--primary matrix__btn is-disabled is-off" role="link" aria-disabled="true">Opens with {{ a.rounds[0].name if a.rounds | length else "the first round" }} (TBC)</a>
+        {%- endif %}
+      </div>
+    </div>
+  </section>
+</div>

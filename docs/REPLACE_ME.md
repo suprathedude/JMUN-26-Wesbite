@@ -16,7 +16,7 @@ Allowed by SPEC 7.4 (generic UN-room photos and committee logo circles), taken f
 | What | Our file | OakMUN source | Notes |
 | --- | --- | --- | --- |
 | Hero background (PLAN.md D4) | `src/assets/img/hero/hero-placeholder.jpg` | `public/committee_photos/unsc.jpg` | The General Assembly hall, cropped, black and white, softened. Replace with a photo or short video of the MPH or a committee room, then set `hero.image` (or `hero.video`) in `site.json`. |
-| Committee photos (9) | `src/assets/img/committees/<slug>.jpg` | `public/committee_photos/` (`disec`, `unga_sochum`, `unhrc`, `unsc`, `who`, `unodc`, `lok_sabha`, `jcc-1`, `IP`) | Converted to black and white by `npm run media` (PLAN.md D2). ECOSOC, UNEP and UNICEF have none and show "Photo TBC". |
+| Committee photos (9) | `src/assets/img/committees/<slug>.jpg` | `public/committee_photos/` (`disec`, `unga_sochum`, `unhrc`, `unsc`, `who`, `unodc`, `lok_sabha`, `jcc-1`, `IP`) | Converted to black and white by `npm run media` (PLAN.md D2). ECOSOC, UNEP and UNICEF have none and show "Photo TBC". The IP photo is also the Journalism style guide's photo on Resources (`resources.json`). |
 | Committee logo circles (9) | `src/assets/img/logos/<slug>.png` | `public/new_logos/<name> (1).png` | Trimmed to the emblem and resized to 320 px. DISEC, UNSC and UNODC all use the plain UN emblem. ECOSOC, UNEP and UNICEF show a globe icon instead. |
 
 ## Placeholder values in `src/_data/site.json`
@@ -31,7 +31,7 @@ Allowed by SPEC 7.4 (generic UN-room photos and committee logo circles), taken f
 | `contact.email` | "TBC" | The conference email address. |
 | `theme` | disabled, "TBC" | The theme words, the highlighted word and the caption, then `"enabled": true`. |
 | `sgLetter` | one placeholder paragraph, no photo or signature | Vihaan's letter, photo and signature. |
-| `allocations` | one round, dates TBC | The real rounds and the allocation matrix link. |
+| `allocations` | one round, "Date TBC (for registrations received by TBC)"; no matrix link, so the button reads "Opens with Round 1 (TBC)" | The real rounds (one entry each: name, date, note) and `matrixUrl`, the allocation matrix link. |
 | `intro.countries` | 24 placeholder countries | Optional: names from the real allocation matrix. |
 
 ## Placeholder values in the other data files
@@ -39,7 +39,7 @@ Allowed by SPEC 7.4 (generic UN-room photos and committee logo circles), taken f
 | File | What's TBC |
 | --- | --- |
 | `committees.json` | Every agenda. The two-sentence overviews are factual but need the Secretariat's check (each ends "(Overview TBC)"). Photos and logo circles for ECOSOC, UNEP and UNICEF (the other 9 use borrowed OakMUN ones, listed above). Background guides. EB names, photos and bios. |
-| `secretariat.json` | Every photo and Instagram handle, and the second USG of Technology's name. |
+| `secretariat.json` | Every photo, signature and Instagram handle, and the second USG of Technology's name. Without a photo a card shows initials in a teal ring; without a handle the back has no Instagram button. |
 | `schedule.json` | Every start and end time, and whether the closing ceremony comes before or after Social Night. |
 | `faq.json` | How to register, the dress code, and the contact email. |
 | `resources.json` | The Rules of Procedure, Delegation Guidelines and Consent Form files; both International Press style guides and their photos. |

@@ -1,7 +1,8 @@
 ---
 layout: layouts/base.njk
 title: Allocations
-description: How committees and countries are given out at Oakridge JMUN 2026, the allocation rounds and the allocation matrix.
+eleventyComputed:
+  description: "How committees and countries are given out at {{ site.name }} {{ site.year }}, the allocation rounds and the allocation matrix."
 permalink: /allocations/
 pageCss: [allocations]
 ---
@@ -32,12 +33,6 @@ pageCss: [allocations]
       </ul>
 
       <p class="status-pill"><span class="visually-hidden">Status: </span>{{ a.status }}</p>
-
-      <ul class="alloc__facts" role="list">
-        <li><strong>{{ committees | length }}</strong> committees</li>
-        <li><strong>{{ site.stats.days }}</strong> days</li>
-        <li><strong>{{ site.start | dayMonth("short") }}</strong> start date</li>
-      </ul>
     </div>
   </section>
 

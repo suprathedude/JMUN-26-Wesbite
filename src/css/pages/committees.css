@@ -74,7 +74,7 @@
   background: linear-gradient(160deg, var(--blue-650) 0%, var(--blue-800) 100%);
   box-shadow: 0 18px 46px rgb(var(--navy-rgb) / 0.09);
   transform-origin: 50% 60%;
-  transition: transform 0.6s var(--ease-out-expo);
+  transition: transform 0.25s var(--ease-out-expo);
 }
 
 .tile__visual img {
@@ -85,7 +85,7 @@
   height: 100%;
   object-fit: cover;
   object-position: center top;
-  transition: transform 0.7s var(--ease-out-expo);
+  transition: transform 0.25s var(--ease-out-expo);
 }
 
 /* Navy wash, darker at the bottom (OakMUN's tile overlay) */
@@ -147,7 +147,7 @@
   text-transform: uppercase;
   text-shadow: 0 2px 16px rgb(var(--shadow-rgb) / 0.55);
   color: var(--white);
-  transition: transform 0.6s var(--ease-out-expo);
+  transition: transform 0.25s var(--ease-out-expo);
 }
 
 /* Long codes step down a size */
@@ -183,7 +183,7 @@
   color: var(--ink-75);
   transition:
     color var(--dur-hover) var(--ease-standard),
-    transform 0.6s var(--ease-out-expo);
+    transform 0.25s var(--ease-out-expo);
 }
 
 /* The hover from reference/13: lift 13 px, tilt -1.8°, grow 5.5%, teal ring, photo zoom */
@@ -545,6 +545,12 @@
   line-clamp: 2;
   font-size: 0.95rem;
   color: var(--ink-75);
+}
+
+@media (max-width: 768px) {
+  .eb-card__bio {
+    font-size: 1rem; /* 16 px minimum for running text on phones */
+  }
 }
 
 .eb-card.is-open .eb-card__bio {

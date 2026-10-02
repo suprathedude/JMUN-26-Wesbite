@@ -9,7 +9,7 @@ pageCss: [committees]
 pageJs: [readmore]
 eleventyComputed:
   title: "{{ committee.code }}"
-  description: "{{ committee.name }} at Oakridge JMUN 2026: agenda, background guide and executive board."
+  description: "{{ committee.name }} at {{ site.name }} {{ site.year }}: agenda, background guide and executive board."
 ---
 {%- set c = committee -%}
 {%- set index = pagination.pageNumber -%}
@@ -41,7 +41,6 @@ eleventyComputed:
   {#- Agenda card (reference/15) -#}
   <section class="agenda" aria-labelledby="agenda-title">
     <div>
-      <p class="t-label">Agenda</p>
       <h2 class="agenda__title" id="agenda-title">Committee agenda</h2>
     </div>
     <ol class="agenda__list" role="list">

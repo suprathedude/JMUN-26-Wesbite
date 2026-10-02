@@ -195,6 +195,7 @@ The structure in SPEC section 11, plus:
 | C9 | OakMUN's agenda, guide and doc cards and its countdown use `backdrop-filter`. | No blur anywhere except the desktop nav pill (spec 5). |
 | C10 | Some OakMUN buttons use a 135deg gradient or radius 14. | Every primary button is the spec's 180deg pill. |
 | C11 | SPEC 9.3's committee hero shows the full name; `reference/14` shows a short descriptor ("Disarmament and security"). | Full name from `committees.json`, as the spec says. |
+| C12 | SPEC 9.3's committee hero has a "Committee" label above the code, as in `reference/14`. | The label shows the committee's category ("Council", "Crisis"), which tells the reader more (anti-slop rule 2 gives "Crisis committee" as a label that carries information). Recorded in Task 9. |
 
 ### 5.2 Inside the spec
 

@@ -1,7 +1,8 @@
 ---
 layout: layouts/base.njk
 title: Social Night
-description: Social Night, Halloween edition, on Saturday 31 October in the MPH at Oakridge JMUN 2026. What to expect, what to wear, the 3D photo booth and answers to common questions.
+eleventyComputed:
+  description: "Social Night, {{ socialNight.edition }}, on {{ socialNight.date }} in the {{ socialNight.place }} at {{ site.name }} {{ site.year }}. What to expect, what to wear, the 3D photo booth and answers to common questions."
 permalink: /social-night/
 pageCss: [social-night]
 pageJs: [social-night, faq]

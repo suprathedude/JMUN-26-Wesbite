@@ -1,6 +1,7 @@
 ---
 layout: layouts/base.njk
-description: Oakridge Junior Model United Nations 2026, 30 and 31 October at Oakridge International School, Gachibowli, Hyderabad.
+eleventyComputed:
+  description: "{{ site.fullName }}, {{ site.start | eventDates(site.end) }} at {{ site.venue }}."
 pageCss: [home]
 pageJs: [intro-placards, hero-video, countdown, marquee, stats, schedule, wheel, faq]
 intro: true
@@ -245,7 +246,7 @@ intro: true
         <span class="card__bar" aria-hidden="true"></span>
         <p class="card__tag">{{ socialNight.day }}, {{ socialNight.date }}</p>
         <h3 class="card__title">Social Night</h3>
-        <p class="card__sub">Halloween edition</p>
+        <p class="card__sub">{{ socialNight.edition }}</p>
         <p class="card__text">{{ socialNight.expect }}</p>
         <a class="card__link" href="/social-night/">About Social Night</a>
       </article>

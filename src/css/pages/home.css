@@ -1525,6 +1525,8 @@
   padding-block: 56px 64px;
   background: linear-gradient(180deg, var(--blue-950), var(--blue-900));
   text-align: center;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 320px;
 }
 
 .sponsors__title {

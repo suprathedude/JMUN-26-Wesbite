@@ -1,7 +1,8 @@
 ---
 layout: layouts/base.njk
 title: New to MUN?
-description: A guide for first-time delegates at Oakridge JMUN 2026. How a committee session runs, what to prepare, what to say and what the words mean.
+eleventyComputed:
+  description: "A guide for first-time delegates at {{ site.name }} {{ site.year }}. How a committee session runs, what to prepare, what to say and what the words mean."
 permalink: /new-to-mun/
 pageCss: [new-to-mun]
 ---
@@ -20,7 +21,6 @@ pageCss: [new-to-mun]
       </div>
     </div>
     <div class="ntm-hero__text">
-      <p class="t-label">{{ g.intro.label }}</p>
       <h1 class="ntm-hero__title" id="ntm-title">New to <span class="t-teal">MUN?</span> <span>Start here.</span></h1>
       {%- for p in g.intro.text %}
       <p class="ntm-hero__lead">{{ p }}</p>

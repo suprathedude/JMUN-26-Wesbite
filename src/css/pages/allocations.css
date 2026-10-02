@@ -107,43 +107,6 @@
   color: var(--teal);
 }
 
-/* "12 committees | 2 days | 30 Oct start date" */
-.alloc__facts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px 0;
-  max-width: 660px;
-  margin-top: 48px;
-  padding-top: 28px;
-  border-top: 1px solid rgb(var(--teal-rgb) / 0.12);
-  font-size: var(--fs-label);
-  font-weight: 700;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-  color: var(--ink-50);
-}
-
-.alloc__facts li {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  padding-right: 28px;
-}
-
-.alloc__facts li + li {
-  padding-left: 28px;
-  border-left: 1px solid rgb(var(--teal-rgb) / 0.12);
-}
-
-.alloc__facts strong {
-  font-size: 2rem;
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  line-height: 1;
-  text-transform: none;
-  color: var(--ink-100);
-}
-
 /* Matrix card, over a faint grid that fades out at its edges (mask colours only set opacity) */
 .matrix {
   position: relative;
@@ -235,24 +198,4 @@
     grid-column: 2;
   }
 
-  .alloc__facts {
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    justify-content: start;
-  }
-
-  .alloc__facts li {
-    flex-direction: column;
-    gap: 6px;
-    padding-right: 16px;
-    white-space: nowrap;
-  }
-
-  .alloc__facts li + li {
-    padding-left: 16px;
-  }
-
-  .alloc__facts strong {
-    font-size: 1.5rem;
-  }
 }

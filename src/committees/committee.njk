@@ -5,17 +5,108 @@ pagination:
   size: 1
   alias: committee
 permalink: "/committees/{{ committee.slug }}/"
+pageCss: [committees]
+pageJs: [readmore]
 eleventyComputed:
   title: "{{ committee.code }}"
-  description: "{{ committee.name }} at Oakridge JMUN 2026."
+  description: "{{ committee.name }} at Oakridge JMUN 2026: agenda, background guide and executive board."
 ---
-{#- Placeholder committee page so links resolve. Task 5 builds the real layout (SPEC 9.3). -#}
-<section class="stub">
-  <div class="container">
-    <p class="t-label">{{ committee.category }}</p>
-    <h1 class="t-page">{{ committee.code }}</h1>
-    <p class="t-lead">{{ committee.name }}</p>
-    <p class="stub__note t-body">{{ committee.overview }}</p>
-    <p class="stub__note t-body">Agenda: {{ committee.agenda }}. Full committee page TBC.</p>
-  </div>
+{%- set c = committee -%}
+{%- set index = pagination.pageNumber -%}
+{%- set next = committees[(index + 1) % (committees | length)] -%}
+{%- set agendas = c.agenda if (c.agenda | dump)[0] == "[" else [c.agenda] -%}
+{%- set guideReady = c.guide.file | isSet -%}
+{%- from "partials/icons.njk" import icon -%}
+
+{#- Hero card (reference/14) -#}
+<section class="c-hero" aria-labelledby="committee-title">
+  {%- if c.image %}
+  <img class="c-hero__img" src="/{{ c.image }}" alt="" loading="eager" fetchpriority="high" sizes="100vw" eleventy:widths="800,1200,1600">
+  {%- else %}
+  <span class="c-hero__tbc">Photo TBC</span>
+  {%- endif %}
+  <a class="back-pill" href="/committees/">{{ icon("chevron-left") }}Back to committees</a>
+  <span class="c-hero__rule" aria-hidden="true"></span>
+  <p class="t-label">{{ c.category }}</p>
+  <h1 class="c-hero__code" id="committee-title">{{ c.code }}</h1>
+  <p class="c-hero__name">{{ c.name }}</p>
 </section>
+
+<div class="container c-body">
+  <section class="c-overview" aria-labelledby="overview-title">
+    <h2 class="t-section" id="overview-title">{{ c.code }} overview</h2>
+    <p>{{ c.overview }}</p>
+  </section>
+
+  {#- Agenda card (reference/15) -#}
+  <section class="agenda" aria-labelledby="agenda-title">
+    <div>
+      <p class="t-label">Agenda</p>
+      <h2 class="agenda__title" id="agenda-title">Committee agenda</h2>
+    </div>
+    <ol class="agenda__list" role="list">
+      {%- for item in agendas %}
+      <li class="agenda__item">
+        <span class="agenda__num" aria-hidden="true">{{ ("0" ~ loop.index) if loop.index < 10 else loop.index }}</span>
+        <p class="agenda__text{% if 'TBC' in item %} is-tbc{% endif %}">{{ item }}</p>
+      </li>
+      {%- endfor %}
+    </ol>
+  </section>
+
+  <div class="c-grid">
+    {#- Background guide card. Releasing a guide = setting guide.file to its PDF. -#}
+    <article class="guide">
+      {%- if c.image %}
+      <img class="guide__img" src="/{{ c.image }}" alt="" sizes="(max-width: 768px) 100vw, 600px" eleventy:widths="400,800">
+      {%- endif %}
+      <span class="guide__tag">{{ c.code }}</span>
+      <h2 class="guide__title">Background guide</h2>
+      <p class="guide__topic">{{ agendas | join("; ") }}</p>
+      <div class="guide__foot">
+        {%- if guideReady %}
+        <span class="guide__status is-ready">Available</span>
+        <a class="guide__link" href="/{{ c.guide.file }}" target="_blank" rel="noopener">Open background guide ↗<span class="visually-hidden"> (PDF, opens in a new tab)</span></a>
+        {%- else %}
+        <span class="guide__status">Coming soon</span>
+        {%- endif %}
+      </div>
+    </article>
+  </div>
+
+  {#- Executive board (SPEC 8.6). An empty name reads "EB announced soon". -#}
+  <section class="eb" aria-labelledby="eb-title">
+    <h2 class="t-section t-section--bar" id="eb-title">Executive board</h2>
+    <div class="eb__grid">
+      {%- for m in c.eb %}
+      <article class="eb-card" data-readmore>
+        <div class="eb-card__photo">
+          {%- if m.photo %}
+          <img src="/{{ m.photo }}" alt="{{ m.name }}, {{ m.role }}" sizes="(max-width: 768px) 40vw, 400px" eleventy:widths="400,800">
+          {%- else %}
+          <span class="photo-tbc">Photo TBC</span>
+          {%- endif %}
+        </div>
+        <div class="eb-card__body">
+          <p class="eb-card__role">{{ m.role }}</p>
+          {%- if m.name %}
+          <h3 class="eb-card__name">{{ m.name }}</h3>
+          {%- if m.bio %}
+          <p class="eb-card__bio" id="bio-{{ c.slug }}-{{ loop.index }}">{{ m.bio }}</p>
+          <button class="eb-card__more" type="button" aria-expanded="false" aria-controls="bio-{{ c.slug }}-{{ loop.index }}" hidden>Read more</button>
+          {%- endif %}
+          {%- else %}
+          <h3 class="eb-card__name is-tbc">EB announced soon</h3>
+          {%- endif %}
+        </div>
+      </article>
+      {%- endfor %}
+    </div>
+  </section>
+
+  <a class="next" href="/committees/{{ next.slug }}/">
+    <span class="next__label">Next committee</span>
+    <span class="next__code">{{ next.code }}</span>
+    <span class="next__name">{{ next.name }}</span>
+  </a>
+</div>

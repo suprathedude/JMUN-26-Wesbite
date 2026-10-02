@@ -87,6 +87,9 @@
     "faqIntro": "Quick answers for delegates, parents and faculty advisors.",
     "closing": "Your first committee starts on {date}."
   },
+  "committeesPage": {
+    "intro": "{count} committees, one weekend. Find yours."
+  },
   "stats": {
     "delegates": "350+",
     "days": 2,

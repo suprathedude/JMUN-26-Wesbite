@@ -38,7 +38,7 @@ Allowed by SPEC 7.4 (generic UN-room photos and committee logo circles), taken f
 
 | File | What's TBC |
 | --- | --- |
-| `committees.json` | Every agenda. The two-sentence overviews are factual but need the Secretariat's check (each ends "(Overview TBC)"). Photos and logo circles (Task 5 adds borrowed ones for 9 committees; ECOSOC, UNEP and UNICEF have none). Background guides. EB names, photos and bios. |
+| `committees.json` | Every agenda. The two-sentence overviews are factual but need the Secretariat's check (each ends "(Overview TBC)"). Photos and logo circles for ECOSOC, UNEP and UNICEF (the other 9 use borrowed OakMUN ones, listed above). Background guides. EB names, photos and bios. |
 | `secretariat.json` | Every photo and Instagram handle, and the second USG of Technology's name. |
 | `schedule.json` | Every start and end time, and whether the closing ceremony comes before or after Social Night. |
 | `faq.json` | How to register, the dress code, and the contact email. |

@@ -1,11 +1,52 @@
 ---
 layout: layouts/base.njk
 title: Committees
+description: The committees at Oakridge JMUN 2026, with agendas, background guides and chairs as they're released.
 permalink: /committees/
+pageCss: [committees]
+pageJs: [filters]
 ---
-<section class="stub stub--centre">
+{%- from "partials/icons.njk" import icon -%}
+{#- Chip labels for each category, in the order SPEC 9.2 gives. Only categories in use appear. -#}
+{%- set chipLabels = { "General Assembly": "General Assembly", "Council": "Councils", "Agency": "Agencies", "Assembly": "Assembly", "Crisis": "Crisis", "Press": "Press" } -%}
+{%- set used = [] -%}
+{%- for c in committees %}{% if c.category not in used %}{% set used = (used.push(c.category), used) %}{% endif %}{% endfor -%}
+
+<header class="listing-head">
+  <div class="orb listing-head__orb" aria-hidden="true"></div>
   <div class="container">
     <h1 class="t-page">Committees</h1>
-    <p class="stub__note t-body">This page is being built. Content TBC.</p>
+    <p class="listing-head__text">{{ site.committeesPage.intro | fill({ count: committees | length | numberWord }) }}</p>
   </div>
+</header>
+
+<section class="container" aria-label="All committees" data-filters>
+  <div class="filters">
+    <div class="chips" role="group" aria-label="Filter by type">
+      <span class="chips__label" aria-hidden="true">Filter:</span>
+      <button class="chip" type="button" aria-pressed="true" data-filter="all">All</button>
+      {%- for key, label in chipLabels %}{% if key in used %}
+      <button class="chip" type="button" aria-pressed="false" data-filter="{{ key }}">{{ label }}</button>
+      {%- endif %}{% endfor %}
+      {#- Any other category gets a chip too, named as it is in committees.json. -#}
+      {%- for key in used %}{% if key not in chipLabels %}
+      <button class="chip" type="button" aria-pressed="false" data-filter="{{ key }}">{{ key }}</button>
+      {%- endif %}{% endfor %}
+    </div>
+    <div class="search">
+      {{ icon("search") }}
+      <label class="visually-hidden" for="committee-search">Search committees</label>
+      <input id="committee-search" type="search" placeholder="Search committees" autocomplete="off" data-search>
+    </div>
+  </div>
+
+  <p class="visually-hidden" role="status" aria-live="polite" data-count></p>
+
+  <div class="tiles">
+    {%- for c in committees %}
+    {% include "partials/committee-tile.njk" %}
+    {%- endfor %}
+  </div>
+
+  <p class="results-empty" hidden data-empty>No committees match that. <button type="button" data-reset>Show all committees</button></p>
 </section>

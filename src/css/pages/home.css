@@ -53,13 +53,6 @@
   background-size: 28px 28px;
 }
 
-/* Static ambient glows: circles are the Oakridge connecting shape (SPEC 3.3). */
-.orb {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-}
-
 .hero__orb--a {
   top: -18%;
   left: 14%;

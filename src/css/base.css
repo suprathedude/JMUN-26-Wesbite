@@ -78,6 +78,16 @@ video {
   height: auto;
 }
 
+/* eleventy-img wraps each <img> in a <picture>; let layouts treat the <img> as the child.
+   <source> is only read when choosing a file, so it never needs a box of its own. */
+picture {
+  display: contents;
+}
+
+source {
+  display: none;
+}
+
 input,
 button,
 textarea,

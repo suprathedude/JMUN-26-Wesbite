@@ -43,8 +43,11 @@ export function validateData() {
       if (!c[field]) add("committees.json", where, `"${field}" is empty. Use "TBC" if it isn't known yet.`);
     }
     if (!CATEGORIES.includes(c.category)) add("committees.json", where, `category "${c.category}" must be one of ${list(CATEGORIES)}.`);
-    if (!GUIDE_STATUS.includes(c.guide?.status)) add("committees.json", where, `guide status "${c.guide?.status}" must be one of ${list(GUIDE_STATUS)}.`);
-    if (c.guide?.status === "available" && !c.guide.file) add("committees.json", where, `the guide is "available" but "file" is empty.`);
+    // Releasing a guide is one line: set guide.file. A file makes it "Available" whatever
+    // the status says; status only matters while there's no file.
+    if (c.guide?.status && !GUIDE_STATUS.includes(c.guide.status)) add("committees.json", where, `guide status "${c.guide.status}" must be one of ${list(GUIDE_STATUS)}.`);
+    if (c.guide?.status === "available" && !c.guide.file) add("committees.json", where, `the guide is "available" but "file" is empty. Add the PDF's path, e.g. "assets/docs/guides/${c.slug}.pdf".`);
+    if (c.guide?.file && !/\.pdf$/i.test(c.guide.file)) add("committees.json", where, `the guide file "${c.guide.file}" should be a PDF.`);
     for (const field of ["image", "logo"]) {
       if (missingFile(c[field])) add("committees.json", where, `there's no file at src/${c[field]} (${field}).`);
     }

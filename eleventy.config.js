@@ -1,4 +1,4 @@
-import { readFileSync, rmSync } from "node:fs";
+import { readFileSync, readdirSync, rmSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { hashAssets } from "./scripts/lib/hash-assets.mjs";
 import { validateData } from "./scripts/lib/validate-data.mjs";
@@ -21,6 +21,8 @@ export default function (eleventyConfig) {
   });
   eleventyConfig.addPassthroughCopy({ "src/_headers": "_headers" });
   eleventyConfig.addPassthroughCopy({ "src/assets/favicon.svg": "assets/favicon.svg" });
+  // Background guides and other documents (PDFs keep their names; see src/_headers).
+  eleventyConfig.addPassthroughCopy("src/assets/docs/**/*.pdf");
 
   // Every <img> becomes a <picture> with avif and webp sizes (SPEC 5). Lazy by default; the
   // hero sets loading="eager" and fetchpriority="high" itself. Per image, eleventy:widths
@@ -116,7 +118,7 @@ export default function (eleventyConfig) {
     return iconCache.get(name).replace("ICONCLASS", className ? `icon ${className}` : "icon");
   });
 
-  // Production builds start from an empty _site (so old hashed files don't pile up) and
+  // Production builds start from a cleared _site (so old hashed files don't pile up) and
   // fingerprint CSS, JS and fonts afterwards so _headers can cache them for a year.
   eleventyConfig.on("eleventy.before", ({ directories, runMode }) => {
     // Catch data-file mistakes first. A production build stops; `npm run dev` just warns.
@@ -126,7 +128,19 @@ export default function (eleventyConfig) {
       if (runMode === "build") throw new Error(message);
       console.warn(message);
     }
-    if (runMode === "build") rmSync(directories.output, { recursive: true, force: true });
+    // Clear the last build, except img/: its names are content hashes, so keeping it lets
+    // eleventy-img skip re-encoding unchanged pictures (a fresh clone builds them all).
+    if (runMode === "build") {
+      let entries = [];
+      try {
+        entries = readdirSync(directories.output);
+      } catch {
+        // No previous build.
+      }
+      for (const entry of entries) {
+        if (entry !== "img") rmSync(`${directories.output}/${entry}`, { recursive: true, force: true });
+      }
+    }
   });
   eleventyConfig.on("eleventy.after", async ({ directories, runMode }) => {
     if (runMode === "build") await hashAssets(directories.output);

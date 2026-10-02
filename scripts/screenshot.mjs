@@ -158,6 +158,24 @@ const STATES = [
       });
     },
   },
+  {
+    name: "committees-hover-1440",
+    path: "/committees/",
+    viewport: VIEWPORTS[1],
+    async run(page) {
+      await page.evaluate(() => scrollTo(0, 420));
+      await page.waitForTimeout(300);
+      const box = await page.locator(".tile").nth(4).boundingBox();
+      await page.mouse.move(box.x + box.width * 0.45, box.y + box.height * 0.4, { steps: 8 });
+      await page.waitForTimeout(900);
+    },
+  },
+  {
+    name: "committees-filtered-390",
+    path: "/committees/?category=Council",
+    viewport: VIEWPORTS[0],
+    async run() {},
+  },
   { name: "home-nav-1024", viewport: { width: 1024, height: 768, deviceScaleFactor: 1 }, async run() {} },
   { name: "home-nav-1250", viewport: { width: 1250, height: 800, deviceScaleFactor: 1 }, async run() {} },
 ];
@@ -200,7 +218,7 @@ async function main() {
       // Only the intro states should see the placard intro; elsewhere it would hide the hero.
       if (!state.intro) await context.addInitScript(() => sessionStorage.setItem("oakjmun-intro", "1"));
       const page = await context.newPage();
-      await page.goto(origin + "/", { waitUntil: state.intro ? "domcontentloaded" : "networkidle" });
+      await page.goto(origin + (state.path ?? "/"), { waitUntil: state.intro ? "domcontentloaded" : "networkidle" });
       await page.evaluate(() => document.fonts.ready);
       await state.run(page);
       if (state.intro) await page.waitForTimeout(150);

@@ -1,0 +1,63 @@
+# Builds the site and uploads it to GoDaddy (docs/DEPLOY.md).
+#
+#   Push to main (including an edit saved on GitHub's website): build, check every link,
+#     then upload _site/ to GoDaddy over FTPS.
+#   Any other branch or a pull request: build and check only, so a mistake shows up
+#     before it reaches main.
+#   Actions tab > Build and deploy > Run workflow: run it again by hand.
+#
+# If the build fails (a typo in a data file, say), nothing is uploaded and the live site
+# stays as it was. The FTP login lives in the repository's secrets, never in this file.
+name: Build and deploy
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One deploy at a time; a newer push waits for the one before it to finish.
+concurrency:
+  group: ${{ github.ref == 'refs/heads/main' && 'deploy-main' || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      # Photos uploaded through GitHub's website: resize them and make committee photos
+      # black and white, as npm run media does on a laptop. Only this build's copy changes.
+      - name: Prepare photos
+        run: npm run media
+
+      - name: Build and check links
+        run: npm run check
+
+      - name: Upload to GoDaddy
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_DIR: ${{ vars.FTP_DIR }}
+          FTP_INSECURE: ${{ vars.FTP_INSECURE }}
+        run: |
+          if [ -z "$FTP_HOST" ] || [ -z "$FTP_USER" ] || [ -z "$FTP_PASSWORD" ]; then
+            echo "::warning::The site built fine but wasn't uploaded: add FTP_HOST, FTP_USER and FTP_PASSWORD to the repository's secrets (docs/DEPLOY.md, step 5)."
+            exit 0
+          fi
+          sudo apt-get install -y -qq lftp > /dev/null
+          bash scripts/deploy-ftp.sh

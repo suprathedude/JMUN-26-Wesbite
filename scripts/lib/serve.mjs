@@ -1,6 +1,6 @@
 // A tiny static server for _site, used by the screenshot script and for local speed checks.
-// It mirrors how Cloudflare Pages resolves URLs (/path/ -> /path/index.html, unknown ->
-// /404.html) and, like Cloudflare, compresses text with brotli or gzip.
+// It resolves URLs the way the live server does (src/.htaccess: /path/ -> /path/index.html,
+// unknown -> /404.html) and compresses text with brotli or gzip.
 import { createServer } from "node:http";
 import { brotliCompressSync, gzipSync } from "node:zlib";
 import { readFile, stat } from "node:fs/promises";

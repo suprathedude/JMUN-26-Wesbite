@@ -1,0 +1,62 @@
+# Server settings for GoDaddy Web Hosting (cPanel, Apache). The build copies this file to
+# _site/.htaccess and the deploy uploads it with the rest of the site. See docs/DEPLOY.md.
+#
+# Every block is wrapped in <IfModule>, so a server without one of these modules skips that
+# block instead of showing an error page.
+
+# Pages: /committees/ serves /committees/index.html; unknown addresses get the 404 page.
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+# web.config is for Windows hosting only; don't serve it.
+<IfModule mod_authz_core.c>
+  <Files "web.config">
+    Require all denied
+  </Files>
+</IfModule>
+
+# File types older servers don't know. Without these, AVIF and WebP photos and the font
+# may be sent with the wrong type and not show.
+<IfModule mod_mime.c>
+  AddType image/avif .avif
+  AddType image/webp .webp
+  AddType font/woff2 .woff2
+  AddType text/javascript .js .mjs
+  AddType image/svg+xml .svg
+  AddType video/webm .webm
+  AddType video/mp4 .mp4
+  AddCharset utf-8 .html .css .js .svg
+</IfModule>
+
+# Compress text files on the way out.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript image/svg+xml text/plain
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Pages are always checked for a newer version, so an update shows up straight away.
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+
+  # CSS, JS and font files have a content hash in their names (css/site.0846a8fe.css), and so
+  # do the photos in img/, so a changed file always has a new name. They can be kept a year.
+  <FilesMatch "\.[0-9a-f]{8}\.(css|js|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "^[A-Za-z0-9_-]{10}-[0-9]+\.(avif|webp|jpe?g|png)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+
+# Send every visitor to the https:// address. Turn this on only once the SSL certificate is
+# active in GoDaddy (the padlock shows on https://your-address), by removing the # at the
+# start of the five lines below.
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   RewriteCond %{HTTPS} off
+#   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>

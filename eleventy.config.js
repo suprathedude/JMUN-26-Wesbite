@@ -11,17 +11,19 @@ const iconCache = new Map();
 const isSet = (url) => typeof url === "string" && url.trim() !== "" && !/TBC/i.test(url);
 
 export default function (eleventyConfig) {
-  // JS modules, page stylesheets, fonts, Lenis and the Cloudflare headers file.
+  // JS modules, page stylesheets, fonts, Lenis and the server settings for GoDaddy.
   eleventyConfig.addPassthroughCopy({ "src/js": "js" });
   eleventyConfig.addPassthroughCopy({ "src/css/pages": "css/pages" });
-  eleventyConfig.addPassthroughCopy({ "node_modules/lenis/dist/lenis.mjs": "js/vendor/lenis.mjs" });
+  // Lenis ships as .mjs; it's copied as .js because some servers don't know the .mjs type.
+  eleventyConfig.addPassthroughCopy({ "node_modules/lenis/dist/lenis.mjs": "js/vendor/lenis.js" });
   eleventyConfig.addPassthroughCopy({
     [`${FONT_DIR}/montserrat-latin-wght-normal.woff2`]: "assets/fonts/montserrat-latin-wght-normal.woff2",
     [`${FONT_DIR}/montserrat-latin-wght-italic.woff2`]: "assets/fonts/montserrat-latin-wght-italic.woff2",
   });
-  eleventyConfig.addPassthroughCopy({ "src/_headers": "_headers" });
+  // .htaccess for GoDaddy's Linux (Apache) hosting, web.config for its Windows hosting.
+  eleventyConfig.addPassthroughCopy({ "src/.htaccess": ".htaccess", "src/web.config": "web.config" });
   eleventyConfig.addPassthroughCopy({ "src/assets/favicon.svg": "assets/favicon.svg" });
-  // Background guides and other documents (PDFs keep their names; see src/_headers).
+  // Background guides and other documents (PDFs keep their names; see src/.htaccess).
   eleventyConfig.addPassthroughCopy("src/assets/docs/**/*.pdf");
   eleventyConfig.addPassthroughCopy("src/assets/video/*.{webm,mp4}"); // npm run media's output, not the sources
 
@@ -146,7 +148,8 @@ export default function (eleventyConfig) {
   });
 
   // Production builds start from a cleared _site (so old hashed files don't pile up) and
-  // fingerprint CSS, JS and fonts afterwards so _headers can cache them for a year.
+  // fingerprint CSS, JS and fonts afterwards so the server can cache them for a year
+  // (src/.htaccess).
   eleventyConfig.on("eleventy.before", ({ directories, runMode }) => {
     // Catch data-file mistakes first. A production build stops; `npm run dev` just warns.
     const problems = validateData();

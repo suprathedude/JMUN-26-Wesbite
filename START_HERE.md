@@ -55,6 +55,8 @@ Tasks 8 to 10 still matter before the site goes public. They're just not needed 
 
 ## Putting the draft online early (Cloudflare Pages, free)
 
+> **Superseded:** the site is hosted on GoDaddy, deployed by GitHub Actions. Follow `docs/DEPLOY.md` instead of the steps below.
+
 Task 10 writes the full guide, but you can deploy as soon as Task 3 is done. Ask Claude Code: "Push this project to a new GitHub repo and tell me exactly how to connect it to Cloudflare Pages." In short:
 
 1. Push the project to a GitHub repo (private is fine).

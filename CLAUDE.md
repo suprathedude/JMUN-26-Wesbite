@@ -9,7 +9,8 @@ Static site for Oakridge Junior MUN 2026 (30 and 31 October 2026, Oakridge Inter
 - `npm run shots`: Playwright screenshots of every page at 390x844 and 1440x900 into `screenshots/`
 - `npm run media`: optimise images and video in `src/assets/` (sharp + ffmpeg)
 - `npm run check`: build, then check every internal link in `_site/`
-- Deploys to Cloudflare Pages: build command `npm run build`, output `_site`.
+- `npm run a11y`: axe, pixel contrast, keyboard and 360 px checks on every page (build first)
+- Deploys to GoDaddy hosting: GitHub Actions (`.github/workflows/deploy.yml`) runs `npm run build` and uploads `_site/` over FTPS on every push to `main`. See `docs/DEPLOY.md`.
 
 ## Rules that always apply
 - All changeable content lives in `src/_data/*.json`. Never hard-code names, dates, agendas or links in templates.

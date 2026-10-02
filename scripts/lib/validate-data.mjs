@@ -11,7 +11,23 @@ const EVENT_TYPES = ["committee", "ceremony", "social", "meal", "break", "end"];
 const GUIDE_STATUS = ["coming-soon", "available"];
 const GROUPS = ["leadership", "usg"];
 
-const load = (name) => JSON.parse(readFileSync(path.join(DATA, name), "utf8"));
+// A typo that breaks the JSON stops the build with the file name, the line and a hint,
+// since "Unexpected token at position 812" doesn't say where to look.
+const load = (name) => {
+  const text = readFileSync(path.join(DATA, name), "utf8");
+  try {
+    return JSON.parse(text);
+  } catch (error) {
+    const match = error.message.match(/line (\d+) column (\d+)/);
+    const where = match ? ` near line ${match[1]}, column ${match[2]}` : "";
+    const line = match ? `\n  Line ${match[1]}: ${text.split("\n")[Number(match[1]) - 1]?.trim()}` : "";
+    throw new Error(
+      `src/_data/${name} has a typo${where}: ${error.message.replace(/ in JSON at.*$/, "")}.${line}\n` +
+        "  Usually a comma is missing at the end of the line before, there's an extra comma " +
+        "before a } or ], or a quote mark is missing. See docs/HOW_TO_UPDATE.md.",
+    );
+  }
+};
 const list = (values) => values.map((v) => `"${v}"`).join(", ");
 
 // Asset paths in the data are relative to src/, e.g. "assets/img/committees/disec.jpg".

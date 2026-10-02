@@ -1,6 +1,6 @@
 // Renames CSS, JS and font files in the build output to include a content hash
-// (site.css -> site.3f9a1c2b.css) and rewrites every reference to them, so
-// _headers can mark them immutable. Runs after `eleventy` in build mode only.
+// (site.css -> site.3f9a1c2b.css) and rewrites every reference to them, so the
+// server can cache them for a year (src/.htaccess). Runs after `eleventy` in build mode only.
 import { createHash } from "node:crypto";
 import { readFile, writeFile, rename, readdir } from "node:fs/promises";
 import path from "node:path";

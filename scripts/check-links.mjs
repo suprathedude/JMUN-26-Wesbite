@@ -24,7 +24,7 @@ async function exists(p) {
   }
 }
 
-// Resolve a site URL path to a file the way Cloudflare Pages would.
+// Resolve a site URL path to a file the way the live server does (src/.htaccess).
 async function resolveFile(urlPath) {
   const base = path.join(SITE, decodeURIComponent(urlPath));
   for (const candidate of urlPath.endsWith("/")

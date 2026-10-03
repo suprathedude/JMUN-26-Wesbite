@@ -157,10 +157,13 @@ const STATES = [
     },
   },
   {
-    name: "committees-filtered-390",
-    path: "/committees/?category=Council",
+    name: "committees-search-390",
+    path: "/committees/",
     viewport: VIEWPORTS[0],
-    async run() {},
+    async run(page) {
+      await page.locator("input[data-search]").fill("un");
+      await page.waitForTimeout(300);
+    },
   },
   {
     name: "secretariat-flipped-1440",
@@ -173,13 +176,13 @@ const STATES = [
     },
   },
   {
-    name: "resources-guides-filtered-390",
+    name: "resources-ip-open-390",
     path: "/resources/",
     viewport: VIEWPORTS[0],
     async run(page) {
-      await page.getByRole("button", { name: "Crisis" }).first().click();
-      await page.locator("#guides-title").evaluate((el) => el.scrollIntoView({ block: "start" }));
-      await page.waitForTimeout(300);
+      await page.locator("[data-ip-toggle]").click();
+      await page.locator("#ip-title").evaluate((el) => el.scrollIntoView({ block: "start" }));
+      await page.waitForTimeout(400);
     },
   },
   {

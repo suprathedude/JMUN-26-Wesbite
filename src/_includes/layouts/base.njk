@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if title %}{{ title }} | {% endif %}{{ site.name }} {{ site.year }}</title>
   <meta name="description" content="{{ description or site.description }}">
+  {#- The live address (site.json "url") for search engines and link previews. -#}
+  {%- set live = site.url if (site.url | isSet) else "" %}
+  {%- if live and not (page.url | string).endsWith(".html") %}
+  <link rel="canonical" href="{{ live }}{{ page.url }}">
+  <meta property="og:url" content="{{ live }}{{ page.url }}">
+  {%- endif %}
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ site.name }} {{ site.year }}">
+  <meta property="og:title" content="{% if title %}{{ title }} | {% endif %}{{ site.name }} {{ site.year }}">
+  <meta property="og:description" content="{{ description or site.description }}">
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#003057">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">

@@ -4,6 +4,7 @@ pagination:
   data: committees
   size: 1
   alias: committee
+  addAllPagesToCollections: true
 permalink: "/committees/{{ committee.slug }}/"
 pageCss: [committees]
 pageJs: [readmore]
@@ -27,7 +28,6 @@ eleventyComputed:
   {%- endif %}
   <a class="back-pill" href="/committees/">{{ icon("chevron-left") }}Back to committees</a>
   <span class="c-hero__rule" aria-hidden="true"></span>
-  <p class="t-label">{{ c.category }}</p>
   <h1 class="c-hero__code" id="committee-title">{{ c.code }}</h1>
   <p class="c-hero__name">{{ c.name }}</p>
 </section>

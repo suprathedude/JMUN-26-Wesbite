@@ -8,7 +8,6 @@ pageCss: [committees]
 pageJs: [filters]
 ---
 {%- from "partials/icons.njk" import icon -%}
-{%- from "partials/category-chips.njk" import categoryChips -%}
 
 <header class="listing-head">
   <div class="orb listing-head__orb" aria-hidden="true"></div>
@@ -18,9 +17,8 @@ pageJs: [filters]
   </div>
 </header>
 
-<section class="container" aria-label="All committees" data-filters data-noun="committees" data-param="category" data-pill="View committee">
+<section class="container" aria-label="All committees" data-filters data-noun="committees" data-pill="View committee">
   <div class="filters">
-    {{ categoryChips(committees) }}
     <div class="search">
       {{ icon("search") }}
       <label class="visually-hidden" for="committee-search">Search committees</label>

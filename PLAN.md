@@ -211,18 +211,22 @@ The structure in SPEC section 11, plus:
 | S7 | "USGs of Technology: Supratiik K., TBC" makes one person's name "TBC". | That card reads "Name TBC" with initials "TBC". |
 | S8 | Rule 1 says no em dashes in visible copy; OakMUN's copy is full of them. | None in our copy. Time ranges use "to" ("8:00 to 9:00 am"), because an en dash in a time range is easy to confuse with one. |
 
-### 5.3 Changes from your feedback (2 October)
+### 5.3 Changes from your feedback (2 and 3 October)
 
 These replace the spec where they differ from it.
 
 | # | Change | Notes |
 | --- | --- | --- |
-| F1 | **Committees:** the conference's 11, in this order: UNSC, DISEC, UNHRC, Lok Sabha, WHO, UNODC, UNCSW, UNICEF, FCC, COPUOS, Doomsday. SOCHUM, ECOSOC, UNEP, JCC and IP are gone. | UNCSW gets a new category, "Commission" (chip "Commissions"). Without IP, the International Press style guides came off Resources (SPEC 9.6). Doomsday's full name, and FCC's and Doomsday's premises, are TBC. |
+| F1 | **Committees:** the conference's 11, in this order: UNSC, DISEC, UNHRC, Lok Sabha, WHO, UNODC, UNCSW, UNICEF, FCC, COPUOS, Doomsday. SOCHUM, ECOSOC, UNEP, JCC and IP are gone. | Without IP, the International Press style guides came off Resources (SPEC 9.6). On 3 October the IP style guides came back (F8) and categories were removed (F7). |
 | F2 | **Homepage marquee:** one strip, slower (30 s a loop, was 22 s). The navy strip that ran the other way is gone. | |
 | F3 | **Delegates:** 450+. | `site.json` → `stats`. |
 | F4 | **Wheel:** turns on its own, about one committee a second, and scrolling turns it further. | This is D3 option (b), OakMUN's motion, in place of the 2.2 s steps. It still stops under the pointer, while a link inside has focus, off screen and in a hidden tab. |
 | F5 | **Schedule:** the layout from OakMUN XVI's later site (your first recording). The days are stacked; each has a line down the left that fills teal as you scroll, a dot per event that lights as the fill reaches it, and rows that fade in once. | Replaces SPEC 9.1 item 7's day tabs and colour legend; the type now shows as a word under the title. Times stay "to" (S8). The motion is the "schedule timeline entrance" rule 5 allows. |
 | F6 | **Secretariat:** the layout from OakMUN XVI's later site (your second recording). People sit in rows by tier (a new `row` field), with the role above a tall portrait and the name below. With a mouse, the role turns teal, a glow rises, a one-line profile (new `blurb` field) fades in, and a round "View" cursor follows the pointer. | SPEC 9.4's flip stays: the whole portrait is the button. The name moved from the top left of the portrait to below it. The rows fading in and the portraits drifting as you scroll are exceptions to rule 5, made at your request, on this page only. |
+| F7 | **No committee categories** (3 October). The filter chips on Committees and Resources, the label on each tile and the label above the code on a committee page are gone; the committee search stays. | Replaces SPEC 9.2's chips and 9.6's filter, and C12. |
+| F8 | **International Press style guides** (3 October): one "Style guides" card under "International Press" on Resources. Clicking it shows the Journalism and Photography guides. | SPEC 9.6 had two cards. Without JavaScript both guides are always shown. The borrowed IP photo is back, on this card. |
+| F9 | **Secretariat details** (3 October): full names; the three Committee Directors are Chargés d'Affaires; "Director-General" with a hyphen; USGs in the order Logistics, Technology, Policy, Public Relations. Arjun Dhaduvai is the second USG of Technology. | Replaces SPEC section 7.3's short names and S7. |
+| F10 | **Content from 3 October:** the full schedule (nine sessions), oakridgejmun.com (canonical links, `sitemap.xml`, `robots.txt`), jmun@oakridge.in, @oakjmun, chapter XIV confirmed, any school's Grades 6 to 8, no position papers, laptops allowed, the New to MUN procedure note removed, Social Night 5:00 to 6:45 pm for registered delegates only, and the photo booth hidden until it's confirmed. | |Question | Options | My recommendation |
 
 ---
 

@@ -11,11 +11,11 @@ All the content is in `src/_data/`:
 | File | What's in it |
 | --- | --- |
 | `site.json` | The conference name, dates and venue; the announcement bar; the Register link; the contact email; homepage text; the theme; the Secretary-General's letter; sponsors; allocation rounds; the short intros on each page |
-| `committees.json` | Every committee: code, full name, category, agenda, overview, photo, logo, background guide, and its executive board (EB) |
+| `committees.json` | Every committee: code, full name, agenda, overview, photo, logo, background guide, and its executive board (EB) |
 | `secretariat.json` | The Secretariat: names, roles, which row each person sits in, profile lines, photos, Instagram handles |
 | `schedule.json` | Both days of the conference |
 | `faq.json` | The questions and answers on the homepage |
-| `resources.json` | Procedure documents and research links |
+| `resources.json` | Procedure documents, the International Press style guides and research links |
 | `socialNight.json` | The Social Night page |
 | `newToMun.json` | The New to MUN? page |
 
@@ -48,7 +48,7 @@ Name files in lower case with hyphens and no spaces, for example `unsc-chair.jpg
 
 The files are JSON. It looks fussy, but there are only a few rules:
 
-- Text goes in straight double quotes: `"name": "Aryan N."`. Don't use a double quote inside the text; an apostrophe (`'`) is fine.
+- Text goes in straight double quotes: `"name": "Aryan Nadimpalli"`. Don't use a double quote inside the text; an apostrophe (`'`) is fine.
 - Items are separated by commas. The last item before a `}` or `]` has no comma after it.
 - Only change what's to the right of the colon. The names on the left (`"name"`, `"photo"`) must stay exactly as they are.
 - `""` means "not set yet". Something that will exist but isn't decided yet says `TBC`, so it can be found later by searching for TBC.
@@ -62,7 +62,7 @@ Open the red run in the Actions tab and click the step with the red cross. The m
 | --- | --- |
 | `src/_data/site.json has a typo near line 26, column 5: Expected ',' or '}' after property value.` | A comma is missing at the end of the line before line 26, or there's an extra one before a `}`. The message shows the line. |
 | `committees.json, committee 4 (UNHRC), EB member 1: there's no photo at src/assets/img/eb/unhrc-chair.jpg.` | The path in the file doesn't match an uploaded file. Check the spelling and the folder, or upload the file. |
-| `committees.json, committee 12 (ABC): category "Councils" must be one of "General Assembly", "Council", "Agency", "Commission", "Assembly", "Crisis", "Press".` | Use one of the listed values exactly. |
+| `secretariat.json, person 3 (Raaghav Modukuri): "row" must be a whole number like 3, with no quote marks.` | Write `"row": 2`, not `"row": "2"`. |
 | `schedule.json, day 1, event 3 (Break): type "breaks" must be one of "committee", "ceremony", "social", "meal", "break", "end".` | Same: use a listed value. |
 | `resources.json, researchLinks 2 (UN Research Guides): the url must start with https://` | Links to other websites need the full address. |
 
@@ -94,7 +94,7 @@ After, on the UNSC committee page:
 
 ![The background guide card on the UNSC page reading "Available" with "Open background guide"](img/guide-after-committee.jpg)
 
-The **essential documents** (Rules of Procedure, Delegation Guidelines, Consent Form) work the same way. Upload the PDF to `src/assets/docs/`, then set its `"file"` in `src/_data/resources.json`, for example `"file": "assets/docs/rules-of-procedure.pdf"`. The card changes from "Coming soon" to "PDF".
+The **essential documents** (Rules of Procedure, Delegation Guidelines, Consent Form) and the **International Press style guides** (Journalism, Photography) work the same way. Upload the PDF to `src/assets/docs/`, then set its `"file"` in `src/_data/resources.json` (the style guides are under `"ip"` → `"guides"`), for example `"file": "assets/docs/rules-of-procedure.pdf"`. The card changes from "Coming soon" to "PDF".
 
 ---
 
@@ -146,7 +146,7 @@ In `schedule.json`, each day has a list of `"events"`. Each event looks like thi
 }
 ```
 
-- `"start"` and `"end"`: write times like `8:00 am` or `1:30 pm`. The length ("1.5 hrs") is worked out for you.
+- `"start"` and `"end"`: write times like `8:00 am` or `1:30 pm`. The length ("1 hr 30 min") is worked out for you.
 - `"type"` sets the small label under the title (Committee, Ceremony, Social, Meal, Break or End of day): `committee`, `ceremony`, `social`, `meal`, `break` or `end`.
 - Optional extras:
   - `"tag"`: a label that replaces the type's, for example `"Arrival"`;
@@ -154,7 +154,7 @@ In `schedule.json`, each day has a list of `"events"`. Each event looks like thi
   - `"link"`: a page that the event links to, for example `"/social-night/"`.
 - To change the order, move whole `{ ... }` blocks. Mind the commas.
 - Each day has a `"label"` (`"Day one"`, shown in capitals) and a `"dateLabel"` (`"Friday 30 October"`).
-- `"note"` at the top shows next to the schedule title (under it on phones). Update it when the times are final, or set it to `""` to hide it. The line above it ("Two days, four committee sessions.") counts the days and the `committee` events by itself.
+- `"note"` at the top shows next to the schedule title (under it on phones). Update it when the times are final, or set it to `""` to hide it. The line above it ("Two days, nine committee sessions.") counts the days and the `committee` events by itself.
 
 ## Edit the Secretariat
 
@@ -162,7 +162,7 @@ Each person in `secretariat.json` looks like this:
 
 ```json
 {
-  "name": "Aryan N.",
+  "name": "Aryan Nadimpalli",
   "role": "Deputy Secretary-General",
   "group": "leadership",
   "row": 2,
@@ -219,7 +219,6 @@ For a second sponsor, add a comma after the first `}` and another `{ ... }`. The
 | `"slug"` | Lower case letters, numbers and hyphens. It becomes the address: `"un-women"` → `/committees/un-women/`. It must not match another committee. |
 | `"code"` | The short name, shown huge: `"UN Women"` |
 | `"name"` | The full name |
-| `"category"` | One of `General Assembly`, `Council`, `Agency`, `Commission`, `Assembly`, `Crisis`, `Press` |
 | `"agenda"` | `"Agenda TBC"` until it's announced |
 | `"overview"` | Two or three plain sentences |
 | `"image"` | `"assets/img/committees/un-women.jpg"` after uploading the photo, or `""` for "Photo TBC" |
@@ -228,7 +227,7 @@ For a second sponsor, add a comma after the first `}` and another `{ ... }`. The
 | `"eb"` | The three EB entries, with `"name": ""` until they're announced |
 
 Everything else updates by itself:
-- the tile on the Committees page, and its filter chip if it's a new category;
+- the tile on the Committees page;
 - the committee's own page;
 - its guide card on Resources;
 - the committee names scrolling across the homepage and the committee wheel;
@@ -244,12 +243,12 @@ Everything else updates by itself:
 | --- | --- |
 | The Register button's link | `site.json` → `nav` → `register` → `url` |
 | The "Consent form" button (hidden until it has a link) | `site.json` → `nav` → `secondary` → `url` |
-| The contact email | `site.json` → `contact` → `email` |
+| The contact email | `site.json` → `contact` → `email`, and the last answer in `faq.json` (with its button's `mailto:` link) |
 | The conference dates | `site.json` → `start` and `end`, written like `2026-10-30T08:00:00+05:30`. The countdown and every date on the site follow these. |
 | The Secretary-General's letter | `site.json` → `sgLetter`: `paragraphs` (one item per paragraph), `photo`, `signature` |
 | Allocation rounds and the matrix link | `site.json` → `allocations`: `rounds` (`name`, `date`, `note`), `status`, `matrixUrl` |
 | FAQ answers | `faq.json`. An answer can have a button: `"link": { "label": "See allocations", "url": "/allocations/" }` |
-| Social Night details | `socialNight.json`: `time`, `dressCode`, `expect`, `photoBoothImage`, `faq` |
+| Social Night details | `socialNight.json`: `time`, `dressCode`, `expect`, `faq`. The photo booth section appears once `photoBooth` has a sentence in it; add `photoBoothImage` for its photo. |
 | Research links | `resources.json` → `researchLinks`: `title`, `url` (must start with `https://`), `description` |
 | The hero photo or video | See [REPLACE_ME.md](REPLACE_ME.md), "Hero background" |
 

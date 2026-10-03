@@ -120,6 +120,8 @@ pageCss: [new-to-mun]
       </div>
       {%- endfor %}
     </dl>
+    {%- if g.note %}
     <p class="ntm-note">{{ icon("info") }}<span>{{ g.note }}</span></p>
+    {%- endif %}
   </div>
 </section>

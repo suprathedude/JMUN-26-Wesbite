@@ -6,7 +6,6 @@ import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 
 const DATA = "src/_data";
-const CATEGORIES = ["General Assembly", "Council", "Agency", "Commission", "Assembly", "Crisis", "Press"];
 const EVENT_TYPES = ["committee", "ceremony", "social", "meal", "break", "end"];
 const GUIDE_STATUS = ["coming-soon", "available"];
 const GROUPS = ["leadership", "usg"];
@@ -65,7 +64,6 @@ export function validateData() {
     for (const field of ["code", "name", "agenda", "overview"]) {
       if (!c[field]) add("committees.json", where, `"${field}" is empty. Use "TBC" if it isn't known yet.`);
     }
-    if (!CATEGORIES.includes(c.category)) add("committees.json", where, `category "${c.category}" must be one of ${list(CATEGORIES)}.`);
     // Releasing a guide is one line: set guide.file. A file makes it "Available" whatever
     // the status says; status only matters while there's no file.
     if (c.guide?.status && !GUIDE_STATUS.includes(c.guide.status)) add("committees.json", where, `guide status "${c.guide.status}" must be one of ${list(GUIDE_STATUS)}.`);
@@ -111,11 +109,17 @@ export function validateData() {
   });
 
   const resources = load("resources.json");
-  for (const group of ["documents", "ipGuides"]) {
-    (resources[group] ?? []).forEach((doc, i) => {
-      if (missingFile(doc.file)) add("resources.json", `${group} ${i + 1} (${doc.title})`, `there's no file at src/${doc.file}.`);
-    });
-  }
+  (resources.documents ?? []).forEach((doc, i) => {
+    if (missingFile(doc.file)) add("resources.json", `documents ${i + 1} (${doc.title})`, `there's no file at src/${doc.file}.`);
+  });
+  if (missingFile(resources.ip?.image)) add("resources.json", "ip, image", `there's no file at src/${resources.ip.image}.`);
+  (resources.ip?.guides ?? []).forEach((doc, i) => {
+    const where = `ip, guide ${i + 1} (${doc.title})`;
+    if (missingFile(doc.file)) add("resources.json", where, `there's no file at src/${doc.file}.`);
+    if (doc.icon && !existsSync(`node_modules/lucide-static/icons/${doc.icon}.svg`)) {
+      add("resources.json", where, `there's no icon called "${doc.icon}". Use a name from lucide.dev/icons.`);
+    }
+  });
   resources.researchLinks.forEach((link, i) => {
     if (!/^https:\/\//.test(link.url ?? "")) add("resources.json", `researchLinks ${i + 1} (${link.title})`, "the url must start with https://");
   });

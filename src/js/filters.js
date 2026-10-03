@@ -1,61 +1,41 @@
-// Category chips (and an optional search box) that filter a grid instantly, with the number
-// of results announced to screen readers (SPEC 9.2 and 9.6). Used on the committees listing
-// and for the background guides on Resources.
+// The committee search (SPEC 9.2): typing filters the tiles instantly, and the number of
+// results is announced to screen readers.
 //
-// Markup: a [data-filters] block holding [data-filter] chips, optionally a [data-search]
-// input, a [data-count] live region, a [data-empty] message, and [data-item] elements with
-// data-category (and data-search text). Options on [data-filters]:
-//   data-noun="committees"   used in "Showing 3 of 12 committees"
-//   data-param="category"    keep the chosen chip in the address (?category=Crisis)
+// Markup: a [data-filters] block holding a [data-search] input, a [data-count] live region, a
+// [data-empty] message, and [data-item] elements with data-search text. Options on
+// [data-filters]:
+//   data-noun="committees"      used in "Showing 3 of 11 committees"
 //   data-pill="View committee"  a pill that follows the pointer over the items
 for (const root of document.querySelectorAll("[data-filters]")) {
-  const chips = [...root.querySelectorAll("[data-filter]")];
   const search = root.querySelector("[data-search]");
   const items = [...root.querySelectorAll("[data-item]")];
   const count = root.querySelector("[data-count]");
   const empty = root.querySelector("[data-empty]");
   const noun = root.dataset.noun ?? "items";
-  const param = root.dataset.param;
   const total = items.length;
-  let category = "all";
 
-  const apply = ({ announce = true } = {}) => {
+  const apply = () => {
     const query = search ? search.value.trim().toLowerCase() : "";
     let shown = 0;
     for (const item of items) {
-      const match =
-        (category === "all" || item.dataset.category === category) &&
-        (!query || (item.dataset.search ?? "").includes(query));
+      const match = !query || (item.dataset.search ?? "").includes(query);
       item.hidden = !match;
       if (match) shown++;
     }
     if (empty) empty.hidden = shown > 0;
-    if (announce && count) {
+    if (count) {
       count.textContent = shown === total ? `Showing all ${total} ${noun}` : `Showing ${shown} of ${total} ${noun}`;
     }
   };
 
-  const choose = (value, { announce = true } = {}) => {
-    category = chips.some((chip) => chip.dataset.filter === value) ? value : "all";
-    for (const chip of chips) chip.setAttribute("aria-pressed", String(chip.dataset.filter === category));
-    if (param) {
-      const url = new URL(location.href);
-      if (category === "all") url.searchParams.delete(param);
-      else url.searchParams.set(param, category);
-      history.replaceState(null, "", url);
-    }
-    apply({ announce });
-  };
-
-  for (const chip of chips) chip.addEventListener("click", () => choose(chip.dataset.filter));
-  search?.addEventListener("input", () => apply());
+  search?.addEventListener("input", apply);
   root.querySelector("[data-reset]")?.addEventListener("click", () => {
-    if (search) search.value = "";
-    choose("all");
-    chips[0]?.focus();
+    if (search) {
+      search.value = "";
+      search.focus();
+    }
+    apply();
   });
-
-  choose((param && new URL(location.href).searchParams.get(param)) || "all", { announce: false });
 
   // Pointer pill (reference/13): fine pointers only, and only while over an item.
   const label = root.dataset.pill;

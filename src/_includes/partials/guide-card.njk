@@ -6,7 +6,7 @@
       g.file                   PDF path (optional)
       g.linkLabel              e.g. "Open background guide"
       g.level                  heading level, default 2
-      g.attrs                  extra attributes for filtering -#}
+      g.attrs                  extra attributes -#}
 {%- macro guideCard(g) -%}
 {%- set ready = g.file | isSet -%}
 {%- set h = "h" ~ (g.level or 2) -%}
@@ -16,7 +16,7 @@
   {%- else %}
   <span class="guide__tbc">Photo TBC</span>
   {%- endif %}
-  <span class="guide__tag">{{ g.tag }}</span>
+  {%- if g.tag %}<span class="guide__tag">{{ g.tag }}</span>{% endif %}
   <{{ h }} class="guide__title">{{ g.title }}</{{ h }}>
   {%- if g.text %}<p class="guide__topic">{{ g.text }}</p>{% endif %}
   <div class="guide__foot">

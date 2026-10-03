@@ -1078,7 +1078,7 @@ html.is-locked {
   }
 }
 
-/* ---------- Filter band: chips and search (SPEC 8.4), committees and resources ---------- */
+/* ---------- Filter band: the committee search (SPEC 8.4) ---------- */
 
 .filters {
   position: relative;
@@ -1086,58 +1086,13 @@ html.is-locked {
   display: none;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 16px 24px;
   margin-bottom: 40px;
 }
 
 .js .filters {
   display: flex;
-}
-
-.chips {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-}
-
-.chips__label {
-  margin-right: 4px;
-  font-size: var(--fs-label);
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-60);
-}
-
-.chip {
-  padding: 8px 16px;
-  border: 1px solid var(--blue-500);
-  border-radius: var(--radius-pill);
-  background: var(--blue-600);
-  font-size: var(--fs-nav);
-  font-weight: 700;
-  letter-spacing: var(--track-nav);
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: var(--ink-75);
-  transition:
-    transform var(--dur-snap) var(--ease-snap),
-    color var(--dur-hover) var(--ease-standard),
-    background-color var(--dur-hover) var(--ease-standard);
-}
-
-.chip:hover:not([aria-pressed="true"]) {
-  transform: translateY(-1px);
-  color: var(--ink-100);
-}
-
-.chip[aria-pressed="true"] {
-  border-color: var(--teal);
-  background: var(--teal);
-  color: var(--navy);
-  box-shadow: var(--shadow-chip);
 }
 
 .search {

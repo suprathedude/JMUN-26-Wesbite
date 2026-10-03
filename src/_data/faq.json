@@ -1,7 +1,7 @@
 [
   {
     "question": "Who can take part?",
-    "answer": "Students in Grades 6 to 8 from Oakridge and invited schools."
+    "answer": "Students in Grades 6 to 8, from any school."
   },
   {
     "question": "I've never done MUN. Is that okay?",
@@ -29,7 +29,7 @@
   },
   {
     "question": "What's the dress code?",
-    "answer": "Dress code TBC."
+    "answer": "Western formals on Day one and traditional wear on Day two (TBC)."
   },
   {
     "question": "Are there awards?",
@@ -41,6 +41,10 @@
   },
   {
     "question": "Who do I contact?",
-    "answer": "Email the Secretariat. Address TBC."
+    "answer": "Email the Secretariat at jmun@oakridge.in, or message @oakjmun on Instagram.",
+    "link": {
+      "label": "Email the Secretariat",
+      "url": "mailto:jmun@oakridge.in"
+    }
   }
 ]

@@ -1,5 +1,5 @@
 {
-  "note": "Times TBC. The order of the closing ceremony and Social Night is also TBC.",
+  "note": "",
   "days": [
     {
       "id": "day-1",
@@ -8,45 +8,81 @@
       "dateLabel": "Friday 30 October",
       "events": [
         {
-          "start": "TBC",
-          "end": "TBC",
+          "start": "7:45 am",
+          "end": "8:30 am",
           "title": "Registration",
           "type": "ceremony",
           "tag": "Arrival"
         },
         {
-          "start": "TBC",
-          "end": "TBC",
+          "start": "8:30 am",
+          "end": "10:00 am",
           "title": "Opening ceremony",
           "type": "ceremony"
         },
         {
-          "start": "TBC",
-          "end": "TBC",
-          "title": "Break",
-          "type": "break"
+          "start": "10:00 am",
+          "end": "10:20 am",
+          "title": "Snack",
+          "type": "meal"
         },
         {
-          "start": "TBC",
-          "end": "TBC",
+          "start": "10:20 am",
+          "end": "11:20 am",
           "title": "Committee session 1",
           "type": "committee"
         },
         {
-          "start": "TBC",
-          "end": "TBC",
-          "title": "Lunch",
-          "type": "meal"
+          "start": "11:20 am",
+          "end": "11:30 am",
+          "title": "Break",
+          "type": "break"
         },
         {
-          "start": "TBC",
-          "end": "TBC",
+          "start": "11:30 am",
+          "end": "12:30 pm",
           "title": "Committee session 2",
           "type": "committee"
         },
         {
-          "start": "TBC",
-          "end": "TBC",
+          "start": "12:30 pm",
+          "end": "1:15 pm",
+          "title": "Lunch",
+          "type": "meal"
+        },
+        {
+          "start": "1:15 pm",
+          "end": "2:45 pm",
+          "title": "Committee session 3",
+          "type": "committee"
+        },
+        {
+          "start": "2:45 pm",
+          "end": "2:55 pm",
+          "title": "Break",
+          "type": "break"
+        },
+        {
+          "start": "2:55 pm",
+          "end": "4:25 pm",
+          "title": "Committee session 4",
+          "type": "committee"
+        },
+        {
+          "start": "4:25 pm",
+          "end": "4:45 pm",
+          "title": "Snack",
+          "type": "meal"
+        },
+        {
+          "start": "4:45 pm",
+          "end": "7:00 pm",
+          "title": "Committee session 5",
+          "type": "committee"
+        },
+        {
+          "start": "7:00 pm",
+          "end": "",
           "title": "Dispersal",
           "type": "end"
         }
@@ -59,46 +95,82 @@
       "dateLabel": "Saturday 31 October",
       "events": [
         {
-          "start": "TBC",
-          "end": "TBC",
-          "title": "Committee session 3",
+          "start": "8:00 am",
+          "end": "9:30 am",
+          "title": "Committee session 6",
           "type": "committee"
         },
         {
-          "start": "TBC",
-          "end": "TBC",
+          "start": "9:30 am",
+          "end": "9:40 am",
           "title": "Break",
           "type": "break"
         },
         {
-          "start": "TBC",
-          "end": "TBC",
-          "title": "Committee session 4",
+          "start": "9:40 am",
+          "end": "11:10 am",
+          "title": "Committee session 7",
           "type": "committee"
         },
         {
-          "start": "TBC",
-          "end": "TBC",
+          "start": "11:10 am",
+          "end": "11:30 am",
+          "title": "Snack",
+          "type": "meal"
+        },
+        {
+          "start": "11:30 am",
+          "end": "12:50 pm",
+          "title": "Committee session 8",
+          "type": "committee"
+        },
+        {
+          "start": "12:50 pm",
+          "end": "1:35 pm",
           "title": "Lunch",
           "type": "meal"
         },
         {
-          "start": "TBC",
-          "end": "TBC",
+          "start": "1:35 pm",
+          "end": "3:00 pm",
+          "title": "Committee session 9",
+          "type": "committee"
+        },
+        {
+          "start": "3:00 pm",
+          "end": "3:10 pm",
+          "title": "Break",
+          "type": "break"
+        },
+        {
+          "start": "3:10 pm",
+          "end": "4:40 pm",
           "title": "Closing ceremony",
           "type": "ceremony"
         },
         {
-          "start": "TBC",
-          "end": "TBC",
+          "start": "4:40 pm",
+          "end": "5:00 pm",
+          "title": "Transition",
+          "type": "break"
+        },
+        {
+          "start": "5:00 pm",
+          "end": "6:45 pm",
           "title": "Social Night",
           "type": "social",
           "place": "MPH",
           "link": "/social-night/"
         },
         {
-          "start": "TBC",
-          "end": "TBC",
+          "start": "6:45 pm",
+          "end": "7:30 pm",
+          "title": "Dinner",
+          "type": "meal"
+        },
+        {
+          "start": "7:30 pm",
+          "end": "",
           "title": "Dispersal",
           "type": "end"
         }

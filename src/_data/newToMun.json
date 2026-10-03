@@ -53,10 +53,6 @@
     {
       "title": "Write a 60 to 90-second opening speech.",
       "text": "Say who you are, what your country thinks and what you'd like the committee to do. Practise it out loud with a timer."
-    },
-    {
-      "title": "Write a position paper if your committee asks for one (TBC).",
-      "text": "Your chairs will tell you if they want one and how long it should be."
     }
   ],
   "onTheDay": [
@@ -67,7 +63,7 @@
         "A notebook and two pens",
         "Your opening speech and research notes",
         "A water bottle",
-        "Your laptop, if your committee allows one (TBC)"
+        "Your laptop, if you'd like to use one in committee"
       ]
     },
     {
@@ -82,7 +78,7 @@
       "title": "Where to go",
       "icon": "map-pin",
       "items": [
-        "On the first morning, go to registration before anything else (place and time TBC).",
+        "On the first morning, go to registration before anything else. It opens at 7:45 am (place TBC).",
         "Someone from the Secretariat will show you to your committee room."
       ]
     }
@@ -164,5 +160,5 @@
       "definition": "A numbered line that says what the committee will do. Each one starts with a verb like \"Encourages\" or \"Calls upon\"."
     }
   ],
-  "note": "Procedure may differ slightly at OakJMUN. Check with USG Policy (TBC)."
+  "note": ""
 }

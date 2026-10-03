@@ -1,12 +1,12 @@
 {
   "edition": "Halloween edition",
-  "day": "Day 2",
+  "day": "Day two",
   "date": "Saturday 31 October",
   "place": "MPH",
-  "time": "TBC",
+  "time": "5:00 pm to 6:45 pm",
   "dressCode": "Costumes TBC",
-  "expect": "A Halloween evening in the MPH for every delegate, after the second day of committee sessions. Programme TBC.",
-  "photoBooth": "A camera rig takes a short looping 3D photo from several angles. Your photo is sent only to you, and we only take photos of students whose parents have given consent.",
+  "expect": "A Halloween evening in the MPH for every delegate, straight after the closing ceremony on Day two, with dinner afterwards. Programme TBC.",
+  "photoBooth": "",
   "photoBoothImage": "",
   "faq": [
     {
@@ -15,15 +15,11 @@
     },
     {
       "question": "What time does it start and finish?",
-      "answer": "Times TBC."
+      "answer": "It starts at 5:00 pm and finishes at 6:45 pm. Dinner follows until 7:30 pm."
     },
     {
       "question": "Can parents come?",
-      "answer": "TBC."
-    },
-    {
-      "question": "How do I get my photo-booth picture?",
-      "answer": "It's sent only to you, and only if your parents have given consent. Details TBC."
+      "answer": "No. Social Night is only for registered delegates, and delegates can't bring a guest."
     }
   ]
 }

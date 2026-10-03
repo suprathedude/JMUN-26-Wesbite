@@ -1,6 +1,6 @@
 // npm run a11y
 // Accessibility checks on every page in _site at 390 and 1440 px wide, plus the open menus,
-// a flipped Secretariat card and an open FAQ answer (SPEC 6 and Task 8):
+// a flipped Secretariat card, an open FAQ answer and the open IP style guides (SPEC 6 and Task 8):
 //   - axe-core, WCAG 2.2 A and AA rules plus axe's best practices
 //   - heading order: one h1, and no level skipped on the way down
 //   - text contrast measured from the rendered pixels (scripts/lib/contrast.mjs), since axe
@@ -37,7 +37,8 @@ const STATES = [
   { name: "home: More dropdown open", path: "/", width: 1440, run: (page) => page.focus("[data-more-btn]").then(() => page.keyboard.press("Enter")) },
   { name: "secretariat: card flipped", path: "/secretariat/", width: 1440, run: (page) => page.locator(".person__flip").first().click() },
   { name: "social night: second FAQ open", path: "/social-night/", width: 390, run: (page) => page.locator(".faq-q").nth(1).click() },
-  { name: "committees: no results", path: "/committees/", width: 1440, run: (page) => page.fill("[data-search]", "zzzz") },
+  { name: "committees: no results", path: "/committees/", width: 1440, run: (page) => page.fill("input[data-search]", "zzzz") },
+  { name: "resources: IP style guides open", path: "/resources/", width: 390, run: (page) => page.click("[data-ip-toggle]") },
 ];
 
 // One h1, and headings only ever go one level deeper at a time.

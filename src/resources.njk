@@ -2,14 +2,13 @@
 layout: layouts/base.njk
 title: Resources
 eleventyComputed:
-  description: "Background guides, procedure documents and research links for {{ site.name }} {{ site.year }}."
+  description: "Background guides, International Press style guides, procedure documents and research links for {{ site.name }} {{ site.year }}."
 permalink: /resources/
 pageCss: [resources]
-pageJs: [filters]
+pageJs: [resources]
 ---
 {%- from "partials/icons.njk" import icon -%}
 {%- from "partials/guide-card.njk" import guideCard -%}
-{%- from "partials/category-chips.njk" import categoryChips -%}
 
 {%- set rp = site.resourcesPage -%}
 {%- set out = committees | guidesOut -%}
@@ -40,24 +39,57 @@ pageJs: [filters]
 
 {#- Background guides: the same entries as the committee pages, so releasing a guide is one
     line in committees.json (guide.file) plus the PDF. -#}
-<section class="res-section" aria-labelledby="guides-title" data-filters data-noun="background guides">
+<section class="res-section" aria-labelledby="guides-title">
   <div class="container">
     <h2 class="t-section t-section--bar" id="guides-title">Background guides</h2>
-    <div class="filters res-filters">
-      {{ categoryChips(committees, "Filter background guides by type") }}
-    </div>
-    <p class="visually-hidden" role="status" aria-live="polite" data-count></p>
     <div class="res-grid">
       {%- for c in committees %}
-      {{ guideCard({
-        tag: c.category, title: c.code, text: c.name, image: c.image, file: c.guide.file,
-        linkLabel: "Open PDF", level: 3,
-        attrs: 'data-item data-category="' ~ c.category ~ '"'
-      }) }}
+      {{ guideCard({ title: c.code, text: c.name, image: c.image, file: c.guide.file, linkLabel: "Open PDF", level: 3 }) }}
       {%- endfor %}
     </div>
   </div>
 </section>
+{#- International Press: one card that opens to show the Journalism and Photography guides.
+    Without JavaScript both guides are simply shown under the card. -#}
+{%- set ip = resources.ip %}
+{%- set ipOut = ip.guides | selectattr("file") | list | length %}
+<section class="res-section" aria-labelledby="ip-title" data-ip>
+  <div class="container">
+    <h2 class="t-section t-section--bar" id="ip-title">International Press</h2>
+    <article class="guide ip-card">
+      {%- if ip.image %}
+      <img class="guide__img" src="/{{ ip.image }}" alt="" sizes="(max-width: 768px) 100vw, 820px" eleventy:widths="400,800">
+      {%- endif %}
+      <h3 class="guide__title">{{ ip.title }}</h3>
+      <p class="guide__topic">{{ ip.description }}</p>
+      <div class="guide__foot">
+        <span class="guide__status{% if ipOut %} is-ready{% endif %}">
+          {%- if ipOut == 0 %}Coming soon{% elif ipOut == ip.guides | length %}Available{% else %}{{ ipOut }} of {{ ip.guides | length }} out{% endif -%}
+        </span>
+        <button class="guide__link ip-card__toggle" type="button" aria-expanded="false" aria-controls="ip-guides" data-ip-toggle>
+          <span data-ip-label>Show the {{ ip.guides | length | numberWord | lower }} guides</span>{{ icon("chevron-down") }}
+        </button>
+      </div>
+    </article>
+    <ul class="docs ip-guides" id="ip-guides" role="list" data-ip-panel>
+      {%- for d in ip.guides %}
+      {%- set ready = d.file | isSet %}
+      <li class="doc{% if ready %} is-ready{% endif %}">
+        <span class="doc__icon" aria-hidden="true">{{ icon(d.icon or "file-text") }}</span>
+        <div class="doc__body">
+          <span class="doc__pill">{{ "PDF" if ready else "Coming soon" }}</span>
+          <h3 class="doc__title">
+            {%- if ready %}<a href="/{{ d.file }}" target="_blank" rel="noopener">{{ d.title }} ↗<span class="visually-hidden"> (PDF, opens in a new tab)</span></a>
+            {%- else %}{{ d.title }}{% endif -%}
+          </h3>
+          <p class="doc__text">{{ d.description }}</p>
+        </div>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+
 <section class="res-section" aria-labelledby="docs-title">
   <div class="container">
     <h2 class="t-section t-section--bar" id="docs-title">Essential documents</h2>

@@ -13,6 +13,11 @@ The one-time setup takes about half an hour. You need:
 - admin access to the GitHub repository (to add the FTP password as a secret);
 - the domain or subdomain the site should live at.
 
+**For OakJMUN 2026** the address is **oakridgejmun.com**, and the school's IT team manages the domain. Before starting, ask them:
+1. Is oakridgejmun.com on GoDaddy, and is there a GoDaddy **hosting** plan as well, not just the domain? If so, which product does **My Products** list for it (step 1)?
+2. Can they either give a Secretariat member access to that hosting's cPanel, or do steps 3 and 4 themselves and send back the FTP Server and FTP Username? The password should go straight into GitHub (step 5), not into a chat or an email.
+3. Can they switch on the free SSL certificate for oakridgejmun.com (step 3)?
+
 ---
 
 ## 1. Check which GoDaddy product you have
@@ -80,7 +85,7 @@ The deploy makes the site's folder an exact copy of the built site. Anything els
 
 **Turn on HTTPS** once `https://` shows the padlock: in the repository, open `src/.htaccess`, find the five lines at the bottom under "Send every visitor to the https:// address", remove the `#` at the start of each, and commit. Every `http://` address then forwards to `https://`.
 
-**Set the site's address** in `src/_data/site.json`: change `"url": "https://TBC"` to the real address, for example `"url": "https://jmun.example.org"`.
+**The site's address** is set in `src/_data/site.json` as `"url": "https://oakridgejmun.com"`. Search engines and link previews use it, and so do `sitemap.xml` and `robots.txt`. Change it only if the address changes.
 
 ## 7. Day to day
 

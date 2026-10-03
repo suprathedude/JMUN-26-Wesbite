@@ -2,7 +2,7 @@
 layout: layouts/base.njk
 title: Social Night
 eleventyComputed:
-  description: "Social Night, {{ socialNight.edition }}, on {{ socialNight.date }} in the {{ socialNight.place }} at {{ site.name }} {{ site.year }}. What to expect, what to wear, the 3D photo booth and answers to common questions."
+  description: "Social Night, {{ socialNight.edition }}, on {{ socialNight.date }} in the {{ socialNight.place }} at {{ site.name }} {{ site.year }}. What to expect, what to wear{% if socialNight.photoBooth %}, the 3D photo booth{% endif %} and answers to common questions."
 permalink: /social-night/
 pageCss: [social-night]
 pageJs: [social-night, faq]
@@ -56,6 +56,8 @@ bodyClass: page-night
   </div>
 </section>
 
+{#- The photo booth shows once socialNight.json describes it (photoBooth isn't empty). -#}
+{%- if sn.photoBooth | isSet %}
 <section class="section sn-booth" aria-labelledby="booth-title">
   <div class="container sn-booth__grid">
     <div class="sn-booth__text">
@@ -71,6 +73,7 @@ bodyClass: page-night
     </div>
   </div>
 </section>
+{%- endif %}
 
 <section class="section sn-faq" aria-labelledby="sn-faq-title">
   {{ cobweb("cobweb--faq") }}

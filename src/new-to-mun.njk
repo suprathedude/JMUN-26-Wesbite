@@ -15,17 +15,17 @@ pageCss: [new-to-mun]
 <section class="ntm-hero" aria-labelledby="ntm-title">
   <div class="orb ntm-hero__orb" aria-hidden="true"></div>
   <div class="container ntm-hero__grid">
-    <div class="ntm-hero__art" aria-hidden="true">
+    <div class="ntm-hero__art" aria-hidden="true" data-reveal="art">
       <div class="ntm-hero__circle">
         {{ placard(g.intro.placard, "ntm-hero__placard placard--rise") }}
       </div>
     </div>
     <div class="ntm-hero__text">
-      <h1 class="ntm-hero__title" id="ntm-title">New to <span class="t-teal">MUN?</span> <span>Start here.</span></h1>
+      <h1 class="ntm-hero__title" id="ntm-title" data-reveal="mask">New to <span class="t-teal">MUN?</span> <span>Start here.</span></h1>
       {%- for p in g.intro.text %}
-      <p class="ntm-hero__lead">{{ p }}</p>
+      <p class="ntm-hero__lead" data-reveal>{{ p }}</p>
       {%- endfor %}
-      <div class="ntm-hero__actions">
+      <div class="ntm-hero__actions" data-reveal>
         {{ registerButton(site.nav.register) }}
         <a class="btn btn--outline" href="#session">How a session runs</a>
       </div>
@@ -37,10 +37,10 @@ pageCss: [new-to-mun]
 <section class="section ntm-steps" id="session" aria-labelledby="session-title">
   <div class="container ntm-steps__grid">
     <div class="ntm-steps__head">
-      <h2 class="t-section t-section--bar" id="session-title">How a committee session runs</h2>
-      <p class="ntm-intro">{{ g.stepsIntro }}</p>
+      <h2 class="t-section t-section--bar" data-reveal="mask" id="session-title">How a committee session runs</h2>
+      <p class="ntm-intro" data-reveal>{{ g.stepsIntro }}</p>
     </div>
-    <ol class="steps" role="list">
+    <ol class="steps" role="list" data-reveal>
       {%- for s in g.steps %}
       <li class="step">
         <span class="step__num" aria-hidden="true">{{ ("0" ~ loop.index) if loop.index < 10 else loop.index }}</span>
@@ -54,9 +54,9 @@ pageCss: [new-to-mun]
 
 <section class="section ntm-prep" aria-labelledby="prep-title">
   <div class="container">
-    <h2 class="t-section t-section--bar" id="prep-title">Before the conference</h2>
-    <p class="ntm-intro">{{ g.checklistIntro | fill({ date: site.start | dayMonth }) }}</p>
-    <ul class="checklist" role="list">
+    <h2 class="t-section t-section--bar" data-reveal="mask" id="prep-title">Before the conference</h2>
+    <p class="ntm-intro" data-reveal>{{ g.checklistIntro | fill({ date: site.start | dayMonth }) }}</p>
+    <ul class="checklist" role="list" data-reveal>
       {%- for c in g.checklist %}
       <li class="check">
         <span class="check__icon" aria-hidden="true">{{ icon("circle-check") }}</span>
@@ -73,8 +73,8 @@ pageCss: [new-to-mun]
 {#- The brighter accents as panel backgrounds, with navy text (SPEC 9.7). -#}
 <section class="section ntm-day" aria-labelledby="day-title">
   <div class="container">
-    <h2 class="t-section t-section--bar" id="day-title">On the day</h2>
-    <div class="day-panels">
+    <h2 class="t-section t-section--bar" data-reveal="mask" id="day-title">On the day</h2>
+    <div class="day-panels" data-reveal>
       {%- for p in g.onTheDay %}
       <div class="day-panel">
         <span class="day-panel__icon" aria-hidden="true">{{ icon(p.icon) }}</span>
@@ -93,9 +93,9 @@ pageCss: [new-to-mun]
 {#- Each phrase is a small white placard to read out (SPEC 9.7). -#}
 <section class="section ntm-say" aria-labelledby="say-title">
   <div class="container">
-    <h2 class="t-section t-section--bar" id="say-title">Say it like a delegate</h2>
-    <p class="ntm-intro">{{ g.phrasesIntro }}</p>
-    <ul class="phrases" role="list">
+    <h2 class="t-section t-section--bar" data-reveal="mask" id="say-title">Say it like a delegate</h2>
+    <p class="ntm-intro" data-reveal>{{ g.phrasesIntro }}</p>
+    <ul class="phrases" role="list" data-reveal>
       {%- for p in g.phrases %}
       <li class="phrase">
         <div class="phrase__face">
@@ -111,8 +111,8 @@ pageCss: [new-to-mun]
 
 <section class="section ntm-words" id="glossary" aria-labelledby="glossary-title">
   <div class="container">
-    <h2 class="t-section t-section--bar" id="glossary-title">Glossary</h2>
-    <dl class="glossary">
+    <h2 class="t-section t-section--bar" data-reveal="mask" id="glossary-title">Glossary</h2>
+    <dl class="glossary" data-reveal>
       {%- for t in g.glossary %}
       <div class="glossary__item">
         <dt>{{ t.term }}</dt>
@@ -121,7 +121,7 @@ pageCss: [new-to-mun]
       {%- endfor %}
     </dl>
     {%- if g.note %}
-    <p class="ntm-note">{{ icon("info") }}<span>{{ g.note }}</span></p>
+    <p class="ntm-note" data-reveal>{{ icon("info") }}<span>{{ g.note }}</span></p>
     {%- endif %}
   </div>
 </section>

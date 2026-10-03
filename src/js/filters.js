@@ -14,13 +14,35 @@ for (const root of document.querySelectorAll("[data-filters]")) {
   const noun = root.dataset.noun ?? "items";
   const total = items.length;
 
+  // Tiles that stay glide to their new places, and tiles that come back fade in, instead of
+  // the grid jumping (FLIP: measure, change, animate the difference with transform).
+  const smooth = !matchMedia("(prefers-reduced-motion: reduce)").matches && "animate" in Element.prototype;
+  const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
+
   const apply = () => {
     const query = search ? search.value.trim().toLowerCase() : "";
+    const before = new Map();
+    if (smooth) for (const item of items) if (!item.hidden) before.set(item, item.getBoundingClientRect());
     let shown = 0;
     for (const item of items) {
       const match = !query || (item.dataset.search ?? "").includes(query);
       item.hidden = !match;
       if (match) shown++;
+    }
+    if (smooth) {
+      for (const item of items) {
+        if (item.hidden) continue;
+        const was = before.get(item);
+        if (!was) {
+          item.animate([{ opacity: 0, transform: "scale(0.96)" }, { opacity: 1, transform: "none" }], { duration: 420, easing: EASE });
+          continue;
+        }
+        const now = item.getBoundingClientRect();
+        const dx = was.left - now.left;
+        const dy = was.top - now.top;
+        if (Math.abs(dx) + Math.abs(dy) < 1) continue;
+        item.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: "none" }], { duration: 520, easing: EASE });
+      }
     }
     if (empty) empty.hidden = shown > 0;
     if (count) {

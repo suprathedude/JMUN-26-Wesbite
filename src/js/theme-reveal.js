@@ -13,7 +13,7 @@ const easeOut = (t) => 1 - (1 - t) ** 3;
 function scrub() {
   section.classList.add("is-scrubbing");
   const intro = section.querySelector("[data-theme-intro]");
-  const parts = [...section.querySelectorAll("[data-reveal]")];
+  const parts = [...section.querySelectorAll("[data-theme-part]")];
   const words = parts.filter((el) => el.classList.contains("theme__word"));
   const wordSpan = 0.28 / Math.max(words.length, 1);
 

@@ -276,6 +276,105 @@ html.lenis body {
   pointer-events: none;
 }
 
+/* ---------- Motion between pages and as things come on screen (PLAN.md F11) ---------- */
+
+/* Page to page: a short crossfade. The announcement strip and the nav pill are carried
+   across, so they stay put while the page under them changes. Browsers without
+   cross-document view transitions simply load the next page. */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: page-out calc(var(--dur-page) * 0.55) var(--ease-standard) both;
+}
+
+::view-transition-new(root) {
+  animation: page-in var(--dur-page) var(--ease-standard) both;
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Entrances (reveal.js). html.reveal-on is set in <head> only when motion is fine. */
+.reveal-on [data-reveal]:not([data-reveal="mask"]) {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity calc(var(--dur-reveal) * 0.7) var(--ease-standard) var(--reveal-delay, 0s),
+    transform var(--dur-reveal) var(--ease-out-expo) var(--reveal-delay, 0s);
+}
+
+.reveal-on [data-reveal="art"] {
+  transform: scale(1.06);
+}
+
+.reveal-on [data-reveal].is-in:not([data-reveal="mask"]) {
+  opacity: 1;
+  transform: none;
+}
+
+/* Headings rise out of a mask. They stay hidden until reveal.js has wrapped them. */
+.reveal-on [data-reveal="mask"]:not(.is-masked) {
+  opacity: 0;
+}
+
+reveal-mask {
+  display: block;
+  overflow: hidden;
+  padding-block: 0.12em;
+  margin-block: -0.12em;
+}
+
+reveal-line {
+  display: block;
+  transform: translate3d(0, 112%, 0);
+  transition: transform calc(var(--dur-reveal) * 1.1) var(--ease-out-expo) var(--reveal-delay, 0s);
+}
+
+.is-in > reveal-mask > reveal-line {
+  transform: none;
+}
+
+/* Once risen, the mask comes off, so glows and descenders aren't clipped */
+.is-done > reveal-mask {
+  overflow: visible;
+}
+
+/* The short bar under some titles draws in after the words */
+.reveal-on .t-section--bar[data-reveal="mask"]::after {
+  transform-origin: left center;
+  transition: transform 0.8s var(--ease-out-expo) calc(var(--reveal-delay, 0s) + 0.35s);
+}
+
+.reveal-on .t-section--bar[data-reveal="mask"]:not(.is-in)::after {
+  transform: scaleX(0);
+}
+
+/* Pictures still downloading fade in when they arrive, instead of popping in */
+.reveal-on img.img-fade:not(.is-loaded) {
+  opacity: 0;
+}
+
+.reveal-on img.img-fade.is-loaded {
+  animation: img-in 0.6s var(--ease-standard) both;
+}
+
+@keyframes img-in {
+  from {
+    opacity: 0;
+  }
+}
+
 /* Reduced motion: no movement anywhere */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -286,5 +385,9 @@ html.lenis body {
     transition-duration: 0.01ms !important;
     transition-delay: 0s !important;
     scroll-behavior: auto !important;
+  }
+
+  @view-transition {
+    navigation: none;
   }
 }

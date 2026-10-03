@@ -22,24 +22,24 @@ eleventyComputed:
 {#- Hero card (reference/14) -#}
 <section class="c-hero" aria-labelledby="committee-title">
   {%- if c.image %}
-  <img class="c-hero__img" src="/{{ c.image }}" alt="" loading="eager" fetchpriority="high" sizes="100vw" eleventy:widths="800,1200,1600">
+  <img class="c-hero__img" data-reveal="art" src="/{{ c.image }}" alt="" loading="eager" fetchpriority="high" sizes="100vw" eleventy:widths="800,1200,1600">
   {%- else %}
   <span class="c-hero__tbc">Photo TBC</span>
   {%- endif %}
   <a class="back-pill" href="/committees/">{{ icon("chevron-left") }}Back to committees</a>
   <span class="c-hero__rule" aria-hidden="true"></span>
-  <h1 class="c-hero__code" id="committee-title">{{ c.code }}</h1>
-  <p class="c-hero__name">{{ c.name }}</p>
+  <h1 class="c-hero__code" id="committee-title" data-reveal="mask">{{ c.code }}</h1>
+  <p class="c-hero__name" data-reveal>{{ c.name }}</p>
 </section>
 
 <div class="container c-body">
   <section class="c-overview" aria-labelledby="overview-title">
-    <h2 class="t-section" id="overview-title">{{ c.code }} overview</h2>
-    <p>{{ c.overview }}</p>
+    <h2 class="t-section" id="overview-title" data-reveal="mask">{{ c.code }} overview</h2>
+    <p data-reveal>{{ c.overview }}</p>
   </section>
 
   {#- Agenda card (reference/15) -#}
-  <section class="agenda" aria-labelledby="agenda-title">
+  <section class="agenda" aria-labelledby="agenda-title" data-reveal>
     <div>
       <h2 class="agenda__title" id="agenda-title">Committee agenda</h2>
     </div>
@@ -53,15 +53,15 @@ eleventyComputed:
     </ol>
   </section>
 
-  <div class="c-grid">
+  <div class="c-grid" data-reveal>
     {#- Background guide card. Releasing a guide = setting guide.file to its PDF. -#}
     {{ guideCard({ tag: c.code, title: "Background guide", text: agendas | join("; "), image: c.image, file: c.guide.file, linkLabel: "Open background guide" }) }}
   </div>
 
   {#- Executive board (SPEC 8.6). An empty name reads "EB announced soon". -#}
   <section class="eb" aria-labelledby="eb-title">
-    <h2 class="t-section t-section--bar" id="eb-title">Executive board</h2>
-    <div class="eb__grid">
+    <h2 class="t-section t-section--bar" id="eb-title" data-reveal="mask">Executive board</h2>
+    <div class="eb__grid" data-reveal>
       {%- for m in c.eb %}
       <article class="eb-card" data-readmore>
         <div class="eb-card__photo">

@@ -1,8 +1,7 @@
 // Schedule timeline (SPEC 9.1, item 7; layout from OakMUN XVI's later schedule). Each day's
 // line fills teal as the page scrolls, down to a point 65% of the way down the screen, and an
-// event's dot lights once the fill reaches it. Day titles and rows fade in the first time they
-// come on screen. Only transform and opacity change. With reduced motion the lines are drawn in
-// full and nothing moves.
+// event's dot lights once the fill reaches it. (Day titles and rows fade in through reveal.js.)
+// Only transform and opacity change. With reduced motion the lines are drawn in full.
 const section = document.querySelector("[data-schedule]");
 const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -66,16 +65,4 @@ if (section && !calm && "IntersectionObserver" in window) {
     measure();
     request();
   }).observe(section);
-
-  const reveal = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        entry.target.classList.add("is-in");
-        reveal.unobserve(entry.target);
-      }
-    },
-    { rootMargin: "0px 0px -8% 0px" },
-  );
-  section.querySelectorAll("[data-reveal]").forEach((el) => reveal.observe(el));
 }

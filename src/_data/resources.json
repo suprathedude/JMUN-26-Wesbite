@@ -16,25 +16,20 @@
       "file": ""
     }
   ],
-  "ip": {
-    "title": "Style guides",
-    "description": "How International Press delegates write, photograph and caption their work.",
-    "image": "assets/img/resources/ip.jpg",
-    "guides": [
-      {
-        "title": "Journalism",
-        "description": "How International Press delegates write and file their articles. (TBC)",
-        "icon": "newspaper",
-        "file": ""
-      },
-      {
-        "title": "Photography",
-        "description": "How International Press delegates take and caption their photos. (TBC)",
-        "icon": "camera",
-        "file": ""
-      }
-    ]
-  },
+  "ipGuides": [
+    {
+      "title": "IP Journalism",
+      "description": "How International Press delegates write and file their articles. (TBC)",
+      "image": "assets/img/committees/ip.jpg",
+      "file": ""
+    },
+    {
+      "title": "IP Photography",
+      "description": "How International Press delegates take and caption their photos. (TBC)",
+      "image": "",
+      "file": ""
+    }
+  ],
   "researchLinks": [
     {
       "title": "UN official site",

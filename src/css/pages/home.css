@@ -487,7 +487,7 @@
     gap: 10px;
   }
 
-  .theme.is-scrubbing [data-reveal] {
+  .theme.is-scrubbing [data-theme-part] {
     opacity: 0;
   }
 }
@@ -512,12 +512,12 @@
 }
 
 /* Phones and touch screens: one simple reveal when the section comes into view */
-.theme.is-pending [data-reveal] {
+.theme.is-pending [data-theme-part] {
   opacity: 0;
   transform: translateY(24px);
 }
 
-.theme.is-revealed [data-reveal] {
+.theme.is-revealed [data-theme-part] {
   opacity: 1;
   transform: none;
   transition:
@@ -894,27 +894,13 @@
   color: var(--ink-60);
 }
 
-/* With the script running: dots start unlit, and day titles and rows fade in the first time
-   they come on screen (the "schedule timeline entrance" SPEC 4.5 allows). */
+/* With the script running, dots start unlit and light as the fill reaches them. */
 .schedule.is-live .sched-item__dot::after {
   opacity: 0;
 }
 
 .schedule.is-live .sched-item.is-lit .sched-item__dot::after {
   opacity: 1;
-}
-
-.schedule.is-live [data-reveal] {
-  opacity: 0;
-  transform: translateY(16px);
-  transition:
-    opacity var(--dur-enter) var(--ease-out-expo),
-    transform var(--dur-enter) var(--ease-out-expo);
-}
-
-.schedule.is-live [data-reveal].is-in {
-  opacity: 1;
-  transform: none;
 }
 
 @media (max-width: 768px) {

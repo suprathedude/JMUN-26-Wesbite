@@ -94,7 +94,7 @@ After, on the UNSC committee page:
 
 ![The background guide card on the UNSC page reading "Available" with "Open background guide"](img/guide-after-committee.jpg)
 
-The **essential documents** (Rules of Procedure, Delegation Guidelines, Consent Form) and the **International Press style guides** (Journalism, Photography) work the same way. Upload the PDF to `src/assets/docs/`, then set its `"file"` in `src/_data/resources.json` (the style guides are under `"ip"` → `"guides"`), for example `"file": "assets/docs/rules-of-procedure.pdf"`. The card changes from "Coming soon" to "PDF".
+The **essential documents** (Rules of Procedure, Delegation Guidelines, Consent Form) and the two **International Press style guides** (IP Journalism, IP Photography) work the same way. Upload the PDF to `src/assets/docs/`, then set its `"file"` in `src/_data/resources.json` (the style guides are under `"ipGuides"`), for example `"file": "assets/docs/rules-of-procedure.pdf"`. The card changes from "Coming soon" to "PDF".
 
 ---
 
@@ -146,12 +146,9 @@ In `schedule.json`, each day has a list of `"events"`. Each event looks like thi
 }
 ```
 
-- `"start"` and `"end"`: write times like `8:00 am` or `1:30 pm`. The length ("1 hr 30 min") is worked out for you.
-- `"type"` sets the small label under the title (Committee, Ceremony, Social, Meal, Break or End of day): `committee`, `ceremony`, `social`, `meal`, `break` or `end`.
-- Optional extras:
-  - `"tag"`: a label that replaces the type's, for example `"Arrival"`;
-  - `"place"`: for example `"MPH"`;
-  - `"link"`: a page that the event links to, for example `"/social-night/"`.
+- `"start"` and `"end"`: write times like `8:00 am` or `1:30 pm`. The length shown under the title ("1 hour 30 minutes") is worked out for you. For the last event of a day, leave `"end": ""` and it reads "7:00 pm onwards".
+- `"type"` is one of `committee`, `ceremony`, `social`, `meal`, `break` or `end`. It isn't shown, but the `committee` events are counted for the line under the schedule title.
+- Optional: `"link"`, a page the event's title links to, for example `"/social-night/"`.
 - To change the order, move whole `{ ... }` blocks. Mind the commas.
 - Each day has a `"label"` (`"Day one"`, shown in capitals) and a `"dateLabel"` (`"Friday 30 October"`).
 - `"note"` at the top shows next to the schedule title (under it on phones). Update it when the times are final, or set it to `""` to hide it. The line above it ("Two days, nine committee sessions.") counts the days and the `committee` events by itself.
@@ -231,7 +228,7 @@ Everything else updates by itself:
 - the committee's own page;
 - its guide card on Resources;
 - the committee names scrolling across the homepage and the committee wheel;
-- every committee count ("Eleven committees" becomes "Twelve").
+- every committee count ("Twelve committees" becomes "Thirteen").
 
 **To remove one,** delete its whole block from `{` to `}`, and the comma that went with it. You can delete its photo and logo too, but you don't have to.
 

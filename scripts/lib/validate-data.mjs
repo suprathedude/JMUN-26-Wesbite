@@ -112,13 +112,10 @@ export function validateData() {
   (resources.documents ?? []).forEach((doc, i) => {
     if (missingFile(doc.file)) add("resources.json", `documents ${i + 1} (${doc.title})`, `there's no file at src/${doc.file}.`);
   });
-  if (missingFile(resources.ip?.image)) add("resources.json", "ip, image", `there's no file at src/${resources.ip.image}.`);
-  (resources.ip?.guides ?? []).forEach((doc, i) => {
-    const where = `ip, guide ${i + 1} (${doc.title})`;
+  (resources.ipGuides ?? []).forEach((doc, i) => {
+    const where = `ipGuides ${i + 1} (${doc.title})`;
     if (missingFile(doc.file)) add("resources.json", where, `there's no file at src/${doc.file}.`);
-    if (doc.icon && !existsSync(`node_modules/lucide-static/icons/${doc.icon}.svg`)) {
-      add("resources.json", where, `there's no icon called "${doc.icon}". Use a name from lucide.dev/icons.`);
-    }
+    if (missingFile(doc.image)) add("resources.json", where, `there's no photo at src/${doc.image}.`);
   });
   resources.researchLinks.forEach((link, i) => {
     if (!/^https:\/\//.test(link.url ?? "")) add("resources.json", `researchLinks ${i + 1} (${link.title})`, "the url must start with https://");

@@ -11,8 +11,7 @@
           "start": "7:45 am",
           "end": "8:30 am",
           "title": "Registration",
-          "type": "ceremony",
-          "tag": "Arrival"
+          "type": "ceremony"
         },
         {
           "start": "8:30 am",
@@ -159,7 +158,6 @@
           "end": "6:45 pm",
           "title": "Social Night",
           "type": "social",
-          "place": "MPH",
           "link": "/social-night/"
         },
         {

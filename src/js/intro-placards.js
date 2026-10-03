@@ -216,11 +216,17 @@ function run() {
   Promise.all(animations.map((a) => a.finished)).then(cleanup, cleanup);
 }
 
-if (root.classList.contains("intro")) {
+const begin = () => {
   // Without the Web Animations API, or if the page reopened partway down, show it as it is.
   if (!hero || !layer || !("animate" in Element.prototype) || window.scrollY > 40) {
     root.classList.remove("intro");
   } else {
     run();
   }
+};
+
+if (root.classList.contains("intro")) {
+  // If the loading screen (PLAN.md F12) is showing, start once it has gone.
+  if (root.classList.contains("is-slow")) addEventListener("loader:done", begin, { once: true });
+  else begin();
 }

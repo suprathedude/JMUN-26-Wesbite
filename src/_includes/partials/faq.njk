@@ -2,7 +2,7 @@
     The first item starts open, as in reference/09. -#}
 {%- from "partials/icons.njk" import icon -%}
 {%- macro faqList(items, prefix="faq") -%}
-<div class="faq-list" data-faq>
+<div class="faq-list" data-faq data-reveal>
   {%- for item in items %}
   <div class="faq-item{% if loop.first %} is-open{% endif %}">
     <h3>

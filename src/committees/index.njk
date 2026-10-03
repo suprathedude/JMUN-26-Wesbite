@@ -12,13 +12,13 @@ pageJs: [filters]
 <header class="listing-head">
   <div class="orb listing-head__orb" aria-hidden="true"></div>
   <div class="container">
-    <h1 class="t-page">Committees</h1>
-    <p class="listing-head__text">{{ site.committeesPage.intro | fill({ count: committees | length | numberWord }) }}</p>
+    <h1 class="t-page" data-reveal="mask">Committees</h1>
+    <p class="listing-head__text" data-reveal>{{ site.committeesPage.intro | fill({ count: committees | length | numberWord }) }}</p>
   </div>
 </header>
 
 <section class="container" aria-label="All committees" data-filters data-noun="committees" data-pill="View committee">
-  <div class="filters">
+  <div class="filters" data-reveal>
     <div class="search">
       {{ icon("search") }}
       <label class="visually-hidden" for="committee-search">Search committees</label>
@@ -28,7 +28,7 @@ pageJs: [filters]
 
   <p class="visually-hidden" role="status" aria-live="polite" data-count></p>
 
-  <div class="tiles">
+  <div class="tiles" data-reveal>
     {%- for c in committees %}
     {%- set eager = loop.index <= 4 %}
     {% include "partials/committee-tile.njk" %}

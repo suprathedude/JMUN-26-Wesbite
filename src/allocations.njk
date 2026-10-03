@@ -17,12 +17,12 @@ pageCss: [allocations]
   <section class="alloc" aria-labelledby="alloc-title">
     <div class="container alloc__inner">
       <div class="alloc__title-wrap">
-        <h1 class="alloc__title" id="alloc-title">Committee <span>Allocations.</span></h1>
+        <h1 class="alloc__title" id="alloc-title" data-reveal="mask">Committee <span>Allocations.</span></h1>
       </div>
-      <p class="alloc__text">{{ a.intro }}</p>
+      <p class="alloc__text" data-reveal>{{ a.intro }}</p>
 
       <h2 class="visually-hidden">Allocation rounds</h2>
-      <ul class="rounds" role="list">
+      <ul class="rounds" role="list" data-reveal>
         {%- for r in a.rounds %}
         <li class="rounds__item">
           <span class="rounds__dot" aria-hidden="true"></span>
@@ -32,14 +32,14 @@ pageCss: [allocations]
         {%- endfor %}
       </ul>
 
-      <p class="status-pill"><span class="visually-hidden">Status: </span>{{ a.status }}</p>
+      <p class="status-pill" data-reveal><span class="visually-hidden">Status: </span>{{ a.status }}</p>
     </div>
   </section>
 
   {#- Allocation matrix card (reference/20). Disabled until matrixUrl is set. -#}
   <section class="matrix" aria-labelledby="matrix-title">
     <div class="container">
-      <div class="matrix__card">
+      <div class="matrix__card" data-reveal>
         <span class="matrix__icon" aria-hidden="true">{{ icon("sheet") }}</span>
         <h2 class="matrix__title" id="matrix-title">Allocation matrix</h2>
         <p class="matrix__text">{{ a.matrixText }}</p>

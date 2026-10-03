@@ -361,5 +361,38 @@
         "bio": ""
       }
     ]
+  },
+  {
+    "slug": "ip",
+    "code": "IP",
+    "name": "International Press",
+    "agenda": "Agenda TBC",
+    "overview": "International Press delegates are the conference's journalists and photographers. Instead of debating, they report on the committees, write articles and take photos.",
+    "image": "assets/img/committees/ip.jpg",
+    "logo": "assets/img/logos/ip.png",
+    "guide": {
+      "status": "coming-soon",
+      "file": ""
+    },
+    "eb": [
+      {
+        "role": "Chair",
+        "name": "",
+        "photo": "",
+        "bio": ""
+      },
+      {
+        "role": "Vice Chair",
+        "name": "",
+        "photo": "",
+        "bio": ""
+      },
+      {
+        "role": "Rapporteur",
+        "name": "",
+        "photo": "",
+        "bio": ""
+      }
+    ]
   }
 ]

@@ -75,14 +75,14 @@ intro: true
       <p class="theme__big">Conference theme</p>
     </div>
     <div class="theme__body">
-      <p class="t-label" data-reveal>Conference theme</p>
+      <p class="t-label" data-theme-part>Conference theme</p>
       <h2 class="theme__title" id="theme-title">
         {%- for word in site.theme.words %}
-        <span class="theme__word{% if loop.index == site.theme.highlight %} is-highlight{% endif %}" data-reveal style="--i: {{ loop.index }}">{{ word }}</span>
+        <span class="theme__word{% if loop.index == site.theme.highlight %} is-highlight{% endif %}" data-theme-part style="--i: {{ loop.index }}">{{ word }}</span>
         {%- endfor %}
       </h2>
-      <span class="theme__divider" data-reveal style="--i: {{ site.theme.words | length + 1 }}"></span>
-      <p class="theme__caption" data-reveal style="--i: {{ site.theme.words | length + 2 }}">{{ site.theme.caption }}</p>
+      <span class="theme__divider" data-theme-part style="--i: {{ site.theme.words | length + 1 }}"></span>
+      <p class="theme__caption" data-theme-part style="--i: {{ site.theme.words | length + 2 }}">{{ site.theme.caption }}</p>
     </div>
   </div>
 </section>
@@ -96,7 +96,7 @@ intro: true
 {#- 5. Stats (reference/05). Numbers come from site.json; the committee count from committees.json. -#}
 <section class="stats" aria-label="Oakridge JMUN in numbers">
   <div class="container">
-    <ul class="stats__grid" role="list">
+    <ul class="stats__grid" role="list" data-reveal>
       {%- for stat in [
         { label: "Delegates", value: site.stats.delegates },
         { label: "Committees", value: committees | length },
@@ -118,7 +118,7 @@ intro: true
 <section class="section letter" aria-labelledby="letter-title">
   <div class="orb letter__orb" aria-hidden="true"></div>
   <div class="container letter__grid">
-    <div class="letter__photo">
+    <div class="letter__photo" data-reveal="art">
       {%- if sg.photo %}
       <img src="/{{ sg.photo }}" alt="{{ sg.name }}, {{ sg.role }}" sizes="(max-width: 768px) 320px, 380px" eleventy:widths="400,800">
       {%- else %}
@@ -126,13 +126,13 @@ intro: true
       {%- endif %}
     </div>
     <div>
-      <h2 class="letter__title" id="letter-title">A letter from the {{ sg.role }}</h2>
-      <div class="letter__body">
+      <h2 class="letter__title" id="letter-title" data-reveal="mask">A letter from the {{ sg.role }}</h2>
+      <div class="letter__body" data-reveal>
         {%- for paragraph in sg.paragraphs %}
         <p>{{ paragraph }}</p>
         {%- endfor %}
       </div>
-      <div class="letter__sign">
+      <div class="letter__sign" data-reveal>
         {%- if sg.signature %}
         <img class="letter__signature" src="/{{ sg.signature }}" alt="" eleventy:widths="320">
         {%- endif %}
@@ -146,12 +146,11 @@ intro: true
 
 {#- 7. Schedule (reference/07; layout from OakMUN XVI's later schedule): the days one under
     another, each with a line down the left that fills as you scroll. -#}
-{%- set tagFor = { committee: "Committee", ceremony: "Ceremony", social: "Social", meal: "Meal", break: "Break", end: "End of day" } %}
 <section class="section schedule" id="schedule" aria-labelledby="schedule-title" data-schedule>
   <div class="container">
     <div class="schedule__head">
-      <h2 class="t-section" id="schedule-title">Conference schedule</h2>
-      <div class="schedule__intro">
+      <h2 class="t-section" id="schedule-title" data-reveal="mask">Conference schedule</h2>
+      <div class="schedule__intro" data-reveal>
         <p class="schedule__summary">{{ schedule.days | length | numberWord }} days, {{ schedule.days | countEvents("committee") | numberWord | lower }} committee sessions.</p>
         {%- if schedule.note %}
         <p class="schedule__note">{{ schedule.note }}</p>
@@ -177,12 +176,10 @@ intro: true
               <p class="sched-item__title">
                 {%- if e.link %}<a href="{{ e.link }}">{{ e.title }}</a>{% else %}{{ e.title }}{% endif -%}
               </p>
-              <p class="sched-item__meta">
-                <span>{{ e.tag or tagFor[e.type] }}</span>
-                {%- set dur = e.start | duration(e.end) %}
-                {%- if dur %}<span>{{ dur }}</span>{% endif %}
-                {%- if e.place %}<span>{{ e.place }}</span>{% endif %}
-              </p>
+              {%- set dur = e.start | duration(e.end) %}
+              {%- if dur %}
+              <p class="sched-item__meta">{{ dur }}</p>
+              {%- endif %}
             </div>
           </li>
           {%- endfor %}
@@ -197,9 +194,9 @@ intro: true
 <section class="section glance" aria-labelledby="glance-title">
   <div class="container glance__grid">
     <div class="glance__copy">
-      <h2 class="t-section" id="glance-title">Committees at a glance.</h2>
-      <p class="glance__text">{{ site.home.glanceText | fill({ count: committees | length | numberWord }) }}</p>
-      <a class="btn btn--primary" href="/committees/">Explore committees</a>
+      <h2 class="t-section" id="glance-title" data-reveal="mask">Committees at a glance.</h2>
+      <p class="glance__text" data-reveal>{{ site.home.glanceText | fill({ count: committees | length | numberWord }) }}</p>
+      <div class="glance__cta" data-reveal><a class="btn btn--primary" href="/committees/">Explore committees</a></div>
     </div>
     <div class="wheel" data-wheel>
       <ul class="wheel__list" role="list">
@@ -222,9 +219,9 @@ intro: true
 <section class="section debate" aria-labelledby="debate-title">
   <div class="orb debate__orb" aria-hidden="true"></div>
   <div class="container">
-    <h2 class="t-section debate__title" id="debate-title">More than <em>debate.</em></h2>
-    <p class="debate__text">{{ site.home.debateText }}</p>
-    <div class="debate__grid">
+    <h2 class="t-section debate__title" id="debate-title" data-reveal="mask">More than <em>debate.</em></h2>
+    <p class="debate__text" data-reveal>{{ site.home.debateText }}</p>
+    <div class="debate__grid" data-reveal>
       <article class="card card--night">
         <span class="moon" aria-hidden="true"></span>
         <span class="card__bar" aria-hidden="true"></span>
@@ -248,8 +245,8 @@ intro: true
 {#- 10. FAQ (reference/09) -#}
 <section class="section faq" id="faq" aria-labelledby="faq-title">
   <div class="container faq__inner">
-    <h2 class="t-page" id="faq-title">FAQ</h2>
-    <p class="faq__intro">{{ site.home.faqIntro }}</p>
+    <h2 class="t-page" id="faq-title" data-reveal="mask">FAQ</h2>
+    <p class="faq__intro" data-reveal>{{ site.home.faqIntro }}</p>
     {{ faqList(faq, "faq") }}
   </div>
 </section>
@@ -258,7 +255,7 @@ intro: true
 {%- if site.nav.register.url %}
 <section class="closing" aria-labelledby="closing-title">
   <div class="container closing__inner">
-    <h2 class="closing__title" id="closing-title">{{ site.home.closing | fill({ date: site.start | dayMonth }) }}</h2>
+    <h2 class="closing__title" id="closing-title" data-reveal="mask">{{ site.home.closing | fill({ date: site.start | dayMonth }) }}</h2>
     {{ registerButton(site.nav.register) }}
   </div>
 </section>

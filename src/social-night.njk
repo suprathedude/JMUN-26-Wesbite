@@ -19,7 +19,7 @@ bodyClass: page-night
   <div class="sn-sky" aria-hidden="true" data-sky></div>
   {{ cobweb("cobweb--hero") }}
   <div class="container sn-hero__grid">
-    <div class="sn-hero__art" aria-hidden="true">
+    <div class="sn-hero__art" aria-hidden="true" data-reveal="art">
       <div class="moon-lg">
         <span class="moon-lg__crater moon-lg__crater--1"></span>
         <span class="moon-lg__crater moon-lg__crater--2"></span>
@@ -28,15 +28,15 @@ bodyClass: page-night
       </div>
     </div>
     <div class="sn-hero__text">
-      <h1 class="sn-hero__title" id="sn-title">Social Night <span>{{ sn.edition }}</span></h1>
-      <p class="sn-hero__meta">{{ sn.date }} · {{ sn.place }} · {{ time }}</p>
-      <a class="btn sn-btn" href="/#schedule">See the schedule</a>
+      <h1 class="sn-hero__title" id="sn-title" data-reveal="mask">Social Night <span>{{ sn.edition }}</span></h1>
+      <p class="sn-hero__meta" data-reveal>{{ sn.date }} · {{ sn.place }} · {{ time }}</p>
+      <div data-reveal><a class="btn sn-btn" href="/#schedule">See the schedule</a></div>
     </div>
   </div>
 </section>
 
 <section class="sn-info" aria-label="Details">
-  <div class="container sn-info__grid">
+  <div class="container sn-info__grid" data-reveal>
     <div class="sn-info__item">
       <h2 class="sn-info__title">What to expect</h2>
       <p>{{ sn.expect }}</p>
@@ -61,7 +61,7 @@ bodyClass: page-night
 <section class="section sn-booth" aria-labelledby="booth-title">
   <div class="container sn-booth__grid">
     <div class="sn-booth__text">
-      <h2 class="t-section sn-title" id="booth-title">3D photo booth</h2>
+      <h2 class="t-section sn-title" id="booth-title" data-reveal="mask">3D photo booth</h2>
       <p class="sn-booth__lead">{{ sn.photoBooth }}</p>
     </div>
     <div class="sn-booth__media">
@@ -78,7 +78,7 @@ bodyClass: page-night
 <section class="section sn-faq" aria-labelledby="sn-faq-title">
   {{ cobweb("cobweb--faq") }}
   <div class="container sn-faq__inner">
-    <h2 class="t-section sn-title" id="sn-faq-title">Questions</h2>
+    <h2 class="t-section sn-title" id="sn-faq-title" data-reveal="mask">Questions</h2>
     {{ faqList(sn.faq, "sn-faq") }}
   </div>
 </section>

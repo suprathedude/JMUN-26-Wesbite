@@ -80,7 +80,7 @@ export default function (eleventyConfig) {
     String(text).replace(/\{(\w+)\}/g, (match, key) => (key in values ? values[key] : match)),
   );
 
-  // "1 hr", "30 min", "1 hr 30 min" between two times like "8:00 am" and "9:30 am"; empty if
+  // "1 hour", "30 minutes", "1 hour 30 minutes" between two times like "8:00 am" and "9:30 am"; empty if
   // either is missing or TBC.
   const minutes = (t) => {
     const m = String(t ?? "").trim().toLowerCase().match(/^(\d{1,2}):(\d{2})\s*(am|pm)$/);
@@ -94,8 +94,9 @@ export default function (eleventyConfig) {
     const mins = b - a;
     const hrs = Math.floor(mins / 60);
     const rest = mins % 60;
-    const h = hrs ? `${hrs} ${hrs === 1 ? "hr" : "hrs"}` : "";
-    return [h, rest ? `${rest} min` : ""].filter(Boolean).join(" ");
+    const h = hrs ? `${hrs} ${hrs === 1 ? "hour" : "hours"}` : "";
+    const m = rest ? `${rest} ${rest === 1 ? "minute" : "minutes"}` : "";
+    return [h, m].filter(Boolean).join(" ");
   });
 
   // Splits "350+" into a number to count up to and a suffix; null for "XIV".

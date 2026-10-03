@@ -2,7 +2,7 @@
 // - The portrait is a button that turns the card over (rotateY, .65 s). Once it's turned, a
 //   click on the back turns it again; keyboard focus reaching the back (the Instagram link)
 //   turns it over so the focused link is visible.
-// - Rows fade in the first time they come on screen.
+// - Rows fade in through reveal.js, like the rest of the site.
 // - Each portrait drifts a little as the page scrolls: the photo or stripes slowly, the
 //   initials a little more.
 // - With a mouse, a small teal dot follows the pointer and opens into a "View" ring over a
@@ -27,21 +27,6 @@ for (const card of cards) {
 }
 
 if (cards.length && !calm && "IntersectionObserver" in window) {
-  document.documentElement.classList.add("is-live");
-
-  // Rows fade in once.
-  const reveal = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        entry.target.classList.add("is-in");
-        reveal.unobserve(entry.target);
-      }
-    },
-    { rootMargin: "0px 0px -10% 0px" },
-  );
-  document.querySelectorAll(".people-row[data-reveal]").forEach((row) => reveal.observe(row));
-
   // Portrait drift. Each portrait's position on screen, from -1 (just below) to 1 (just
   // above), moves the media up to 8% of the portrait's height and the initials up to 18%.
   const portraits = cards.map((card) => ({

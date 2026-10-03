@@ -25,20 +25,38 @@
   {%- endfor %}
   {#- Runs before first paint: marks JS as available, hides a strip dismissed earlier this
       session, and on the homepage decides whether the placard intro plays (first visit this
-      session, no reduced motion, no #section in the address, no ?intro=off). -#}
-  <script>(function(d){d.classList.add("js");try{
+      session, no reduced motion, no #section in the address, no ?intro=off).
+      Also (PLAN.md F11, F12): turns on the entrances unless motion is reduced, and starts the
+      loading screen, which only shows if the page still hasn't loaded after 0.6 s. When the
+      page has loaded (or after 12 s whatever happens) it goes, and "loader:done" fires. If
+      reveal.js never ran by then, the entrances are switched off so nothing stays hidden. -#}
+  <script>(function(d){d.classList.add("js","is-loading");
+  if(!matchMedia("(prefers-reduced-motion: reduce)").matches)d.classList.add("reveal-on");
+  var slow=setTimeout(function(){d.classList.add("is-slow")},600),over=false;
+  function done(){if(over)return;over=true;clearTimeout(slow);var was=d.classList.contains("is-slow");d.classList.remove("is-slow");
+  if(!d.classList.contains("reveal-ready"))d.classList.remove("reveal-on");
+  setTimeout(function(){d.classList.remove("is-loading");dispatchEvent(new Event("loader:done"))},was?450:0)}
+  addEventListener("load",done);setTimeout(done,12000);
+  try{
   {%- if site.announcement.enabled %}if(sessionStorage.getItem("oakjmun-strip")==="{{ site.announcement.text | hash }}")d.classList.add("strip-off");{% endif -%}
   {%- if intro %}if(!sessionStorage.getItem("oakjmun-intro")&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&!location.hash&&!/[?&]intro=off/.test(location.search))d.classList.add("intro");{% endif -%}
   }catch(e){}})(document.documentElement)</script>
   <script type="importmap">{"imports":{"lenis":"/js/vendor/lenis.js"}}</script>
   <script type="module" src="/js/nav.js"></script>
   <script type="module" src="/js/smooth-scroll.js"></script>
+  <script type="module" src="/js/reveal.js"></script>
   {%- for module in pageJs %}
   <script type="module" src="/js/{{ module }}.js"></script>
   {%- endfor %}
 </head>
 <body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
   <a class="skip-link" href="#main">Skip to content</a>
+  {#- Loading screen for slow connections (PLAN.md F12): hidden unless the page takes a while. -#}
+  <div class="loader" aria-hidden="true">
+    <span class="loader__mark">{% include "partials/crest.njk" %}</span>
+    <span class="loader__name">{{ site.wordmark[0] }} <span>{{ site.wordmark[1] }}</span></span>
+    <span class="loader__bar"><span class="loader__fill"></span></span>
+  </div>
   {% include "partials/announcement.njk" %}
   {% include "partials/nav.njk" %}
   <main id="main" tabindex="-1">

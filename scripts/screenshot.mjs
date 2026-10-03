@@ -176,13 +176,12 @@ const STATES = [
     },
   },
   {
-    name: "resources-ip-open-390",
+    name: "resources-ip-390",
     path: "/resources/",
     viewport: VIEWPORTS[0],
     async run(page) {
-      await page.locator("[data-ip-toggle]").click();
       await page.locator("#ip-title").evaluate((el) => el.scrollIntoView({ block: "start" }));
-      await page.waitForTimeout(400);
+      await page.waitForTimeout(300);
     },
   },
   {

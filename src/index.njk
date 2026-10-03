@@ -11,7 +11,10 @@ intro: true
 {%- from "partials/faq.njk" import faqList -%}
 {%- set dates = site.start | eventDates(site.end) -%}
 
-{#- 2. Hero (reference/02). The placard intro (Task 4) will play over this. -#}
+{#- 2. Hero (reference/02), opened by a crowd holding up placards (PLAN.md F14): with motion,
+    the hero stays on screen while the page scrolls the length of the track, and
+    intro-placards.js moves the crowd out of the way. -#}
+<div class="hero-track" data-hero-track>
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero__bg" aria-hidden="true">
     {%- if site.hero.image %}
@@ -28,10 +31,9 @@ intro: true
     <div class="hero__watermark">{{ site.chapter }}</div>
   </div>
 
-  {#- Placard intro (SPEC 10): decorative, skippable, built by intro-placards.js. -#}
-  <div class="intro-layer" aria-hidden="true" data-intro data-countries="{{ site.intro.countries | dump }}">
-    <div class="intro-wash"></div>
-  </div>
+  {#- The crowd: decorative, built by intro-placards.js from site.json intro.countries. -#}
+  <div class="crowd" aria-hidden="true" data-crowd data-countries="{{ site.intro.countries | dump }}"></div>
+  <p class="hero__cue" aria-hidden="true"><span>Scroll</span></p>
 
   <div class="hero__content">
     <p class="hero__meta">Chapter {{ site.chapter }} · {{ dates }} · {{ site.city }}</p>
@@ -52,6 +54,7 @@ intro: true
     </div>
   </div>
 </section>
+</div>
 
 {#- 3. Committee marquee (reference/05): the committee codes, moving right to left. -#}
 <div class="marquee" aria-hidden="true" data-marquee>

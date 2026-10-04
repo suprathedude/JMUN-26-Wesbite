@@ -1,6 +1,7 @@
 {#- The OakJMUN crest, or a teal ring with the chapter number until it exists (PLAN.md D7). -#}
 {%- if site.crest -%}
-<img class="crest-img" src="/{{ site.crest }}" alt="" width="64" height="64">
+{#- Shown at 30 to 48 px, so 64, 128 and 192 px copies keep it sharp on 2x and 3x screens. -#}
+<img class="crest-img" src="/{{ site.crest }}" alt="" loading="eager" sizes="48px" eleventy:widths="64,128,192">
 {%- else -%}
 <span class="crest-mark" aria-hidden="true">{{ site.chapter }}</span>
 {%- endif -%}

@@ -8,20 +8,19 @@
   overflow: hidden;
   padding: calc(var(--section-pad) + 40px) 0 56px;
   text-align: center;
-  background:
-    linear-gradient(rgb(var(--teal-rgb) / 0.04) 1px, transparent 1px) 0 0 / 36px 36px,
-    linear-gradient(90deg, rgb(var(--teal-rgb) / 0.04) 1px, transparent 1px) 0 0 / 36px 36px,
-    var(--blue-700);
 }
 
+/* The faint grid, fading out at the bottom by a mask (no navy overlay), so the header runs
+   into the page and its moving lights without an edge. */
 .listing-head::after {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 80px;
-  background: linear-gradient(transparent, var(--blue-700));
+  inset: 0;
+  background:
+    linear-gradient(rgb(var(--teal-rgb) / 0.04) 1px, transparent 1px) 0 0 / 36px 36px,
+    linear-gradient(90deg, rgb(var(--teal-rgb) / 0.04) 1px, transparent 1px) 0 0 / 36px 36px;
+  -webkit-mask-image: linear-gradient(rgb(var(--shadow-rgb)) calc(100% - 80px), transparent);
+  mask-image: linear-gradient(rgb(var(--shadow-rgb)) calc(100% - 80px), transparent);
   pointer-events: none;
 }
 

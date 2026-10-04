@@ -1024,29 +1024,19 @@
 
 /* Wheel mode (JS, motion allowed): items sit on an arc and turn continuously (wheel.js) */
 .wheel.is-wheel {
+  --wheel-fade: 130px;
   height: clamp(520px, 68vh, 680px);
   overflow: hidden;
-}
-
-.wheel.is-wheel::before,
-.wheel.is-wheel::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: 2;
-  height: 130px;
-  pointer-events: none;
-}
-
-.wheel.is-wheel::before {
-  top: 0;
-  background: linear-gradient(var(--blue-700), transparent);
-}
-
-.wheel.is-wheel::after {
-  bottom: 0;
-  background: linear-gradient(transparent, var(--blue-700));
+  /* The wheel fades out top and bottom by masking itself, not with navy overlays, so it blends
+     into the moving lights behind the section without a visible edge. */
+  -webkit-mask-image: var(--wheel-mask);
+  mask-image: var(--wheel-mask);
+  --wheel-mask: linear-gradient(
+    transparent,
+    rgb(var(--shadow-rgb)) var(--wheel-fade),
+    rgb(var(--shadow-rgb)) calc(100% - var(--wheel-fade)),
+    transparent
+  );
 }
 
 .wheel.is-wheel .wheel__list {
@@ -1081,12 +1071,8 @@
   }
 
   .wheel.is-wheel {
+    --wheel-fade: 90px;
     height: 420px;
-  }
-
-  .wheel.is-wheel::before,
-  .wheel.is-wheel::after {
-    height: 90px;
   }
 
   .wheel.is-wheel .wheel__name {

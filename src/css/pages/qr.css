@@ -76,22 +76,27 @@
   color: var(--ink-60);
 }
 
-/* The card the code will appear on: a dashed square, for now, with a QR icon */
+/* The pass: the code (a dashed square with a QR icon, for now) above the delegate's details */
 .qr__card {
   display: grid;
-  justify-items: center;
-  gap: 20px;
-  padding: 40px;
+  gap: 28px;
+  padding: 36px;
   border: var(--border-card);
   border-radius: var(--radius-tile);
   background: linear-gradient(160deg, rgb(var(--card-rgb) / 0.9), rgb(var(--card-rgb) / 0.5));
   box-shadow: var(--shadow-card-hover);
 }
 
+.qr__code {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+}
+
 .qr__frame {
   display: grid;
   place-items: center;
-  width: min(100%, 260px);
+  width: min(100%, 220px);
   aspect-ratio: 1;
   border: 2px dashed rgb(var(--teal-rgb) / 0.35);
   border-radius: var(--radius-card);
@@ -107,12 +112,64 @@
   color: var(--ink-60);
 }
 
+.qr__details {
+  padding-top: 24px;
+  border-top: 1px solid rgb(var(--teal-rgb) / 0.15);
+}
+
+.qr__details-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ink-100);
+}
+
+.qr__list {
+  display: grid;
+  margin-top: 14px;
+}
+
+.qr__field {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgb(var(--ink-rgb) / 0.08);
+}
+
+.qr__field dt {
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.qr__field dd {
+  min-width: 0;
+  font-weight: 700;
+  text-align: right;
+  overflow-wrap: anywhere;
+  color: var(--ink-100);
+}
+
+.qr__field a {
+  color: var(--teal);
+}
+
+.qr__details-note {
+  margin-top: 14px;
+  font-size: 0.95rem;
+  color: var(--ink-60);
+}
+
 @media (max-width: 768px) {
   .qr__grid {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .qr__note {
+  .qr__note,
+  .qr__details-note {
     font-size: 1rem; /* 16 px minimum for running text on phones */
   }
 

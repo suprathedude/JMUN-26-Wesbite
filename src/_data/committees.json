@@ -336,6 +336,7 @@
     "agenda": "Agenda TBC",
     "overview": "Doomsday takes its story from Marvel's Avengers: Doomsday. Delegates face a threat to the whole world and have to decide, together, how to stop it. The full scenario is announced with the agenda.",
     "image": "assets/img/committees/doomsday.jpg",
+    "imagePosition": "50% 85%",
     "logo": "assets/img/logos/doomsday.png",
     "guide": {
       "status": "coming-soon",

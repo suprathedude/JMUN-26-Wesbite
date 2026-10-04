@@ -35,6 +35,10 @@
           </li>
         </ul>
         <div class="nav__actions">
+          {#- Get QR sits between More and Register (4 October). -#}
+          {%- if links.qr.url | isSet %}
+          <a class="btn btn--outline btn--nav nav__qr" href="{{ links.qr.url }}"{% if links.qr.url | isActive(page.url) %} aria-current="page"{% endif %}>{{ icon("qr-code") }}{{ links.qr.label }}</a>
+          {%- endif %}
           {{ secondaryButton(links.secondary, "btn--nav") }}
           {{ registerButton(links.register, "btn--nav nav__register") }}
           <button class="nav__menu" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="Open menu" data-menu-btn>
@@ -48,7 +52,7 @@
   <div class="nav-sheet" id="nav-sheet" role="dialog" aria-modal="true" aria-label="Menu" inert data-lenis-prevent data-sheet>
     <div class="nav-sheet__inner">
       <ul class="nav-sheet__links" role="list">
-        {%- for link in links.left.concat(links.right, links.more.items) %}
+        {%- for link in links.left.concat(links.right, links.more.items, [links.qr]) %}
         <li><a class="nav-sheet__link" href="{{ link.url }}"{% if link.url | isActive(page.url) %} aria-current="page"{% endif %}>{{ link.label }}</a></li>
         {%- endfor %}
       </ul>

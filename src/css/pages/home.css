@@ -624,7 +624,6 @@
 .letter {
   position: relative;
   overflow: hidden;
-  background: var(--blue-700);
 }
 
 .letter__orb {
@@ -949,7 +948,6 @@
 .glance {
   position: relative;
   overflow: hidden;
-  background: var(--blue-700);
   content-visibility: auto;
   contain-intrinsic-size: auto 760px;
 }
@@ -1240,7 +1238,6 @@
 
 .faq {
   position: relative;
-  background: var(--blue-700);
   content-visibility: auto;
   contain-intrinsic-size: auto 1100px;
 }

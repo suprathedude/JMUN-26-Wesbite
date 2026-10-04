@@ -57,6 +57,7 @@
   --white-rgb: 255 255 255;
   --wash-rgb: 0 18 35; /* the intro's navy wash */
   --orb-navy-rgb: 0 60 110; /* OakMUN's deep-blue orb */
+  --glow-blue-rgb: 26 90 144; /* the moving lights' blue, from --blue-500 */
   --card-rgb: 0 30 60; /* item card fill */
   --sn-gold-rgb: 255 200 0;
   --sn-amber-rgb: 232 120 10;

@@ -215,6 +215,7 @@ For a second sponsor, add a comma after the first `}` and another `{ ... }`. The
 | `"agenda"` | `"Agenda TBC"` until it's announced |
 | `"overview"` | Two or three plain sentences |
 | `"image"` | `"assets/img/committees/un-women.jpg"` after uploading the photo, or `""` for "Photo TBC" |
+| `"imagePosition"` | Optional. Which part of a tall or wide photo to keep in view, across then down: `"50% 85%"` keeps the lower part (used for Doomsday). Leave it out to centre the photo. |
 | `"logo"` | `"assets/img/logos/un-women.png"` after uploading the logo circle, or `""` for a globe icon |
 | `"guide"` | `{ "status": "coming-soon", "file": "" }` |
 | `"eb"` | The three EB entries, with `"name": ""` until they're announced |
@@ -235,7 +236,8 @@ Everything else updates by itself:
 | To change | Where |
 | --- | --- |
 | The Resources section titles and the line under each | `site.json` → `resourcesPage` → `sections` |
-| The Get QR page's text (the page works once QR codes exist; for now its button is disabled) | `site.json` → `qrPage` |
+| The Get QR page's text, and the name, committee, allocation and link on its card (the page works once QR codes exist; for now its button is disabled) | `site.json` → `qrPage` |
+| The Get QR button in the nav (between More and Register) | `site.json` → `nav.qr` |
 | The Register button's link | `site.json` → `nav` → `register` → `url` |
 | The "Consent form" button (hidden until it has a link) | `site.json` → `nav` → `secondary` → `url` |
 | The contact email | `site.json` → `contact` → `email`, and the last answer in `faq.json` (with its button's `mailto:` link) |

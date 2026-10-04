@@ -76,17 +76,93 @@
   box-shadow: none;
 }
 
+/* Get QR, between More and Register (4 October) */
+.nav__qr svg {
+  width: 16px;
+  height: 16px;
+}
+
+.nav__qr[aria-current="page"] {
+  border-color: var(--teal);
+}
+
 .btn--block {
   width: 100%;
 }
 
 /* ---------- Ambient glows ---------- */
 
-/* Static, at most two per section; circles are the Oakridge connecting shape (SPEC 3.3). */
+/* At most two per section; circles are the Oakridge connecting shape (SPEC 3.3). They drift
+   slowly (4 October), moving with translate and scale only; still under reduced motion. */
 .orb {
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
+  animation: glow-drift 24s ease-in-out infinite alternate;
+}
+
+.orb:nth-of-type(2n) {
+  animation-duration: 31s;
+  animation-delay: -11s;
+  animation-direction: alternate-reverse;
+}
+
+/* Moving lights behind every page (4 October), like OakMUN's: three soft glows on a fixed
+   layer that show wherever a section has no background of its own. */
+.lights {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.lights > span {
+  position: absolute;
+  width: clamp(360px, 60vw, 900px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation: glow-drift 28s ease-in-out infinite alternate;
+}
+
+.lights__a {
+  top: -20%;
+  left: -18%;
+  background: radial-gradient(circle, rgb(var(--teal-dark-rgb) / 0.2) 0%, transparent 65%);
+}
+
+.lights > .lights__b {
+  top: 30%;
+  right: -22%;
+  background: radial-gradient(circle, rgb(var(--glow-blue-rgb) / 0.42) 0%, transparent 65%);
+  animation-duration: 34s;
+  animation-delay: -14s;
+  animation-direction: alternate-reverse;
+}
+
+.lights > .lights__c {
+  bottom: -35%;
+  left: 20%;
+  background: radial-gradient(circle, rgb(var(--teal-rgb) / 0.1) 0%, transparent 65%);
+  animation-duration: 40s;
+  animation-delay: -25s;
+}
+
+@keyframes glow-drift {
+  0% {
+    translate: 0 0;
+    scale: 1;
+  }
+
+  50% {
+    translate: 9% 7%;
+    scale: 1.12;
+  }
+
+  100% {
+    translate: -7% 12%;
+    scale: 0.94;
+  }
 }
 
 /* ---------- Wordmark and crest ---------- */
@@ -160,8 +236,8 @@
 
 .loader__mark {
   display: block;
-  width: 64px;
-  height: 64px;
+  width: 48px;
+  height: 48px;
   animation: loader-breathe 2.4s var(--ease-standard) infinite;
 }
 
@@ -399,12 +475,14 @@
   cursor: default;
 }
 
-.nav__crest > * {
+.nav__crest .crest-img {
+  width: 30px;
+  height: 30px;
   filter: drop-shadow(0 0 8px rgb(var(--teal-rgb) / 0.35));
   transition: filter var(--dur-hover) var(--ease-standard);
 }
 
-.nav__crest:hover > * {
+.nav__crest:hover .crest-img {
   filter: drop-shadow(0 0 14px rgb(var(--teal-rgb) / 0.65));
 }
 
@@ -721,8 +799,8 @@ html.is-locked {
 
 .footer__crest {
   display: block;
-  width: 64px;
-  height: 64px;
+  width: 44px;
+  height: 44px;
   margin-bottom: 20px;
 }
 
@@ -1165,7 +1243,9 @@ html.is-locked {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .placard--rise {
+  .placard--rise,
+  .orb,
+  .lights > span {
     animation: none;
   }
 }

@@ -1,12 +1,12 @@
 {#- FAQ accordion. Each question is a button that shows or hides its answer (SPEC 6).
-    The first item starts open, as in reference/09. -#}
+    Every item starts closed; a question opens when it is pressed. -#}
 {%- from "partials/icons.njk" import icon -%}
 {%- macro faqList(items, prefix="faq") -%}
 <div class="faq-list" data-faq data-reveal>
   {%- for item in items %}
-  <div class="faq-item{% if loop.first %} is-open{% endif %}">
+  <div class="faq-item">
     <h3>
-      <button class="faq-q" type="button" id="{{ prefix }}-q{{ loop.index }}" aria-expanded="{{ 'true' if loop.first else 'false' }}" aria-controls="{{ prefix }}-a{{ loop.index }}">
+      <button class="faq-q" type="button" id="{{ prefix }}-q{{ loop.index }}" aria-expanded="false" aria-controls="{{ prefix }}-a{{ loop.index }}">
         <span>{{ item.question }}</span>
         <span class="faq-toggle" aria-hidden="true">{{ icon("plus") }}</span>
       </button>

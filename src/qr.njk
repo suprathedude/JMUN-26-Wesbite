@@ -7,7 +7,8 @@ permalink: /qr/
 pageCss: [qr]
 ---
 {#- The QR page (4 October): laid out, not working yet. The button is disabled until codes
-    are issued; the text is in site.json qrPage. -#}
+    are issued. Once they open, the card shows the code with the delegate's name, committee,
+    allocation and link. The text is in site.json qrPage. -#}
 {%- from "partials/icons.njk" import icon -%}
 {%- set q = site.qrPage -%}
 
@@ -26,9 +27,28 @@ pageCss: [qr]
         <p class="qr__note" id="qr-note">{{ q.note }}</p>
       </form>
     </div>
-    <div class="qr__card" data-reveal="art" aria-hidden="true">
-      <span class="qr__frame">{{ icon("qr-code") }}</span>
-      <span class="qr__placeholder">{{ q.placeholder }}</span>
+    {#- The pass: the QR code, then who it belongs to. Every value is TBC until codes open. -#}
+    <div class="qr__card" data-reveal="art">
+      <div class="qr__code" aria-hidden="true">
+        <span class="qr__frame">{{ icon("qr-code") }}</span>
+        <span class="qr__placeholder">{{ q.placeholder }}</span>
+      </div>
+      <div class="qr__details">
+        <h2 class="qr__details-title">{{ q.detailsTitle }}</h2>
+        <dl class="qr__list">
+          {%- for d in q.details %}
+          <div class="qr__field">
+            <dt>{{ d.label }}</dt>
+            <dd>{{ d.value }}</dd>
+          </div>
+          {%- endfor %}
+          <div class="qr__field">
+            <dt>{{ q.link.label }}</dt>
+            <dd>{%- if q.link.url | isSet %}<a href="{{ q.link.url }}">{{ q.link.url }}</a>{%- else %}TBC{%- endif %}</dd>
+          </div>
+        </dl>
+        <p class="qr__details-note">{{ q.detailsNote }}</p>
+      </div>
     </div>
   </div>
 </section>

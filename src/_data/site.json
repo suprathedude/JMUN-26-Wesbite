@@ -63,12 +63,12 @@
         {
           "label": "FAQ",
           "url": "/#faq"
-        },
-        {
-          "label": "Get QR",
-          "url": "/qr/"
         }
       ]
+    },
+    "qr": {
+      "label": "Get QR",
+      "url": "/qr/"
     },
     "register": {
       "label": "Register",
@@ -101,7 +101,15 @@
     "intro": "Enter the email address you registered with to get your conference QR code.",
     "note": "QR codes open closer to the conference (TBC).",
     "button": "Get QR code",
-    "placeholder": "Your QR code will appear here"
+    "placeholder": "Your QR code will appear here",
+    "detailsTitle": "Your details",
+    "details": [
+      { "label": "Name", "value": "TBC" },
+      { "label": "Committee", "value": "TBC" },
+      { "label": "Allocation", "value": "TBC" }
+    ],
+    "link": { "label": "Your link", "url": "TBC" },
+    "detailsNote": "Your name, committee, allocation and link fill in from your registration once QR codes open (TBC)."
   },
   "resourcesPage": {
     "intro": "Background guides, International Press style guides, procedure documents and research links, added here as they're released.",

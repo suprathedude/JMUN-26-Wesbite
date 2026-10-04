@@ -4,7 +4,7 @@
 <a class="tile" href="/committees/{{ c.slug }}/" data-item data-search="{{ (c.code ~ ' ' ~ c.name) | lower }}">
   <span class="tile__visual">
     {%- if c.image %}
-    <img src="/{{ c.image }}" alt=""{% if eager %} loading="eager"{% endif %} sizes="(max-width: 400px) 320px, (max-width: 768px) 50vw, 400px" eleventy:widths="400,800">
+    <img src="/{{ c.image }}" alt=""{% if c.imagePosition %} style="object-position: {{ c.imagePosition }}"{% endif %}{% if eager %} loading="eager"{% endif %} sizes="(max-width: 400px) 320px, (max-width: 768px) 50vw, 400px" eleventy:widths="400,800">
     {%- endif %}
     <span class="tile__code{% if len >= 8 %} tile__code--long{% elif len >= 6 %} tile__code--med{% endif %}">{{ c.code }}</span>
     {%- if not c.image %}<span class="tile__tbc">Photo TBC</span>{% endif %}

@@ -42,9 +42,7 @@
   {%- if site.announcement.enabled %}if(sessionStorage.getItem("oakjmun-strip")==="{{ site.announcement.text | hash }}")d.classList.add("strip-off");{% endif -%}
   {%- if intro %}if(!sessionStorage.getItem("oakjmun-intro")&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&!location.hash&&!/[?&]intro=off/.test(location.search))d.classList.add("intro");{% endif -%}
   }catch(e){}})(document.documentElement)</script>
-  <script type="importmap">{"imports":{"lenis":"/js/vendor/lenis.js"}}</script>
   <script type="module" src="/js/nav.js"></script>
-  <script type="module" src="/js/smooth-scroll.js"></script>
   <script type="module" src="/js/reveal.js"></script>
   {%- for module in pageJs %}
   <script type="module" src="/js/{{ module }}.js"></script>

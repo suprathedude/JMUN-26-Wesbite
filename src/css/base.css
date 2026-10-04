@@ -258,24 +258,6 @@ main:focus {
   color: var(--teal);
 }
 
-/* Lenis (from lenis/dist/lenis.css) */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-
-.lenis:not(.lenis-autoToggle).lenis-stopped {
-  overflow: clip;
-}
-
-.lenis [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-smooth iframe {
-  pointer-events: none;
-}
-
 /* ---------- Motion between pages and as things come on screen (PLAN.md F11) ---------- */
 
 /* Page to page: a short crossfade. The announcement strip and the nav pill are carried

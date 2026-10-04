@@ -17,6 +17,7 @@
   "description": "Oakridge Junior Model United Nations is a two-day conference for students in Grades 6 to 8, held at Oakridge International School, Gachibowli.",
   "hero": {
     "image": "assets/img/hero/hero-placeholder.jpg",
+    "art": "assets/img/hero/crowd.webp",
     "video": ""
   },
   "announcement": {

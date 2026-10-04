@@ -15,9 +15,9 @@ intro: true
     the hero stays on screen while the page scrolls the length of the track, and
     intro-placards.js moves the crowd out of the way. -#}
 <div class="hero-track" data-hero-track>
-<section class="hero" aria-labelledby="hero-title">
+<section class="hero{% if site.hero.art %} hero--art{% endif %}" aria-labelledby="hero-title">
   <div class="hero__bg" aria-hidden="true">
-    {%- if site.hero.image %}
+    {%- if site.hero.image and not site.hero.art %}
     <img class="hero__img" src="/{{ site.hero.image }}" alt="" loading="eager" fetchpriority="high" sizes="100vw" eleventy:widths="800,1200,1600">
     {%- if site.hero.video | isSet %}
     {#- Sources are added by hero-video.js, so phones and reduced motion never download it. -#}
@@ -31,8 +31,13 @@ intro: true
     <div class="hero__watermark">{{ site.chapter }}</div>
   </div>
 
-  {#- The crowd: decorative, built by intro-placards.js from site.json intro.countries. -#}
-  <div class="crowd" aria-hidden="true" data-crowd data-countries="{{ site.intro.countries | dump }}"></div>
+  {#- The crowd holding up placards (site.json hero.art), seen from behind; the title sits in
+      the space above it. intro-placards.js zooms it as the page scrolls. -#}
+  {%- if site.hero.art %}
+  <div class="hero__art" aria-hidden="true" data-hero-art>
+    <img src="/{{ site.hero.art }}" alt="" loading="eager" fetchpriority="high" sizes="100vw" eleventy:widths="800,1200,1600">
+  </div>
+  {%- endif %}
   <p class="hero__cue" aria-hidden="true"><span>Scroll</span></p>
 
   <div class="hero__content">

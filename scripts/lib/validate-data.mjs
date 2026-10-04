@@ -42,6 +42,7 @@ export function validateData() {
   }
   if (missingFile(site.crest)) add("site.json", "crest", `there's no file at src/${site.crest}.`);
   if (missingFile(site.hero?.image)) add("site.json", "hero.image", `there's no file at src/${site.hero.image}.`);
+  if (missingFile(site.hero?.art)) add("site.json", "hero.art", `there's no file at src/${site.hero.art}.`);
   // hero.video is a name without an extension, e.g. "assets/video/hero", for the two files
   // npm run media makes from src/assets/video/source/hero.mp4.
   if (site.hero?.video && !/TBC/.test(site.hero.video)) {

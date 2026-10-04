@@ -51,7 +51,8 @@ SPEC 7.4 allows generic UN-room photos and committee logo circles from `srijai-k
 | `sgLetter` | One placeholder paragraph; `photo` and `signature` `""` | Vihaan's letter, photo and signature |
 | `sponsors` | `[]` | Sponsors, if any; the strip appears with the first one |
 | `allocations` | One round, "Date TBC (for registrations received by TBC)"; `status` "Registration opens soon (TBC)"; `matrixUrl` `""`, so the button reads "Opens with Round 1 (TBC)"; `intro` and `matrixText` end "TBC" | The real rounds (name, date, note each), the status, the matrix link, and the two texts without "TBC" |
-| `intro.countries` | 24 placeholder countries on the placards of the homepage's opening crowd (about 23 show on a computer, 9 on a phone) | Names from the real allocation matrix |
+| `intro.countries` | 24 placeholder countries; not shown anywhere since the opening became the crowd picture | Nothing needed; it can be deleted |
+| `hero.art` | The crowd illustration supplied on 4 October (`src/assets/img/hero/crowd.webp`) | Optional: a version recoloured to navy and teal, and a larger original (2400 px wide or more) |
 
 Done on 3 October: `url` (https://oakridgejmun.com), `contact.email` (jmun@oakridge.in), `contact.instagram` (oakjmun), `chapter` (XIV, confirmed), the conference times (7:45 am on 30 October to 7:30 pm on 31 October).
 

@@ -252,9 +252,9 @@
 
 /* ---------- Opening: a crowd holding up placards (PLAN.md F14) ---------- */
 /* html.hero-scroll (set in <head> unless motion is reduced) makes the hero a stage that stays
-   on screen while the page scrolls the length of its track. intro-placards.js builds the crowd
-   and moves it down and apart as you scroll, bringing the title, then the rest, up. Without
-   it, the hero is the plain one. */
+   on screen while the page scrolls the length of its track. intro-placards.js opens it zoomed
+   in on the placards and pulls back as you scroll, bringing the title, then the rest, up.
+   Without it the hero shows the picture as it is, with everything in place. */
 .hero-scroll .hero-track {
   height: 240svh;
 }
@@ -266,27 +266,45 @@
   min-height: 0;
 }
 
-.crowd,
 .hero__cue {
   display: none;
 }
 
-.hero-scroll .crowd {
+/* The crowd picture fills the hero, its people along the bottom; the title, dates and buttons
+   sit in the empty space above them. Its bottom edge fades into the page. */
+.hero__art {
   position: absolute;
   inset: 0;
-  z-index: 2;
-  display: block;
+  z-index: 0;
   overflow: hidden;
   pointer-events: none;
 }
 
-/* Before the script takes over, the title shows faintly behind the crowd and the rest
-   waits. If the script never comes, a failsafe shows everything after 3 s. */
-.hero-scroll .hero__title {
-  opacity: 0.25;
+.hero__art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 100%;
+  transform-origin: 50% 92%;
+  will-change: transform;
 }
 
-.hero-scroll :is(.hero__meta, .hero__actions, .countdown) {
+.hero__art::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 16%;
+  background: linear-gradient(to bottom, transparent, var(--blue-950));
+}
+
+.hero--art .hero__content {
+  z-index: 1;
+  align-self: start;
+}
+
+/* Before the script takes over, everything in the hero waits (the page opens zoomed in on the
+   placards). If the script never comes, a failsafe shows it all after 3 s. */
+.hero-scroll .hero__content > * {
   opacity: 0;
 }
 
@@ -298,74 +316,6 @@
   to {
     opacity: 1;
   }
-}
-
-.crowd__row {
-  position: absolute;
-  left: 0;
-  right: 0;
-  will-change: transform;
-}
-
-/* Depth: the back rows are darker, as if further into the room */
-.crowd__row--back {
-  --fig: var(--blue-750);
-}
-
-.crowd__row--mid {
-  --fig: var(--blue-650);
-}
-
-.crowd__row--front {
-  --fig: var(--blue-600);
-}
-
-.fig {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 10.5em;
-  transform-origin: 50% 100%;
-  will-change: transform;
-}
-
-/* A gentle bob while the crowd waits; it stops once the page moves */
-.fig__lift {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  animation: fig-bob var(--bob, 3s) ease-in-out var(--delay, 0s) infinite alternate;
-}
-
-.crowd.is-still .fig__lift {
-  animation-play-state: paused;
-}
-
-@keyframes fig-bob {
-  to {
-    transform: translateY(-0.45em);
-  }
-}
-
-.crowd .placard {
-  font-size: 1em;
-}
-
-.crowd__row--back .placard__face {
-  filter: brightness(0.8);
-}
-
-/* The body fades into the dark towards the bottom, so the rows read as a crowd, not posts */
-.fig__body {
-  display: block;
-  width: 7em;
-  height: 25.2em;
-  margin-top: -0.4em;
-  fill: var(--fig);
-  stroke: var(--fig);
-  -webkit-mask-image: linear-gradient(to bottom, #000 38%, transparent 82%);
-  mask-image: linear-gradient(to bottom, #000 38%, transparent 82%);
 }
 
 /* "Scroll", with a line that drips down, until the crowd starts to move */

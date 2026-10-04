@@ -250,66 +250,21 @@
   }
 }
 
-/* ---------- Opening: a crowd holding up placards (PLAN.md F14) ---------- */
-/* html.hero-scroll (set in <head> unless motion is reduced) makes the hero a stage that stays
-   on screen while the page scrolls the length of its track. intro-placards.js opens it zoomed
-   in on the placards and pulls back as you scroll, bringing the title, then the rest, up.
-   Without it the hero shows the picture as it is, with everything in place. */
-.hero-scroll .hero-track {
-  height: 240svh;
-}
+/* ---------- Placard intro (SPEC 10) ---------- */
 
-.hero-scroll .hero {
-  position: sticky;
-  top: 0;
-  height: 100svh;
-  min-height: 0;
-}
-
-.hero__cue {
-  display: none;
-}
-
-/* The crowd picture fills the hero, its people along the bottom; the title, dates and buttons
-   sit in the empty space above them. Its bottom edge fades into the page. */
-.hero__art {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.hero__art img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 100%;
-  transform-origin: 50% 92%;
-  will-change: transform;
-}
-
-.hero__art::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  height: 16%;
-  background: linear-gradient(to bottom, transparent, var(--blue-950));
-}
-
-.hero--art .hero__content {
-  z-index: 1;
-  align-self: start;
-}
-
-/* Before the script takes over, everything in the hero waits (the page opens zoomed in on the
-   placards). If the script never comes, a failsafe shows it all after 3 s. */
-.hero-scroll .hero__content > * {
+/* html.intro is set in <head> before the first paint when the intro will play, so the
+   headline never flashes. If the script fails to arrive, the failsafe shows it anyway. */
+.intro .hero__content > * {
   opacity: 0;
+  animation: intro-failsafe 0.4s ease 3.2s forwards;
 }
 
-.hero-scroll:not(.hero-live) .hero__content > * {
-  animation: intro-failsafe 0.4s ease 3s forwards;
+/* While the intro plays, the nav pill skips its background blur: the hero under it changes
+   every frame, so the blur would be redrawn every frame (the main cause of dropped frames in
+   the throttled trace). The pill is 97% opaque, so nobody sees the difference. */
+.intro-running .nav__bg {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 @keyframes intro-failsafe {
@@ -318,54 +273,39 @@
   }
 }
 
-/* "Scroll", with a line that drips down, until the crowd starts to move */
-.hero-scroll .hero__cue {
+.intro-layer {
   position: absolute;
-  left: 50%;
-  bottom: 26px;
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  font-size: var(--fs-label);
-  font-weight: 700;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-  color: var(--ink-85);
-  transform: translateX(-50%);
+  inset: 0;
+  z-index: 2;
+  display: none;
+  overflow: hidden;
+  pointer-events: none;
 }
 
-.hero__cue::after {
-  content: "";
-  width: 1.5px;
-  height: 34px;
-  background: linear-gradient(var(--teal), transparent);
-  transform-origin: top;
-  animation: cue-drip 1.8s var(--ease-standard) infinite;
+.intro .intro-layer,
+.intro-running .intro-layer {
+  display: block;
 }
 
-@keyframes cue-drip {
-  0% {
-    transform: scaleY(0);
-    opacity: 1;
-  }
-
-  70% {
-    transform: scaleY(1);
-    opacity: 1;
-  }
-
-  100% {
-    transform: scaleY(1);
-    opacity: 0;
-  }
+/* Translucent, never opaque: the hero picture underneath stays the LCP element. */
+.intro-wash {
+  position: absolute;
+  inset: 0;
+  background: rgb(var(--wash-rgb) / 0.7);
 }
 
-@media (max-width: 768px) {
-  .hero-scroll .hero-track {
-    height: 200svh;
-  }
+/* Each row has an invisible "desk line" at its bottom edge; placards rise from behind it. */
+.intro-row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  overflow: clip;
+}
+
+.intro-row .placard {
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
 /* ---------- Marquee (reference/05) ---------- */

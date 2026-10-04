@@ -1,0 +1,122 @@
+/* Get your QR code (4 October): a form beside the card the code will appear on. */
+
+.qr {
+  position: relative;
+  overflow: hidden;
+  padding: calc(var(--section-pad) + 40px) 0 var(--section-pad);
+}
+
+.qr__orb {
+  top: 0;
+  right: -10%;
+  width: 560px;
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgb(var(--teal-dark-rgb) / 0.2) 0%, transparent 65%);
+}
+
+.qr__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 48px 64px;
+}
+
+.qr__intro {
+  max-width: 520px;
+  margin-top: 24px;
+  font-size: var(--fs-lead);
+  color: var(--ink-75);
+}
+
+.qr__form {
+  max-width: 520px;
+  margin-top: 36px;
+}
+
+.qr__label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.qr__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.qr__input {
+  flex: 1 1 240px;
+  min-width: 0;
+  padding: 14px 20px;
+  border: 1px solid var(--blue-500);
+  border-radius: var(--radius-pill);
+  background: var(--blue-600);
+  font-size: 1rem;
+  color: var(--ink-100);
+  transition: border-color var(--dur-hover) var(--ease-standard);
+}
+
+.qr__input::placeholder {
+  color: var(--ink-60);
+}
+
+.qr__input:focus {
+  border-color: var(--teal);
+}
+
+.qr__note {
+  margin-top: 14px;
+  font-size: 0.95rem;
+  color: var(--ink-60);
+}
+
+/* The card the code will appear on: a dashed square, for now, with a QR icon */
+.qr__card {
+  display: grid;
+  justify-items: center;
+  gap: 20px;
+  padding: 40px;
+  border: var(--border-card);
+  border-radius: var(--radius-tile);
+  background: linear-gradient(160deg, rgb(var(--card-rgb) / 0.9), rgb(var(--card-rgb) / 0.5));
+  box-shadow: var(--shadow-card-hover);
+}
+
+.qr__frame {
+  display: grid;
+  place-items: center;
+  width: min(100%, 260px);
+  aspect-ratio: 1;
+  border: 2px dashed rgb(var(--teal-rgb) / 0.35);
+  border-radius: var(--radius-card);
+  font-size: 5rem;
+  color: rgb(var(--teal-rgb) / 0.55);
+}
+
+.qr__placeholder {
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+@media (max-width: 768px) {
+  .qr__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .qr__note {
+    font-size: 1rem; /* 16 px minimum for running text on phones */
+  }
+
+  .qr__card {
+    padding: 28px;
+  }
+}

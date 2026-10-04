@@ -10,8 +10,25 @@ pageCss: [resources]
 {%- from "partials/guide-card.njk" import guideCard -%}
 
 {%- set rp = site.resourcesPage -%}
-{%- set out = committees | guidesOut -%}
-{%- set total = committees | length -%}
+{#- Committees whose background guide is listed here (IP's place is its style guides). -#}
+{%- set listed = [] -%}
+{%- for c in committees %}{% if c.guide.onResources != false %}{% set listed = (listed.push(c), listed) %}{% endif %}{% endfor -%}
+{%- set out = listed | guidesOut -%}
+{%- set total = listed | length -%}
+
+{#- Numbered section titles, as on OakMUN XVI's Resources page: a big faint number, the
+    title, and one line of what's inside (site.json resourcesPage.sections). -#}
+{%- macro sectionHead(num, id, s) -%}
+<div class="res-title">
+  <span class="res-title__num" aria-hidden="true" data-num="{{ num }}"></span>
+  <div>
+    <h2 class="res-title__name" id="{{ id }}" data-reveal="mask">{{ s.title }}</h2>
+    {%- if s.sub %}
+    <p class="res-title__sub" data-reveal>{{ s.sub }}</p>
+    {%- endif %}
+  </div>
+</div>
+{%- endmacro -%}
 
 {#- One backdrop for the whole page, so the glows carry on behind every section. -#}
 <div class="res-page">
@@ -40,9 +57,9 @@ pageCss: [resources]
     line in committees.json (guide.file) plus the PDF. -#}
 <section class="res-section" aria-labelledby="guides-title">
   <div class="container">
-    <h2 class="t-section t-section--bar" data-reveal="mask" id="guides-title">Background guides</h2>
+    {{ sectionHead("01", "guides-title", rp.sections.guides) }}
     <div class="res-grid" data-reveal>
-      {%- for c in committees %}
+      {%- for c in listed %}
       {{ guideCard({ title: c.code, text: c.name, image: c.image, file: c.guide.file, linkLabel: "Open PDF", level: 3 }) }}
       {%- endfor %}
     </div>
@@ -52,7 +69,7 @@ pageCss: [resources]
     setting its file in resources.json. -#}
 <section class="res-section" aria-labelledby="ip-title">
   <div class="container">
-    <h2 class="t-section t-section--bar" data-reveal="mask" id="ip-title">International Press style guides</h2>
+    {{ sectionHead("02", "ip-title", rp.sections.ip) }}
     <div class="res-grid res-grid--two" data-reveal>
       {%- for g in resources.ipGuides %}
       {{ guideCard({ tag: "Style guide", title: g.title, text: g.description, image: g.image, file: g.file, linkLabel: "Open PDF", level: 3 }) }}
@@ -63,7 +80,7 @@ pageCss: [resources]
 
 <section class="res-section" aria-labelledby="docs-title">
   <div class="container">
-    <h2 class="t-section t-section--bar" data-reveal="mask" id="docs-title">Essential documents</h2>
+    {{ sectionHead("03", "docs-title", rp.sections.docs) }}
     <ul class="docs" role="list" data-reveal>
       {%- for d in resources.documents %}
       {%- set ready = d.file | isSet %}
@@ -85,7 +102,7 @@ pageCss: [resources]
 
 <section class="res-section res-section--last" aria-labelledby="links-title">
   <div class="container">
-    <h2 class="t-section t-section--bar" data-reveal="mask" id="links-title">Research links</h2>
+    {{ sectionHead("04", "links-title", rp.sections.links) }}
     <ul class="links" role="list" data-reveal>
       {%- for l in resources.researchLinks %}
       <li>

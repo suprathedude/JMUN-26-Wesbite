@@ -145,7 +145,6 @@
   --z-strip: 60;
   --z-sheet: 90;
   --z-nav: 100;
-  --z-cursor: 150; /* the Secretariat's pointer follower */
   --z-skip: 200;
   --z-loader: 250; /* the loading screen, over everything while it shows */
 }

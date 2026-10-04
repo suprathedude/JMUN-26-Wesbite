@@ -17,14 +17,16 @@
   <meta property="og:description" content="{{ description or site.description }}">
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#003057">
-  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/favicon.png">
   <link rel="preload" href="/assets/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/site.css">
   {%- for sheet in pageCss %}
   <link rel="stylesheet" href="/css/pages/{{ sheet }}.css">
   {%- endfor %}
   {#- Runs before first paint: marks JS as available, hides a strip dismissed earlier this
-      session, and on the homepage turns on the scrolling crowd opening unless motion is reduced.
+      session, and on the homepage decides whether the placard intro plays (first visit this
+      session, no reduced motion, no #section in the address, no ?intro=off).
       Also (PLAN.md F11, F12): turns on the entrances unless motion is reduced, and starts the
       loading screen, which only shows if the page still hasn't loaded after 0.6 s. When the
       page has loaded (or after 12 s whatever happens) it goes, and "loader:done" fires. If
@@ -38,7 +40,7 @@
   addEventListener("load",done);setTimeout(done,12000);
   try{
   {%- if site.announcement.enabled %}if(sessionStorage.getItem("oakjmun-strip")==="{{ site.announcement.text | hash }}")d.classList.add("strip-off");{% endif -%}
-  {%- if intro %}if(!matchMedia("(prefers-reduced-motion: reduce)").matches)d.classList.add("hero-scroll");{% endif -%}
+  {%- if intro %}if(!sessionStorage.getItem("oakjmun-intro")&&!matchMedia("(prefers-reduced-motion: reduce)").matches&&!location.hash&&!/[?&]intro=off/.test(location.search))d.classList.add("intro");{% endif -%}
   }catch(e){}})(document.documentElement)</script>
   <script type="importmap">{"imports":{"lenis":"/js/vendor/lenis.js"}}</script>
   <script type="module" src="/js/nav.js"></script>

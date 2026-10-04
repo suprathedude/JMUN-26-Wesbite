@@ -42,7 +42,6 @@ export function validateData() {
   }
   if (missingFile(site.crest)) add("site.json", "crest", `there's no file at src/${site.crest}.`);
   if (missingFile(site.hero?.image)) add("site.json", "hero.image", `there's no file at src/${site.hero.image}.`);
-  if (missingFile(site.hero?.art)) add("site.json", "hero.art", `there's no file at src/${site.hero.art}.`);
   // hero.video is a name without an extension, e.g. "assets/video/hero", for the two files
   // npm run media makes from src/assets/video/source/hero.mp4.
   if (site.hero?.video && !/TBC/.test(site.hero.video)) {
@@ -79,19 +78,10 @@ export function validateData() {
     });
   });
 
-  // "row" puts people side by side on the page: everyone with the same number shares a row.
-  const rowGroups = new Map();
   load("secretariat.json").forEach((p, i) => {
     const where = `person ${i + 1} (${p.name || "no name"})`;
     if (!p.name || !p.role) add("secretariat.json", where, "needs a name and a role.");
     if (!GROUPS.includes(p.group)) add("secretariat.json", where, `group "${p.group}" must be one of ${list(GROUPS)}.`);
-    if (!Number.isInteger(p.row) || p.row < 1) {
-      add("secretariat.json", where, `"row" must be a whole number like 3, with no quote marks.`);
-    } else if (rowGroups.has(p.row) && rowGroups.get(p.row) !== p.group) {
-      add("secretariat.json", where, `row ${p.row} already has people from the "${rowGroups.get(p.row)}" group. Give "${p.group}" people their own row number.`);
-    } else {
-      rowGroups.set(p.row, p.group);
-    }
     if (missingFile(p.photo)) add("secretariat.json", where, `there's no photo at src/${p.photo}.`);
   });
 

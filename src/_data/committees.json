@@ -203,8 +203,8 @@
     "name": "United Nations Commission on the Status of Women",
     "agenda": "Agenda TBC",
     "overview": "The Commission on the Status of Women is the main UN body working for gender equality and the rights of women and girls. It has 45 member countries and meets every March in New York.",
-    "image": "",
-    "logo": "",
+    "image": "assets/img/committees/uncsw.jpg",
+    "logo": "assets/img/logos/uncsw.png",
     "guide": {
       "status": "coming-soon",
       "file": ""
@@ -237,7 +237,7 @@
     "agenda": "Agenda TBC",
     "overview": "UNICEF works for children's rights in more than 190 countries and territories. It focuses on children's health, education and safety.",
     "image": "",
-    "logo": "",
+    "logo": "assets/img/logos/unicef.png",
     "guide": {
       "status": "coming-soon",
       "file": ""
@@ -269,8 +269,8 @@
     "name": "Futuristic Crisis Committee",
     "agenda": "Agenda TBC",
     "overview": "The Futuristic Crisis Committee is set in the future. Instead of debating one fixed agenda, delegates respond to news from the crisis team as it arrives, and every decision they make changes what happens next. The scenario is announced with the agenda.",
-    "image": "",
-    "logo": "",
+    "image": "assets/img/committees/fcc.jpg",
+    "logo": "assets/img/logos/fcc.png",
     "guide": {
       "status": "coming-soon",
       "file": ""
@@ -302,8 +302,8 @@
     "name": "Committee on the Peaceful Uses of Outer Space",
     "agenda": "Agenda TBC",
     "overview": "COPUOS was set up by the UN General Assembly in 1959 to look after the peaceful use and exploration of outer space. It has more than 100 member countries and meets in Vienna.",
-    "image": "",
-    "logo": "",
+    "image": "assets/img/committees/copuos.jpg",
+    "logo": "assets/img/logos/copuos.png",
     "guide": {
       "status": "coming-soon",
       "file": ""
@@ -335,8 +335,8 @@
     "name": "Avengers: Doomsday",
     "agenda": "Agenda TBC",
     "overview": "Doomsday takes its story from Marvel's Avengers: Doomsday. Delegates face a threat to the whole world and have to decide, together, how to stop it. The full scenario is announced with the agenda.",
-    "image": "",
-    "logo": "",
+    "image": "assets/img/committees/doomsday.jpg",
+    "logo": "assets/img/logos/doomsday.png",
     "guide": {
       "status": "coming-soon",
       "file": ""
@@ -372,7 +372,8 @@
     "logo": "assets/img/logos/ip.png",
     "guide": {
       "status": "coming-soon",
-      "file": ""
+      "file": "",
+      "onResources": false
     },
     "eb": [
       {

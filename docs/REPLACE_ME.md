@@ -21,8 +21,8 @@ The few that matter most on day one:
 
 | What | Where | Replace with |
 | --- | --- | --- |
-| Crest: a teal ring with "XIV" (PLAN.md D7) | `src/_includes/partials/crest.njk`, shown in the nav and footer | The OakJMUN crest as an SVG. Put it in `src/assets/` and set `"crest"` in `site.json` to its path. |
-| Favicon: a teal ring on navy | `src/assets/favicon.svg` | The crest, simplified so it reads at 16 px |
+| ~~Crest~~ Done 4 October: the OakJMUN logo (`src/assets/img/crest.png`, `site.json` → `crest`) | Nav, footer, loading screen | An SVG version would be sharper, if one exists. Was: the OakJMUN crest as an SVG. Put it in `src/assets/` and set `"crest"` in `site.json` to its path. |
+| Browser-tab icon: the OakJMUN logo on a navy square (4 October) | `src/assets/favicon.png` | A simplified version, if the tree is hard to see at 16 px |
 | "Photo TBC" tiles | Wherever a photo field is `""` | Real photos (see the tables below) |
 
 ## Borrowed from OakMUN
@@ -32,8 +32,6 @@ SPEC 7.4 allows generic UN-room photos and committee logo circles from `srijai-k
 | What | Our file | OakMUN source | Notes |
 | --- | --- | --- | --- |
 | Hero background (PLAN.md D4) | `src/assets/img/hero/hero-placeholder.jpg` | `public/committee_photos/unsc.jpg` | The General Assembly hall, cropped, black and white, softened. Replace it with a photo or short video of the MPH or a committee room. **Photo:** upload it and set `hero.image` in `site.json`. **Video (20 s or less):** this needs a laptop. Save it as `src/assets/video/source/hero.mp4` and run `npm run media`, which makes `src/assets/video/hero.av1.webm`, `hero.h264.mp4` and a poster image. Commit those, then set `hero.video` to `assets/video/hero` and `hero.image` to `assets/img/hero-poster.jpg`. |
-| Committee photos (7) | `src/assets/img/committees/<slug>.jpg` | `public/committee_photos/` (`unsc`, `disec`, `unhrc`, `lok_sabha`, `who`, `unodc`, `IP`) | Made black and white (PLAN.md D2). UNCSW, UNICEF, FCC, COPUOS and Doomsday have none and show "Photo TBC". The IP photo (microphones held out to a speaker, no faces) is also the IP Journalism style guide's photo on Resources. |
-| Committee logo circles (7) | `src/assets/img/logos/<slug>.png` | `public/new_logos/<name> (1).png` | Trimmed to the emblem and resized to 320 px. DISEC, UNSC and UNODC all use the plain UN emblem. UNCSW, UNICEF, FCC, COPUOS and Doomsday show a globe icon instead. |
 | Research link list | `resources.json` → `researchLinks` | OakMUN's Resources page | Six public UN websites. Keep, change or add to them. |
 
 ## Placeholder values, file by file
@@ -51,8 +49,7 @@ SPEC 7.4 allows generic UN-room photos and committee logo circles from `srijai-k
 | `sgLetter` | One placeholder paragraph; `photo` and `signature` `""` | Vihaan's letter, photo and signature |
 | `sponsors` | `[]` | Sponsors, if any; the strip appears with the first one |
 | `allocations` | One round, "Date TBC (for registrations received by TBC)"; `status` "Registration opens soon (TBC)"; `matrixUrl` `""`, so the button reads "Opens with Round 1 (TBC)"; `intro` and `matrixText` end "TBC" | The real rounds (name, date, note each), the status, the matrix link, and the two texts without "TBC" |
-| `intro.countries` | 24 placeholder countries; not shown anywhere since the opening became the crowd picture | Nothing needed; it can be deleted |
-| `hero.art` | The crowd illustration supplied on 4 October (`src/assets/img/hero/crowd.webp`) | Optional: a version recoloured to navy and teal, and a larger original (2400 px wide or more) |
+| `intro.countries` | 24 placeholder countries for the homepage intro | To be reworked |
 
 Done on 3 October: `url` (https://oakridgejmun.com), `contact.email` (jmun@oakridge.in), `contact.instagram` (oakjmun), `chapter` (XIV, confirmed), the conference times (7:45 am on 30 October to 7:30 pm on 31 October).
 
@@ -61,7 +58,8 @@ Done on 3 October: `url` (https://oakridgejmun.com), `contact.email` (jmun@oakri
 | Field | Now | Needed |
 | --- | --- | --- |
 | `agenda` | "Agenda TBC" (all 12) | Each agenda |
-| `image`, `logo` | `""` for UNCSW, UNICEF, FCC, COPUOS and Doomsday; borrowed for the rest | OakJMUN photos and logo circles |
+| `image` | Supplied 4 October for 11 committees (FCC uses the file named "armageddon"); `""` for UNICEF, shown as "Photo TBC" | A photo for UNICEF |
+| `logo` | Supplied 4 October for all 12 | Nothing |
 | `guide.file` | `""` (all 12), shown as "Coming soon" | Each background guide PDF |
 | `eb` | Three roles per committee with `name`, `photo` and `bio` all `""`, shown as "EB announced soon" | Each chair's name, photo and bio |
 
@@ -72,7 +70,6 @@ The overviews are final. FCC's and Doomsday's say the scenario is announced with
 | Field | Now | Needed |
 | --- | --- | --- |
 | `photo`, `signature` | `""` for everyone; cards show initials in a teal ring | Photos (and signatures, if you want them on the cards) |
-| `blurb` | `""` for everyone, shown as "Profile TBC." (the text is `secretariatPage.blurbTBC` in `site.json`) | One short line each |
 | `instagram` | `""` for everyone; the back of a card has no Instagram button | Handles, if they want them shown |
 
 ### `schedule.json`
@@ -91,7 +88,7 @@ Final as of 3 October: both days, with times.
 | Field | Now | Needed |
 | --- | --- | --- |
 | `documents` (Rules of Procedure, Delegation Guidelines, Consent Form) | Descriptions end "(TBC)"; `file` `""`, shown as "Coming soon" | The PDFs, and the descriptions checked |
-| `ipGuides` (IP Journalism, IP Photography) | Descriptions end "(TBC)"; `file` `""`, shown as "Coming soon"; IP Photography has no photo | The PDFs, the descriptions checked, and a photo for IP Photography |
+| `ipGuides` (IP Journalism, IP Photography) | Descriptions end "(TBC)"; `file` `""`, shown as "Coming soon"; IP Photography's photo supplied 4 October | The PDFs, and the descriptions checked |
 
 ### `socialNight.json`
 

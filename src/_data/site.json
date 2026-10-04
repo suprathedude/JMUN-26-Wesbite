@@ -13,11 +13,10 @@
   "venue": "Oakridge International School, Gachibowli, Hyderabad",
   "venueShort": "Oakridge International School, Gachibowli",
   "url": "https://oakridgejmun.com",
-  "crest": "",
+  "crest": "assets/img/crest.png",
   "description": "Oakridge Junior Model United Nations is a two-day conference for students in Grades 6 to 8, held at Oakridge International School, Gachibowli.",
   "hero": {
     "image": "assets/img/hero/hero-placeholder.jpg",
-    "art": "assets/img/hero/crowd.webp",
     "video": ""
   },
   "announcement": {
@@ -64,6 +63,10 @@
         {
           "label": "FAQ",
           "url": "/#faq"
+        },
+        {
+          "label": "Get QR",
+          "url": "/qr/"
         }
       ]
     },
@@ -91,14 +94,26 @@
     "intro": "{count} committees, one weekend. Find yours."
   },
   "secretariatPage": {
-    "intro": "The students who plan and run Oakridge JMUN 2026.",
-    "blurbTBC": "Profile TBC."
+    "intro": "The students who plan and run Oakridge JMUN 2026."
+  },
+  "qrPage": {
+    "title": "Get your QR code",
+    "intro": "Enter the email address you registered with to get your conference QR code.",
+    "note": "QR codes open closer to the conference (TBC).",
+    "button": "Get QR code",
+    "placeholder": "Your QR code will appear here"
   },
   "resourcesPage": {
     "intro": "Background guides, International Press style guides, procedure documents and research links, added here as they're released.",
     "guidesNone": "Background guides coming soon",
     "guidesSome": "{count} of {total} background guides out",
-    "guidesAll": "All background guides out"
+    "guidesAll": "All background guides out",
+    "sections": {
+      "guides": { "title": "Background Guides", "sub": "One per committee · Released as they're ready" },
+      "ip": { "title": "IP Style Guides", "sub": "International Press · Journalism · Photography" },
+      "docs": { "title": "Essential Documents", "sub": "Rules of Procedure · Delegation Guidelines · Consent Form" },
+      "links": { "title": "Research Links", "sub": "Official UN sources · Open in a new tab" }
+    }
   },
   "stats": {
     "delegates": "450+",

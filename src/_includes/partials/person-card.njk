@@ -1,40 +1,34 @@
-{#- A Secretariat card (SPEC 9.4; layout from OakMUN XVI's later Secretariat page). The role sits
-    above a tall portrait, the name and a one-line profile below it. The portrait is one big
-    button that flips it over (aria-pressed) to the back: name, role and Instagram when there's
-    a handle. The back stays readable by screen readers. In the markup the name comes first, so
-    a screen reader meets it before the role; CSS puts the role on top. -#}
-{%- macro personCard(p, blurbTBC) -%}
+{#- A Secretariat flip card (SPEC 9.4, reference/17 and 18). Front: photo or initials, name,
+    role, signature slot. Back: name, role and Instagram when there's a handle. The Flip button
+    is the control (aria-pressed); the back stays readable by screen readers. -#}
+{%- macro personCard(p) -%}
 {%- set handle = (p.instagram or "") | replace("@", "") -%}
 <article class="person{% if p.photo %} person--photo{% endif %}" data-person>
-  <h3 class="person__name">{{ p.name }}</h3>
-  <p class="person__role">{{ p.role }}</p>
-  <div class="person__portrait">
-    <button class="person__flip" type="button" aria-pressed="false" aria-label="View {{ p.name }}'s details"><span class="person__chip" aria-hidden="true">View</span></button>
-    <div class="person__inner">
-      <div class="person__face person__front">
-        <div class="person__media" data-parallax>
-          {%- if p.photo %}
-          <img class="person__photo" src="/{{ p.photo }}" alt="" sizes="(max-width: 768px) 50vw, 340px" eleventy:widths="400,800">
-          {%- endif %}
-        </div>
-        {%- if not p.photo %}
-        <span class="person__initials" aria-hidden="true" data-parallax-near>{{ p.name | initials }}</span>
-        {%- endif %}
-        <span class="person__glow" aria-hidden="true"></span>
-        {%- if p.signature %}
-        <img class="person__sig" src="/{{ p.signature }}" alt="" eleventy:widths="320">
-        {%- endif %}
+  {#- First in the markup, so Tab reaches Flip before the link on the back. -#}
+  <button class="person__flip" type="button" aria-pressed="false" aria-label="Flip {{ p.name }}'s card">Flip</button>
+  <div class="person__inner">
+    <div class="person__face person__front">
+      {%- if p.photo %}
+      <img class="person__photo" src="/{{ p.photo }}" alt="" sizes="(max-width: 400px) 100vw, (max-width: 768px) 50vw, 360px" eleventy:widths="400,800">
+      {%- else %}
+      <span class="person__initials" aria-hidden="true">{{ p.name | initials }}</span>
+      {%- endif %}
+      <div class="person__label">
+        <h3 class="person__name">{{ p.name }}</h3>
+        <p class="person__role">{{ p.role }}</p>
       </div>
-      <div class="person__face person__back">
-        <p class="person__back-name">{{ p.name }}</p>
-        <p class="person__back-role">{{ p.role }}</p>
-        {%- if handle %}
-        <p class="person__handle">@{{ handle }}</p>
-        <a class="btn btn--primary person__ig" href="https://www.instagram.com/{{ handle }}/" target="_blank" rel="noopener">Instagram ↗<span class="visually-hidden"> (opens in a new tab)</span></a>
-        {%- endif %}
-      </div>
+      {%- if p.signature %}
+      <img class="person__sig" src="/{{ p.signature }}" alt="" eleventy:widths="320">
+      {%- endif %}
+    </div>
+    <div class="person__face person__back">
+      <p class="person__back-name">{{ p.name }}</p>
+      <p class="person__back-role">{{ p.role }}</p>
+      {%- if handle %}
+      <p class="person__handle">@{{ handle }}</p>
+      <a class="btn btn--primary person__ig" href="https://www.instagram.com/{{ handle }}/" target="_blank" rel="noopener">Instagram ↗<span class="visually-hidden"> (opens in a new tab)</span></a>
+      {%- endif %}
     </div>
   </div>
-  <p class="person__blurb">{{ p.blurb or blurbTBC }}</p>
 </article>
 {%- endmacro -%}

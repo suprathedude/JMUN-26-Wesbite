@@ -12,7 +12,7 @@ All the content is in `src/_data/`:
 | --- | --- |
 | `site.json` | The conference name, dates and venue; the announcement bar; the Register link; the contact email; homepage text; the theme; the Secretary-General's letter; sponsors; allocation rounds; the short intros on each page |
 | `committees.json` | Every committee: code, full name, agenda, overview, photo, logo, background guide, and its executive board (EB) |
-| `secretariat.json` | The Secretariat: names, roles, which row each person sits in, profile lines, photos, Instagram handles |
+| `secretariat.json` | The Secretariat: names, roles, photos, signatures, Instagram handles |
 | `schedule.json` | Both days of the conference |
 | `faq.json` | The questions and answers on the homepage |
 | `resources.json` | Procedure documents, the International Press style guides and research links |
@@ -62,7 +62,7 @@ Open the red run in the Actions tab and click the step with the red cross. The m
 | --- | --- |
 | `src/_data/site.json has a typo near line 26, column 5: Expected ',' or '}' after property value.` | A comma is missing at the end of the line before line 26, or there's an extra one before a `}`. The message shows the line. |
 | `committees.json, committee 4 (UNHRC), EB member 1: there's no photo at src/assets/img/eb/unhrc-chair.jpg.` | The path in the file doesn't match an uploaded file. Check the spelling and the folder, or upload the file. |
-| `secretariat.json, person 3 (Raaghav Modukuri): "row" must be a whole number like 3, with no quote marks.` | Write `"row": 2`, not `"row": "2"`. |
+| `secretariat.json, person 3 (Raaghav Modukuri): group "leaders" must be one of "leadership", "usg".` | Use one of the listed values exactly. |
 | `schedule.json, day 1, event 3 (Break): type "breaks" must be one of "committee", "ceremony", "social", "meal", "break", "end".` | Same: use a listed value. |
 | `resources.json, researchLinks 2 (UN Research Guides): the url must start with https://` | Links to other websites need the full address. |
 
@@ -147,11 +147,11 @@ In `schedule.json`, each day has a list of `"events"`. Each event looks like thi
 ```
 
 - `"start"` and `"end"`: write times like `8:00 am` or `1:30 pm`. The length shown under the title ("1 hour 30 minutes") is worked out for you. For the last event of a day, leave `"end": ""` and it reads "7:00 pm onwards".
-- `"type"` is one of `committee`, `ceremony`, `social`, `meal`, `break` or `end`. It isn't shown, but the `committee` events are counted for the line under the schedule title.
+- `"type"` is one of `committee`, `ceremony`, `social`, `meal`, `break` or `end`. It isn't shown on the page.
 - Optional: `"link"`, a page the event's title links to, for example `"/social-night/"`.
 - To change the order, move whole `{ ... }` blocks. Mind the commas.
 - Each day has a `"label"` (`"Day one"`, shown in capitals) and a `"dateLabel"` (`"Friday 30 October"`).
-- `"note"` at the top shows next to the schedule title (under it on phones). Update it when the times are final, or set it to `""` to hide it. The line above it ("Two days, nine committee sessions.") counts the days and the `committee` events by itself.
+- `"note"` at the top shows next to the schedule title (under it on phones). Update it when the times are final, or set it to `""` to hide it.
 
 ## Edit the Secretariat
 
@@ -162,17 +162,13 @@ Each person in `secretariat.json` looks like this:
   "name": "Aryan Nadimpalli",
   "role": "Deputy Secretary-General",
   "group": "leadership",
-  "row": 2,
-  "blurb": "",
   "photo": "",
   "signature": "",
   "instagram": ""
 }
 ```
 
-- `"row"`: people with the same number sit side by side, and rows go in number order. Write the number without quote marks. Up to three to a row looks best. On phones, a row shows two people to a line.
-- `"group"`: `leadership` for the top six, `usg` for the Under-Secretaries-General. A row can't mix the two.
-- `"blurb"`: one short line under the name, for example their grade and what they're looking forward to. While it's `""`, the card reads "Profile TBC.".
+- `"group"`: `leadership` for the top six, `usg` for the Under-Secretaries-General. Everyone shows in one even grid, in the order of the file.
 - `"photo"`: upload it to `src/assets/img/secretariat/` first. It's shown tall (4:5), so keep the face in the top half. While it's `""`, the card shows initials.
 - `"instagram"`: the handle, with or without `@`. It appears as a button on the back of the card.
 - To add someone, copy a whole `{ ... }` block, paste it where they should appear, and mind the commas.
@@ -238,6 +234,8 @@ Everything else updates by itself:
 
 | To change | Where |
 | --- | --- |
+| The Resources section titles and the line under each | `site.json` → `resourcesPage` → `sections` |
+| The Get QR page's text (the page works once QR codes exist; for now its button is disabled) | `site.json` → `qrPage` |
 | The Register button's link | `site.json` → `nav` → `register` → `url` |
 | The "Consent form" button (hidden until it has a link) | `site.json` → `nav` → `secondary` → `url` |
 | The contact email | `site.json` → `contact` → `email`, and the last answer in `faq.json` (with its button's `mailto:` link) |

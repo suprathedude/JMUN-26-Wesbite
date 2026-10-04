@@ -1,0 +1,34 @@
+---
+layout: layouts/base.njk
+title: Get your QR code
+eleventyComputed:
+  description: "Get your QR code for {{ site.name }} {{ site.year }}."
+permalink: /qr/
+pageCss: [qr]
+---
+{#- The QR page (4 October): laid out, not working yet. The button is disabled until codes
+    are issued; the text is in site.json qrPage. -#}
+{%- from "partials/icons.njk" import icon -%}
+{%- set q = site.qrPage -%}
+
+<section class="qr">
+  <div class="orb qr__orb" aria-hidden="true"></div>
+  <div class="container qr__grid">
+    <div class="qr__copy">
+      <h1 class="t-page qr__title" data-reveal="mask">{{ q.title }}</h1>
+      <p class="qr__intro" data-reveal>{{ q.intro }}</p>
+      <form class="qr__form" data-reveal onsubmit="return false">
+        <label class="qr__label" for="qr-email">Registration email</label>
+        <div class="qr__row">
+          <input class="qr__input" id="qr-email" type="email" autocomplete="email" placeholder="you@example.com">
+          <button class="btn btn--primary is-disabled" type="button" aria-disabled="true" aria-describedby="qr-note">{{ q.button }}</button>
+        </div>
+        <p class="qr__note" id="qr-note">{{ q.note }}</p>
+      </form>
+    </div>
+    <div class="qr__card" data-reveal="art" aria-hidden="true">
+      <span class="qr__frame">{{ icon("qr-code") }}</span>
+      <span class="qr__placeholder">{{ q.placeholder }}</span>
+    </div>
+  </div>
+</section>

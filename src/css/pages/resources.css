@@ -275,3 +275,52 @@
     letter-spacing: 0.14em;
   }
 }
+
+/* Numbered section titles (OakMUN XVI's Resources page): a big faint number, the title, and
+   a line of what's inside. */
+.res-title {
+  display: flex;
+  align-items: center;
+  gap: 4px 22px;
+}
+
+/* Drawn as decoration (generated content), since it's a faint ornament, not text to read */
+.res-title__num::before {
+  content: attr(data-num);
+}
+
+.res-title__num {
+  flex-shrink: 0;
+  font-size: clamp(4rem, 8vw, 6.5rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+  color: rgb(var(--teal-rgb) / 0.12);
+}
+
+.res-title__name {
+  font-size: var(--fs-section);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.res-title__sub {
+  margin-top: 8px;
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.6;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+@media (max-width: 768px) {
+  .res-title {
+    gap: 14px;
+  }
+
+  .res-title__num {
+    font-size: 3.4rem;
+  }
+}

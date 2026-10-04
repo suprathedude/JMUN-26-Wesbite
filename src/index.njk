@@ -11,13 +11,10 @@ intro: true
 {%- from "partials/faq.njk" import faqList -%}
 {%- set dates = site.start | eventDates(site.end) -%}
 
-{#- 2. Hero (reference/02), opened by a crowd holding up placards (PLAN.md F14): with motion,
-    the hero stays on screen while the page scrolls the length of the track, and
-    intro-placards.js moves the crowd out of the way. -#}
-<div class="hero-track" data-hero-track>
-<section class="hero{% if site.hero.art %} hero--art{% endif %}" aria-labelledby="hero-title">
+{#- 2. Hero (reference/02). The placard intro (Task 4) will play over this. -#}
+<section class="hero" aria-labelledby="hero-title">
   <div class="hero__bg" aria-hidden="true">
-    {%- if site.hero.image and not site.hero.art %}
+    {%- if site.hero.image %}
     <img class="hero__img" src="/{{ site.hero.image }}" alt="" loading="eager" fetchpriority="high" sizes="100vw" eleventy:widths="800,1200,1600">
     {%- if site.hero.video | isSet %}
     {#- Sources are added by hero-video.js, so phones and reduced motion never download it. -#}
@@ -31,14 +28,10 @@ intro: true
     <div class="hero__watermark">{{ site.chapter }}</div>
   </div>
 
-  {#- The crowd holding up placards (site.json hero.art), seen from behind; the title sits in
-      the space above it. intro-placards.js zooms it as the page scrolls. -#}
-  {%- if site.hero.art %}
-  <div class="hero__art" aria-hidden="true" data-hero-art>
-    <img src="/{{ site.hero.art }}" alt="" loading="eager" fetchpriority="high" sizes="100vw" eleventy:widths="800,1200,1600">
+  {#- Placard intro (SPEC 10): decorative, skippable, built by intro-placards.js. -#}
+  <div class="intro-layer" aria-hidden="true" data-intro data-countries="{{ site.intro.countries | dump }}">
+    <div class="intro-wash"></div>
   </div>
-  {%- endif %}
-  <p class="hero__cue" aria-hidden="true"><span>Scroll</span></p>
 
   <div class="hero__content">
     <p class="hero__meta">Chapter {{ site.chapter }} · {{ dates }} · {{ site.city }}</p>
@@ -59,7 +52,6 @@ intro: true
     </div>
   </div>
 </section>
-</div>
 
 {#- 3. Committee marquee (reference/05): the committee codes, moving right to left. -#}
 <div class="marquee" aria-hidden="true" data-marquee>
@@ -158,12 +150,9 @@ intro: true
   <div class="container">
     <div class="schedule__head">
       <h2 class="t-section" id="schedule-title" data-reveal="mask">Conference schedule</h2>
-      <div class="schedule__intro" data-reveal>
-        <p class="schedule__summary">{{ schedule.days | length | numberWord }} days, {{ schedule.days | countEvents("committee") | numberWord | lower }} committee sessions.</p>
-        {%- if schedule.note %}
-        <p class="schedule__note">{{ schedule.note }}</p>
-        {%- endif %}
-      </div>
+      {%- if schedule.note %}
+      <p class="schedule__note" data-reveal>{{ schedule.note }}</p>
+      {%- endif %}
     </div>
 
     {%- for day in schedule.days %}

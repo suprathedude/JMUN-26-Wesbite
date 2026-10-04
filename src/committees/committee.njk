@@ -13,8 +13,6 @@ eleventyComputed:
   description: "{{ committee.name }} at {{ site.name }} {{ site.year }}: agenda, background guide and executive board."
 ---
 {%- set c = committee -%}
-{%- set index = pagination.pageNumber -%}
-{%- set next = committees[(index + 1) % (committees | length)] -%}
 {%- set agendas = c.agenda if (c.agenda | dump)[0] == "[" else [c.agenda] -%}
 {%- from "partials/icons.njk" import icon -%}
 {%- from "partials/guide-card.njk" import guideCard -%}
@@ -88,9 +86,4 @@ eleventyComputed:
     </div>
   </section>
 
-  <a class="next" href="/committees/{{ next.slug }}/">
-    <span class="next__label">Next committee</span>
-    <span class="next__code">{{ next.code }}</span>
-    <span class="next__name">{{ next.name }}</span>
-  </a>
 </div>

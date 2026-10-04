@@ -58,8 +58,10 @@ body {
   font-weight: 400;
   line-height: 1.7;
   color: var(--ink-75);
-  /* No background here: the html one fills the page, so the moving lights (components.css)
-     can sit between it and the content. */
+  background: var(--blue-700);
+  /* Its own stacking layer, so the moving lights (components.css, z-index -1) sit between this
+     background and the content. */
+  isolation: isolate;
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

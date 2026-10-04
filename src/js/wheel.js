@@ -3,7 +3,9 @@
 // OakMUN's do. Scrolling the page turns it further: down moves it on, up turns it back.
 // It stops while the pointer is over it and while a link inside has keyboard focus (focusing
 // a link turns that committee to the front), and doesn't run off-screen or in a hidden tab.
-// Only transform and opacity change. With reduced motion it stays a plain list.
+// Only transform and opacity change. Items fade out near the top and bottom edges through
+// their own opacity (no mask or overlay, which cost a redraw of the whole wheel every frame).
+// With reduced motion it stays a plain list.
 const wheel = document.querySelector("[data-wheel]");
 const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -22,9 +24,15 @@ if (wheel && !calm && "IntersectionObserver" in window) {
   let focused = false;
   let lastScroll = scrollY;
   let radius = 280;
+  let half = 300; // half the wheel's height
+  let fade = 130; // fade distance at the top and bottom edges
+  const drawn = items.map(() => ({ transform: "", opacity: "" }));
 
   const measure = () => {
-    radius = parseFloat(getComputedStyle(wheel).getPropertyValue("--wheel-r")) || 280;
+    const style = getComputedStyle(wheel);
+    radius = parseFloat(style.getPropertyValue("--wheel-r")) || 280;
+    fade = parseFloat(style.getPropertyValue("--wheel-fade")) || 130;
+    half = wheel.clientHeight / 2;
   };
 
   const draw = () => {
@@ -38,9 +46,13 @@ if (wheel && !calm && "IntersectionObserver" in window) {
       const scale = 0.72 + (0.28 * (c + 1)) / 2;
       // Steeper than OakMUN's (c + 0.6) / 1.6, so only the front item and two either side
       // show, as in reference/08, and the ones behind don't overlap them.
-      const opacity = Math.min(1, Math.max(0, (c - 0.2) / 0.8));
-      item.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) scale(${scale.toFixed(3)})`;
-      item.style.opacity = opacity.toFixed(3);
+      const arc = Math.min(1, Math.max(0, (c - 0.2) / 0.8));
+      const edge = Math.min(1, Math.max(0, (half - Math.abs(y)) / fade));
+      const transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0) scale(${scale.toFixed(3)})`;
+      const opacity = (arc * edge).toFixed(2);
+      // Only touch the style when something changed (items behind the wheel stay at 0).
+      if (drawn[i].transform !== transform) item.style.transform = drawn[i].transform = transform;
+      if (drawn[i].opacity !== opacity) item.style.opacity = drawn[i].opacity = opacity;
     });
   };
 
@@ -80,8 +92,8 @@ if (wheel && !calm && "IntersectionObserver" in window) {
     sync();
   };
 
-  measure();
   wheel.classList.add("is-wheel");
+  measure();
   draw();
 
   new IntersectionObserver(([entry]) => {
@@ -121,8 +133,13 @@ if (wheel && !calm && "IntersectionObserver" in window) {
     sync();
   });
   document.addEventListener("visibilitychange", sync);
-  matchMedia("(max-width: 768px)").addEventListener("change", () => {
-    measure();
-    draw();
+  // The wheel's height follows the window's, so measure again after a resize.
+  let resizing = 0;
+  addEventListener("resize", () => {
+    cancelAnimationFrame(resizing);
+    resizing = requestAnimationFrame(() => {
+      measure();
+      draw();
+    });
   });
 }

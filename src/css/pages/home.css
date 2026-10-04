@@ -259,14 +259,6 @@
   animation: intro-failsafe 0.4s ease 3.2s forwards;
 }
 
-/* While the intro plays, the nav pill skips its background blur: the hero under it changes
-   every frame, so the blur would be redrawn every frame (the main cause of dropped frames in
-   the throttled trace). The pill is 97% opaque, so nobody sees the difference. */
-.intro-running .nav__bg {
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-}
-
 @keyframes intro-failsafe {
   to {
     opacity: 1;
@@ -1024,19 +1016,9 @@
 
 /* Wheel mode (JS, motion allowed): items sit on an arc and turn continuously (wheel.js) */
 .wheel.is-wheel {
-  --wheel-fade: 130px;
+  --wheel-fade: 130px; /* items fade out over this distance from the top and bottom (wheel.js) */
   height: clamp(520px, 68vh, 680px);
   overflow: hidden;
-  /* The wheel fades out top and bottom by masking itself, not with navy overlays, so it blends
-     into the moving lights behind the section without a visible edge. */
-  -webkit-mask-image: var(--wheel-mask);
-  mask-image: var(--wheel-mask);
-  --wheel-mask: linear-gradient(
-    transparent,
-    rgb(var(--shadow-rgb)) var(--wheel-fade),
-    rgb(var(--shadow-rgb)) calc(100% - var(--wheel-fade)),
-    transparent
-  );
 }
 
 .wheel.is-wheel .wheel__list {

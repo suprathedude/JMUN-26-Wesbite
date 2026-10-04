@@ -115,6 +115,7 @@
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
+  contain: strict;
 }
 
 .lights > span {
@@ -403,17 +404,12 @@
   z-index: -1;
   border: var(--border-glass);
   border-radius: var(--radius-pill);
+  /* 97% opaque, so no background blur: a blur would be redrawn every frame while the lights,
+     the wheel or the hero move under the pill, which is what made scrolling stutter. */
   background: rgb(var(--night-rgb) / 0.97);
   box-shadow: var(--shadow-nav);
   clip-path: inset(-48px -48px -48px -48px round 72px);
   transition: clip-path 0.42s var(--ease-standard);
-}
-
-@media (min-width: 769px) {
-  .nav__bg {
-    -webkit-backdrop-filter: blur(24px);
-    backdrop-filter: blur(24px);
-  }
 }
 
 .nav__side {

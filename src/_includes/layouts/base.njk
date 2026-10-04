@@ -52,8 +52,6 @@
 </head>
 <body{% if bodyClass %} class="{{ bodyClass }}"{% endif %}>
   <a class="skip-link" href="#main">Skip to content</a>
-  {#- Moving lights behind the page (4 October): decorative glows, styled in components.css. -#}
-  <div class="lights" aria-hidden="true"><span class="lights__a"></span><span class="lights__b"></span><span class="lights__c"></span></div>
   {#- Loading screen for slow connections (PLAN.md F12): hidden unless the page takes a while. -#}
   <div class="loader" aria-hidden="true">
     <span class="loader__mark">{% include "partials/crest.njk" %}</span>

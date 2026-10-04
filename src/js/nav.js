@@ -67,6 +67,9 @@ function initCollapse() {
     }
   };
 
+  // While the page scrolls, html.is-scrolling holds the drifting glows still (components.css),
+  // so nothing animates behind the content as it moves.
+  let settle = 0;
   window.addEventListener(
     "scroll",
     () => {
@@ -74,6 +77,12 @@ function initCollapse() {
         queued = true;
         requestAnimationFrame(update);
       }
+      if (!settle) root.classList.add("is-scrolling");
+      clearTimeout(settle);
+      settle = setTimeout(() => {
+        settle = 0;
+        root.classList.remove("is-scrolling");
+      }, 200);
     },
     { passive: true },
   );

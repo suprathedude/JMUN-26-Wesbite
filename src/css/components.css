@@ -93,76 +93,36 @@
 /* ---------- Ambient glows ---------- */
 
 /* At most two per section; circles are the Oakridge connecting shape (SPEC 3.3). They drift
-   slowly (4 October), moving with translate and scale only; still under reduced motion. */
+   slowly (4 October), moving with translate only. They hold still while the page scrolls
+   (html.is-scrolling, from nav.js), so scrolling never pays for them, and under reduced motion. */
 .orb {
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
-  animation: glow-drift 24s ease-in-out infinite alternate;
+  animation: orb-drift 26s ease-in-out infinite alternate;
 }
 
 .orb:nth-of-type(2n) {
-  animation-duration: 31s;
-  animation-delay: -11s;
+  animation-duration: 33s;
+  animation-delay: -12s;
   animation-direction: alternate-reverse;
 }
 
-/* Moving lights behind every page (4 October), like OakMUN's: three soft glows on a fixed
-   layer that show wherever a section has no background of its own. */
-.lights {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
-  pointer-events: none;
-  contain: strict;
+.is-scrolling .orb {
+  animation-play-state: paused;
 }
 
-.lights > span {
-  position: absolute;
-  width: clamp(360px, 60vw, 900px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  animation: glow-drift 28s ease-in-out infinite alternate;
-}
-
-.lights__a {
-  top: -20%;
-  left: -18%;
-  background: radial-gradient(circle, rgb(var(--teal-dark-rgb) / 0.2) 0%, transparent 65%);
-}
-
-.lights > .lights__b {
-  top: 30%;
-  right: -22%;
-  background: radial-gradient(circle, rgb(var(--glow-blue-rgb) / 0.42) 0%, transparent 65%);
-  animation-duration: 34s;
-  animation-delay: -14s;
-  animation-direction: alternate-reverse;
-}
-
-.lights > .lights__c {
-  bottom: -35%;
-  left: 20%;
-  background: radial-gradient(circle, rgb(var(--teal-rgb) / 0.1) 0%, transparent 65%);
-  animation-duration: 40s;
-  animation-delay: -25s;
-}
-
-@keyframes glow-drift {
+@keyframes orb-drift {
   0% {
     translate: 0 0;
-    scale: 1;
   }
 
   50% {
-    translate: 9% 7%;
-    scale: 1.12;
+    translate: 6% 5%;
   }
 
   100% {
-    translate: -7% 12%;
-    scale: 0.94;
+    translate: -5% 8%;
   }
 }
 
@@ -404,8 +364,8 @@
   z-index: -1;
   border: var(--border-glass);
   border-radius: var(--radius-pill);
-  /* 97% opaque, so no background blur: a blur would be redrawn every frame while the lights,
-     the wheel or the hero move under the pill, which is what made scrolling stutter. */
+  /* 97% opaque, so no background blur: a blur would be redrawn every frame while the wheel,
+     the glows or the hero move under the pill, which is what made scrolling stutter. */
   background: rgb(var(--night-rgb) / 0.97);
   box-shadow: var(--shadow-nav);
   clip-path: inset(-48px -48px -48px -48px round 72px);
@@ -1240,8 +1200,7 @@ html.is-locked {
 
 @media (prefers-reduced-motion: reduce) {
   .placard--rise,
-  .orb,
-  .lights > span {
+  .orb {
     animation: none;
   }
 }

@@ -11,7 +11,7 @@
 }
 
 /* The faint grid, fading out at the bottom by a mask (no navy overlay), so the header runs
-   into the page and its moving lights without an edge. */
+   into the page without an edge. */
 .listing-head::after {
   content: "";
   position: absolute;

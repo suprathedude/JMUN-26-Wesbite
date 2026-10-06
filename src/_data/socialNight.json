@@ -1,11 +1,11 @@
 {
   "edition": "Halloween edition",
-  "day": "Day two",
-  "date": "Saturday 31 October",
+  "day": "Day one",
+  "date": "Friday 30 October",
   "place": "MPH",
-  "time": "5:00 pm to 6:45 pm",
+  "time": "4:45 pm to 6:15 pm",
   "dressCode": "Costumes TBC",
-  "expect": "A Halloween evening in the MPH for every delegate, straight after the closing ceremony on Day two, with dinner afterwards. Programme TBC.",
+  "expect": "A Halloween social in the MPH for every delegate after the last committee session on Day one, with dinner afterwards. Programme TBC.",
   "photoBooth": "",
   "photoBoothImage": "",
   "faq": [
@@ -15,7 +15,7 @@
     },
     {
       "question": "What time does it start and finish?",
-      "answer": "It starts at 5:00 pm and finishes at 6:45 pm. Dinner follows until 7:30 pm."
+      "answer": "It starts at 4:45 pm and finishes at 6:15 pm. Dinner follows until 7:15 pm."
     },
     {
       "question": "Can parents come?",

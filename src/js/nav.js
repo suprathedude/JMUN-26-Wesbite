@@ -59,7 +59,7 @@ function initCollapse() {
     if (!desktop.matches || y <= COLLAPSE_AFTER) {
       openedByHover = false;
       setCollapsed(false);
-    } else if (delta > 2 && !busy() && !openedByHover) {
+    } else if (delta > 2 && !collapsed && !openedByHover && !busy()) {
       setCollapsed(true);
     } else if (delta < -2) {
       openedByHover = false;

@@ -61,7 +61,8 @@ export function validateData() {
     if (!/^[a-z0-9-]+$/.test(c.slug ?? "")) add("committees.json", where, `slug "${c.slug}" must be lower case letters, numbers and hyphens (it becomes the web address).`);
     if (slugs.has(c.slug)) add("committees.json", where, `slug "${c.slug}" is used twice.`);
     slugs.add(c.slug);
-    for (const field of ["code", "name", "agenda", "overview"]) {
+    // The press committee (IP) has no agenda: a team and style guides instead.
+    for (const field of c.press ? ["code", "name", "overview"] : ["code", "name", "agenda", "overview"]) {
       if (!c[field]) add("committees.json", where, `"${field}" is empty. Use "TBC" if it isn't known yet.`);
     }
     // Releasing a guide is one line: set guide.file. A file makes it "Available" whatever
@@ -75,6 +76,9 @@ export function validateData() {
     if (missingFile(c.guide?.file)) add("committees.json", where, `there's no guide PDF at src/${c.guide.file}.`);
     (c.eb ?? []).forEach((m, j) => {
       if (missingFile(m.photo)) add("committees.json", `${where}, EB member ${j + 1}`, `there's no photo at src/${m.photo}.`);
+    });
+    (c.team ?? []).forEach((m, j) => {
+      if (missingFile(m.photo)) add("committees.json", `${where}, team member ${j + 1}`, `there's no photo at src/${m.photo}.`);
     });
   });
 

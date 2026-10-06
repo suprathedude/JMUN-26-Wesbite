@@ -3,11 +3,19 @@
 
 /* ---------- Listing header ---------- */
 
+/* Clipped at the sides only: the glow fades out on its own below the header, behind the
+   search bar and the cards (6 October; clipping it there left a hard edge at the search bar). */
 .listing-head {
   position: relative;
-  overflow: hidden;
+  overflow-x: clip;
   padding: calc(var(--section-pad) + 40px) 0 56px;
   text-align: center;
+}
+
+/* The search and cards sit above the glow. */
+.listing-head + [data-filters] {
+  position: relative;
+  z-index: 1;
 }
 
 /* The faint grid, fading out at the bottom by a mask (no navy overlay), so the header runs
@@ -540,9 +548,40 @@
   color: var(--teal);
 }
 
+/* IP team (6 October): two wide cards a row, photo on the left, as on OakMUN's IP page. */
+.eb__grid--team {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.eb-card--wide {
+  flex-direction: row;
+}
+
+.eb-card--wide .eb-card__photo {
+  flex: 0 0 38%;
+  aspect-ratio: auto;
+  min-height: 240px;
+}
+
+.eb-card--wide .eb-card__body {
+  flex: 1;
+  align-content: start;
+  padding: 28px 26px;
+}
+
+.eb-card--wide .eb-card__bio {
+  margin-top: 8px;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+}
+
 @media (max-width: 980px) {
   .eb__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .eb__grid--team {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -565,9 +604,14 @@
     flex-direction: row;
   }
 
-  .eb-card__photo {
+  .eb-card__photo,
+  .eb-card--wide .eb-card__photo {
     flex: 0 0 36%;
     aspect-ratio: auto;
     min-height: 150px;
+  }
+
+  .eb-card--wide .eb-card__body {
+    padding: 20px 18px;
   }
 }

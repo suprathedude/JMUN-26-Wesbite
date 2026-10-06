@@ -10,10 +10,12 @@ pageCss: [committees]
 pageJs: [readmore]
 eleventyComputed:
   title: "{{ committee.code }}"
-  description: "{{ committee.name }} at {{ site.name }} {{ site.year }}: agenda, background guide and executive board."
+  description: "{{ committee.name }} at {{ site.name }} {{ site.year }}: {{ 'style guides and team.' if committee.press else 'agenda, background guide and executive board.' }}"
 ---
 {%- set c = committee -%}
-{%- set agendas = c.agenda if (c.agenda | dump)[0] == "[" else [c.agenda] -%}
+{#- The press committee (IP, "press": true) has no agenda or EB: its style guides and its
+    team (committees.json → team) take their place (6 October). -#}
+{%- set agendas = (c.agenda if (c.agenda | dump)[0] == "[" else [c.agenda]) if c.agenda else [] -%}
 {%- from "partials/icons.njk" import icon -%}
 {%- from "partials/guide-card.njk" import guideCard -%}
 
@@ -37,6 +39,7 @@ eleventyComputed:
   </section>
 
   {#- Agenda card (reference/15) -#}
+  {%- if agendas | length %}
   <section class="agenda" aria-labelledby="agenda-title" data-reveal>
     <div>
       <h2 class="agenda__title" id="agenda-title">Committee agenda</h2>
@@ -50,12 +53,49 @@ eleventyComputed:
       {%- endfor %}
     </ol>
   </section>
+  {%- endif %}
 
   <div class="c-grid" data-reveal>
+    {%- if c.press %}
+    {#- IP's style guides, released by setting their files in resources.json. -#}
+    {%- for g in resources.ipGuides %}
+    {{ guideCard({ tag: "Style guide", title: g.title, text: g.description, image: g.image, file: g.file, linkLabel: "Open PDF" }) }}
+    {%- endfor %}
+    {%- else %}
     {#- Background guide card. Releasing a guide = setting guide.file to its PDF. -#}
     {{ guideCard({ tag: c.code, title: "Background guide", text: agendas | join("; "), image: c.image, file: c.guide.file, linkLabel: "Open background guide" }) }}
+    {%- endif %}
   </div>
 
+  {%- if c.team %}
+  {#- IP team (6 October): wide cards, photo beside name, role and bio. -#}
+  <section class="eb" aria-labelledby="team-title">
+    <h2 class="t-section t-section--bar" id="team-title" data-reveal="mask">{{ c.teamTitle }}</h2>
+    <div class="eb__grid eb__grid--team" data-reveal>
+      {%- for m in c.team %}
+      <article class="eb-card eb-card--wide" data-readmore>
+        <div class="eb-card__photo">
+          {%- if m.photo %}
+          <img src="/{{ m.photo }}" alt="{{ m.name }}, {{ m.role }}" sizes="(max-width: 768px) 40vw, 300px" eleventy:widths="400,800">
+          {%- else %}
+          <span class="photo-tbc">Photo TBC</span>
+          {%- endif %}
+        </div>
+        <div class="eb-card__body">
+          <h3 class="eb-card__name{% if not m.name %} is-tbc{% endif %}">{{ m.name or "Name TBC" }}</h3>
+          <p class="eb-card__role">{{ m.role }}</p>
+          {%- if m.bio %}
+          <p class="eb-card__bio" id="bio-{{ c.slug }}-{{ loop.index }}">{{ m.bio }}</p>
+          <button class="eb-card__more" type="button" aria-expanded="false" aria-controls="bio-{{ c.slug }}-{{ loop.index }}" hidden>Read more</button>
+          {%- endif %}
+        </div>
+      </article>
+      {%- endfor %}
+    </div>
+  </section>
+  {%- endif %}
+
+  {%- if c.eb %}
   {#- Executive board (SPEC 8.6). An empty name reads "EB announced soon". -#}
   <section class="eb" aria-labelledby="eb-title">
     <h2 class="t-section t-section--bar" id="eb-title" data-reveal="mask">Executive board</h2>
@@ -85,5 +125,6 @@ eleventyComputed:
       {%- endfor %}
     </div>
   </section>
+  {%- endif %}
 
 </div>

@@ -57,7 +57,7 @@ Done on 3 October: `url` (https://oakridgejmun.com), `contact.email` (jmun@oakri
 | Field | Now | Needed |
 | --- | --- | --- |
 | `agenda` | "Agenda TBC" (all 12) | Each agenda |
-| `image` | Supplied 4 October for 11 committees (FCC uses the file named "armageddon"); `""` for UNICEF, shown as "Photo TBC" | A photo for UNICEF |
+| `image` | Supplied 4 October for 11 committees (FCC uses the file named "armageddon"); UNICEF's added 6 October (a UNICEF press photo of two children with UNICEF backpacks) | Nothing, if you're happy using UNICEF's photo; otherwise one of your own |
 | `logo` | Supplied 4 October for all 12 | Nothing |
 | `guide.file` | `""` (all 12), shown as "Coming soon" | Each background guide PDF |
 | `eb` | Three roles per committee with `name`, `photo` and `bio` all `""`, shown as "EB announced soon" | Each chair's name, photo and bio |

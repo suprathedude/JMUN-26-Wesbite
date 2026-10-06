@@ -11,7 +11,7 @@ All the content is in `src/_data/`:
 | File | What's in it |
 | --- | --- |
 | `site.json` | The conference name, dates and venue; the announcement bar; the Register link; the contact email; homepage text; the theme; the Secretary-General's letter; sponsors; allocation rounds; the short intros on each page |
-| `committees.json` | Every committee: code, full name, agenda, overview, photo, logo, background guide, and its executive board (EB) |
+| `committees.json` | Every committee: code, full name, agenda, overview, photo, logo, background guide, and its executive board (EB); for IP, its team |
 | `secretariat.json` | The Secretariat: names, roles, photos, signatures, Instagram handles |
 | `schedule.json` | Both days of the conference |
 | `faq.json` | The questions and answers on the homepage |
@@ -116,6 +116,24 @@ Open `committees.json` and find the committee. Its `"eb"` list has three people:
 - Long bios are cut to two lines with a "Read more" button.
 - To add a fourth person, copy a whole `{ ... }` block, paste it after the last one, and put a comma between the two blocks.
 
+## Add the IP team
+
+International Press has no agenda and no EB. Its entry in `committees.json` has `"press": true`, which shows the two style guides and a team section instead. The team is in its `"team"` list, filled in like an EB member:
+
+```json
+{
+  "role": "Editor-in-Chief",
+  "name": "Full Name",
+  "photo": "assets/img/eb/ip-editor.jpg",
+  "bio": "Two or three sentences."
+}
+```
+
+- While `"name"` is `""`, the card reads "Name TBC"; without a photo it shows "Photo TBC".
+- Bios are cut to four lines with a "Read more" button.
+- `"teamTitle"` is the section's heading ("IP team").
+- The style guides' text and PDFs are in `resources.json` → `"ipGuides"` (see Resources).
+
 ## Change the announcement bar
 
 In `site.json`:
@@ -150,7 +168,8 @@ In `schedule.json`, each day has a list of `"events"`. Each event looks like thi
 - `"type"` is one of `committee`, `ceremony`, `social`, `meal`, `break` or `end`. It isn't shown on the page.
 - Optional: `"link"`, a page the event's title links to, for example `"/social-night/"`.
 - To change the order, move whole `{ ... }` blocks. Mind the commas.
-- Each day has a `"label"` (`"Day one"`, shown in capitals) and a `"dateLabel"` (`"Friday 30 October"`).
+- Each day has a `"label"` (`"Day one"`), a `"dateLabel"` (`"Friday 30 October"`) and a `"tab"`, the short text on its tab above the timetable (`"30 Oct · Day 1"`). Keep tabs short so both fit side by side on a phone.
+- The "Share timetable" button draws both days into one picture from the timetable itself, so it updates by itself. Its button text and file name are in `"share"`.
 - `"note"` at the top shows next to the schedule title (under it on phones). Update it when the times are final, or set it to `""` to hide it.
 
 ## Edit the Secretariat

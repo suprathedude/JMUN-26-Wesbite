@@ -236,7 +236,8 @@
     "name": "United Nations Children's Fund",
     "agenda": "Agenda TBC",
     "overview": "UNICEF works for children's rights in more than 190 countries and territories. It focuses on children's health, education and safety.",
-    "image": "",
+    "image": "assets/img/committees/unicef.jpg",
+    "imagePosition": "57% 30%",
     "logo": "assets/img/logos/unicef.png",
     "guide": {
       "status": "coming-soon",
@@ -367,7 +368,7 @@
     "slug": "ip",
     "code": "IP",
     "name": "International Press",
-    "agenda": "Agenda TBC",
+    "press": true,
     "overview": "International Press delegates are the conference's journalists and photographers. Instead of debating, they report on the committees, write articles and take photos.",
     "image": "assets/img/committees/ip.jpg",
     "logo": "assets/img/logos/ip.png",
@@ -376,21 +377,28 @@
       "file": "",
       "onResources": false
     },
-    "eb": [
+    "teamTitle": "IP team",
+    "team": [
       {
-        "role": "Chair",
+        "role": "Editor-in-Chief",
         "name": "",
         "photo": "",
         "bio": ""
       },
       {
-        "role": "Vice Chair",
+        "role": "Deputy Editor-in-Chief",
         "name": "",
         "photo": "",
         "bio": ""
       },
       {
-        "role": "Rapporteur",
+        "role": "Director of Photography",
+        "name": "",
+        "photo": "",
+        "bio": ""
+      },
+      {
+        "role": "Director of Photography",
         "name": "",
         "photo": "",
         "bio": ""

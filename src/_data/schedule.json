@@ -1,11 +1,17 @@
 {
   "note": "",
+  "share": {
+    "label": "Share timetable",
+    "file": "oakjmun-2026-schedule.png",
+    "heading": "Conference schedule"
+  },
   "days": [
     {
       "id": "day-1",
       "label": "Day one",
       "date": "2026-10-30",
       "dateLabel": "Friday 30 October",
+      "tab": "30 Oct · Day 1",
       "events": [
         {
           "start": "7:45 am",
@@ -27,60 +33,67 @@
         },
         {
           "start": "10:20 am",
-          "end": "11:20 am",
+          "end": "11:30 am",
           "title": "Committee session 1",
           "type": "committee"
         },
         {
-          "start": "11:20 am",
-          "end": "11:30 am",
+          "start": "11:30 am",
+          "end": "11:40 am",
           "title": "Break",
           "type": "break"
         },
         {
-          "start": "11:30 am",
-          "end": "12:30 pm",
+          "start": "11:40 am",
+          "end": "12:50 pm",
           "title": "Committee session 2",
           "type": "committee"
         },
         {
-          "start": "12:30 pm",
-          "end": "1:15 pm",
+          "start": "12:50 pm",
+          "end": "1:20 pm",
           "title": "Lunch",
           "type": "meal"
         },
         {
-          "start": "1:15 pm",
-          "end": "2:45 pm",
+          "start": "1:20 pm",
+          "end": "2:50 pm",
           "title": "Committee session 3",
           "type": "committee"
         },
         {
-          "start": "2:45 pm",
-          "end": "2:55 pm",
+          "start": "2:50 pm",
+          "end": "3:00 pm",
           "title": "Break",
           "type": "break"
         },
         {
-          "start": "2:55 pm",
-          "end": "4:25 pm",
+          "start": "3:00 pm",
+          "end": "4:15 pm",
           "title": "Committee session 4",
           "type": "committee"
         },
         {
-          "start": "4:25 pm",
+          "start": "4:15 pm",
           "end": "4:45 pm",
-          "title": "Snack",
-          "type": "meal"
+          "title": "Break and transition",
+          "type": "break"
         },
         {
           "start": "4:45 pm",
-          "end": "7:00 pm",
-          "title": "Committee session 5",
-          "type": "committee"
+          "end": "6:15 pm",
+          "title": "Social Night",
+          "type": "social",
+          "link": "/social-night/"
         },
         {
-          "start": "7:00 pm",
+          "start": "6:15 pm",
+          "end": "7:15 pm",
+          "title": "Dinner",
+          "type": "meal"
+        },
+        {
+          "start": "7:15 pm",
           "end": "",
           "title": "Dispersal",
           "type": "end"
@@ -92,82 +105,64 @@
       "label": "Day two",
       "date": "2026-10-31",
       "dateLabel": "Saturday 31 October",
+      "tab": "31 Oct · Day 2",
       "events": [
         {
           "start": "8:00 am",
-          "end": "9:30 am",
-          "title": "Committee session 6",
+          "end": "9:45 am",
+          "title": "Committee session 5",
           "type": "committee"
         },
         {
-          "start": "9:30 am",
-          "end": "9:40 am",
-          "title": "Break",
-          "type": "break"
-        },
-        {
-          "start": "9:40 am",
-          "end": "11:10 am",
-          "title": "Committee session 7",
-          "type": "committee"
-        },
-        {
-          "start": "11:10 am",
-          "end": "11:30 am",
+          "start": "9:45 am",
+          "end": "10:00 am",
           "title": "Snack",
           "type": "meal"
         },
         {
+          "start": "10:00 am",
+          "end": "11:30 am",
+          "title": "Committee session 6",
+          "type": "committee"
+        },
+        {
           "start": "11:30 am",
-          "end": "12:50 pm",
-          "title": "Committee session 8",
-          "type": "committee"
-        },
-        {
-          "start": "12:50 pm",
-          "end": "1:35 pm",
-          "title": "Lunch",
-          "type": "meal"
-        },
-        {
-          "start": "1:35 pm",
-          "end": "3:00 pm",
-          "title": "Committee session 9",
-          "type": "committee"
-        },
-        {
-          "start": "3:00 pm",
-          "end": "3:10 pm",
+          "end": "11:40 am",
           "title": "Break",
           "type": "break"
         },
         {
-          "start": "3:10 pm",
-          "end": "4:40 pm",
+          "start": "11:40 am",
+          "end": "1:10 pm",
+          "title": "Committee session 7",
+          "type": "committee"
+        },
+        {
+          "start": "1:10 pm",
+          "end": "1:40 pm",
+          "title": "Lunch",
+          "type": "meal"
+        },
+        {
+          "start": "1:40 pm",
+          "end": "3:15 pm",
+          "title": "Committee session 8",
+          "type": "committee"
+        },
+        {
+          "start": "3:15 pm",
+          "end": "3:45 pm",
+          "title": "Transition and break",
+          "type": "break"
+        },
+        {
+          "start": "3:45 pm",
+          "end": "5:15 pm",
           "title": "Closing ceremony",
           "type": "ceremony"
         },
         {
-          "start": "4:40 pm",
-          "end": "5:00 pm",
-          "title": "Transition",
-          "type": "break"
-        },
-        {
-          "start": "5:00 pm",
-          "end": "6:45 pm",
-          "title": "Social Night",
-          "type": "social",
-          "link": "/social-night/"
-        },
-        {
-          "start": "6:45 pm",
-          "end": "7:30 pm",
-          "title": "Dinner",
-          "type": "meal"
-        },
-        {
-          "start": "7:30 pm",
+          "start": "5:15 pm",
           "end": "",
           "title": "Dispersal",
           "type": "end"

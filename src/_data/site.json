@@ -8,7 +8,7 @@
   "chapter": "XIV",
   "year": 2026,
   "start": "2026-10-30T07:45:00+05:30",
-  "end": "2026-10-31T19:30:00+05:30",
+  "end": "2026-10-31T17:15:00+05:30",
   "city": "Hyderabad",
   "venue": "Oakridge International School, Gachibowli, Hyderabad",
   "venueShort": "Oakridge International School, Gachibowli",
@@ -85,7 +85,7 @@
   },
   "home": {
     "glanceText": "{count} committees, each with its own agenda and its own chairs. Background guides go up on each committee's page as they're released.",
-    "debateText": "Social Night on the second evening, and a step-by-step guide for anyone at their first conference.",
+    "debateText": "Social Night at the end of Day one, and a step-by-step guide for anyone at their first conference.",
     "newToMunText": "What happens in a committee session, what to say and what to bring, explained step by step.",
     "faqIntro": "Quick answers for delegates, parents and faculty advisors.",
     "closing": "Your first committee starts on {date}."

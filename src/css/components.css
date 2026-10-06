@@ -356,8 +356,10 @@
   padding: 8px 10px;
 }
 
-/* The pill's surface. It shrinks with clip-path when the nav collapses, so nothing
-   reflows (OakMUN animates max-width, which makes the labels overlap mid-way). */
+/* The pill's surface. When the nav collapses it shrinks towards the crest and fades, with
+   transform and opacity only, so nothing reflows or repaints mid-way (OakMUN animates
+   max-width; a clip-path version repainted the pill every frame). The crest's own compact
+   surface fades in as it goes. */
 .nav__bg {
   position: absolute;
   inset: 0;
@@ -368,8 +370,9 @@
      the glows or the hero move under the pill, which is what made scrolling stutter. */
   background: rgb(var(--night-rgb) / 0.97);
   box-shadow: var(--shadow-nav);
-  clip-path: inset(-48px -48px -48px -48px round 72px);
-  transition: clip-path 0.42s var(--ease-standard);
+  transition:
+    transform 0.42s var(--ease-standard),
+    opacity 0.3s var(--ease-standard) 0.08s;
 }
 
 .nav__side {
@@ -464,7 +467,8 @@
 
 /* Collapsed: only the crest remains (reference/03) */
 .nav.is-collapsed .nav__bg {
-  clip-path: inset(0 calc(50% - 42px) 0 calc(50% - 42px) round 16px);
+  opacity: 0;
+  transform: scaleX(0.12);
 }
 
 .nav.is-collapsed .nav__side {

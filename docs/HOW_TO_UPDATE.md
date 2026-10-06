@@ -134,6 +134,26 @@ International Press has no agenda and no EB. Its entry in `committees.json` has 
 - `"teamTitle"` is the section's heading ("IP team").
 - The style guides' text and PDFs are in `resources.json` → `"ipGuides"` (see Resources).
 
+## Change the gallery photos (homepage intro)
+
+On the first homepage visit of a session, photos fly out of the dark before the hero. They're listed in `site.json`:
+
+```json
+"gallery": {
+  "screens": 2.5,
+  "cue": "Scroll",
+  "images": [
+    "assets/img/gallery/unsc.webp",
+    "assets/img/gallery/disec.webp"
+  ]
+},
+```
+
+- Upload photos to `src/assets/img/gallery/` and list their paths in `"images"`. 10 to 15 photos works well; use landscape or portrait, about 800 px on the long side, as `.webp` or `.jpg` (keep each under about 100 KB, since they all load at the start).
+- `"screens"`: how many screens of scrolling it takes to reach the hero.
+- `"cue"`: the small word at the bottom of the screen.
+- People who have turned off animations on their device, and later visits in the same session, start at the hero.
+
 ## Change the announcement bar
 
 In `site.json`:

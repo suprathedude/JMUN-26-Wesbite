@@ -3,6 +3,8 @@ import { createHash } from "node:crypto";
 import { hashAssets } from "./scripts/lib/hash-assets.mjs";
 import { validateData } from "./scripts/lib/validate-data.mjs";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
+import { build as esbuild } from "esbuild";
+import path from "node:path";
 
 const FONT_DIR = "node_modules/@fontsource-variable/montserrat/files";
 const iconCache = new Map();
@@ -152,6 +154,26 @@ export default function (eleventyConfig) {
   // Production builds start from a cleared _site (so old hashed files don't pile up) and
   // fingerprint CSS, JS and fonts afterwards so the server can cache them for a year
   // (src/.htaccess).
+  // The homepage gallery is a React + Three.js island (6 October): esbuild bundles it into
+  // /js/hero-gallery.js, which hashAssets then names like the other scripts.
+  eleventyConfig.addWatchTarget("./src/islands/");
+  eleventyConfig.addWatchTarget("./src/components/");
+  eleventyConfig.addPassthroughCopy("src/assets/img/gallery");
+  eleventyConfig.on("eleventy.before", async ({ directories }) => {
+    await esbuild({
+      entryPoints: ["src/islands/hero-gallery.tsx"],
+      outfile: path.join(directories.output, "js/hero-gallery.js"),
+      bundle: true,
+      format: "esm",
+      minify: true,
+      target: "es2020",
+      jsx: "automatic",
+      define: { "process.env.NODE_ENV": '"production"' },
+      legalComments: "none",
+      logLevel: "warning",
+    });
+  });
+
   eleventyConfig.on("eleventy.before", ({ directories, runMode }) => {
     // Catch data-file mistakes first. A production build stops; `npm run dev` just warns.
     const problems = validateData();

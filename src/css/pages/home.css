@@ -1,5 +1,111 @@
 /* Homepage sections, in page order (SPEC 9.1). */
 
+/* ---------- Gallery intro (6 October; gallery.js) ---------- */
+/* The track adds site.gallery.screens screens of scrolling while the stage (gallery over hero)
+   stays put. Only with html.gallery-on, set in <head>; otherwise the hero is just the hero. */
+
+.gallery {
+  display: none;
+}
+
+.gallery-on .gallery-track {
+  height: calc(max(640px, 100svh) + var(--gallery-screens, 2.5) * 100svh);
+}
+
+.gallery-on .gallery-stage {
+  position: sticky;
+  top: 0;
+}
+
+.gallery-on .gallery {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: block;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 45%, var(--blue-900) 0%, var(--blue-950) 70%);
+  will-change: opacity, transform;
+}
+
+/* Later visits start at the hero; the script then scrolls there and drops this class. */
+.gallery-skip .gallery {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.gallery__root,
+.gallery__three {
+  position: absolute;
+  inset: 0;
+}
+
+/* The "Scroll" cue: a label over a hairline with a teal drop running down it. */
+.gallery__cue {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  font-size: var(--fs-label);
+  font-weight: 800;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink-60);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.gallery__cue-line {
+  position: relative;
+  width: 1px;
+  height: 44px;
+  overflow: hidden;
+  background: rgb(var(--ink-rgb) / 0.18);
+}
+
+.gallery__cue-line::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 40%;
+  background: var(--teal);
+  animation: cue-drop 1.8s var(--ease-standard) infinite;
+}
+
+@keyframes cue-drop {
+  from {
+    transform: translateY(-100%);
+  }
+
+  to {
+    transform: translateY(260%);
+  }
+}
+
+/* Without WebGL the component shows the photos as a grid (it isn't started then, but just in
+   case). */
+.gallery-fallback {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 96px var(--gutter);
+}
+
+.gallery-fallback__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  width: min(100%, 900px);
+}
+
+.gallery-fallback__img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-control);
+  object-fit: cover;
+}
+
 /* ---------- Hero (reference/02) ---------- */
 
 .hero {

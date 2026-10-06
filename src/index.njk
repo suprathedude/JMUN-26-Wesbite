@@ -3,12 +3,21 @@ layout: layouts/base.njk
 eleventyComputed:
   description: "{{ site.fullName }}, {{ site.start | eventDates(site.end) }} at {{ site.venue }}."
 pageCss: [home]
-pageJs: [hero-video, countdown, marquee, stats, schedule, wheel, faq]
+gallery: true
+pageJs: [gallery, hero-video, countdown, marquee, stats, schedule, wheel, faq]
 ---
 {%- from "partials/icons.njk" import icon -%}
 {%- from "partials/buttons.njk" import registerButton -%}
 {%- from "partials/faq.njk" import faqList -%}
 {%- set dates = site.start | eventDates(site.end) -%}
+
+{#- 1. Gallery intro (6 October): on the first homepage visit of a session, photos fly out of
+    the dark (a React + Three.js island, src/islands/hero-gallery.tsx). Scrolling through
+    site.gallery.screens screens hands over to the hero below; scrolling back up returns to
+    the gallery (gallery.js). Without the script, with reduced motion or without WebGL there's
+    no gallery: the track is the hero's height and the page starts at the hero. -#}
+<div class="gallery-track" style="--gallery-screens: {{ site.gallery.screens }}" data-gallery-track>
+<div class="gallery-stage" data-gallery-stage>
 
 {#- 2. Hero (reference/02). -#}
 <section class="hero" aria-labelledby="hero-title">
@@ -46,6 +55,13 @@ pageJs: [hero-video, countdown, marquee, stats, schedule, wheel, faq]
     </div>
   </div>
 </section>
+
+<div class="gallery" aria-hidden="true" data-gallery data-bundle="/js/hero-gallery.js" data-images="{{ site.gallery.images | dump }}">
+  <div class="gallery__root" data-gallery-root></div>
+  <p class="gallery__cue" data-gallery-cue>{{ site.gallery.cue }}<span class="gallery__cue-line"></span></p>
+</div>
+</div>
+</div>
 
 {#- 3. Committee marquee (reference/05): the committee codes, moving right to left. -#}
 <div class="marquee" aria-hidden="true" data-marquee>

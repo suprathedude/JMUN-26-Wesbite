@@ -24,6 +24,7 @@ The few that matter most on day one:
 | ~~Crest~~ Done 4 October: the OakJMUN logo (`src/assets/img/crest.png`, `site.json` → `crest`) | Nav, footer, loading screen | Rebuilt 4 October from your SVG export (a 792 × 842 picture with a transparency mask inside), and served at 64, 128 and 192 px so it stays sharp on high-resolution screens. A true vector file (paths, not an embedded picture) would be sharper still. Was: the OakJMUN crest as an SVG. Put it in `src/assets/` and set `"crest"` in `site.json` to its path. |
 | Browser-tab icon: the OakJMUN logo on a navy square (4 October) | `src/assets/favicon.png` | A simplified version, if the tree is hard to see at 16 px |
 | "Photo TBC" tiles | Wherever a photo field is `""` | Real photos (see the tables below) |
+| Gallery photos (homepage intro) | `src/assets/img/gallery/*.webp`, listed in `site.json` → `gallery.images` | Colour versions of the committee photos plus the UNICEF photo, as stand-ins. Replace with photos from past JMUNs (see HOW_TO_UPDATE.md, "Change the gallery photos"). |
 
 ## Borrowed from OakMUN
 

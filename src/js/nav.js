@@ -51,12 +51,20 @@ function initCollapse() {
     root.classList.contains("is-locked") ||
     nav.querySelector(".nav__more.is-open") !== null;
 
+  // While the homepage gallery shows (gallery.js sets html.gallery-active), the pill stays in
+  // its compact form, the crest alone; hovering or clicking the crest still opens it.
+  const gallery = () => root.classList.contains("gallery-active");
+  // With the gallery, the hero sits below it: that point counts as the top of the page.
+  const topZone = () => (root.classList.contains("gallery-on") ? Number(root.dataset.galleryEnd) || 0 : 0) + COLLAPSE_AFTER;
+
   const update = () => {
     queued = false;
     const y = Math.max(0, window.scrollY);
     const delta = y - lastY;
     lastY = y;
-    if (!desktop.matches || y <= COLLAPSE_AFTER) {
+    if (desktop.matches && gallery()) {
+      if (!openedByHover && !busy()) setCollapsed(true);
+    } else if (!desktop.matches || y <= topZone()) {
       openedByHover = false;
       setCollapsed(false);
     } else if (delta > 2 && !collapsed && !openedByHover && !busy()) {
@@ -87,6 +95,8 @@ function initCollapse() {
     { passive: true },
   );
   desktop.addEventListener("change", update);
+  addEventListener("gallery:state", update);
+  if (gallery()) update();
 
   crest.addEventListener("click", (event) => {
     if (!collapsed) return;
@@ -105,7 +115,7 @@ function initCollapse() {
   nav.addEventListener("pointerleave", () => {
     if (!openedByHover) return;
     openedByHover = false;
-    if (window.scrollY > COLLAPSE_AFTER && !busy()) setCollapsed(true);
+    if ((window.scrollY > topZone() || gallery()) && !busy()) setCollapsed(true);
   });
 }
 

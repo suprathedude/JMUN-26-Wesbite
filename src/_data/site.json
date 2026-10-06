@@ -19,6 +19,25 @@
     "image": "assets/img/hero/hero-placeholder.jpg",
     "video": ""
   },
+  "gallery": {
+    "screens": 2.5,
+    "cue": "Scroll",
+    "images": [
+      "assets/img/gallery/unsc.webp",
+      "assets/img/gallery/disec.webp",
+      "assets/img/gallery/unhrc.webp",
+      "assets/img/gallery/lok-sabha.webp",
+      "assets/img/gallery/who.webp",
+      "assets/img/gallery/unodc.webp",
+      "assets/img/gallery/uncsw.webp",
+      "assets/img/gallery/unicef.webp",
+      "assets/img/gallery/fcc.webp",
+      "assets/img/gallery/copuos.webp",
+      "assets/img/gallery/doomsday.webp",
+      "assets/img/gallery/ip.webp",
+      "assets/img/gallery/ip-photography.webp"
+    ]
+  },
   "announcement": {
     "enabled": true,
     "text": "Registration opens soon (TBC)",
@@ -104,11 +123,23 @@
     "placeholder": "Your QR code will appear here",
     "detailsTitle": "Your details",
     "details": [
-      { "label": "Name", "value": "TBC" },
-      { "label": "Committee", "value": "TBC" },
-      { "label": "Allocation", "value": "TBC" }
+      {
+        "label": "Name",
+        "value": "TBC"
+      },
+      {
+        "label": "Committee",
+        "value": "TBC"
+      },
+      {
+        "label": "Allocation",
+        "value": "TBC"
+      }
     ],
-    "link": { "label": "Your link", "url": "TBC" },
+    "link": {
+      "label": "Your link",
+      "url": "TBC"
+    },
     "detailsNote": "Your name, committee, allocation and link fill in from your registration once QR codes open (TBC)."
   },
   "resourcesPage": {
@@ -117,10 +148,22 @@
     "guidesSome": "{count} of {total} background guides out",
     "guidesAll": "All background guides out",
     "sections": {
-      "guides": { "title": "Background Guides", "sub": "One per committee · Released as they're ready" },
-      "ip": { "title": "IP Style Guides", "sub": "International Press · Journalism · Photography" },
-      "docs": { "title": "Essential Documents", "sub": "Rules of Procedure · Delegation Guidelines · Consent Form" },
-      "links": { "title": "Research Links", "sub": "Official UN sources · Open in a new tab" }
+      "guides": {
+        "title": "Background Guides",
+        "sub": "One per committee · Released as they're ready"
+      },
+      "ip": {
+        "title": "IP Style Guides",
+        "sub": "International Press · Journalism · Photography"
+      },
+      "docs": {
+        "title": "Essential Documents",
+        "sub": "Rules of Procedure · Delegation Guidelines · Consent Form"
+      },
+      "links": {
+        "title": "Research Links",
+        "sub": "Official UN sources · Open in a new tab"
+      }
     }
   },
   "stats": {

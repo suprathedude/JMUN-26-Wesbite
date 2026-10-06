@@ -28,15 +28,20 @@
       session. Also (PLAN.md F11, F12): turns on the entrances unless motion is reduced, and starts the
       loading screen, which only shows if the page still hasn't loaded after 0.6 s. When the
       page has loaded (or after 12 s whatever happens) it goes, and "loader:done" fires. If
-      reveal.js never ran by then, the entrances are switched off so nothing stays hidden. -#}
+      reveal.js never ran by then, the entrances are switched off so nothing stays hidden.
+      On the homepage it decides whether the gallery intro plays (gallery.js): not with reduced
+      motion; later visits in the session, and addresses with a #section, start at the hero
+      (gallery-skip). If gallery.js never ran, the gallery is switched off the same way. -#}
   <script>(function(d){d.classList.add("js","is-loading");
   if(!matchMedia("(prefers-reduced-motion: reduce)").matches)d.classList.add("reveal-on");
   var slow=setTimeout(function(){d.classList.add("is-slow")},600),over=false;
   function done(){if(over)return;over=true;clearTimeout(slow);var was=d.classList.contains("is-slow");d.classList.remove("is-slow");
   if(!d.classList.contains("reveal-ready"))d.classList.remove("reveal-on");
+  if(!d.classList.contains("gallery-ready"))d.classList.remove("gallery-on","gallery-skip","gallery-active");
   setTimeout(function(){d.classList.remove("is-loading");dispatchEvent(new Event("loader:done"))},was?450:0)}
   addEventListener("load",done);setTimeout(done,12000);
   try{
+  {%- if gallery %}if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("gallery-on");if(location.hash||sessionStorage.getItem("oakjmun-gallery"))d.classList.add("gallery-skip");else d.classList.add("gallery-active")}{% endif -%}
   {%- if site.announcement.enabled %}if(sessionStorage.getItem("oakjmun-strip")==="{{ site.announcement.text | hash }}")d.classList.add("strip-off");{% endif -%}
   }catch(e){}})(document.documentElement)</script>
   <script type="importmap">{"imports":{"lenis":"/js/vendor/lenis.js"}}</script>

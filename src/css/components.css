@@ -83,11 +83,148 @@
 }
 
 .nav__qr[aria-current="page"] {
-  border-color: var(--teal);
+  color: var(--teal-light);
 }
 
 .btn--block {
   width: 100%;
+}
+
+/* Shiny button (6 October; after 21st.dev's "shiny-button", in the site's colours): a navy pill
+   with a teal-to-white streak running round its border; on hover or keyboard focus an inner
+   glow breathes and a shimmer sweeps across. The original animates a conic-gradient angle,
+   which repaints every frame; here the streak is a larger conic layer turning behind the pill
+   (rotate only, composited), clipped to a 1 px ring by the fill on top. Layers, back to front:
+   ::before the turning streak, ::after the navy fill, .btn__fx glow and shimmer, then the
+   label. Markup: add btn--shiny and {{ shine() }} (buttons.njk) inside the button. */
+.btn.btn--shiny {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 0;
+  padding: 14px 27px; /* the 1 px ring replaces the border */
+  background: rgb(var(--teal-rgb) / 0.12);
+  color: var(--ink-100);
+  box-shadow: 0 8px 24px rgb(var(--teal-rgb) / 0.14);
+}
+
+.btn--nav.btn--shiny {
+  padding: 11px 19px;
+}
+
+.btn--shiny::before,
+.btn--shiny::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+/* The streak: a square wider than the button's diagonal, turning round its centre. */
+.btn--shiny::before {
+  top: 50%;
+  left: 50%;
+  z-index: -3;
+  width: 150%;
+  aspect-ratio: 1;
+  background: conic-gradient(
+    transparent 0%,
+    var(--teal) 5%,
+    var(--teal-light) 10%,
+    var(--teal) 15%,
+    transparent 20%
+  );
+  translate: -50% -50%;
+  animation: shine-turn 3s linear infinite;
+}
+
+/* The fill, 1 px in from the edge, so only a ring of the streak shows. */
+.btn--shiny::after {
+  inset: 1px;
+  z-index: -2;
+  border-radius: inherit;
+  background: radial-gradient(ellipse at 50% 120%, var(--blue-750) 0%, var(--blue-950) 70%);
+  box-shadow: inset 0 0 0 1px rgb(var(--teal-rgb) / 0.12);
+}
+
+.btn__fx {
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.btn__fx::before,
+.btn__fx::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  opacity: 0;
+  transition: opacity 0.8s var(--ease-out-expo);
+}
+
+/* Inner glow, breathing while it shows */
+.btn__fx::before {
+  width: calc(100% + 1rem);
+  height: calc(100% + 1rem);
+  box-shadow: inset 0 -1ex 2rem 4px rgb(var(--teal-rgb) / 0.55);
+  animation: shine-breathe 4.5s linear infinite paused;
+}
+
+/* Shimmer, sweeping round while it shows */
+.btn__fx::after {
+  width: 100%;
+  aspect-ratio: 1;
+  background: linear-gradient(-50deg, transparent, rgb(var(--teal-rgb) / 0.45), transparent);
+  -webkit-mask-image: radial-gradient(circle at bottom, transparent 40%, rgb(var(--shadow-rgb)));
+  mask-image: radial-gradient(circle at bottom, transparent 40%, rgb(var(--shadow-rgb)));
+  animation: shine-turn 3s linear infinite paused;
+}
+
+.btn--shiny:is(:hover, :focus-visible) .btn__fx::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+.btn--shiny:is(:hover, :focus-visible) .btn__fx::after {
+  opacity: 0.6;
+  animation-play-state: running;
+}
+
+@media (hover: hover) {
+  .btn--shiny:not(.is-disabled):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 32px rgb(var(--teal-rgb) / 0.3);
+    color: var(--ink-100);
+  }
+}
+
+@keyframes shine-turn {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes shine-breathe {
+  0%,
+  100% {
+    scale: 1;
+  }
+
+  50% {
+    scale: 1.2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn--shiny::before,
+  .btn__fx::before,
+  .btn__fx::after {
+    animation: none;
+  }
 }
 
 /* ---------- Ambient glows ---------- */

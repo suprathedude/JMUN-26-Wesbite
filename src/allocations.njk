@@ -7,6 +7,7 @@ permalink: /allocations/
 pageCss: [allocations]
 ---
 {%- from "partials/icons.njk" import icon -%}
+{%- from "partials/buttons.njk" import shine -%}
 {%- set a = site.allocations -%}
 
 {#- One backdrop for both sections, so the glow carries on behind the matrix card. -#}
@@ -44,9 +45,9 @@ pageCss: [allocations]
         <h2 class="matrix__title" id="matrix-title">Allocation matrix</h2>
         <p class="matrix__text">{{ a.matrixText }}</p>
         {%- if a.matrixUrl | isSet %}
-        <a class="btn btn--primary matrix__btn" href="{{ a.matrixUrl }}" target="_blank" rel="noopener">Open allocation matrix ↗<span class="visually-hidden"> (opens in a new tab)</span></a>
+        <a class="btn btn--shiny matrix__btn" href="{{ a.matrixUrl }}" target="_blank" rel="noopener">{{ shine() }}Open allocation matrix ↗<span class="visually-hidden"> (opens in a new tab)</span></a>
         {%- else %}
-        <a class="btn btn--primary matrix__btn is-disabled is-off" role="link" aria-disabled="true">Opens with {{ a.rounds[0].name if a.rounds | length else "the first round" }} (TBC)</a>
+        <a class="btn btn--shiny matrix__btn is-disabled is-off" role="link" aria-disabled="true">{{ shine() }}Opens with {{ a.rounds[0].name if a.rounds | length else "the first round" }} (TBC)</a>
         {%- endif %}
       </div>
     </div>

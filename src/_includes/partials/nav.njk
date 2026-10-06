@@ -1,5 +1,5 @@
 {%- from "partials/icons.njk" import icon -%}
-{%- from "partials/buttons.njk" import registerButton, secondaryButton -%}
+{%- from "partials/buttons.njk" import registerButton, secondaryButton, shine -%}
 {%- set links = site.nav -%}
 <div class="nav-anchor">
   <nav class="nav" aria-label="Main" data-nav>
@@ -37,7 +37,7 @@
         <div class="nav__actions">
           {#- Get QR sits between More and Register (4 October). -#}
           {%- if links.qr.url | isSet %}
-          <a class="btn btn--outline btn--nav nav__qr" href="{{ links.qr.url }}"{% if links.qr.url | isActive(page.url) %} aria-current="page"{% endif %}>{{ icon("qr-code") }}{{ links.qr.label }}</a>
+          <a class="btn btn--shiny btn--nav nav__qr" href="{{ links.qr.url }}"{% if links.qr.url | isActive(page.url) %} aria-current="page"{% endif %}>{{ shine() }}{{ icon("qr-code") }}{{ links.qr.label }}</a>
           {%- endif %}
           {{ secondaryButton(links.secondary, "btn--nav") }}
           {{ registerButton(links.register, "btn--nav nav__register") }}

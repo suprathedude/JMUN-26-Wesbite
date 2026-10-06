@@ -10,6 +10,7 @@ pageCss: [qr]
     are issued. Once they open, the card shows the code with the delegate's name, committee,
     allocation and link. The text is in site.json qrPage. -#}
 {%- from "partials/icons.njk" import icon -%}
+{%- from "partials/buttons.njk" import shine -%}
 {%- set q = site.qrPage -%}
 
 <section class="qr">
@@ -22,7 +23,7 @@ pageCss: [qr]
         <label class="qr__label" for="qr-email">Registration email</label>
         <div class="qr__row">
           <input class="qr__input" id="qr-email" type="email" autocomplete="email" placeholder="you@example.com">
-          <button class="btn btn--primary is-disabled" type="button" aria-disabled="true" aria-describedby="qr-note">{{ q.button }}</button>
+          <button class="btn btn--shiny is-disabled" type="button" aria-disabled="true" aria-describedby="qr-note">{{ shine() }}{{ q.button }}</button>
         </div>
         <p class="qr__note" id="qr-note">{{ q.note }}</p>
       </form>

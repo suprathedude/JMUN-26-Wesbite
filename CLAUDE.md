@@ -4,7 +4,7 @@ Static site for Oakridge Junior MUN 2026 (30 and 31 October 2026, Oakridge Inter
 
 ## Stack and commands
 - Eleventy 3 (Nunjucks templates), vanilla JS (ES modules), plain CSS. No client-side framework, no Tailwind.
-- One agreed exception (6 October): the homepage gallery intro is a React + Three.js island. The component is `src/components/ui/3d-gallery-photography.tsx`, the entry is `src/islands/hero-gallery.tsx`, and esbuild bundles it into `/js/hero-gallery.js` during the Eleventy build. `src/js/gallery.js` loads it only when the gallery plays. Don't add React anywhere else.
+- Agreed exceptions (6 October): two React islands on the homepage, bundled by esbuild into `/js/` during the Eleventy build (`eleventy.config.js`). The gallery intro (React + Three.js): component `src/components/ui/3d-gallery-photography.tsx`, entry `src/islands/hero-gallery.tsx`, loaded by `src/js/gallery.js` only when it plays. The committee ring in "Committees at a glance": component `src/components/ui/circular-gallery.tsx`, entry `src/islands/committee-ring.tsx`, loaded by `src/js/ring.js`. Don't add React anywhere else.
 - `npm run dev`: local server at http://localhost:8080
 - `npm run build`: production build into `_site/`
 - `npm run shots`: Playwright screenshots of every page at 390x844 and 1440x900 into `screenshots/`

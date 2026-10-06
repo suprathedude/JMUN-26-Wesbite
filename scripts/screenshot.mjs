@@ -110,7 +110,7 @@ const STATES = [
     },
   },
   {
-    name: "home-wheel-1440",
+    name: "home-ring-1440",
     viewport: VIEWPORTS[1],
     async run(page) {
       await page.evaluate(() => document.querySelector(".glance")?.scrollIntoView({ block: "start" }));

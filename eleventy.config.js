@@ -4,7 +4,6 @@ import { hashAssets } from "./scripts/lib/hash-assets.mjs";
 import { validateData } from "./scripts/lib/validate-data.mjs";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import { build as esbuild } from "esbuild";
-import path from "node:path";
 
 const FONT_DIR = "node_modules/@fontsource-variable/montserrat/files";
 const iconCache = new Map();
@@ -154,15 +153,20 @@ export default function (eleventyConfig) {
   // Production builds start from a cleared _site (so old hashed files don't pile up) and
   // fingerprint CSS, JS and fonts afterwards so the server can cache them for a year
   // (src/.htaccess).
-  // The homepage gallery is a React + Three.js island (6 October): esbuild bundles it into
-  // /js/hero-gallery.js, which hashAssets then names like the other scripts.
+  // The homepage's two React islands (6 October), the intro gallery (React + Three.js) and the
+  // committee ring: esbuild bundles each into /js/, and hashAssets then names them like the
+  // other scripts. Each bundle carries its own copy of React (no shared chunk: the scripts
+  // can't import each other by path once hashed).
   eleventyConfig.addWatchTarget("./src/islands/");
   eleventyConfig.addWatchTarget("./src/components/");
   eleventyConfig.addPassthroughCopy("src/assets/img/gallery");
   eleventyConfig.on("eleventy.before", async ({ directories }) => {
     await esbuild({
-      entryPoints: ["src/islands/hero-gallery.tsx"],
-      outfile: path.join(directories.output, "js/hero-gallery.js"),
+      entryPoints: {
+        "js/hero-gallery": "src/islands/hero-gallery.tsx",
+        "js/committee-ring": "src/islands/committee-ring.tsx",
+      },
+      outdir: directories.output,
       bundle: true,
       format: "esm",
       minify: true,

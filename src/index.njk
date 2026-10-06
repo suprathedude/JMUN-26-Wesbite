@@ -4,7 +4,7 @@ eleventyComputed:
   description: "{{ site.fullName }}, {{ site.start | eventDates(site.end) }} at {{ site.venue }}."
 pageCss: [home]
 gallery: true
-pageJs: [gallery, hero-video, countdown, marquee, stats, schedule, wheel, faq]
+pageJs: [gallery, hero-video, countdown, marquee, stats, schedule, ring, faq]
 ---
 {%- from "partials/icons.njk" import icon -%}
 {%- from "partials/buttons.njk" import registerButton, shine -%}
@@ -211,28 +211,35 @@ pageJs: [gallery, hero-video, countdown, marquee, stats, schedule, wheel, faq]
   </div>
 </section>
 
-{#- 8. Committees at a glance (reference/08) -#}
+{#- 8. Committees at a glance (reference/08; ring from 6 October): the title on top and a ring of
+    committee cards underneath, turning slowly and nudged round by scrolling (ring.js loads the
+    React island, src/islands/committee-ring.tsx). Without the script, or with reduced motion,
+    the plain list of committees below stays. -#}
+{%- set ringItems = [] -%}
+{%- for c in committees -%}
+{%- set _ = ringItems.push({ common: c.code, binomial: c.name, href: "/committees/" ~ c.slug ~ "/", photo: { url: committeePhotos[c.slug] or "", text: "", pos: c.imagePosition or "center" } }) -%}
+{%- endfor %}
 <section class="section glance" aria-labelledby="glance-title">
-  <div class="container glance__grid">
-    <div class="glance__copy">
-      <h2 class="t-section" id="glance-title" data-reveal="mask">Committees at a glance.</h2>
-      <p class="glance__text" data-reveal>{{ site.home.glanceText | fill({ count: committees | length | numberWord }) }}</p>
-      <div class="glance__cta" data-reveal><a class="btn btn--primary" href="/committees/">Explore committees</a></div>
-    </div>
-    <div class="wheel" data-wheel>
-      <ul class="wheel__list" role="list">
-        {%- for c in committees %}
-        <li class="wheel__item">
-          <a class="wheel__link" href="/committees/{{ c.slug }}/">
-            <span class="wheel__icon" aria-hidden="true">
-              {%- if c.logo %}<img src="/{{ c.logo }}" alt="" eleventy:widths="160">{% else %}{{ icon("globe") }}{% endif -%}
-            </span>
-            <span class="wheel__name">{{ c.code }}<span class="visually-hidden">: {{ c.name }}</span></span>
-          </a>
-        </li>
-        {%- endfor %}
-      </ul>
-    </div>
+  <div class="container glance__head">
+    <h2 class="t-section" id="glance-title" data-reveal="mask">Committees at a glance.</h2>
+    <p class="glance__text" data-reveal>{{ site.home.glanceText | fill({ count: committees | length | numberWord }) }}</p>
+    <div class="glance__cta" data-reveal><a class="btn btn--primary" href="/committees/">Explore committees</a></div>
+  </div>
+  <div class="ring" data-ring data-bundle="/js/committee-ring.js">
+    <script type="application/json" data-ring-items>{{ ringItems | dump | safe }}</script>
+    <div class="ring__root" data-ring-root></div>
+    <ul class="container glance-list" role="list">
+      {%- for c in committees %}
+      <li>
+        <a class="glance-list__link" href="/committees/{{ c.slug }}/">
+          <span class="glance-list__icon" aria-hidden="true">
+            {%- if c.logo %}<img src="/{{ c.logo }}" alt="" eleventy:widths="160">{% else %}{{ icon("globe") }}{% endif -%}
+          </span>
+          <span class="glance-list__name">{{ c.code }}<span class="visually-hidden">: {{ c.name }}</span></span>
+        </a>
+      </li>
+      {%- endfor %}
+    </ul>
   </div>
 </section>
 

@@ -111,7 +111,6 @@
   --fs-hero: clamp(2.6rem, 5.5vw, 5.5rem);
   --fs-page: clamp(3rem, 9vw, 7.5rem);
   --fs-section: clamp(2.2rem, 4vw, 3.6rem);
-  --fs-wheel: clamp(2rem, 4vw, 3.4rem);
   --fs-card: clamp(1.05rem, 1.8vw, 1.3rem);
   --fs-body: 1rem;
   --fs-lead: 1.125rem;

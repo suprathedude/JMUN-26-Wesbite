@@ -1,7 +1,7 @@
 // Frame timing on a throttled profile, from a Chrome performance trace (SPEC 10 and Task 7).
 // Builds nothing: run `npm run build` first.
 //
-//   node scripts/frames.mjs / --scroll .glance            the committee wheel, desktop
+//   node scripts/frames.mjs / --scroll .glance            the committee ring, desktop
 //   node scripts/frames.mjs / --scroll .glance --phone    the same on a 390 x 844 phone
 //   node scripts/frames.mjs /social-night/ --phone --from 1000 --to 5000
 //

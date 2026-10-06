@@ -254,7 +254,7 @@ For a second sponsor, add a comma after the first `}` and another `{ ... }`. The
 | `"name"` | The full name |
 | `"agenda"` | `"Agenda TBC"` until it's announced |
 | `"overview"` | Two or three plain sentences |
-| `"image"` | `"assets/img/committees/un-women.jpg"` after uploading the photo, or `""` for "Photo TBC" |
+| `"image"` | `"assets/img/committees/un-women.jpg"` after uploading the photo, or `""` for "Photo TBC". The same photo is used on the committee's card in the homepage ring. |
 | `"imagePosition"` | Optional. Which part of a tall or wide photo to keep in view, across then down: `"50% 85%"` keeps the lower part (used for Doomsday). Leave it out to centre the photo. |
 | `"logo"` | `"assets/img/logos/un-women.png"` after uploading the logo circle, or `""` for a globe icon |
 | `"guide"` | `{ "status": "coming-soon", "file": "" }` |
@@ -264,7 +264,7 @@ Everything else updates by itself:
 - the tile on the Committees page;
 - the committee's own page;
 - its guide card on Resources;
-- the committee names scrolling across the homepage and the committee wheel;
+- the committee names scrolling across the homepage and the ring of committee cards;
 - every committee count ("Twelve committees" becomes "Thirteen").
 
 **To remove one,** delete its whole block from `{` to `}`, and the comma that went with it. You can delete its photo and logo too, but you don't have to.

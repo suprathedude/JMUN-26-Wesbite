@@ -15,6 +15,7 @@
 .gallery-on .gallery-stage {
   position: sticky;
   top: 0;
+  overflow: hidden; /* the gallery zooms past its edges during the hand-over */
 }
 
 .gallery-on .gallery {
@@ -1120,128 +1121,197 @@
   overflow: hidden;
   background: var(--blue-700);
   content-visibility: auto;
-  contain-intrinsic-size: auto 760px;
+  contain-intrinsic-size: auto 960px;
 }
 
-.glance__grid {
+/* Title on top, ring underneath (6 October) */
+.glance__head {
   display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
-  gap: 48px;
-  align-items: center;
+  justify-items: center;
+  text-align: center;
 }
 
 .glance__text {
-  max-width: 400px;
+  max-width: 520px;
   margin-top: 24px;
   color: var(--ink-75);
 }
 
-.glance__copy .btn {
-  margin-top: 36px;
+.glance__cta .btn {
+  margin-top: 32px;
 }
 
-.wheel {
-  --wheel-r: 280px;
-  --icon: 76px;
+.ring {
   position: relative;
+  margin-top: 40px;
 }
 
-.wheel__list {
+.ring__root {
+  display: none;
+}
+
+.ring.has-ring .ring__root {
+  display: block;
+}
+
+.ring.has-ring .glance-list {
+  display: none;
+}
+
+/* The circular gallery (src/components/ui/circular-gallery.tsx). Card sizes, the ring's radius
+   and the perspective are set by the island; everything else is here. */
+.circular-gallery {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.circular-gallery__ring {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.circular-gallery__item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.circular-gallery__card {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: var(--border-card);
+  border-radius: var(--radius-card);
+  background: linear-gradient(160deg, var(--blue-700), var(--blue-650));
+  box-shadow: 0 24px 48px rgb(var(--shadow-rgb) / 0.45);
+}
+
+.circular-gallery__card:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+
+.circular-gallery__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.circular-gallery__caption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 14px 16px 16px;
+  background: linear-gradient(to top, rgb(var(--wash-rgb) / 0.92) 0%, rgb(var(--wash-rgb) / 0.6) 55%, transparent 100%);
+  color: var(--ink-100);
+}
+
+.circular-gallery__title {
+  font-size: clamp(1rem, 1.7vw, 1.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  transition: color var(--dur-hover) var(--ease-standard);
+}
+
+.circular-gallery__subtitle {
+  display: block;
+  margin-top: 4px;
+  font-size: clamp(0.7rem, 0.85vw, 0.85rem);
+  font-style: normal;
+  line-height: 1.35;
+  color: var(--ink-75);
+}
+
+.circular-gallery__card:hover .circular-gallery__title {
+  color: var(--teal-light);
+}
+
+/* The plain list: without the script, with reduced motion, or until the ring is up */
+.glance-list {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px 24px;
 }
 
-.wheel__link {
+.glance-list__link {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
   white-space: nowrap;
 }
 
-.wheel__icon {
+.glance-list__icon {
   display: grid;
   flex-shrink: 0;
   place-items: center;
-  width: var(--icon);
-  height: var(--icon);
+  width: 56px;
+  height: 56px;
   overflow: hidden;
   border: 2px solid rgb(var(--ink-rgb) / 0.15);
   border-radius: 50%;
   background: rgb(var(--teal-rgb) / 0.18);
   color: var(--ink-85);
-  font-size: calc(var(--icon) * 0.45);
+  font-size: 1.5rem;
 }
 
-.wheel__icon img {
-  width: calc(var(--icon) * 0.72);
-  height: calc(var(--icon) * 0.72);
+.glance-list__icon img {
+  width: 40px;
+  height: 40px;
   object-fit: contain;
 }
 
-.wheel__name {
-  font-size: clamp(1.4rem, 2.4vw, 2rem);
+.glance-list__name {
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
   font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
   line-height: 1;
+  text-transform: uppercase;
   color: var(--ink-100);
   transition: color var(--dur-hover) var(--ease-standard);
 }
 
-.wheel__link:hover .wheel__name {
+.glance-list__link:hover .glance-list__name {
   color: var(--teal-light);
 }
 
-/* Wheel mode (JS, motion allowed): items sit on an arc and turn continuously (wheel.js) */
-.wheel.is-wheel {
-  --wheel-fade: 130px; /* items fade out over this distance from the top and bottom (wheel.js) */
-  height: clamp(520px, 68vh, 680px);
-  overflow: hidden;
-}
-
-.wheel.is-wheel .wheel__list {
-  display: block;
-}
-
-.wheel.is-wheel .wheel__item {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  margin-top: calc(var(--icon) / -2);
-  transform-origin: left center;
-  will-change: transform, opacity;
-}
-
-.wheel.is-wheel .wheel__name {
-  font-size: var(--fs-wheel);
-}
-
 @media (max-width: 768px) {
-  .glance__grid {
-    grid-template-columns: 1fr;
+  .glance-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .wheel {
-    --wheel-r: 150px;
-    --icon: 44px;
+  .glance-list__link {
+    gap: 10px;
+    white-space: normal;
   }
 
-  .wheel__list {
-    grid-template-columns: 1fr;
+  .glance-list__icon {
+    width: 44px;
+    height: 44px;
   }
 
-  .wheel.is-wheel {
-    --wheel-fade: 90px;
-    height: 420px;
+  .glance-list__icon img {
+    width: 32px;
+    height: 32px;
   }
 
-  .wheel.is-wheel .wheel__name {
-    font-size: clamp(1.3rem, 7vw, 2rem);
+  .glance-list__name {
+    font-size: 1.05rem;
+    overflow-wrap: anywhere;
   }
 
-  .wheel__link {
-    gap: 14px;
+  .ring {
+    margin-top: 24px;
   }
 }
 
@@ -1253,7 +1323,7 @@
   overflow: hidden;
   background: var(--blue-900);
   content-visibility: auto;
-  contain-intrinsic-size: auto 760px;
+  contain-intrinsic-size: auto 960px;
 }
 
 @media (max-width: 768px) {

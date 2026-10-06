@@ -14,9 +14,11 @@
 //   page zooms the gallery during the hand-over, which made it resize mid-scroll and jump.
 // - The hover wave eases in and out instead of snapping on, and doesn't start while the page
 //   is scrolling (pictures sliding under a resting pointer made them twitch).
+// - A centred layout (CENTRED_LAYOUT) replaces the original scatter, which leaned to one side
+//   in the opening view.
 import type React from 'react';
 import { useRef, useMemo, useState, useEffect, Suspense } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 
@@ -70,8 +72,19 @@ interface PlaneData {
 }
 
 const DEFAULT_DEPTH_RANGE = 50;
-const MAX_HORIZONTAL_OFFSET = 8;
-const MAX_VERTICAL_OFFSET = 8;
+
+// Where each plane flies, across and up from the centre line. Every third plane comes down the
+// middle and the others arrive in mirrored pairs on neighbouring depths, so the opening view, and
+// every view after it, is balanced round the centre of the screen.
+const CENTRED_LAYOUT: { x: number; y: number }[] = [
+	{ x: 0, y: 0.2 }, { x: 2.4, y: 1.1 }, { x: -2.4, y: -1.1 },
+	{ x: 0, y: 0 }, { x: 2.0, y: -0.9 }, { x: -2.0, y: 0.9 },
+	{ x: 0.3, y: -0.2 }, { x: 2.8, y: -0.4 }, { x: -2.8, y: 0.4 },
+	{ x: -0.3, y: 0.15 }, { x: 1.2, y: 1.6 }, { x: -1.2, y: -1.6 },
+];
+// How far along the planes start, so the opening view is a mirrored pair, both fully visible,
+// round a centre plane coming up behind them.
+const START_DEPTH = 9.3;
 
 const createClothMaterial = () => {
 	return new THREE.ShaderMaterial({
@@ -169,11 +182,11 @@ const createClothMaterial = () => {
 	});
 };
 
-// Plane size for a texture, keeping its aspect ratio.
-const scaleFor = (texture: THREE.Texture): [number, number, number] => {
+// Plane size for a texture, keeping its aspect ratio; `size` shrinks it on narrow screens.
+const scaleFor = (texture: THREE.Texture, size = 1): [number, number, number] => {
 	const image = texture.image as { width: number; height: number } | undefined;
 	const aspect = image ? image.width / image.height : 1;
-	return aspect > 1 ? [2 * aspect, 2, 1] : [2, 2 / aspect, 1];
+	return aspect > 1 ? [2 * aspect * size, 2 * size, 1] : [2 * size, (2 / aspect) * size, 1];
 };
 
 function ImagePlane({
@@ -251,30 +264,19 @@ function GalleryScene({
 		[visibleCount]
 	);
 
-	const spatialPositions = useMemo(() => {
-		const positions: { x: number; y: number }[] = [];
-		const maxHorizontalOffset = MAX_HORIZONTAL_OFFSET;
-		const maxVerticalOffset = MAX_VERTICAL_OFFSET;
-
-		for (let i = 0; i < visibleCount; i++) {
-			// Create varied distribution patterns for both axes
-			const horizontalAngle = (i * 2.618) % (Math.PI * 2); // Golden angle for natural distribution
-			const verticalAngle = (i * 1.618 + Math.PI / 3) % (Math.PI * 2); // Offset angle for vertical
-
-			const horizontalRadius = (i % 3) * 1.2; // Vary the distance from center
-			const verticalRadius = ((i + 1) % 4) * 0.8; // Different pattern for vertical
-
-			const x =
-				(Math.sin(horizontalAngle) * horizontalRadius * maxHorizontalOffset) /
-				3;
-			const y =
-				(Math.cos(verticalAngle) * verticalRadius * maxVerticalOffset) / 4;
-
-			positions.push({ x, y });
-		}
-
-		return positions;
-	}, [visibleCount]);
+	// On narrow (portrait) screens the planes keep closer to the centre line, so the pairs
+	// aren't cut off at the sides.
+	const aspect = useThree((state) => state.size.width / Math.max(1, state.size.height));
+	const spread = Math.min(1, aspect / 1.4);
+	const size = 0.55 + 0.45 * spread; // and the pictures a little smaller
+	const spatialPositions = useMemo(
+		() =>
+			Array.from({ length: visibleCount }, (_, i) => {
+				const p = CENTRED_LAYOUT[i % CENTRED_LAYOUT.length];
+				return { x: p.x * spread, y: p.y };
+			}),
+		[visibleCount, spread]
+	);
 
 	const totalImages = normalizedImages.length;
 	const depthRange = DEFAULT_DEPTH_RANGE;
@@ -283,7 +285,7 @@ function GalleryScene({
 	const planesData = useRef<PlaneData[]>(
 		Array.from({ length: visibleCount }, (_, i) => ({
 			index: i,
-			z: visibleCount > 0 ? ((depthRange / visibleCount) * i) % depthRange : 0,
+			z: visibleCount > 0 ? ((depthRange / visibleCount) * i + START_DEPTH) % depthRange : 0,
 			imageIndex: totalImages > 0 ? i % totalImages : 0,
 			x: spatialPositions[i]?.x ?? 0, // Use spatial positions for x
 			y: spatialPositions[i]?.y ?? 0, // Use spatial positions for y
@@ -295,13 +297,16 @@ function GalleryScene({
 			index: i,
 			z:
 				visibleCount > 0
-					? ((depthRange / Math.max(visibleCount, 1)) * i) % depthRange
+					? ((depthRange / Math.max(visibleCount, 1)) * i + START_DEPTH) % depthRange
 					: 0,
 			imageIndex: totalImages > 0 ? i % totalImages : 0,
 			x: spatialPositions[i]?.x ?? 0,
 			y: spatialPositions[i]?.y ?? 0,
 		}));
-	}, [depthRange, spatialPositions, totalImages, visibleCount]);
+		// Not on spatialPositions: a resize only moves the planes sideways (each frame reads
+		// the new positions); it mustn't send them back to their starting depths.
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [depthRange, totalImages, visibleCount]);
 
 	// Page scrolling pushes the gallery: down moves it on, up turns it back.
 	useEffect(() => {
@@ -466,7 +471,7 @@ function GalleryScene({
 				mesh.position.set(plane.x, plane.y, worldZ);
 				if (material && texture && material.uniforms.map.value !== texture) {
 					material.uniforms.map.value = texture;
-					mesh.scale.set(...scaleFor(texture));
+					mesh.scale.set(...scaleFor(texture, size));
 				}
 			}
 		});
@@ -489,7 +494,7 @@ function GalleryScene({
 						key={plane.index}
 						texture={texture}
 						position={[plane.x, plane.y, worldZ]} // Position planes relative to camera center
-						scale={scaleFor(texture)}
+						scale={scaleFor(texture, size)}
 						material={material}
 						meshRef={(mesh) => {
 							meshes.current[i] = mesh;

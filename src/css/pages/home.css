@@ -687,13 +687,14 @@
   pointer-events: none;
 }
 
+/* The title on the left, the day tabs on the right (as on OakMUN XVI). */
 .schedule__head {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 480px);
   align-items: end;
-  gap: 24px 64px;
-  margin-bottom: 80px;
+  gap: 32px 64px;
+  margin-bottom: 64px;
 }
 
 .schedule__summary {
@@ -723,8 +724,7 @@
   position: relative;
   display: none;
   grid-template-columns: repeat(var(--count), minmax(0, 1fr));
-  width: min(100%, 560px);
-  margin-bottom: 40px;
+  width: 100%;
   padding: 6px;
   border: var(--border-card);
   border-radius: var(--radius-card);
@@ -792,6 +792,13 @@
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
+}
+
+/* Narrower screens: the tabs go under the title. */
+@media (max-width: 980px) {
+  .schedule__head {
+    grid-template-columns: minmax(0, 480px);
+  }
 }
 
 .schedule__share {
@@ -935,7 +942,7 @@
 @media (max-width: 768px) {
   .schedule__head {
     grid-template-columns: 1fr;
-    margin-bottom: 56px;
+    margin-bottom: 40px;
   }
 
   .schedule__note {
@@ -946,9 +953,6 @@
     margin-top: 72px;
   }
 
-  .sched-tabs {
-    margin-bottom: 28px;
-  }
 
   .sched-tab {
     padding: 12px 8px;

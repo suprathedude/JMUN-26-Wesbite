@@ -170,6 +170,7 @@ In `schedule.json`, each day has a list of `"events"`. Each event looks like thi
 - To change the order, move whole `{ ... }` blocks. Mind the commas.
 - Each day has a `"label"` (`"Day one"`), a `"dateLabel"` (`"Friday 30 October"`) and a `"tab"`, the short text on its tab above the timetable (`"30 Oct · Day 1"`). Keep tabs short so both fit side by side on a phone.
 - The "Share timetable" button draws both days into one picture from the timetable itself, so it updates by itself. Its button text and file name are in `"share"`.
+- `"title"` is the section's heading ("Conference Schedule"), also used on the shared image.
 - `"note"` at the top shows next to the schedule title (under it on phones). Update it when the times are final, or set it to `""` to hide it.
 
 ## Edit the Secretariat

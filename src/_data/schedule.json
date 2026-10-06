@@ -1,9 +1,9 @@
 {
+  "title": "Conference Schedule",
   "note": "",
   "share": {
     "label": "Share timetable",
-    "file": "oakjmun-2026-schedule.png",
-    "heading": "Conference schedule"
+    "file": "oakjmun-2026-schedule.png"
   },
   "days": [
     {

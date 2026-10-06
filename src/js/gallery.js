@@ -21,7 +21,9 @@ const layer = track?.querySelector("[data-gallery]");
 const mountEl = layer?.querySelector("[data-gallery-root]");
 const cue = layer?.querySelector("[data-gallery-cue]");
 const strip = document.querySelector(".strip");
-const navAnchor = document.querySelector(".nav-anchor");
+// The nav bar itself, not its sticky wrapper: moving the wrapper would trap the full-screen
+// phone menu, which sits inside it, in the wrapper's zero-height box.
+const navBar = document.querySelector("[data-nav]");
 
 const HANDOVER = 0.7; // share of the scroll where the hero starts taking over
 const SESSION_KEY = "oakjmun-gallery";
@@ -48,7 +50,8 @@ function switchOff() {
   root.classList.remove("gallery-on", "gallery-skip", "gallery-active");
   delete root.dataset.galleryEnd;
   root.style.removeProperty("--strip-h");
-  for (const el of [strip, navAnchor]) if (el) el.style.transform = "";
+  if (strip) strip.style.transform = "";
+  if (navBar) navBar.style.translate = "";
   for (const el of document.querySelectorAll(".hero__content > *")) {
     el.style.opacity = "";
     el.style.transform = "";
@@ -133,9 +136,9 @@ function start() {
     const key = `${p.toFixed(4)}|${away}`;
     if (key === last) return;
     last = key;
-    const shift = away ? `translateY(${-away}px)` : "";
-    if (strip) strip.style.transform = shift;
-    if (navAnchor) navAnchor.style.transform = shift;
+    if (strip) strip.style.transform = away ? `translateY(${-away}px)` : "";
+    // translate, not transform: the bar's transform centres it.
+    if (navBar) navBar.style.translate = away ? `0 ${-away}px` : "";
 
     // The photos fade and rush past...
     layer.style.opacity = String(1 - out);

@@ -4,11 +4,13 @@
 {#- The glow and shimmer layer inside a shiny button (btn--shiny, components.css). -#}
 {%- macro shine() -%}<span class="btn__fx" aria-hidden="true"></span>{%- endmacro -%}
 
-{%- macro registerButton(reg, class="") -%}
+{#- shiny: the shiny style (default); false gives the plain teal button. -#}
+{%- macro registerButton(reg, class="", shiny=true) -%}
+{%- set look = "btn--shiny" if shiny else "btn--primary" -%}
 {%- if reg.url | isSet -%}
-<a class="btn btn--shiny {{ class }}" href="{{ reg.url }}">{{ shine() }}{{ reg.label }}</a>
+<a class="btn {{ look }} {{ class }}" href="{{ reg.url }}">{{ shine() if shiny }}{{ reg.label }}</a>
 {%- else -%}
-<a class="btn btn--shiny is-disabled {{ class }}" role="link" aria-disabled="true" title="Registration link TBC">{{ shine() }}{{ reg.label }}<span class="visually-hidden"> (link TBC)</span></a>
+<a class="btn {{ look }} is-disabled {{ class }}" role="link" aria-disabled="true" title="Registration link TBC">{{ shine() if shiny }}{{ reg.label }}<span class="visually-hidden"> (link TBC)</span></a>
 {%- endif -%}
 {%- endmacro -%}
 

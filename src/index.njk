@@ -41,7 +41,7 @@ pageJs: [gallery, hero-video, countdown, marquee, stats, schedule, wheel, faq]
     <h1 class="t-hero hero__title" id="hero-title">{{ site.wordmark[0] }} <span>{{ site.wordmark[1] }}</span></h1>
     <div class="hero__actions">
       {{ registerButton(site.nav.register) }}
-      <a class="btn btn--shiny" href="/committees/">{{ shine() }}Explore committees</a>
+      <a class="btn btn--ghost" href="/committees/">Explore committees</a>
     </div>
     <div class="countdown" role="img" aria-label="The conference starts on {{ site.start | dayMonth }} {{ site.year }}" data-countdown data-start="{{ site.start }}" data-end="{{ site.end }}" data-during="Happening now" data-after="See you next year">
       {%- for unit in [["d", "Days"], ["h", "Hours"], ["m", "Mins"], ["s", "Secs"]] %}
@@ -206,7 +206,7 @@ pageJs: [gallery, hero-video, countdown, marquee, stats, schedule, wheel, faq]
     {%- endfor %}
 
     <div class="schedule__share">
-      <button class="btn btn--shiny" type="button" data-sched-share data-file="{{ schedule.share.file }}" data-heading="{{ schedule.title }}" hidden>{{ shine() }}{{ icon("share-2") }}{{ schedule.share.label }}</button>
+      <button class="btn btn--outline" type="button" data-sched-share data-file="{{ schedule.share.file }}" data-heading="{{ schedule.title }}" hidden>{{ icon("share-2") }}{{ schedule.share.label }}</button>
     </div>
   </div>
 </section>
@@ -277,7 +277,7 @@ pageJs: [gallery, hero-video, countdown, marquee, stats, schedule, wheel, faq]
 <section class="closing" aria-labelledby="closing-title">
   <div class="container closing__inner">
     <h2 class="closing__title" id="closing-title" data-reveal="mask">{{ site.home.closing | fill({ date: site.start | dayMonth }) }}</h2>
-    {{ registerButton(site.nav.register) }}
+    {{ registerButton(site.nav.register, "", false) }}
   </div>
 </section>
 {%- endif %}

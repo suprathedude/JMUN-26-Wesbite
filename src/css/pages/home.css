@@ -1166,6 +1166,14 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  cursor: grab;
+  touch-action: pan-y; /* sideways slides turn the ring; up and down still scrolls the page */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.circular-gallery.is-dragging {
+  cursor: grabbing;
 }
 
 .circular-gallery__ring {

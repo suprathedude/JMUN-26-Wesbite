@@ -4,13 +4,14 @@
 // (committee code, full name, photo, link) from the page.
 //
 // The ring is sized to the section's width: on phones it's wider than the screen, so the side
-// cards run off the edges; on wide screens it stays within the page.
+// cards run off the edges; on wide screens it stays well within the page (front card about
+// 285 px wide at 1440 px).
 import { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { CircularGallery, type GalleryItem } from '@/components/ui/circular-gallery';
 
 const sizeFor = (width: number, count: number) => {
-	const radius = width < 700 ? width * 0.8 : Math.min(560, width * 0.38);
+	const radius = width < 700 ? width * 0.8 : Math.min(440, width * 0.3);
 	// Cards nearly touch round the ring, 3:4 like the original.
 	const cardWidth = Math.min(radius * 0.5, ((2 * Math.PI * radius) / Math.max(count, 1)) * 0.9);
 	return { radius, cardWidth, cardHeight: (cardWidth * 4) / 3 };

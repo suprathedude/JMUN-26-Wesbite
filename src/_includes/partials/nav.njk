@@ -40,8 +40,8 @@
           <a class="btn btn--shiny btn--nav nav__qr" href="{{ links.qr.url }}"{% if links.qr.url | isActive(page.url) %} aria-current="page"{% endif %}>{{ shine() }}{{ icon("qr-code") }}{{ links.qr.label }}</a>
           {%- endif %}
           {{ secondaryButton(links.secondary, "btn--nav") }}
-          {#- On the homepage only the hero's Register shines (6 October). -#}
-          {{ registerButton(links.register, "btn--nav nav__register", page.url != "/") }}
+          {#- The nav's Register is the plain teal button; Get QR beside it shines (6 October). -#}
+          {{ registerButton(links.register, "btn--nav nav__register", false) }}
           <button class="nav__menu" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="Open menu" data-menu-btn>
             <span class="nav__menu-bars" aria-hidden="true"><span></span><span></span><span></span></span>
           </button>
@@ -59,7 +59,7 @@
       </ul>
       <div class="nav-sheet__actions">
         {{ secondaryButton(links.secondary, "btn--block") }}
-        {{ registerButton(links.register, "btn--block", page.url != "/") }}
+        {{ registerButton(links.register, "btn--block", false) }}
       </div>
     </div>
   </div>

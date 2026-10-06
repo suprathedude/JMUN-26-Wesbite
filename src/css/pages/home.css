@@ -27,6 +27,24 @@
   will-change: opacity, transform;
 }
 
+/* The announcement bar stays at the top through the gallery and the hero, with the nav below it;
+   gallery.js slides both up as the hero scrolls away. Pinning it also keeps the gallery from
+   drifting up by the bar's height when scrolling starts. */
+.gallery-on .strip {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
+.gallery-on .nav-anchor {
+  top: var(--strip-h, 42px);
+}
+
+.gallery-on.strip-off .nav-anchor {
+  top: 0;
+}
+
 /* Later visits start at the hero; the script then scrolls there and drops this class. */
 .gallery-skip .gallery {
   opacity: 0;

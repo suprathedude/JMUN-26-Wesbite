@@ -7,7 +7,8 @@
 // only scrolling reveals the hero. Over the last part the photos fade and rush past while the
 // hero's lines rise in, one after another; scrolling back up plays it backwards. While the
 // gallery shows, the nav stays compact (html.gallery-active, nav.js) and a small "Scroll" cue
-// sits at the bottom.
+// sits at the bottom. The announcement bar stays pinned at the top through the gallery and the
+// hero (CSS, html.gallery-on), and slides away with the hero, the nav following it up.
 //
 // The head script sets html.gallery-on before the first paint, and gallery-skip on later
 // visits in the session (or with a #section), which start at the hero. Without WebGL, or if
@@ -19,6 +20,8 @@ const stage = track?.querySelector("[data-gallery-stage]");
 const layer = track?.querySelector("[data-gallery]");
 const mountEl = layer?.querySelector("[data-gallery-root]");
 const cue = layer?.querySelector("[data-gallery-cue]");
+const strip = document.querySelector(".strip");
+const navAnchor = document.querySelector(".nav-anchor");
 
 const HANDOVER = 0.7; // share of the scroll where the hero starts taking over
 const SESSION_KEY = "oakjmun-gallery";
@@ -44,6 +47,8 @@ if (track && stage && layer && mountEl && root.classList.contains("gallery-on"))
 function switchOff() {
   root.classList.remove("gallery-on", "gallery-skip", "gallery-active");
   delete root.dataset.galleryEnd;
+  root.style.removeProperty("--strip-h");
+  for (const el of [strip, navAnchor]) if (el) el.style.transform = "";
   for (const el of document.querySelectorAll(".hero__content > *")) {
     el.style.opacity = "";
     el.style.transform = "";
@@ -73,6 +78,8 @@ function start() {
 
   let top = 0;
   let run = 1;
+  let stripH = 0;
+  let last = ""; // what was drawn last, so an unchanged frame writes nothing
   let loading = null;
   let paused = null;
   let active = null;
@@ -83,6 +90,9 @@ function start() {
     run = Math.max(1, track.offsetHeight - stage.offsetHeight);
     // Where the hero is fully in: nav.js treats this as the top of the page.
     root.dataset.galleryEnd = String(Math.round(top + run));
+    // The pinned bar's height, which the nav sits below (home.css).
+    stripH = strip && !root.classList.contains("strip-off") ? strip.offsetHeight : 0;
+    root.style.setProperty("--strip-h", `${stripH}px`);
   };
   measure();
 
@@ -117,6 +127,15 @@ function start() {
     const p = clamp((y - top) / run);
     const t = clamp((p - HANDOVER) / (1 - HANDOVER));
     const out = easeOut(t);
+
+    // Past the hero, the pinned bar slides away with it and the nav follows it up.
+    const away = root.classList.contains("strip-off") ? 0 : Math.min(stripH, Math.max(0, y - (top + run)));
+    const key = `${p.toFixed(4)}|${away}`;
+    if (key === last) return;
+    last = key;
+    const shift = away ? `translateY(${-away}px)` : "";
+    if (strip) strip.style.transform = shift;
+    if (navAnchor) navAnchor.style.transform = shift;
 
     // The photos fade and rush past...
     layer.style.opacity = String(1 - out);

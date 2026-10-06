@@ -10,6 +10,10 @@
 // - `speed` and `visibleCount` are passed through (the original ignored them).
 // - The no-WebGL fallback uses plain classes (the site has no Tailwind); styles in home.css.
 // - The pixel ratio is capped at 1.5 to keep the GPU's work down on high-density screens.
+// - The canvas measures its layout size, not its on-screen box, and not on every scroll: the
+//   page zooms the gallery during the hand-over, which made it resize mid-scroll and jump.
+// - The hover wave eases in and out instead of snapping on, and doesn't start while the page
+//   is scrolling (pictures sliding under a resting pointer made them twitch).
 import type React from 'react';
 import { useRef, useMemo, useState, useEffect, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
@@ -105,9 +109,9 @@ const createClothMaterial = () => {
         float ripple2 = sin(pos.y * 2.5 + scrollForce * 2.0) * 0.015;
         float clothEffect = (ripple1 + ripple2) * abs(curveIntensity) * 2.0;
 
-        // Flag waving effect when hovered
+        // Flag waving effect when hovered, scaled by isHovered (0 to 1) so it eases in and out
         float flagWave = 0.0;
-        if (isHovered > 0.5) {
+        if (isHovered > 0.0) {
           // Create flag-like wave from left to right
           float wavePhase = pos.x * 3.0 + time * 8.0;
           float waveAmplitude = sin(wavePhase) * 0.1;
@@ -118,6 +122,7 @@ const createClothMaterial = () => {
           // Add secondary smaller waves for more realistic flag motion
           float secondaryWave = sin(pos.x * 5.0 + time * 12.0) * 0.03 * dampening;
           flagWave += secondaryWave;
+          flagWave *= isHovered;
         }
 
         // Apply Z displacement for curving effect (inverted) with cloth ripples and flag wave
@@ -177,26 +182,20 @@ function ImagePlane({
 	scale,
 	material,
 	meshRef,
+	onHover,
 }: {
 	texture: THREE.Texture;
 	position: [number, number, number];
 	scale: [number, number, number];
 	material: THREE.ShaderMaterial;
 	meshRef: (mesh: THREE.Mesh | null) => void;
+	onHover: (hovered: boolean) => void;
 }) {
-	const [isHovered, setIsHovered] = useState(false);
-
 	useEffect(() => {
 		if (material && texture) {
 			material.uniforms.map.value = texture;
 		}
 	}, [material, texture]);
-
-	useEffect(() => {
-		if (material && material.uniforms) {
-			material.uniforms.isHovered.value = isHovered ? 1.0 : 0.0;
-		}
-	}, [material, isHovered]);
 
 	return (
 		<mesh
@@ -204,8 +203,8 @@ function ImagePlane({
 			position={position}
 			scale={scale}
 			material={material}
-			onPointerEnter={() => setIsHovered(true)}
-			onPointerLeave={() => setIsHovered(false)}
+			onPointerEnter={() => onHover(true)}
+			onPointerLeave={() => onHover(false)}
 		>
 			<planeGeometry args={[1, 1, 32, 32]} />
 		</mesh>
@@ -232,6 +231,9 @@ function GalleryScene({
 	const autoPlay = useRef(true);
 	const lastInteraction = useRef(Date.now());
 	const meshes = useRef<(THREE.Mesh | null)[]>([]);
+	// Hover wave: where each plane's wave is heading (0 or 1); the uniform eases towards it.
+	const hoverTarget = useRef<number[]>([]);
+	const scrollingUntil = useRef(0);
 
 	const normalizedImages = useMemo(
 		() =>
@@ -309,6 +311,9 @@ function GalleryScene({
 			scrollVelocity.current += delta * 0.01 * speed;
 			autoPlay.current = false;
 			lastInteraction.current = Date.now();
+			// No waving while the page scrolls: stop any wave and ignore hovers for a moment.
+			scrollingUntil.current = Date.now() + 400;
+			hoverTarget.current.fill(0);
 		};
 		scrollSource.addEventListener('gallery:scroll', onScroll);
 		return () => scrollSource.removeEventListener('gallery:scroll', onScroll);
@@ -334,12 +339,16 @@ function GalleryScene({
 		scrollVelocity.current *= Math.pow(0.95, delta * 60);
 		const velocity = scrollVelocity.current;
 
-		// Update time uniform for all materials
+		// Update time uniform for all materials, and ease each hover wave towards its target
 		const time = state.clock.getElapsedTime();
-		materials.forEach((material) => {
+		const ease = 1 - Math.pow(0.001, delta); // about 0.3 s to settle
+		materials.forEach((material, i) => {
 			if (material && material.uniforms) {
 				material.uniforms.time.value = time;
 				material.uniforms.scrollForce.value = velocity;
+				const hover = material.uniforms.isHovered;
+				hover.value += ((hoverTarget.current[i] ?? 0) - hover.value) * ease;
+				if (hover.value < 0.001) hover.value = 0;
 			}
 		});
 
@@ -485,6 +494,9 @@ function GalleryScene({
 						meshRef={(mesh) => {
 							meshes.current[i] = mesh;
 						}}
+						onHover={(hovered) => {
+							hoverTarget.current[i] = hovered && Date.now() > scrollingUntil.current ? 1 : 0;
+						}}
 					/>
 				);
 			})}
@@ -566,6 +578,7 @@ export default function InfiniteGallery({
 				camera={{ position: [0, 0, 0], fov: 55 }}
 				gl={{ antialias: true, alpha: true }}
 				dpr={[1, 1.5]}
+				resize={{ scroll: false, offsetSize: true }}
 				frameloop={paused ? 'never' : 'always'}
 			>
 				<Suspense fallback={null}>

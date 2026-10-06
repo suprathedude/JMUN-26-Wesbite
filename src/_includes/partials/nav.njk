@@ -49,7 +49,7 @@
     </div>
   </nav>
 
-  <div class="nav-sheet" id="nav-sheet" role="dialog" aria-modal="true" aria-label="Menu" inert data-sheet>
+  <div class="nav-sheet" id="nav-sheet" role="dialog" aria-modal="true" aria-label="Menu" inert data-lenis-prevent data-sheet>
     <div class="nav-sheet__inner">
       <ul class="nav-sheet__links" role="list">
         {%- for link in links.left.concat(links.right, links.more.items, [links.qr]) %}

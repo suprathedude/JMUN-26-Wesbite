@@ -3,15 +3,14 @@ layout: layouts/base.njk
 eleventyComputed:
   description: "{{ site.fullName }}, {{ site.start | eventDates(site.end) }} at {{ site.venue }}."
 pageCss: [home]
-pageJs: [intro-placards, hero-video, countdown, marquee, stats, schedule, wheel, faq]
-intro: true
+pageJs: [hero-video, countdown, marquee, stats, schedule, wheel, faq]
 ---
 {%- from "partials/icons.njk" import icon -%}
 {%- from "partials/buttons.njk" import registerButton -%}
 {%- from "partials/faq.njk" import faqList -%}
 {%- set dates = site.start | eventDates(site.end) -%}
 
-{#- 2. Hero (reference/02). The placard intro (Task 4) will play over this. -#}
+{#- 2. Hero (reference/02). -#}
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero__bg" aria-hidden="true">
     {%- if site.hero.image %}
@@ -26,11 +25,6 @@ intro: true
     <div class="orb hero__orb--a"></div>
     <div class="orb hero__orb--b"></div>
     <div class="hero__watermark">{{ site.chapter }}</div>
-  </div>
-
-  {#- Placard intro (SPEC 10): decorative, skippable, built by intro-placards.js. -#}
-  <div class="intro-layer" aria-hidden="true" data-intro data-countries="{{ site.intro.countries | dump }}">
-    <div class="intro-wash"></div>
   </div>
 
   <div class="hero__content">

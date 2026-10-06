@@ -1105,7 +1105,7 @@ html.is-locked {
   color: var(--ink-60);
 }
 
-/* ---------- Placard (SPEC 10): the intro, New to MUN? and the 404 ---------- */
+/* ---------- Placard (SPEC 10): New to MUN? and the 404 ---------- */
 
 /* A raised tent card: white face about 3.2:1, a 4 px teal strip on top, the name in navy,
    and a short handle below. Sized in em so a row can scale it with font-size. */

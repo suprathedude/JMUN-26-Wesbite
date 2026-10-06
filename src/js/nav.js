@@ -185,6 +185,7 @@ function initSheet() {
     button.setAttribute("aria-label", on ? "Close menu" : "Open menu");
     root.classList.toggle("is-locked", on);
     for (const el of outside) el.inert = on;
+    window.dispatchEvent(new CustomEvent(on ? "nav:lock" : "nav:unlock"));
     if (on) focusable()[0]?.focus();
     else if (returnFocus) button.focus();
   };

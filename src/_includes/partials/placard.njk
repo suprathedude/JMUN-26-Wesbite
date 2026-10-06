@@ -1,5 +1,4 @@
-{#- One raised placard (SPEC 10). Used on New to MUN? and the 404; the homepage intro builds
-    the same markup in intro-placards.js. -#}
+{#- One raised placard (SPEC 10). Used on New to MUN? and the 404. -#}
 {%- macro placard(text, class="") -%}
 {%- set len = text | length -%}
 <div class="placard{% if len > 13 %} placard--longer{% elif len > 9 %} placard--long{% endif %} {{ class }}" aria-hidden="true">

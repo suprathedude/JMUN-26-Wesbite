@@ -159,34 +159,6 @@
     "matrixUrl": "",
     "matrixText": "The full list of committees and countries, and which delegate has each one. (TBC)"
   },
-  "intro": {
-    "countries": [
-      "India",
-      "France",
-      "Japan",
-      "Brazil",
-      "Kenya",
-      "Germany",
-      "Canada",
-      "Egypt",
-      "Mexico",
-      "Norway",
-      "Chile",
-      "Ghana",
-      "Italy",
-      "Peru",
-      "Spain",
-      "Nepal",
-      "Qatar",
-      "Fiji",
-      "China",
-      "Sweden",
-      "Cuba",
-      "Ireland",
-      "Oman",
-      "Greece"
-    ]
-  },
   "footer": {
     "quickLinks": [
       {

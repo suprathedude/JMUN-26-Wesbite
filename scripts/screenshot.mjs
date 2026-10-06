@@ -118,33 +118,6 @@ const STATES = [
     },
   },
   {
-    name: "home-intro-1440",
-    intro: true,
-    viewport: VIEWPORTS[1],
-    async run(page) {
-      // Freeze the placard intro at 1.25 s: every placard up, nothing leaving yet.
-      await page.evaluate(() => {
-        for (const a of document.getAnimations()) {
-          a.pause();
-          a.currentTime = 1250;
-        }
-      });
-    },
-  },
-  {
-    name: "home-intro-390",
-    intro: true,
-    viewport: VIEWPORTS[0],
-    async run(page) {
-      await page.evaluate(() => {
-        for (const a of document.getAnimations()) {
-          a.pause();
-          a.currentTime = 800;
-        }
-      });
-    },
-  },
-  {
     name: "committees-hover-1440",
     path: "/committees/",
     viewport: VIEWPORTS[1],
@@ -220,7 +193,7 @@ async function main() {
 
   try {
     for (const viewport of VIEWPORTS) {
-      // Reduced motion gives stable final states (no intro, no count-up in progress).
+      // Reduced motion gives stable final states (no count-up in progress).
       const context = await browser.newContext(contextFor(viewport, "reduce"));
       const page = await context.newPage();
       for (const { url, name } of await findPages(SITE)) {
@@ -239,13 +212,10 @@ async function main() {
     for (const state of STATES) {
       if (!wanted(state.name)) continue;
       const context = await browser.newContext(contextFor(state.viewport, "no-preference"));
-      // Only the intro states should see the placard intro; elsewhere it would hide the hero.
-      if (!state.intro) await context.addInitScript(() => sessionStorage.setItem("oakjmun-intro", "1"));
       const page = await context.newPage();
-      await page.goto(origin + (state.path ?? "/"), { waitUntil: state.intro ? "domcontentloaded" : "networkidle" });
+      await page.goto(origin + (state.path ?? "/"), { waitUntil: "networkidle" });
       await page.evaluate(() => document.fonts.ready);
       await state.run(page);
-      if (state.intro) await page.waitForTimeout(150);
       const file = path.join(OUT, `${state.name}.png`);
       await page.screenshot({ path: file });
       console.log(file);

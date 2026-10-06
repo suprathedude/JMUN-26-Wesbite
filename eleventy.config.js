@@ -11,9 +11,11 @@ const iconCache = new Map();
 const isSet = (url) => typeof url === "string" && url.trim() !== "" && !/TBC/i.test(url);
 
 export default function (eleventyConfig) {
-  // JS modules, page stylesheets, fonts and the server settings for GoDaddy.
+  // JS modules, page stylesheets, fonts, Lenis and the server settings for GoDaddy.
   eleventyConfig.addPassthroughCopy({ "src/js": "js" });
   eleventyConfig.addPassthroughCopy({ "src/css/pages": "css/pages" });
+  // Lenis ships as .mjs; it's copied as .js because some servers don't know the .mjs type.
+  eleventyConfig.addPassthroughCopy({ "node_modules/lenis/dist/lenis.mjs": "js/vendor/lenis.js" });
   eleventyConfig.addPassthroughCopy({
     [`${FONT_DIR}/montserrat-latin-wght-normal.woff2`]: "assets/fonts/montserrat-latin-wght-normal.woff2",
     [`${FONT_DIR}/montserrat-latin-wght-italic.woff2`]: "assets/fonts/montserrat-latin-wght-italic.woff2",

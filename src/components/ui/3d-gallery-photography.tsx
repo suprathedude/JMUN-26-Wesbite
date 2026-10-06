@@ -14,8 +14,8 @@
 //   page zooms the gallery during the hand-over, which made it resize mid-scroll and jump.
 // - The hover wave eases in and out instead of snapping on, and doesn't start while the page
 //   is scrolling (pictures sliding under a resting pointer made them twitch).
-// - A centred layout (CENTRED_LAYOUT) replaces the original scatter, which leaned to one side
-//   in the opening view.
+// - A balanced layout (LAYOUT) replaces the original scatter, which leaned to one side in the
+//   opening view: centre planes, with mirrored pairs out to the edges of the screen.
 import type React from 'react';
 import { useRef, useMemo, useState, useEffect, Suspense } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
@@ -73,18 +73,22 @@ interface PlaneData {
 
 const DEFAULT_DEPTH_RANGE = 50;
 
-// Where each plane flies, across and up from the centre line. Every third plane comes down the
-// middle and the others arrive in mirrored pairs on neighbouring depths, so the opening view, and
-// every view after it, is balanced round the centre of the screen.
-const CENTRED_LAYOUT: { x: number; y: number }[] = [
-	{ x: 0, y: 0.2 }, { x: 2.4, y: 1.1 }, { x: -2.4, y: -1.1 },
-	{ x: 0, y: 0 }, { x: 2.0, y: -0.9 }, { x: -2.0, y: 0.9 },
-	{ x: 0.3, y: -0.2 }, { x: 2.8, y: -0.4 }, { x: -2.8, y: 0.4 },
-	{ x: -0.3, y: 0.15 }, { x: 1.2, y: 1.6 }, { x: -1.2, y: -1.6 },
+// Where each plane flies, across and up from the centre line, in groups of three: one near the
+// middle, then a mirrored pair. The pairs alternate between a middle ring and an outer ring that
+// reaches the edges and corners of the screen, so the gallery feels spread out while every view
+// stays balanced round the centre. With more planes than entries, the list repeats.
+const LAYOUT: { x: number; y: number }[] = [
+	{ x: 0, y: 0.2 }, { x: 6.4, y: 1.5 }, { x: -6.4, y: -1.5 },
+	{ x: 0.4, y: -0.3 }, { x: 2.4, y: -1.3 }, { x: -2.4, y: 1.3 },
+	{ x: -0.4, y: 0.3 }, { x: 7.0, y: -1.2 }, { x: -7.0, y: 1.2 },
+	{ x: 0, y: -0.2 }, { x: 2.8, y: 1.7 }, { x: -2.8, y: -1.7 },
+	{ x: 0.3, y: 0.4 }, { x: 5.4, y: 2.9 }, { x: -5.4, y: -2.9 },
 ];
-// How far along the planes start, so the opening view is a mirrored pair, both fully visible,
-// round a centre plane coming up behind them.
-const START_DEPTH = 9.3;
+// Where the planes start: plane 3 has just faded out in front, so the first mirrored pair
+// (planes 1 and 2) is in view with the first centre plane coming up behind them, and no plane
+// is mid-fade close to the camera.
+const startDepth = (depthRange: number, count: number, fadeOutEnd: number) =>
+	fadeOutEnd * depthRange + 0.1 - (3 * depthRange) / Math.max(count, 1);
 
 const createClothMaterial = () => {
 	return new THREE.ShaderMaterial({
@@ -272,7 +276,7 @@ function GalleryScene({
 	const spatialPositions = useMemo(
 		() =>
 			Array.from({ length: visibleCount }, (_, i) => {
-				const p = CENTRED_LAYOUT[i % CENTRED_LAYOUT.length];
+				const p = LAYOUT[i % LAYOUT.length];
 				return { x: p.x * spread, y: p.y };
 			}),
 		[visibleCount, spread]
@@ -285,7 +289,7 @@ function GalleryScene({
 	const planesData = useRef<PlaneData[]>(
 		Array.from({ length: visibleCount }, (_, i) => ({
 			index: i,
-			z: visibleCount > 0 ? ((depthRange / visibleCount) * i + START_DEPTH) % depthRange : 0,
+			z: visibleCount > 0 ? ((depthRange / visibleCount) * i + startDepth(depthRange, visibleCount, fadeSettings.fadeOut.end)) % depthRange : 0,
 			imageIndex: totalImages > 0 ? i % totalImages : 0,
 			x: spatialPositions[i]?.x ?? 0, // Use spatial positions for x
 			y: spatialPositions[i]?.y ?? 0, // Use spatial positions for y
@@ -297,7 +301,7 @@ function GalleryScene({
 			index: i,
 			z:
 				visibleCount > 0
-					? ((depthRange / Math.max(visibleCount, 1)) * i + START_DEPTH) % depthRange
+					? ((depthRange / Math.max(visibleCount, 1)) * i + startDepth(depthRange, visibleCount, fadeSettings.fadeOut.end)) % depthRange
 					: 0,
 			imageIndex: totalImages > 0 ? i % totalImages : 0,
 			x: spatialPositions[i]?.x ?? 0,

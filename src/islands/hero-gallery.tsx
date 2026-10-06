@@ -10,6 +10,11 @@ import InfiniteGallery from '@/components/ui/3d-gallery-photography';
 
 type Image = { src: string; alt: string };
 
+// Photos fade out (and blur) a little before they reach the camera, so none fills the screen
+// as a large blur; the component's defaults let them grow much bigger first.
+const FADE = { fadeIn: { start: 0.05, end: 0.25 }, fadeOut: { start: 0.35, end: 0.4 } };
+const BLUR = { blurIn: { start: 0.0, end: 0.1 }, blurOut: { start: 0.35, end: 0.4 }, maxBlur: 8.0 };
+
 function Host({ root, images, startPaused }: { root: HTMLElement; images: Image[]; startPaused: boolean }) {
 	const [paused, setPaused] = useState(startPaused);
 
@@ -23,7 +28,9 @@ function Host({ root, images, startPaused }: { root: HTMLElement; images: Image[
 		<InfiniteGallery
 			images={images}
 			speed={1.2}
-			visibleCount={12}
+			visibleCount={15}
+			fadeSettings={FADE}
+			blurSettings={BLUR}
 			className="gallery__three"
 			scrollSource={root}
 			paused={paused}

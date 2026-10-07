@@ -41,7 +41,7 @@
   "announcement": {
     "enabled": true,
     "text": "Registration is open",
-    "link": "https://www.oakridge.in/gachibowli/events/oakridge-mun-xiv-2026/"
+    "link": "https://forms.cloud.microsoft/pages/responsepage.aspx?id=e3DJf4-dak-Fa664SP7xA6W6JxUjb5hDmp-UTZ-9A9hUNlNGTElHMUlLVFRYMEZXNTI4STFZUkUyTS4u&route=shorturl"
   },
   "nav": {
     "left": [
@@ -91,7 +91,7 @@
     },
     "register": {
       "label": "Register",
-      "url": "https://www.oakridge.in/gachibowli/events/oakridge-mun-xiv-2026/"
+      "url": "https://forms.cloud.microsoft/pages/responsepage.aspx?id=e3DJf4-dak-Fa664SP7xA6W6JxUjb5hDmp-UTZ-9A9hUNlNGTElHMUlLVFRYMEZXNTI4STFZUkUyTS4u&route=shorturl"
     },
     "secondary": {
       "label": "Consent form",

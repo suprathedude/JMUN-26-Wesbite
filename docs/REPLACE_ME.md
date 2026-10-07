@@ -48,7 +48,7 @@ The Doomsday committee page opens with the Marvel Studios intro, then a clip of 
 
 | Field | Now | Needed |
 | --- | --- | --- |
-| `announcement.text` | "Registration is open", linking to the registration page (7 October) | Change it as news comes out |
+| `announcement.text` | "Registration is open", linking to the registration form (Microsoft Forms, 7 October; also `nav.register.url` and the FAQ's register answer in `faq.json`) | Change it as news comes out |
 | `nav.secondary.url` | `""` (button hidden) | The consent form link; the "Consent form" button appears once it's set |
 | `crest` | `""` | The crest's path (see "Placeholder assets") |
 | `hero.video` | `""` | Optional (see the hero row above) |
@@ -110,4 +110,4 @@ Final as of 3 October: both days, with times.
 | Field | Now | Needed |
 | --- | --- | --- |
 | `onTheDay` | "The exact phone rule is TBC."; registration "(place TBC)" | The phone rule, and where registration is |
-| `intro.photo` | A delegate raising a placard (`src/assets/img/ntm/delegate.webp`, sent 7 October): a past Oakridge delegate, cut out, with the teal arc on the shoulder painted out | Check the school's photo consent covers this student. To swap it, use a cut-out (transparent background) cropped at the desk, same file name, and update `alt` |
+| `intro.photo` | A delegate raising a placard (`src/assets/img/ntm/delegate.webp`, sent 7 October): a past Oakridge delegate, cut out. The teal speech bubble on the shoulder is drawn over it in `new-to-mun.njk` (in the photo's own pixels), not part of the file | Check the school's photo consent covers this student. To swap it, use a cut-out (transparent background) cropped at the desk, same file name, and update `alt`; then move or delete the bubble's `<svg>` |

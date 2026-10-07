@@ -785,8 +785,10 @@
     background: rgb(var(--night-rgb) / 0.99);
   }
 
+  /* Get QR moves into the menu sheet on phones (7 October), so the wordmark has room */
   .nav__crest,
-  .nav__register {
+  .nav__register,
+  .nav__qr {
     display: none;
   }
 }

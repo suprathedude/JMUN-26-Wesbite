@@ -15,7 +15,7 @@ The few that matter most on day one:
 | The registration link (Register buttons don't link anywhere until it's set) | `site.json` → `nav.register.url` |
 | The consent form link (the "Consent form" button stays hidden until it's set) | `site.json` → `nav.secondary.url`, or the PDF in `resources.json` → `documents` |
 | The announcement bar | `site.json` → `announcement.text` |
-| The HTTPS switch, once oakridgejmun.com has its SSL certificate | `src/.htaccess` ([DEPLOY.md](DEPLOY.md), step 6) |
+| The HTTPS switch, once oakridgejmun.in has its SSL certificate | `src/.htaccess` ([DEPLOY.md](DEPLOY.md), step 6) |
 
 ## Placeholder assets made for this site
 
@@ -51,7 +51,7 @@ SPEC 7.4 allows generic UN-room photos and committee logo circles from `srijai-k
 | `sponsors` | `[]` | Sponsors, if any; the strip appears with the first one |
 | `allocations` | One round, "Date TBC (for registrations received by TBC)"; `status` "Registration opens soon (TBC)"; `matrixUrl` `""`, so the button reads "Opens with Round 1 (TBC)"; `intro` and `matrixText` end "TBC" | The real rounds (name, date, note each), the status, the matrix link, and the two texts without "TBC" |
 
-Done on 3 October: `url` (https://oakridgejmun.com), `contact.email` (jmun@oakridge.in), `contact.instagram` (oakjmun), `chapter` (XIV, confirmed), the conference times (7:45 am on 30 October to 7:30 pm on 31 October).
+Done on 3 October: `url` (https://oakridgejmun.com; changed to https://oakridgejmun.in on 7 October, as the .com is taken), `contact.email` (jmun@oakridge.in), `contact.instagram` (oakjmun), `chapter` (XIV, confirmed), the conference times (7:45 am on 30 October to 7:30 pm on 31 October).
 
 ### `committees.json` (12 committees)
 

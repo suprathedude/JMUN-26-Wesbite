@@ -13,10 +13,10 @@ The one-time setup takes about half an hour. You need:
 - admin access to the GitHub repository (to add the FTP password as a secret);
 - the domain or subdomain the site should live at.
 
-**For OakJMUN 2026** the address is **oakridgejmun.com**, and the school's IT team manages the domain. Before starting, ask them:
-1. Is oakridgejmun.com on GoDaddy, and is there a GoDaddy **hosting** plan as well, not just the domain? If so, which product does **My Products** list for it (step 1)?
+**For OakJMUN 2026** the address is **oakridgejmun.in** (oakridgejmun.com is owned by someone else). It's bought on GoDaddy with a Web Hosting (cPanel, Linux) plan, on the school's or the IT head's account. If the school's IT team set it up, ask them:
+1. Which product does **My Products** list for the hosting (step 1)? It should be Web Hosting with cPanel, not just the domain.
 2. Can they either give a Secretariat member access to that hosting's cPanel, or do steps 3 and 4 themselves and send back the FTP Server and FTP Username? The password should go straight into GitHub (step 5), not into a chat or an email.
-3. Can they switch on the free SSL certificate for oakridgejmun.com (step 3)?
+3. Can they switch on the free SSL certificate for oakridgejmun.in (step 3)?
 
 ---
 
@@ -85,7 +85,7 @@ The deploy makes the site's folder an exact copy of the built site. Anything els
 
 **Turn on HTTPS** once `https://` shows the padlock: in the repository, open `src/.htaccess`, find the five lines at the bottom under "Send every visitor to the https:// address", remove the `#` at the start of each, and commit. Every `http://` address then forwards to `https://`.
 
-**The site's address** is set in `src/_data/site.json` as `"url": "https://oakridgejmun.com"`. Search engines and link previews use it, and so do `sitemap.xml` and `robots.txt`. Change it only if the address changes.
+**The site's address** is set in `src/_data/site.json` as `"url": "https://oakridgejmun.in"`. Search engines and link previews use it, and so do `sitemap.xml` and `robots.txt`. Change it only if the address changes.
 
 ## 7. Day to day
 

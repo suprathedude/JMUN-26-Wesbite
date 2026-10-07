@@ -8,20 +8,19 @@ pageCss: [new-to-mun]
 ---
 {%- from "partials/gilt.njk" import frame, laurel, mark -%}
 {%- from "partials/icons.njk" import icon -%}
-{%- from "partials/placard.njk" import placard -%}
 {%- from "partials/buttons.njk" import registerButton -%}
 {%- set g = newToMun -%}
 
-{#- Hero: the event-page layout from reference/24, with a raised placard where OakMUN has its globe. -#}
+{#- Hero: the event-page layout from reference/24, with a delegate raising a placard where OakMUN
+    has its globe. The photo is cut at the desk, so it stands on the hero's bottom edge. -#}
 <section class="ntm-hero" aria-labelledby="ntm-title">
   <div class="orb ntm-hero__orb" aria-hidden="true"></div>
   {{ frame("corner") }}
   {{ laurel("laurel--head") }}
   <div class="container ntm-hero__grid">
-    <div class="ntm-hero__art" aria-hidden="true" data-reveal="art">
-      <div class="ntm-hero__circle">
-        {{ placard(g.intro.placard, "ntm-hero__placard placard--rise") }}
-      </div>
+    <div class="ntm-hero__art" data-reveal="art">
+      <div class="ntm-hero__circle" aria-hidden="true"></div>
+      <img class="ntm-hero__photo" src="/{{ g.intro.photo.src }}" alt="{{ g.intro.photo.alt }}" loading="eager" sizes="(max-width: 768px) 170px, 400px" eleventy:widths="340,600,800">
     </div>
     <div class="ntm-hero__text">
       <h1 class="ntm-hero__title" id="ntm-title" data-reveal="mask">New to <span class="t-teal">MUN?</span> <span>Start here.</span></h1>
@@ -73,7 +72,7 @@ pageCss: [new-to-mun]
   </div>
 </section>
 
-{#- The brighter accents as panel backgrounds, with navy text (SPEC 9.7). -#}
+{#- Three cards in the site's usual navy and gold. -#}
 <section class="section ntm-day" aria-labelledby="day-title">
   <div class="container">
     <h2 class="t-section t-section--bar" data-reveal="mask" id="day-title">On the day</h2>

@@ -1,7 +1,7 @@
-/* New to MUN? (SPEC 9.7). For 11-year-olds at their first conference: short lines, big
-   steps, and the brighter accents as panels with navy text. */
+/* New to MUN? (SPEC 9.7). For 11-year-olds at their first conference: short lines and big
+   steps. */
 
-/* ---------- Hero: reference/24's layout, with a raised placard in the circle ---------- */
+/* ---------- Hero: reference/24's layout, with a delegate raising a placard ---------- */
 
 .ntm-hero {
   position: relative;
@@ -28,19 +28,25 @@
   gap: 64px;
 }
 
+/* The photo is cut at the desk, so it stands on the hero's bottom edge (through the bottom
+   padding) and fades out there. */
 .ntm-hero__art {
   order: 2;
-  display: flex;
-  justify-content: center;
+  position: relative;
+  align-self: end;
+  justify-self: center;
+  width: min(350px, 100%);
+  margin-bottom: -72px;
 }
 
-/* Circles are the Oakridge connecting shape; the placard is raised in front of one. */
+/* Circles are the Oakridge connecting shape: one behind the delegate's head and shoulders. */
 .ntm-hero__circle {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: min(440px, 100%);
+  position: absolute;
+  top: 21%;
+  left: 56%;
+  width: 128%;
   aspect-ratio: 1;
+  translate: -50% 0;
   border: 1px solid rgb(var(--teal-rgb) / 0.2);
   border-radius: 50%;
   background: radial-gradient(circle at 50% 42%, rgb(var(--teal-dark-rgb) / 0.3) 0%, rgb(var(--teal-dark-rgb) / 0.06) 55%, transparent 72%);
@@ -57,10 +63,13 @@
   border-radius: 50%;
 }
 
-/* The tilt uses rotate, not transform, so it stays put while the rise animation runs */
-.ntm-hero__placard {
-  font-size: 30px;
-  rotate: -4deg;
+.ntm-hero__photo {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+  -webkit-mask-image: linear-gradient(rgb(var(--shadow-rgb)) 84%, transparent);
+  mask-image: linear-gradient(rgb(var(--shadow-rgb)) 84%, transparent);
 }
 
 .ntm-hero__title {
@@ -205,7 +214,7 @@
   color: var(--ink-75);
 }
 
-/* ---------- On the day: three bright panels, navy text ---------- */
+/* ---------- On the day: three cards ---------- */
 
 .ntm-day {
   padding-block: 96px;
@@ -221,17 +230,10 @@
 
 .day-panel {
   padding: 30px 28px 32px;
+  border: var(--border-card);
   border-radius: var(--radius-card);
-  background: var(--teal-light);
-  color: var(--navy);
-}
-
-.day-panel:nth-child(2) {
-  background: var(--yellow);
-}
-
-.day-panel:nth-child(3) {
-  background: var(--peach);
+  background: rgb(var(--card-rgb) / 0.65);
+  color: var(--ink-75);
 }
 
 .day-panel__icon {
@@ -239,9 +241,11 @@
   place-items: center;
   width: 48px;
   height: 48px;
+  border: 1px solid rgb(var(--teal-rgb) / 0.25);
   border-radius: 50%;
-  background: rgb(var(--navy-rgb) / 0.1);
+  background: rgb(var(--teal-rgb) / 0.1);
   font-size: 1.4rem;
+  color: var(--teal);
 }
 
 .day-panel__title {
@@ -249,7 +253,7 @@
   font-size: 1.35rem;
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: var(--navy);
+  color: var(--ink);
 }
 
 .day-panel__list {
@@ -261,7 +265,7 @@
 }
 
 .day-panel__list li::marker {
-  color: rgb(var(--navy-rgb) / 0.55);
+  color: var(--gilt);
 }
 
 /* ---------- Say it like a delegate: phrases on white placards ---------- */
@@ -401,23 +405,15 @@
     padding: calc(var(--section-pad) + 40px) 0 64px;
   }
 
-  /* The placard sits above the title, smaller */
+  /* The photo comes after the text, smaller, still standing on the bottom edge */
   .ntm-hero__grid {
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 36px;
   }
 
   .ntm-hero__art {
-    order: 0;
-    justify-content: flex-start;
-  }
-
-  .ntm-hero__circle {
-    width: 200px;
-  }
-
-  .ntm-hero__placard {
-    font-size: 14px;
+    width: 190px;
+    margin-bottom: -64px;
   }
 
   .ntm-hero__lead {

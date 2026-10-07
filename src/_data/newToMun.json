@@ -3,7 +3,10 @@
     "text": [
       "Model United Nations (MUN) is a role-play of the real United Nations. You speak for a country, and you work with the other delegates in your committee on a real world problem until the committee votes on a plan to solve it."
     ],
-    "placard": "Your country"
+    "photo": {
+      "src": "assets/img/ntm/delegate.webp",
+      "alt": "A delegate in a blazer and tie raises their country's placard in committee."
+    }
   },
   "stepsIntro": "Every committee follows these steps, in this order. Your chairs run each one and tell you what comes next, so you don't need to remember it all.",
   "steps": [

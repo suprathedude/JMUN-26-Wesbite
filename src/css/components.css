@@ -1630,6 +1630,18 @@ html.is-locked {
   vector-effect: non-scaling-stroke;
 }
 
+/* Softened, on committee pages */
+.gilt-cuts--soft {
+  filter: blur(1.5px);
+  opacity: 0.85;
+}
+
+/* The committee page body, so its lines run the full width */
+.c-page {
+  position: relative;
+  overflow: clip;
+}
+
 /* One corner, top right, its lines fading out to the left and downwards */
 .gilt-frame--corner {
   top: 72px;

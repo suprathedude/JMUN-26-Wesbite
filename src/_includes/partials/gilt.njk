@@ -8,11 +8,19 @@
 <span class="gilt-frame gilt-frame--{{ kind }} {{ class }}" aria-hidden="true"></span>
 {%- endmacro -%}
 
-{#- Two straight gold lines cutting across a section's top corners: from a little under
-    halfway down the left edge to a quarter of the way along the top, and from near the right
-    of the top down to the right edge. Drawn in the section's own proportions. -#}
-{%- macro cuts(class="") -%}
-<svg class="gilt-cuts {{ class }}" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 45L25 0M84 0L100 80"/></svg>
+{#- Two straight gold lines cutting across a section's corners, drawn in the section's own
+    proportions (0 to 100 each way). Each place has its own pair, so they read as one frame
+    running through the site rather than a repeated sticker. "banner" is the closing banner's
+    (from your drawing, 7 October); "soft" in class blurs them a little (committee pages). -#}
+{%- macro cuts(kind="banner", class="") -%}
+{%- set paths = {
+  "banner": "M0 45L25 0M84 0L100 80",
+  "letter": "M0 30L16 0M100 64L74 100",
+  "schedule": "M0 90L30 100M86 0L100 9",
+  "faq": "M0 60L22 0M100 24L88 100",
+  "committee": "M0 18L24 0M100 72L70 100"
+} -%}
+<svg class="gilt-cuts {{ class }}" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="{{ paths[kind] }}"/></svg>
 {%- endmacro -%}
 
 {#- A laurel branch, drawn upwards. Its colour is the element's color (currentColor). -#}

@@ -141,6 +141,7 @@ pageJs: [gallery, hero-video, countdown, marquee, stats, schedule, ring, faq]
 {%- set sg = site.sgLetter %}
 <section class="section letter" aria-labelledby="letter-title">
   <div class="orb letter__orb" aria-hidden="true"></div>
+  {{ cuts("letter") }}
   <div class="container letter__grid">
     <div class="letter__photo" data-reveal="art">
       {%- if sg.photo %}
@@ -173,6 +174,7 @@ pageJs: [gallery, hero-video, countdown, marquee, stats, schedule, ring, faq]
     left that fills as you scroll. Without the script both days show, one under the other.
     "Share timetable" draws both days into one image from the rows below. -#}
 <section class="section schedule" id="schedule" aria-labelledby="schedule-title" data-schedule data-share-title="{{ site.name }} {{ site.year }}" data-share-dates="{{ site.start | eventDates(site.end) }} · {{ site.venueShort }}" data-share-url="{{ site.url | replace('https://', '') }}">
+  {{ cuts("schedule") }}
   <div class="container">
     <div class="schedule__head">
       <div>
@@ -287,6 +289,7 @@ pageJs: [gallery, hero-video, countdown, marquee, stats, schedule, ring, faq]
 
 {#- 10. FAQ (reference/09) -#}
 <section class="section faq" id="faq" aria-labelledby="faq-title">
+  {{ cuts("faq") }}
   <div class="container faq__inner">
     <h2 class="t-page" id="faq-title" data-reveal="mask">FAQ</h2>
     <p class="faq__intro" data-reveal>{{ site.home.faqIntro }}</p>

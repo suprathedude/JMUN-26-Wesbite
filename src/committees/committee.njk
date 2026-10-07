@@ -12,7 +12,7 @@ eleventyComputed:
   title: "{{ committee.code }}"
   description: "{{ committee.name }} at {{ site.name }} {{ site.year }}: {{ 'style guides and team.' if committee.press else 'agenda, background guide and executive board.' }}"
 ---
-{%- from "partials/gilt.njk" import frame, laurel, mark -%}
+{%- from "partials/gilt.njk" import frame, laurel, mark, cuts -%}
 {%- set c = committee -%}
 {#- The press committee (IP, "press": true) has no agenda or EB: its style guides and its
     team (committees.json → team) take their place (6 October). -#}
@@ -40,6 +40,9 @@ eleventyComputed:
 </section>
 {%- endif %}
 
+{#- Gold lines across the page behind the body, softened a little -#}
+<div class="c-page">
+{{ cuts("committee", "gilt-cuts--soft") }}
 <div class="container c-body">
   <section class="c-overview" aria-labelledby="overview-title">
     <h2 class="t-section" id="overview-title" data-reveal="mask">{{ c.code }} overview</h2>
@@ -135,4 +138,5 @@ eleventyComputed:
   </section>
   {%- endif %}
 
+</div>
 </div>

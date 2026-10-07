@@ -31,17 +31,21 @@
       reveal.js never ran by then, the entrances are switched off so nothing stays hidden.
       On the homepage it decides whether the gallery intro plays (gallery.js): not with reduced
       motion; later visits in the session, and addresses with a #section, start at the hero
-      (gallery-skip). If gallery.js never ran, the gallery is switched off the same way. -#}
+      (gallery-skip). If gallery.js never ran, the gallery is switched off the same way.
+      Social Night's glyph portal (social-night.js) works the same way: html.portal-on unless
+      motion is reduced, switched off if the script never ran. -#}
   <script>(function(d){d.classList.add("js","is-loading");
   if(!matchMedia("(prefers-reduced-motion: reduce)").matches)d.classList.add("reveal-on");
   var slow=setTimeout(function(){d.classList.add("is-slow")},600),over=false;
   function done(){if(over)return;over=true;clearTimeout(slow);var was=d.classList.contains("is-slow");d.classList.remove("is-slow");
   if(!d.classList.contains("reveal-ready"))d.classList.remove("reveal-on");
   if(!d.classList.contains("gallery-ready"))d.classList.remove("gallery-on","gallery-skip","gallery-active");
+  if(!d.classList.contains("portal-ready"))d.classList.remove("portal-on");
   setTimeout(function(){d.classList.remove("is-loading");dispatchEvent(new Event("loader:done"))},was?450:0)}
   addEventListener("load",done);setTimeout(done,12000);
   try{
   {%- if gallery %}if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("gallery-on");if(location.hash||sessionStorage.getItem("oakjmun-gallery"))d.classList.add("gallery-skip");else d.classList.add("gallery-active")}{% endif -%}
+  {%- if portal %}if(!matchMedia("(prefers-reduced-motion: reduce)").matches&&"IntersectionObserver" in window)d.classList.add("portal-on");{% endif -%}
   {%- if site.announcement.enabled %}if(sessionStorage.getItem("oakjmun-strip")==="{{ site.announcement.text | hash }}")d.classList.add("strip-off");{% endif -%}
   }catch(e){}})(document.documentElement)</script>
   <script type="importmap">{"imports":{"lenis":"/js/vendor/lenis.js"}}</script>

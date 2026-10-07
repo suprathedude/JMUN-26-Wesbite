@@ -98,6 +98,7 @@ Final as of 3 October: both days, with times.
 | `expect` | Ends "Programme TBC." | The programme, briefly |
 | `photoBooth`, `photoBoothImage` | `""`, so the photo booth section is hidden | A sentence about the booth and a photo of it, if it's confirmed |
 | `faq` | "Do I have to wear a costume?" is "Costume rules TBC." | The costume rules |
+| The moon (`src/assets/img/social/moon.webp`) | Drawn by `scripts/make-moon.mjs`, not a photo | Optional: a photo of the full moon you have the rights to, square, cropped to the disc, transparent or black round it, same file name |
 
 ### `newToMun.json`
 

@@ -4,93 +4,71 @@
 
 /* ---------- Hero ---------- */
 
+/* Without the glyph portal (no JavaScript, reduced motion) this is the whole hero: the night
+   sky with the moon, and the title block. With it, social-night.js moves these parts into the
+   portal and the section steps aside (see "Glyph portal" below). */
 .sn-hero {
   position: relative;
   overflow: clip;
-  padding: calc(var(--section-pad) + 32px) 0 104px;
-  background: var(--grad-sky);
-}
-
-.sn-hero__grid {
-  position: relative;
-  z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   align-items: center;
-  gap: 64px;
+  min-height: clamp(560px, 92svh, 880px);
+  padding: calc(var(--section-pad) + 32px) 0 104px;
 }
 
-.sn-hero__art {
-  position: relative;
-  order: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Where the moon sits, as a share of the sky; its glow follows it */
+.sn-scene {
+  --moon-x: 74%;
+  --moon-y: 46%;
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+  background:
+    radial-gradient(circle at var(--moon-x) var(--moon-y), rgb(var(--sn-gold-rgb) / 0.2), transparent 24%),
+    radial-gradient(circle at var(--moon-x) var(--moon-y), rgb(var(--teal-light-rgb) / 0.14), transparent 48%),
+    radial-gradient(130% 45% at 50% 108%, rgb(var(--sn-amber-rgb) / 0.42), transparent 70%),
+    linear-gradient(180deg, var(--blue-500) 0%, var(--blue-650) 38%, var(--blue-800) 78%, var(--sn-brown-3) 100%);
 }
 
-/* The moon: warm white, a soft gold glow and faint craters */
-.moon-lg {
-  position: relative;
-  width: clamp(260px, 28vw, 400px);
+/* The moon: a rendered image (scripts/make-moon.mjs) with a soft gold glow, warmer at the
+   edge that faces away from the light */
+.sn-moon {
+  position: absolute;
+  top: var(--moon-y);
+  left: var(--moon-x);
+  width: clamp(280px, 30vw, 460px);
+  overflow: hidden;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: var(--ink);
+  transform: translate(-50%, -50%);
   box-shadow:
-    inset -22px -18px 48px rgb(var(--sn-amber-rgb) / 0.16),
-    0 0 60px rgb(var(--sn-gold-rgb) / 0.32),
-    0 0 160px rgb(var(--sn-gold-rgb) / 0.16),
-    0 0 320px rgb(var(--sn-glow-rgb) / 0.08);
+    0 0 50px rgb(var(--sn-gold-rgb) / 0.32),
+    0 0 140px rgb(var(--sn-gold-rgb) / 0.16),
+    0 0 300px rgb(var(--sn-glow-rgb) / 0.08);
 }
 
-/* Moonlight on the sky around the moon, so the bats read as silhouettes against it. It sits
-   behind the moon and the text, and fades out well before the hero's edge. */
-.moon-lg::before {
+.sn-moon picture,
+.sn-moon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.sn-moon::after {
   content: "";
   position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: -1;
-  width: 190%;
-  aspect-ratio: 1;
+  inset: 0;
   border-radius: 50%;
-  background: radial-gradient(closest-side, rgb(var(--orb-navy-rgb) / 0.75) 0%, rgb(var(--orb-navy-rgb) / 0.3) 40%, transparent 85%);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
+  box-shadow: inset -18px -14px 44px rgb(var(--sn-amber-rgb) / 0.2);
 }
 
-.moon-lg__crater {
-  position: absolute;
-  border-radius: 50%;
-  background: rgb(var(--sn-amber-rgb) / 0.1);
-  box-shadow: inset 2px 3px 6px rgb(var(--sn-amber-rgb) / 0.12);
+.sn-hero__text {
+  position: relative;
+  z-index: 3;
 }
 
-.moon-lg__crater--1 {
-  top: 22%;
-  left: 26%;
-  width: 18%;
-  height: 18%;
-}
-
-.moon-lg__crater--2 {
-  top: 52%;
-  left: 58%;
-  width: 13%;
-  height: 13%;
-}
-
-.moon-lg__crater--3 {
-  top: 64%;
-  left: 30%;
-  width: 9%;
-  height: 9%;
-}
-
-.moon-lg__crater--4 {
-  top: 30%;
-  left: 64%;
-  width: 7%;
-  height: 7%;
+.sn-hero__text > * {
+  max-width: 600px;
 }
 
 .sn-hero__title {
@@ -99,6 +77,7 @@
   letter-spacing: -0.04em;
   line-height: 0.92;
   color: var(--sn-cream);
+  text-shadow: 0 2px 24px rgb(var(--shadow-rgb) / 0.35);
 }
 
 .sn-hero__title span {
@@ -131,6 +110,102 @@
   }
 }
 
+/* ---------- Glyph portal (PLAN.md F22) ---------- */
+
+/* Before the island arrives: a dark screen where the opening frame will be, not the hero. */
+.portal-on .sn-intro:not(.has-portal) .sn-hero {
+  min-height: 100svh;
+  background: var(--sn-brown-3);
+}
+
+.portal-on .sn-intro:not(.has-portal) .sn-hero > * {
+  visibility: hidden;
+}
+
+.has-portal .sn-hero {
+  display: none;
+}
+
+.sn-portal {
+  --gp-paper: var(--sn-brown-3);
+  --gp-ink: var(--ink);
+  --gp-field: var(--blue-800);
+  --gp-foreground: var(--ink);
+  font-family: var(--font-sans);
+}
+
+/* The sky behind the letters, drawing slightly closer as you go in. Its own layer, so moving
+   the letters' clip each frame doesn't repaint the sky, the moon's glow or the bats. */
+.sn-portal__scene {
+  position: absolute;
+  inset: 0;
+  transform: scale(var(--gp-field-scale, 1));
+  will-change: transform;
+}
+
+.sn-portal [data-gp-content] {
+  padding: 0;
+}
+
+.sn-portal__content {
+  padding-block: 112px 72px;
+}
+
+/* The opening frame: the edition above the word, the day below, and how to go on */
+.sn-front {
+  position: absolute;
+  inset: 0;
+  text-align: center;
+}
+
+.sn-front p {
+  position: absolute;
+  right: var(--gutter);
+  left: var(--gutter);
+}
+
+.sn-front__eyebrow {
+  bottom: calc(100% - var(--gp-word-top, 30%) + 28px);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--sn-amber);
+}
+
+.sn-front__meta {
+  top: calc(var(--gp-word-bottom, 60%) + 24px);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink-85);
+}
+
+.sn-front__hint {
+  bottom: 88px;
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+.sn-portal [data-gp-caption] {
+  inset: auto var(--gutter) 28px;
+  justify-content: center;
+  font: 600 0.85rem/1.4 var(--font-sans);
+  color: var(--ink-75);
+}
+
+.sn-portal [data-gp-enter] {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.sn-portal [data-gp-enter] > span,
+.sn-portal [data-gp-touch-picker] {
+  display: none;
+}
+
 /* ---------- Bats and embers (built by social-night.js) ---------- */
 
 /* In front of the moon: bats are closer than it is */
@@ -141,64 +216,50 @@
   pointer-events: none;
 }
 
+/* A bat is two wings and a body, drawn from below. social-night.js flies it (its transform)
+   and beats its wings (theirs), in 3D: the wings swing about the shoulders. Far bats are
+   paler (--haze). */
 .bat {
   position: absolute;
-  top: var(--top);
+  top: 0;
   left: 0;
-  animation: bat-fly var(--dur) linear var(--delay) infinite;
-}
-
-/* Every other bat crosses the other way */
-.bat--back {
-  animation-direction: reverse;
-}
-
-.bat__bob {
-  display: block;
-  animation: bat-bob var(--bob) ease-in-out infinite alternate;
-}
-
-.bat__wings {
-  display: block;
   width: var(--size);
-  animation: bat-flap var(--flap) ease-in-out infinite alternate;
+  height: calc(var(--size) * 0.4);
+  margin: calc(var(--size) * -0.2) 0 0 calc(var(--size) * -0.5);
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .bat svg {
   display: block;
   width: 100%;
-  height: auto;
-  fill: var(--blue-950);
+  height: 100%;
+  fill: color-mix(in srgb, var(--blue-950), var(--blue-650) var(--haze, 0%));
 }
 
-@keyframes bat-fly {
-  from {
-    transform: translateX(-12vw);
-  }
-
-  to {
-    transform: translateX(112vw);
-  }
+.bat__wing {
+  position: absolute;
+  top: 8%;
+  width: 50%;
+  height: 85%;
 }
 
-@keyframes bat-bob {
-  from {
-    transform: translateY(-22px);
-  }
-
-  to {
-    transform: translateY(22px);
-  }
+.bat__wing--left {
+  left: 0;
+  transform-origin: 100% 18%;
 }
 
-@keyframes bat-flap {
-  from {
-    transform: scaleY(1);
-  }
+.bat__wing--right {
+  left: 50%;
+  transform-origin: 0 18%;
+}
 
-  to {
-    transform: scaleY(0.6);
-  }
+.bat__body {
+  position: absolute;
+  top: 0;
+  left: 42%;
+  width: 16%;
+  height: 85%;
 }
 
 .ember {
@@ -400,7 +461,21 @@
 
 @media (max-width: 768px) {
   .sn-hero {
-    padding: calc(var(--section-pad) + 40px) 0 48px;
+    align-items: end;
+    min-height: max(600px, 100svh);
+    padding: calc(var(--section-pad) + 40px) 0 56px;
+  }
+
+  .sn-scene {
+    --moon-x: 50%;
+    --moon-y: 34%;
+  }
+
+  .sn-moon {
+    width: min(52vw, 220px);
+    box-shadow:
+      0 0 32px rgb(var(--sn-gold-rgb) / 0.32),
+      0 0 90px rgb(var(--sn-gold-rgb) / 0.16);
   }
 
   .sn-hero__meta {
@@ -412,26 +487,17 @@
     margin-top: 28px;
   }
 
-  .sn-hero__grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
+  /* In the portal the title block sits low, under the moon */
+  .sn-portal [data-gp-content] {
+    align-content: end;
   }
 
-  .sn-hero__art {
-    order: 0;
-    justify-content: flex-start;
+  .sn-portal__content {
+    padding-block: 0 56px;
   }
 
-  .moon-lg::before {
-    width: 420%;
-  }
-
-  .moon-lg {
-    width: 120px;
-    box-shadow:
-      inset -10px -8px 24px rgb(var(--sn-amber-rgb) / 0.16),
-      0 0 32px rgb(var(--sn-gold-rgb) / 0.32),
-      0 0 90px rgb(var(--sn-gold-rgb) / 0.16);
+  .sn-front__hint {
+    bottom: 80px;
   }
 
   .cobweb {

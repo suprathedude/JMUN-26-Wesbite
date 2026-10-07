@@ -153,9 +153,9 @@ export default function (eleventyConfig) {
   // Production builds start from a cleared _site (so old hashed files don't pile up) and
   // fingerprint CSS, JS and fonts afterwards so the server can cache them for a year
   // (src/.htaccess).
-  // The homepage's two React islands (6 October), the intro gallery (React + Three.js) and the
-  // committee ring: esbuild bundles each into /js/, and hashAssets then names them like the
-  // other scripts. Each bundle carries its own copy of React (no shared chunk: the scripts
+  // The React islands: the homepage's intro gallery (React + Three.js) and committee ring
+  // (6 October), and the Social Night glyph portal (7 October). esbuild bundles each into /js/,
+  // and hashAssets then names them like the other scripts. Each bundle carries its own copy of React (no shared chunk: the scripts
   // can't import each other by path once hashed).
   eleventyConfig.addWatchTarget("./src/islands/");
   eleventyConfig.addWatchTarget("./src/components/");
@@ -165,6 +165,7 @@ export default function (eleventyConfig) {
       entryPoints: {
         "js/hero-gallery": "src/islands/hero-gallery.tsx",
         "js/committee-ring": "src/islands/committee-ring.tsx",
+        "js/social-portal": "src/islands/social-portal.tsx",
       },
       outdir: directories.output,
       bundle: true,

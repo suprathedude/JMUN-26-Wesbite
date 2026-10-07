@@ -7,33 +7,41 @@ permalink: /social-night/
 pageCss: [social-night]
 pageJs: [social-night, faq]
 bodyClass: page-night
+portal: true
 ---
 {%- from "partials/faq.njk" import faqList -%}
 {%- from "partials/cobweb.njk" import cobweb -%}
 {%- set sn = socialNight -%}
 {%- set time = sn.time if (sn.time | isSet) else "Time TBC" -%}
 
-{#- Hero: reference/24's layout. OakMUN's globe becomes the moon; bats and embers are added
-    by social-night.js (none with reduced motion, fewer on phones, paused off-screen). -#}
-<section class="sn-hero" aria-labelledby="sn-title" data-night>
-  <div class="sn-sky" aria-hidden="true" data-sky></div>
-  {{ cobweb("cobweb--hero") }}
-  <div class="container sn-hero__grid">
-    <div class="sn-hero__art" aria-hidden="true" data-reveal="art">
-      <div class="moon-lg">
-        <span class="moon-lg__crater moon-lg__crater--1"></span>
-        <span class="moon-lg__crater moon-lg__crater--2"></span>
-        <span class="moon-lg__crater moon-lg__crater--3"></span>
-        <span class="moon-lg__crater moon-lg__crater--4"></span>
+{#- Hero: reference/24's layout. OakMUN's globe becomes the moon (a rendered image, see
+    scripts/make-moon.mjs); bats and embers are added by social-night.js (none with reduced
+    motion, fewer on phones, paused off-screen).
+    The glyph portal (PLAN.md F22): social-night.js moves the sky, the title block and the
+    opening lines (sn-front) into src/islands/social-portal.tsx, so you scroll into the night
+    through the letters of portalWord. Without it the hero shows as it is. -#}
+<div class="sn-intro" data-portal data-bundle="/js/social-portal.js" data-word="{{ sn.portalWord | join('|') }}" data-enter="Skip the intro">
+  <div data-portal-root></div>
+  <section class="sn-hero" aria-labelledby="sn-title">
+    <div class="sn-scene" aria-hidden="true" data-portal-scene>
+      <div class="sn-moon">
+        <img src="/assets/img/social/moon.webp" alt="" eleventy:widths="300,600,900" sizes="(max-width: 768px) 200px, 460px" loading="eager" decoding="async">
       </div>
+      <div class="sn-sky" data-sky></div>
     </div>
-    <div class="sn-hero__text">
-      <h1 class="sn-hero__title" id="sn-title" data-reveal="mask">Social Night <span>{{ sn.edition }}</span></h1>
-      <p class="sn-hero__meta" data-reveal>{{ sn.date }} · {{ sn.place }} · {{ time }}</p>
-      <div data-reveal><a class="btn sn-btn" href="/#schedule">See the schedule</a></div>
+    {{ cobweb("cobweb--hero") }}
+    <div class="container sn-hero__text" data-portal-content>
+      <h1 class="sn-hero__title" id="sn-title">Social Night <span>{{ sn.edition }}</span></h1>
+      <p class="sn-hero__meta">{{ sn.date }} · {{ sn.place }} · {{ time }}</p>
+      <div><a class="btn sn-btn" href="/#schedule">See the schedule</a></div>
     </div>
+  </section>
+  <div class="sn-front" data-portal-front hidden>
+    <p class="sn-front__eyebrow">{{ sn.edition }}</p>
+    <p class="sn-front__meta">{{ sn.day }}, {{ sn.date }}</p>
+    <p class="sn-front__hint">Scroll to go in</p>
   </div>
-</section>
+</div>
 
 <section class="sn-info" aria-label="Details">
   <div class="container sn-info__grid" data-reveal>

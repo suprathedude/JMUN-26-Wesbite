@@ -133,10 +133,9 @@ export default function (eleventyConfig) {
   // "VT" for "Vihaan T."; "TBC" for a name that's still TBC (PLAN.md 5.2, S7).
   eleventyConfig.addFilter("initials", (name) => {
     if (/TBC/.test(name ?? "")) return "TBC";
-    return String(name ?? "")
-      .split(/\s+/)
-      .filter(Boolean)
-      .slice(0, 2)
+    // First and last names, so "Yuvan T. Govindharaj" is YG, not YT.
+    const words = String(name ?? "").split(/\s+/).filter(Boolean);
+    return (words.length > 1 ? [words[0], words[words.length - 1]] : words)
       .map((word) => word[0].toUpperCase())
       .join("");
   });

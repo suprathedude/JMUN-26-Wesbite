@@ -9,10 +9,10 @@
 //   card on every frame. It only animates while on screen.
 // - It holds still under the pointer, so cards are easy to click, and keyboard focus turns the
 //   focused card to the front. With reduced motion it doesn't turn by itself or with scrolling.
-// - The mouse wheel over the ring turns it instead of scrolling the page, until it has gone
-//   once all the way round in that direction; then the wheel scrolls the page again. Sliding
-//   sideways (a finger, or dragging with the mouse) turns it too, with a little momentum;
-//   up-and-down swipes still scroll the page, and a drag never opens a card.
+// - Sideways scrolling turns it, the way a sideways list would move: a two-finger swipe on a
+//   trackpad (or Shift and the mouse wheel), a finger on a phone, or dragging with the mouse,
+//   with a little momentum. Up-and-down scrolling and swipes always scroll the page, and a
+//   drag never opens a card.
 // - Cards can link somewhere (`href`). Their size follows `cardWidth` and `cardHeight`, and the
 //   perspective follows the radius, in the original's proportions.
 // - Plain classes (circular-gallery__*, styled in home.css) replace the Tailwind ones: the site
@@ -46,8 +46,6 @@ interface CircularGalleryProps extends HTMLAttributes<HTMLDivElement> {
 	autoRotateSpeed?: number;
 	/** Degrees the ring turns per pixel of page scroll while it's on screen. */
 	scrollFactor?: number;
-	/** Degrees the ring turns per pixel of mouse wheel over it. */
-	wheelFactor?: number;
 	cardWidth?: number;
 	cardHeight?: number;
 }
@@ -60,7 +58,6 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
 			radius = 600,
 			autoRotateSpeed = 0.02,
 			scrollFactor = 0.15,
-			wheelFactor = 0.3,
 			cardWidth = 300,
 			cardHeight = 400,
 			style,
@@ -94,15 +91,12 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
 			let scrollingUntil = 0;
 			let lastY = window.scrollY;
 			let spin = 0; // momentum after a slide, degrees per ms
-			// The wheel: how far it has turned the ring in its current direction since the pointer
-			// came over it. A full turn hands the wheel back to the page.
-			let wheelDir = 0;
-			let wheelTurned = 0;
 			// A slide in progress: pointer id, last x and time, how far it moved, and whether it
 			// has become a drag (then the pointer is captured and the click that follows is eaten).
 			let drag: { id: number; x: number; t: number; moved: number; dragging: boolean; velocity: number } | null = null;
 			let eatClickUntil = 0; // a drag's closing click, if one comes, arrives before this
-			const dragFactor = anglePerItem / Math.max(cardWidth, 1); // one card's width turns one card
+			// Sliding or scrolling sideways by one card's width turns the ring by one card.
+			const dragFactor = anglePerItem / Math.max(cardWidth, 1);
 
 			// Turn the ring, and fade each card by how far it is from the front.
 			const draw = () => {
@@ -168,29 +162,21 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
 			};
 			window.addEventListener('scroll', onScroll, { passive: true });
 
-			// The mouse wheel over the ring turns it, until it has been all the way round.
+			// Sideways scrolling over the ring turns it; up and down is left to the page. Taking
+			// the sideways scroll also stops a swipe from going back a page in the browser.
 			const onWheel = (event: WheelEvent) => {
 				if (event.ctrlKey) return; // pinch zoom
-				let delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+				if (Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return;
+				let delta = event.deltaX;
 				if (event.deltaMode === 1) delta *= 16;
-				else if (event.deltaMode === 2) delta *= window.innerHeight;
-				const dir = Math.sign(delta);
-				if (!dir) return;
-				if (dir !== wheelDir) {
-					wheelDir = dir;
-					wheelTurned = 0;
-				}
-				if (wheelTurned >= 360) return; // seen them all: the page scrolls on
-				// Only once the ring is (nearly) all on screen: until then the wheel brings it into view.
-				const rect = root.getBoundingClientRect();
-				const slack = rect.height * 0.2;
-				if (rect.top < -slack || rect.bottom > window.innerHeight + slack) return;
+				else if (event.deltaMode === 2) delta *= window.innerWidth;
 				event.preventDefault();
-				event.stopPropagation(); // and the smooth-scroll script doesn't scroll either
-				const turn = delta * wheelFactor;
-				wheelTurned += Math.abs(turn);
+				event.stopPropagation(); // nor does the smooth-scroll script move the page a little
 				spin = 0;
-				target.current = (target.current ?? rotation.current) + turn;
+				target.current = null;
+				rotation.current -= delta * dragFactor;
+				scrollingUntil = performance.now() + 400;
+				draw();
 				start();
 			};
 			root.addEventListener('wheel', onWheel, { passive: false });
@@ -254,8 +240,6 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
 			};
 			const onLeave = () => {
 				held = root.contains(document.activeElement);
-				wheelDir = 0;
-				wheelTurned = 0;
 				start();
 			};
 			// Keyboard focus turns the focused card to the front, the short way round.
@@ -301,7 +285,7 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
 				root.removeEventListener('focusin', onFocusIn);
 				root.removeEventListener('focusout', onFocusOut);
 			};
-		}, [anglePerItem, autoRotateSpeed, scrollFactor, wheelFactor, cardWidth]);
+		}, [anglePerItem, autoRotateSpeed, scrollFactor, cardWidth]);
 
 		return (
 			<div

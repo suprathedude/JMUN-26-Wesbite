@@ -36,8 +36,9 @@ function Ring({ root, items }: { root: HTMLElement; items: GalleryItem[] }) {
 			autoRotateSpeed={0.1}
 			scrollFactor={0.12}
 			aria-label="Committees"
-			// Room for the front card, which the perspective draws about 1.4 times larger.
-			style={{ height: Math.round(cardHeight * 1.6) }}
+			// Room for the front card, which the perspective draws about 1.4 times larger. Only as
+			// wide as the ring itself, so the page either side of it is just page.
+			style={{ height: Math.round(cardHeight * 1.6), width: `min(100%, ${Math.round(radius * 2 + cardWidth)}px)`, marginInline: 'auto' }}
 		/>
 	);
 }

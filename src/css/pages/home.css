@@ -9,7 +9,7 @@
 }
 
 .gallery-on .gallery-track {
-  height: calc(max(640px, 100svh) + var(--gallery-screens, 2.5) * 100svh);
+  height: calc(max(640px, 100svh) + var(--gallery-screens, 1.9) * 100svh);
 }
 
 .gallery-on .gallery-stage {
@@ -1360,11 +1360,11 @@
   color: var(--ink-75);
 }
 
+/* The two cards share the width half and half */
 .debate__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
-  max-width: 920px;
+  gap: 24px;
   margin-top: 48px;
 }
 

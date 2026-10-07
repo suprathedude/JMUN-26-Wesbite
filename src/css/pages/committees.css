@@ -615,3 +615,45 @@
     padding: 20px 18px;
   }
 }
+
+/* ---------- Opening a committee (PLAN.md F26) ---------- */
+
+/* The committee's tile grows into its page's header, and back again when you return; the
+   other tiles fade away. Both carry the same view-transition-name (committee-<slug>, set in
+   the templates); Doomsday has none, as it's getting an animation of its own. The default
+   crossfade covers browsers without view transitions classes, and reduced motion turns page
+   transitions off altogether (base.css). */
+.tile__visual,
+.c-hero {
+  view-transition-class: committee;
+}
+
+::view-transition-group(*.committee) {
+  animation-duration: 0.7s;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* The photo fills the box all the way through, whatever its shape, instead of stretching */
+::view-transition-old(*.committee),
+::view-transition-new(*.committee) {
+  height: 100%;
+  object-fit: cover;
+  animation-duration: 0.5s;
+  animation-timing-function: var(--ease-standard);
+}
+
+/* The tile's own picture gives way to the header's quickly; the header settles in after */
+::view-transition-new(*.committee) {
+  animation-delay: 0.12s;
+}
+
+/* Tiles that aren't opening just fade away */
+::view-transition-old(*.committee):only-child {
+  animation-duration: 0.22s;
+  animation-delay: 0s;
+}
+
+::view-transition-new(*.committee):only-child {
+  animation-duration: 0.35s;
+  animation-delay: 0.15s;
+}

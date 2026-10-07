@@ -31,7 +31,7 @@ pageJs: [filters]
 
   <p class="visually-hidden" role="status" aria-live="polite" data-count></p>
 
-  <div class="tiles" data-reveal>
+  <div class="tiles">
     {%- for c in committees %}
     {%- set eager = loop.index <= 4 %}
     {% include "partials/committee-tile.njk" %}

@@ -1583,11 +1583,56 @@ html.is-locked {
   pointer-events: none;
 }
 
-/* A whole tilted rectangle, like the poster's */
+/* A whole tilted rectangle, like the poster's, with its lines running a little past each
+   other at the corners. Its top and bottom leave room for the tilt (--tilt: half the frame's
+   width times tan 5 degrees, plus a little), so no corner is cut off by the edge of the
+   section, and the top clears the nav. */
 .gilt-frame--full {
-  inset: 9% 5% 11% 4%;
-  border: 1px solid rgb(var(--gilt-rgb) / 0.45);
+  --tilt: 4.4vw;
+  top: calc(var(--tilt) + 96px);
+  right: 6%;
+  bottom: calc(var(--tilt) + 28px);
+  left: 6%;
   transform: rotate(-5deg);
+}
+
+.gilt-frame--full::before,
+.gilt-frame--full::after {
+  content: "";
+  position: absolute;
+}
+
+.gilt-frame--full::before {
+  inset: 0 -28px;
+  border-block: 1px solid rgb(var(--gilt-rgb) / 0.45);
+}
+
+.gilt-frame--full::after {
+  inset: -28px 0;
+  border-inline: 1px solid rgb(var(--gilt-rgb) / 0.45);
+}
+
+/* Two plain lines, above and below, fading out at both ends */
+.gilt-frame--lines {
+  inset: 22% 10%;
+}
+
+.gilt-frame--lines::before,
+.gilt-frame--lines::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(var(--gilt-rgb) / 0.7) 30%, rgb(var(--gilt-rgb) / 0.7) 70%, transparent);
+}
+
+.gilt-frame--lines::before {
+  top: 0;
+}
+
+.gilt-frame--lines::after {
+  bottom: 0;
 }
 
 /* One corner, top right, its lines fading out to the left and downwards */

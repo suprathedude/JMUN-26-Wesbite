@@ -658,6 +658,17 @@
   color: transparent;
 }
 
+/* Delegates and Chapter in the poster's gold (PLAN.md F26) */
+.stat--gold::before {
+  background: radial-gradient(circle, rgb(var(--gilt-rgb) / 0.16) 0%, transparent 70%);
+}
+
+.stat--gold .stat__num {
+  background: var(--grad-number-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
 .stat__label {
   position: relative;
   font-size: var(--fs-label);
@@ -1418,44 +1429,52 @@
 
 .moon {
   position: absolute;
-  top: 28px;
-  right: 28px;
-  width: 52px;
-  height: 52px;
+  top: -104px;
+  right: -104px;
+  width: 260px;
+  aspect-ratio: 1;
+  overflow: hidden;
   border-radius: 50%;
-  background: var(--ink);
   box-shadow:
-    0 0 22px rgb(var(--sn-gold-rgb) / 0.35),
-    0 0 60px rgb(var(--sn-gold-rgb) / 0.15);
+    0 0 40px rgb(var(--sn-gold-rgb) / 0.32),
+    0 0 120px rgb(var(--sn-gold-rgb) / 0.16);
+  pointer-events: none;
 }
 
-/* Faint craters */
-.moon::before,
+.moon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Warmer on the side away from the light, like the Social Night page's moon */
 .moon::after {
   content: "";
   position: absolute;
+  inset: 0;
   border-radius: 50%;
-  background: rgb(var(--sn-amber-rgb) / 0.14);
+  box-shadow: inset -18px -14px 44px rgb(var(--sn-amber-rgb) / 0.22);
 }
 
-.moon::before {
-  top: 12px;
-  left: 14px;
-  width: 12px;
-  height: 12px;
-}
-
-.moon::after {
-  right: 11px;
-  bottom: 13px;
-  width: 8px;
-  height: 8px;
+/* The date keeps clear of the moon */
+.card--night .card__tag {
+  max-width: calc(100% - 130px);
 }
 
 @media (max-width: 768px) {
   .debate__grid {
     grid-template-columns: 1fr;
     gap: 14px;
+  }
+
+  .moon {
+    top: -64px;
+    right: -64px;
+    width: 160px;
+  }
+
+  .card--night .card__tag {
+    max-width: calc(100% - 84px);
   }
 }
 

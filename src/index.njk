@@ -113,13 +113,13 @@ pageJs: [gallery, hero-video, countdown, marquee, stats, schedule, ring, faq]
   <div class="container">
     <ul class="stats__grid" role="list" data-reveal>
       {%- for stat in [
-        { label: "Delegates", value: site.stats.delegates },
+        { label: "Delegates", value: site.stats.delegates, gold: true },
         { label: "Committees", value: committees | length },
         { label: "Days", value: site.stats.days },
-        { label: "Chapter", value: site.stats.chapter }
+        { label: "Chapter", value: site.stats.chapter, gold: true }
       ] %}
       {%- set parts = stat.value | countParts %}
-      <li class="stat">
+      <li class="stat{% if stat.gold %} stat--gold{% endif %}">
         <span class="stat__num" aria-hidden="true"{% if parts %} data-count="{{ parts.num }}" data-suffix="{{ parts.suffix }}"{% endif %}>{{ stat.value }}</span>
         <span class="stat__label"><span class="visually-hidden">{{ stat.value }} </span>{{ stat.label }}</span>
       </li>
@@ -256,7 +256,8 @@ pageJs: [gallery, hero-video, countdown, marquee, stats, schedule, ring, faq]
     <p class="debate__text" data-reveal>{{ site.home.debateText }}</p>
     <div class="debate__grid" data-reveal>
       <article class="card card--night">
-        <span class="moon" aria-hidden="true"></span>
+        {#- The Social Night moon (scripts/make-moon.mjs), rising out of the top corner -#}
+        <span class="moon" aria-hidden="true"><img src="/assets/img/social/moon.webp" alt="" sizes="260px" eleventy:widths="300,600"></span>
         <span class="card__bar" aria-hidden="true"></span>
         <p class="card__tag">{{ socialNight.day }}, {{ socialNight.date }}</p>
         <h3 class="card__title">Social Night</h3>
@@ -287,7 +288,7 @@ pageJs: [gallery, hero-video, countdown, marquee, stats, schedule, ring, faq]
 {#- 11. Closing banner. Hidden only if the register link is removed entirely. -#}
 {%- if site.nav.register.url %}
 <section class="closing" aria-labelledby="closing-title">
-  {{ frame("corner") }}
+  {{ frame("lines") }}
   <div class="container closing__inner">
     <h2 class="closing__title" id="closing-title" data-reveal="mask">{{ site.home.closing | fill({ date: site.start | dayMonth }) }}</h2>
     {{ registerButton(site.nav.register, "", false) }}

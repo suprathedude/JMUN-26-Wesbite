@@ -21,9 +21,9 @@ eleventyComputed:
 {%- from "partials/guide-card.njk" import guideCard -%}
 
 {#- Hero card (reference/14) -#}
-<section class="c-hero" aria-labelledby="committee-title">
+<section class="c-hero" aria-labelledby="committee-title"{% if c.slug != "doomsday" %} style="view-transition-name: committee-{{ c.slug }}"{% endif %}>
   {%- if c.image %}
-  <img class="c-hero__img" data-reveal="art" src="/{{ c.image }}" alt=""{% if c.imagePosition %} style="object-position: {{ c.imagePosition }}"{% endif %} loading="eager" fetchpriority="high" sizes="100vw" eleventy:widths="800,1200,1600">
+  <img class="c-hero__img" src="/{{ c.image }}" alt=""{% if c.imagePosition %} style="object-position: {{ c.imagePosition }}"{% endif %} loading="eager" fetchpriority="high" sizes="100vw" eleventy:widths="800,1200,1600">
   {%- else %}
   <span class="c-hero__tbc">Photo TBC</span>
   {%- endif %}

@@ -2,7 +2,8 @@
     `eager` for the first row, whose photo is often the largest thing on screen. -#}
 {%- set len = c.code | length -%}
 <a class="tile" href="/committees/{{ c.slug }}/" data-item data-search="{{ (c.code ~ ' ' ~ c.name) | lower }}">
-  <span class="tile__visual">
+  {#- The photo grows into the committee page's header (PLAN.md F26); Doomsday gets its own. -#}
+  <span class="tile__visual"{% if c.slug != "doomsday" %} style="view-transition-name: committee-{{ c.slug }}"{% endif %}>
     {%- if c.image %}
     <img src="/{{ c.image }}" alt=""{% if c.imagePosition %} style="object-position: {{ c.imagePosition }}"{% endif %}{% if eager %} loading="eager"{% endif %} sizes="(max-width: 400px) 320px, (max-width: 768px) 50vw, 400px" eleventy:widths="400,800">
     {%- endif %}

@@ -32,6 +32,7 @@
   /* The 2026 poster's gold (7 October): thin lines, frame corners, small labels and card
      edges. Teal stays the highlight colour for buttons and links. */
   --gilt: #d6b25e;
+  --gilt-light: #f2dfa6;
   /* The poster's blue laurels */
   --laurel: #3482c4;
   --sand: #bc9a6e;
@@ -90,6 +91,7 @@
   --grad-hairline: linear-gradient(90deg, transparent, rgb(var(--gilt-rgb) / 0.45), transparent);
   --grad-bar: linear-gradient(90deg, var(--gilt), transparent);
   --grad-word: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 60%); /* highlighted theme word */
+  --grad-number-gold: linear-gradient(135deg, var(--gilt) 0%, var(--gilt-light) 55%, var(--gilt) 100%);
   --grad-night: linear-gradient(150deg, var(--sn-brown-1) 0%, var(--sn-brown-2) 50%, var(--sn-brown-3) 100%);
   --grad-sky: linear-gradient(180deg, var(--blue-900) 0%, var(--blue-900) 35%, var(--sn-brown-3) 100%); /* Social Night hero (SPEC 9.8) */
 

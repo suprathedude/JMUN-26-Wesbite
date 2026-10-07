@@ -2,8 +2,9 @@
     laurel branches. Decorative only (aria-hidden), styled in components.css ("Gold accents").
     The section they sit in needs position: relative and a clipped overflow. -#}
 
-{#- An angled frame of thin gold lines. "full" is a whole tilted rectangle, like the poster's;
-    "corner" is one corner with lines that fade out, for page headers. -#}
+{#- Thin gold lines. "full" is a whole tilted rectangle, like the poster's; "corner" is one
+    corner with lines that fade out, for page headers; "lines" is two plain lines, above and
+    below the content. -#}
 {%- macro frame(kind="corner", class="") -%}
 <span class="gilt-frame gilt-frame--{{ kind }} {{ class }}" aria-hidden="true"></span>
 {%- endmacro -%}

@@ -34,6 +34,14 @@ SPEC 7.4 allows generic UN-room photos and committee logo circles from `srijai-k
 | Hero background (PLAN.md D4) | `src/assets/img/hero/hero-placeholder.jpg` | `public/committee_photos/unsc.jpg` | The General Assembly hall, cropped, black and white, softened. Replace it with a photo or short video of the MPH or a committee room. **Photo:** upload it and set `hero.image` in `site.json`. **Video (20 s or less):** this needs a laptop. Save it as `src/assets/video/source/hero.mp4` and run `npm run media`, which makes `src/assets/video/hero.av1.webm`, `hero.h264.mp4` and a poster image. Commit those, then set `hero.video` to `assets/video/hero` and `hero.image` to `assets/img/hero-poster.jpg`. |
 | Research link list | `resources.json` → `researchLinks` | OakMUN's Resources page | Six public UN websites. Keep, change or add to them. |
 
+## Marvel footage on the Doomsday page
+
+The Doomsday committee page opens with the Marvel Studios intro, then a clip of Doctor Doom (PLAN.md F28). Both are Marvel's footage, taken (as you asked, 7 October) from Toshit Sai's fan project, github.com/ToshitSai/Avengers-DoomsDay-, which has no licence. They're used at the school's discretion; if Marvel, Disney or the project's author asks, take them down.
+
+| What | Where | To remove it |
+| --- | --- | --- |
+| The Marvel Studios intro, Doom's clip (wide and tall cuts) and their stills | `src/assets/video/doomsday/` | Delete `"cinematic"` from Doomsday in `committees.json`: the page goes back to the usual photo header. Then delete the folder. |
+
 ## Placeholder values, file by file
 
 ### `site.json`

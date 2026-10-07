@@ -19,8 +19,13 @@ eleventyComputed:
 {%- set agendas = (c.agenda if (c.agenda | dump)[0] == "[" else [c.agenda]) if c.agenda else [] -%}
 {%- from "partials/icons.njk" import icon -%}
 {%- from "partials/guide-card.njk" import guideCard -%}
+{%- from "partials/doomsday.njk" import ddOpening -%}
 
-{#- Hero card (reference/14) -#}
+{#- Hero card (reference/14). A committee with a "cinematic" opening (Doomsday) has that instead. -#}
+{%- if c.cinematic %}
+{{ ddOpening(c, site) }}
+<script type="module" src="/js/doomsday.js"></script>
+{%- else %}
 <section class="c-hero" aria-labelledby="committee-title"{% if c.slug != "doomsday" %} style="view-transition-name: committee-{{ c.slug }}"{% endif %}>
   {%- if c.image %}
   <img class="c-hero__img" src="/{{ c.image }}" alt=""{% if c.imagePosition %} style="object-position: {{ c.imagePosition }}"{% endif %} loading="eager" fetchpriority="high" sizes="100vw" eleventy:widths="800,1200,1600">
@@ -33,6 +38,7 @@ eleventyComputed:
   <h1 class="c-hero__code" id="committee-title" data-reveal="mask">{{ c.code }}</h1>
   <p class="c-hero__name" data-reveal>{{ c.name }}</p>
 </section>
+{%- endif %}
 
 <div class="container c-body">
   <section class="c-overview" aria-labelledby="overview-title">

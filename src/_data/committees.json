@@ -334,6 +334,9 @@
     "slug": "doomsday",
     "code": "Doomsday",
     "name": "Avengers: Doomsday",
+    "cinematic": {
+      "line": "Welcome to my lair."
+    },
     "agenda": "Agenda TBC",
     "overview": "Doomsday takes its story from Marvel's Avengers: Doomsday. Delegates face a threat to the whole world and have to decide, together, how to stop it. The full scenario is announced with the agenda.",
     "image": "assets/img/committees/doomsday.jpg",

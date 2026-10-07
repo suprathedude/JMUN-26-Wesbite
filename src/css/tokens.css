@@ -49,6 +49,11 @@
   --sn-cream: #fff0a0;
   --sn-pumpkin: #ff7a1a;
 
+  /* Doomsday's green (its committee page opening, PLAN.md F28) */
+  --doom: #3ee58a;
+  --doom-soft: #a6f7cb;
+  --doom-deep: #04170c;
+
   /* Channel triplets, so components can use rgb(var(--x-rgb) / alpha) instead of raw values */
   --ink-rgb: 250 245 237;
   --teal-rgb: 48 205 215;
@@ -68,6 +73,7 @@
   --sn-gold-rgb: 255 200 0;
   --sn-amber-rgb: 232 120 10;
   --sn-glow-rgb: 255 180 0;
+  --doom-rgb: 62 229 138;
 
   /* Ink opacity steps */
   --ink-100: var(--ink);

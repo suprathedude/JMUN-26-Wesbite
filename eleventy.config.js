@@ -20,6 +20,8 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({
     [`${FONT_DIR}/montserrat-latin-wght-normal.woff2`]: "assets/fonts/montserrat-latin-wght-normal.woff2",
     [`${FONT_DIR}/montserrat-latin-wght-italic.woff2`]: "assets/fonts/montserrat-latin-wght-italic.woff2",
+    // Doomsday's titles only (committees.css); not downloaded on any other page.
+    "node_modules/@fontsource/anton/files/anton-latin-400-normal.woff2": "assets/fonts/anton-latin-400-normal.woff2",
   });
   // .htaccess for GoDaddy's Linux (Apache) hosting, web.config for its Windows hosting.
   eleventyConfig.addPassthroughCopy({ "src/.htaccess": ".htaccess", "src/web.config": "web.config" });
@@ -27,6 +29,8 @@ export default function (eleventyConfig) {
   // Background guides and other documents (PDFs keep their names; see src/.htaccess).
   eleventyConfig.addPassthroughCopy("src/assets/docs/**/*.pdf");
   eleventyConfig.addPassthroughCopy("src/assets/video/*.{webm,mp4}"); // npm run media's output, not the sources
+  // Doomsday's opening (PLAN.md F28): the Marvel Studios intro and Doom's clip, with stills.
+  eleventyConfig.addPassthroughCopy("src/assets/video/doomsday/*.{webm,mp4,jpg}");
 
   // Every <img> becomes a <picture> with avif and webp sizes (SPEC 5). Lazy by default; the
   // hero sets loading="eager" and fetchpriority="high" itself. Per image, eleventy:widths

@@ -1,0 +1,39 @@
+{#- Doomsday's opening (PLAN.md F28), in place of the usual committee header. The Marvel Studios
+    intro plays full-screen, then DOOMSDAY comes up; scrolling down, Doom's clip plays and his line
+    (committees.json → cinematic.line) types out over his last frame. The clips are Marvel's footage,
+    as cut by Toshit Sai for his Avengers: Doomsday fan project (docs/REPLACE_ME.md).
+    Played by src/js/doomsday.js. Without it, or with reduced motion, both scenes are stills: the
+    logo's last frame behind the title, and Doom's last frame with his line. -#}
+{%- macro ddOpening(c, site) -%}
+{%- from "partials/icons.njk" import icon -%}
+{%- set media = "/assets/video/doomsday/" -%}
+<section class="dd-opening" aria-labelledby="committee-title" data-dd-opening>
+  {#- Before the first paint: hide the title for the intro, unless motion is reduced. If
+      doomsday.js hasn't started within 4 s, the title comes back. -#}
+  <script>(function(el){if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;el.classList.add("is-intro");setTimeout(function(){if(!el.classList.contains("is-ready"))el.classList.remove("is-intro")},4000)})(document.currentScript.parentElement)</script>
+  <video class="dd-opening__video" muted playsinline preload="none" poster="{{ media }}marvel-poster.jpg" aria-hidden="true" data-dd-intro>
+    <source src="{{ media }}marvel-intro.mp4" type="video/mp4">
+    <source src="{{ media }}marvel-intro.webm" type="video/webm">
+  </video>
+  <a class="back-pill" href="/committees/">{{ icon("chevron-left") }}Back to committees</a>
+  <div class="dd-title">
+    <p class="dd-title__pre">{{ site.name }} presents</p>
+    <h1 class="dd-title__main" id="committee-title">{{ c.code }}</h1>
+    <p class="dd-title__name">{{ c.name }}</p>
+  </div>
+  <div class="dd-cue" aria-hidden="true">Scroll</div>
+  <button type="button" class="dd-skip" data-dd-skip>Skip</button>
+</section>
+
+<section class="dd-lair" aria-label="{{ c.cinematic.line }}" data-dd-lair>
+  <div class="dd-lair__stage">
+    <video class="dd-lair__video" muted playsinline preload="none" poster="{{ media }}doom-poster.jpg" aria-hidden="true" data-dd-doom>
+      <source src="{{ media }}doom.mp4" type="video/mp4">
+      <source src="{{ media }}doom.webm" type="video/webm">
+    </video>
+    <div class="dd-lair__shade" aria-hidden="true"></div>
+    <canvas class="dd-lair__motes" aria-hidden="true" data-dd-motes></canvas>
+    <p class="dd-line" data-dd-line>{{ c.cinematic.line }}</p>
+  </div>
+</section>
+{%- endmacro -%}

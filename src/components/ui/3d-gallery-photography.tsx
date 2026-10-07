@@ -272,7 +272,10 @@ function GalleryScene({
 	// aren't cut off at the sides.
 	const aspect = useThree((state) => state.size.width / Math.max(1, state.size.height));
 	const spread = Math.min(1, aspect / 1.4);
-	const size = 0.55 + 0.45 * spread; // and the pictures a little smaller
+	// The pictures are a little smaller there, and up to 1.3 times larger on wide screens
+	// (7 October: they read small on a laptop), growing from 1.1:1 to 1.6:1.
+	const wide = Math.min(1, Math.max(0, (aspect - 1.1) / 0.5));
+	const size = 0.55 + 0.45 * spread + 0.3 * wide;
 	const spatialPositions = useMemo(
 		() =>
 			Array.from({ length: visibleCount }, (_, i) => {

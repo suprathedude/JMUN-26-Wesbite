@@ -23,7 +23,7 @@ The few that matter most on day one:
 | ~~Crest~~ Done 4 October: the OakJMUN logo (`src/assets/img/crest.png`, `site.json` → `crest`) | Nav, footer, loading screen | Rebuilt 4 October from your SVG export (a 792 × 842 picture with a transparency mask inside), and served at 64, 128 and 192 px so it stays sharp on high-resolution screens. A true vector file (paths, not an embedded picture) would be sharper still. Was: the OakJMUN crest as an SVG. Put it in `src/assets/` and set `"crest"` in `site.json` to its path. |
 | Browser-tab icon: the OakJMUN logo on a navy square (4 October) | `src/assets/favicon.png` | A simplified version, if the tree is hard to see at 16 px |
 | "Photo TBC" tiles | Wherever a photo field is `""` | Real photos (see the tables below) |
-| Gallery photos (homepage intro) | `src/assets/img/gallery/*.webp`, listed in `site.json` → `gallery.images` | Colour versions of the committee photos plus the UNICEF photo, as stand-ins. Replace with photos from past JMUNs (see HOW_TO_UPDATE.md, "Change the gallery photos"). |
+| ~~Gallery photos (homepage intro)~~ Done 7 October | `src/assets/img/gallery/oakjmun-01.webp` to `-13.webp`, listed in `site.json` → `gallery.images` | 13 photos from past JMUNs (sent 7 October), 1200 px on the long side. Check the school's photo consent covers the students in them. Was: colour versions of the committee photos. |
 
 ## Borrowed from OakMUN
 
@@ -31,7 +31,7 @@ SPEC 7.4 allows generic UN-room photos and committee logo circles from `srijai-k
 
 | What | Our file | OakMUN source | Notes |
 | --- | --- | --- | --- |
-| Hero background (PLAN.md D4) | `src/assets/img/hero/hero-placeholder.jpg` | `public/committee_photos/unsc.jpg` | The General Assembly hall, cropped, black and white, softened. Replace it with a photo or short video of the MPH or a committee room. **Photo:** upload it and set `hero.image` in `site.json`. **Video (20 s or less):** this needs a laptop. Save it as `src/assets/video/source/hero.mp4` and run `npm run media`, which makes `src/assets/video/hero.av1.webm`, `hero.h264.mp4` and a poster image. Commit those, then set `hero.video` to `assets/video/hero` and `hero.image` to `assets/img/hero-poster.jpg`. |
+| ~~Hero background (PLAN.md D4)~~ Done 7 October: your 38 s montage (`src/assets/video/hero.av1.webm`, `hero.h264.mp4`), with the frame at 12.5 s (placards up) as `src/assets/img/hero-poster.jpg`, which phones show instead of the video | Was `src/assets/img/hero/hero-placeholder.jpg` | `public/committee_photos/unsc.jpg` | To change it again: **Photo:** upload it and set `hero.image` in `site.json`. **Video (40 s or less):** this needs a laptop. Save it as `src/assets/video/source/hero.mp4` and run `npm run media`, which makes `src/assets/video/hero.av1.webm`, `hero.h264.mp4` and a poster image. Commit those, then set `hero.video` to `assets/video/hero` and `hero.image` to `assets/img/hero-poster.jpg`. |
 | Research link list | `resources.json` → `researchLinks` | OakMUN's Resources page | Six public UN websites. Keep, change or add to them. |
 
 ## Marvel footage on the Doomsday page
@@ -51,7 +51,7 @@ The Doomsday committee page opens with the Marvel Studios intro, then a clip of 
 | `announcement.text` | "Registration is open", linking to the registration form (Microsoft Forms, 7 October; also `nav.register.url` and the FAQ's register answer in `faq.json`) | Change it as news comes out |
 | `nav.secondary.url` | `""` (button hidden) | The consent form link; the "Consent form" button appears once it's set |
 | `crest` | `""` | The crest's path (see "Placeholder assets") |
-| `hero.video` | `""` | Optional (see the hero row above) |
+| `hero.video` | `assets/video/hero` (7 October) | Done |
 | `theme` | On since 7 October: "Bridge the Divide, / Let the Truth Guide" (`lines`), Bridge and Guide in teal (`highlight`). The `caption` was drafted by Claude at your request | The Secretariat's own caption, if they want one |
 | `sgLetter` | One placeholder paragraph; `photo` and `signature` `""` | Vihaan's letter, photo and signature |
 | `sponsors` | `[]` | Sponsors, if any; the strip appears with the first one |

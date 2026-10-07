@@ -10,8 +10,8 @@
 //   - src/assets/img/logos/ is capped at 320 px (they show at 76 px)
 //
 // Video (ffmpeg), from src/assets/video/source/ (not committed) to src/assets/video/:
-//   <name>.av1.webm (AV1) and <name>.h264.mp4 (H.264, faststart), 720p, max 20 s, no audio,
-//   plus a poster frame at src/assets/img/<name>-poster.jpg.
+//   <name>.av1.webm (AV1) and <name>.h264.mp4 (H.264, faststart), 720p, max 40 s, no audio,
+//   plus a poster frame at src/assets/img/<name>-poster.jpg (not made larger than the video).
 import { readdir, stat, writeFile, mkdir } from "node:fs/promises";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
@@ -26,6 +26,9 @@ const MAX_WIDTH = 2400;
 const LOGO_WIDTH = 320;
 const MAX_BYTES = 500 * 1024;
 const VIDEO_LIMIT = 6 * 1024 * 1024;
+// Raised from 20 s on 7 October for the 38 s hero montage; the H.264 CRF went from 27 to 29 to
+// keep it under VIDEO_LIMIT (it plays at 22% opacity behind the hero, so the loss doesn't show).
+const VIDEO_SECONDS = "40";
 
 const kb = (bytes) => `${Math.round(bytes / 1024)} KB`;
 
@@ -100,20 +103,20 @@ async function encodeVideo(file) {
   const notes = [];
 
   if (!(await newer(av1, file))) {
-    await run("ffmpeg", ["-y", "-loglevel", "error", "-i", file, "-t", "20", "-an", "-vf", filters,
+    await run("ffmpeg", ["-y", "-loglevel", "error", "-i", file, "-t", VIDEO_SECONDS, "-an", "-vf", filters,
       "-c:v", "libsvtav1", "-crf", "40", "-preset", "6", "-pix_fmt", "yuv420p", av1]);
     notes.push(`${av1}: ${kb((await stat(av1)).size)}`);
   }
   if (!(await newer(h264, file))) {
-    await run("ffmpeg", ["-y", "-loglevel", "error", "-i", file, "-t", "20", "-an", "-vf", filters,
-      "-c:v", "libx264", "-crf", "27", "-preset", "slow", "-profile:v", "high", "-pix_fmt", "yuv420p",
+    await run("ffmpeg", ["-y", "-loglevel", "error", "-i", file, "-t", VIDEO_SECONDS, "-an", "-vf", filters,
+      "-c:v", "libx264", "-crf", "29", "-preset", "slow", "-profile:v", "high", "-pix_fmt", "yuv420p",
       "-movflags", "+faststart", h264]);
     notes.push(`${h264}: ${kb((await stat(h264)).size)}`);
   }
   if (!(await newer(poster, file))) {
     await mkdir(IMG_DIR, { recursive: true });
     await run("ffmpeg", ["-y", "-loglevel", "error", "-ss", "0.5", "-i", file, "-frames:v", "1",
-      "-vf", "scale=-2:1080", "-q:v", "3", poster]);
+      "-vf", "scale=-2:'min(1080,ih)'", "-q:v", "3", poster]);
     notes.push(`${poster}: poster frame`);
   }
   for (const out of [av1, h264]) {

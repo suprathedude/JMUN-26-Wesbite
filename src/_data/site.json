@@ -16,26 +16,26 @@
   "crest": "assets/img/crest.png",
   "description": "Oakridge Junior Model United Nations is a two-day conference for students in Grades 6 to 8, held at Oakridge International School, Gachibowli.",
   "hero": {
-    "image": "assets/img/hero/hero-placeholder.jpg",
-    "video": ""
+    "image": "assets/img/hero-poster.jpg",
+    "video": "assets/video/hero"
   },
   "gallery": {
     "screens": 1.9,
     "cue": "Scroll",
     "images": [
-      "assets/img/gallery/unsc.webp",
-      "assets/img/gallery/disec.webp",
-      "assets/img/gallery/unhrc.webp",
-      "assets/img/gallery/lok-sabha.webp",
-      "assets/img/gallery/who.webp",
-      "assets/img/gallery/unodc.webp",
-      "assets/img/gallery/uncsw.webp",
-      "assets/img/gallery/unicef.webp",
-      "assets/img/gallery/fcc.webp",
-      "assets/img/gallery/copuos.webp",
-      "assets/img/gallery/doomsday.webp",
-      "assets/img/gallery/ip.webp",
-      "assets/img/gallery/ip-photography.webp"
+      "assets/img/gallery/oakjmun-01.webp",
+      "assets/img/gallery/oakjmun-02.webp",
+      "assets/img/gallery/oakjmun-03.webp",
+      "assets/img/gallery/oakjmun-04.webp",
+      "assets/img/gallery/oakjmun-05.webp",
+      "assets/img/gallery/oakjmun-06.webp",
+      "assets/img/gallery/oakjmun-07.webp",
+      "assets/img/gallery/oakjmun-08.webp",
+      "assets/img/gallery/oakjmun-09.webp",
+      "assets/img/gallery/oakjmun-10.webp",
+      "assets/img/gallery/oakjmun-11.webp",
+      "assets/img/gallery/oakjmun-12.webp",
+      "assets/img/gallery/oakjmun-13.webp"
     ]
   },
   "announcement": {

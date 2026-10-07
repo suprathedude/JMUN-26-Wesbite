@@ -24,11 +24,12 @@ function Host({ root, images, startPaused }: { root: HTMLElement; images: Image[
 		return () => root.removeEventListener('gallery:pause', onPause);
 	}, [root]);
 
+	// One plane per photo, up to 15, so no photo is on screen twice at once (7 October).
 	return (
 		<InfiniteGallery
 			images={images}
 			speed={1.2}
-			visibleCount={15}
+			visibleCount={Math.min(15, images.length)}
 			fadeSettings={FADE}
 			blurSettings={BLUR}
 			className="gallery__three"

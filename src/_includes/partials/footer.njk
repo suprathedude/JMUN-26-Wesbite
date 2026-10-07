@@ -1,10 +1,12 @@
 {%- from "partials/icons.njk" import icon -%}
+{%- from "partials/gilt.njk" import mark -%}
 <footer class="footer">
   <div class="container footer__grid">
     <div class="footer__brand">
       <span class="footer__crest">{% include "partials/crest.njk" %}</span>
       <p class="footer__wordmark"><span>{{ site.wordmark[0] }}</span> <span class="t-teal">{{ site.wordmark[1] }}</span></p>
       <p class="footer__desc">{{ site.description }}</p>
+      {{ mark("footer__mark") }}
     </div>
 
     <div class="footer__divider" aria-hidden="true"></div>

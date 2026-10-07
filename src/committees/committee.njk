@@ -12,6 +12,7 @@ eleventyComputed:
   title: "{{ committee.code }}"
   description: "{{ committee.name }} at {{ site.name }} {{ site.year }}: {{ 'style guides and team.' if committee.press else 'agenda, background guide and executive board.' }}"
 ---
+{%- from "partials/gilt.njk" import frame, laurel, mark -%}
 {%- set c = committee -%}
 {#- The press committee (IP, "press": true) has no agenda or EB: its style guides and its
     team (committees.json → team) take their place (6 October). -#}
@@ -26,6 +27,7 @@ eleventyComputed:
   {%- else %}
   <span class="c-hero__tbc">Photo TBC</span>
   {%- endif %}
+  {{ frame("corner") }}
   <a class="back-pill" href="/committees/">{{ icon("chevron-left") }}Back to committees</a>
   <span class="c-hero__rule" aria-hidden="true"></span>
   <h1 class="c-hero__code" id="committee-title" data-reveal="mask">{{ c.code }}</h1>

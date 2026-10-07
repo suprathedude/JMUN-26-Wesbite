@@ -29,6 +29,11 @@
 
   /* Accents from OakMUN, used sparingly (sand on Resources, yellow and peach on New to MUN) */
   --gold: #e1aa28;
+  /* The 2026 poster's gold (7 October): thin lines, frame corners, small labels and card
+     edges. Teal stays the highlight colour for buttons and links. */
+  --gilt: #d6b25e;
+  /* The poster's blue laurels */
+  --laurel: #3482c4;
   --sand: #bc9a6e;
   --yellow: #ffcb00;
   --peach: #f0b4a0;
@@ -51,6 +56,7 @@
   --navy-rgb: 0 48 87;
   --sand-rgb: 188 154 110;
   --gold-rgb: 225 170 40;
+  --gilt-rgb: 214 178 94;
   --night-rgb: 1 3 8; /* nav pill and mobile sheet */
   --drop-rgb: 3 10 22; /* nav dropdown */
   --shadow-rgb: 0 0 0;
@@ -81,16 +87,16 @@
   );
   --grad-strip: linear-gradient(90deg, var(--teal-dark) 0%, var(--teal) 50%, var(--teal-dark) 100%);
   --grad-stat: linear-gradient(145deg, #0a2040 0%, #061628 60%, #030e1a 100%);
-  --grad-hairline: linear-gradient(90deg, transparent, rgb(var(--teal-rgb) / 0.3), transparent);
-  --grad-bar: linear-gradient(90deg, var(--teal), transparent);
+  --grad-hairline: linear-gradient(90deg, transparent, rgb(var(--gilt-rgb) / 0.45), transparent);
+  --grad-bar: linear-gradient(90deg, var(--gilt), transparent);
   --grad-word: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 60%); /* highlighted theme word */
   --grad-night: linear-gradient(150deg, var(--sn-brown-1) 0%, var(--sn-brown-2) 50%, var(--sn-brown-3) 100%);
   --grad-sky: linear-gradient(180deg, var(--blue-900) 0%, var(--blue-900) 35%, var(--sn-brown-3) 100%); /* Social Night hero (SPEC 9.8) */
 
   /* Borders */
   --border-glass: 1px solid rgb(var(--ink-rgb) / 0.07);
-  --border-card: 1px solid rgb(var(--teal-rgb) / 0.12);
-  --border-card-hover: 1px solid rgb(var(--teal-rgb) / 0.35);
+  --border-card: 1px solid rgb(var(--gilt-rgb) / 0.16);
+  --border-card-hover: 1px solid rgb(var(--gilt-rgb) / 0.42);
   --border-ghost: 1px solid rgb(var(--ink-rgb) / 0.14);
 
   /* Radii */

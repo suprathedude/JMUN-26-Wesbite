@@ -6,6 +6,7 @@ eleventyComputed:
 permalink: /allocations/
 pageCss: [allocations]
 ---
+{%- from "partials/gilt.njk" import frame, laurel, mark -%}
 {%- from "partials/icons.njk" import icon -%}
 {%- from "partials/buttons.njk" import shine -%}
 {%- set a = site.allocations -%}
@@ -14,6 +15,8 @@ pageCss: [allocations]
 <div class="alloc-page">
   <div class="orb alloc__orb alloc__orb--a" aria-hidden="true"></div>
   <div class="orb alloc__orb alloc__orb--b" aria-hidden="true"></div>
+  {{ frame("corner") }}
+  {{ laurel("laurel--head") }}
 
   <section class="alloc" aria-labelledby="alloc-title">
     <div class="container alloc__inner">

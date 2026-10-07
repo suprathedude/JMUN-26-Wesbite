@@ -40,8 +40,8 @@
   },
   "announcement": {
     "enabled": true,
-    "text": "Registration opens soon (TBC)",
-    "link": ""
+    "text": "Registration is open",
+    "link": "https://www.oakridge.in/gachibowli/events/oakridge-mun-xiv-2026/"
   },
   "nav": {
     "left": [
@@ -91,7 +91,7 @@
     },
     "register": {
       "label": "Register",
-      "url": "TBC"
+      "url": "https://www.oakridge.in/gachibowli/events/oakridge-mun-xiv-2026/"
     },
     "secondary": {
       "label": "Consent form",
@@ -99,7 +99,7 @@
     }
   },
   "contact": {
-    "email": "jmun@oakridge.in",
+    "email": "j.mun@oakridge.in",
     "instagram": "oakjmun"
   },
   "home": {
@@ -198,7 +198,7 @@
         "note": "for registrations received by TBC"
       }
     ],
-    "status": "Registration opens soon (TBC)",
+    "status": "Registration is open",
     "matrixUrl": "",
     "matrixText": "The full list of committees and countries, and which delegate has each one. (TBC)"
   },

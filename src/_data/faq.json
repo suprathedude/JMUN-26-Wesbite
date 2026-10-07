@@ -13,7 +13,11 @@
   },
   {
     "question": "How do I register?",
-    "answer": "Registration details TBC. The link will appear here and in the bar at the top of every page when registration opens."
+    "answer": "Registration is open on the Oakridge International School website. Use the link below, or the Register button at the top of every page.",
+    "link": {
+      "label": "Register on oakridge.in",
+      "url": "https://www.oakridge.in/gachibowli/events/oakridge-mun-xiv-2026/"
+    }
   },
   {
     "question": "How are committees and countries given out?",
@@ -41,10 +45,10 @@
   },
   {
     "question": "Who do I contact?",
-    "answer": "Email the Secretariat at jmun@oakridge.in, or message @oakjmun on Instagram.",
+    "answer": "Email the Secretariat at j.mun@oakridge.in, or message @oakjmun on Instagram.",
     "link": {
       "label": "Email the Secretariat",
-      "url": "mailto:jmun@oakridge.in"
+      "url": "mailto:j.mun@oakridge.in"
     }
   }
 ]

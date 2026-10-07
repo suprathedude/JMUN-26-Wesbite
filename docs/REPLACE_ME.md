@@ -12,7 +12,6 @@ The few that matter most on day one:
 
 | What | Where |
 | --- | --- |
-| The registration link (Register buttons don't link anywhere until it's set) | `site.json` → `nav.register.url` |
 | The consent form link (the "Consent form" button stays hidden until it's set) | `site.json` → `nav.secondary.url`, or the PDF in `resources.json` → `documents` |
 | The announcement bar | `site.json` → `announcement.text` |
 | The HTTPS switch, once oakridgejmun.in has its SSL certificate | `src/.htaccess` ([DEPLOY.md](DEPLOY.md), step 6) |
@@ -41,17 +40,16 @@ SPEC 7.4 allows generic UN-room photos and committee logo circles from `srijai-k
 
 | Field | Now | Needed |
 | --- | --- | --- |
-| `announcement.text` | "Registration opens soon (TBC)" | Kept for now; change it as news comes out |
-| `nav.register.url` | "TBC" | The registration link |
+| `announcement.text` | "Registration is open", linking to the registration page (7 October) | Change it as news comes out |
 | `nav.secondary.url` | `""` (button hidden) | The consent form link; the "Consent form" button appears once it's set |
 | `crest` | `""` | The crest's path (see "Placeholder assets") |
 | `hero.video` | `""` | Optional (see the hero row above) |
 | `theme` | `enabled: false`, words and caption "TBC" | The theme words, which one is highlighted, the caption, then `"enabled": true` |
 | `sgLetter` | One placeholder paragraph; `photo` and `signature` `""` | Vihaan's letter, photo and signature |
 | `sponsors` | `[]` | Sponsors, if any; the strip appears with the first one |
-| `allocations` | One round, "Date TBC (for registrations received by TBC)"; `status` "Registration opens soon (TBC)"; `matrixUrl` `""`, so the button reads "Opens with Round 1 (TBC)"; `intro` and `matrixText` end "TBC" | The real rounds (name, date, note each), the status, the matrix link, and the two texts without "TBC" |
+| `allocations` | One round, "Date TBC (for registrations received by TBC)"; `status` "Registration is open"; `matrixUrl` `""`, so the button reads "Opens with Round 1 (TBC)"; `intro` and `matrixText` end "TBC" | The real rounds (name, date, note each), the status, the matrix link, and the two texts without "TBC" |
 
-Done on 3 October: `url` (https://oakridgejmun.com; changed to https://oakridgejmun.in on 7 October, as the .com is taken), `contact.email` (jmun@oakridge.in), `contact.instagram` (oakjmun), `chapter` (XIV, confirmed), the conference times (7:45 am on 30 October to 7:30 pm on 31 October).
+Done on 3 October: `url` (https://oakridgejmun.com; changed to https://oakridgejmun.in on 7 October, as the .com is taken), `contact.email` (jmun@oakridge.in; changed to j.mun@oakridge.in on 7 October), `contact.instagram` (oakjmun), `chapter` (XIV, confirmed), the conference times (7:45 am on 30 October to 7:30 pm on 31 October).
 
 ### `committees.json` (12 committees)
 
@@ -80,7 +78,6 @@ Final as of 3 October: both days, with times.
 
 | Question | Now |
 | --- | --- |
-| How do I register? | "Registration details TBC..." |
 | What's the dress code? | "Western formals on Day one and traditional wear on Day two (TBC)." Remove "(TBC)" once confirmed. |
 
 ### `resources.json`

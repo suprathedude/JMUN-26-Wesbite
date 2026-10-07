@@ -928,7 +928,7 @@ html.is-locked {
   letter-spacing: var(--track-label);
   line-height: 1.4;
   text-transform: uppercase;
-  color: var(--teal);
+  color: var(--gilt);
 }
 
 .footer__links {
@@ -1044,7 +1044,7 @@ html.is-locked {
   height: 2px;
   margin-bottom: 8px;
   border-radius: 2px;
-  background: linear-gradient(to right, var(--teal), rgb(var(--teal-rgb) / 0.2));
+  background: linear-gradient(to right, var(--gilt), rgb(var(--gilt-rgb) / 0.2));
   transform: scaleX(0.636); /* 28 px at rest, 44 px on hover */
   transform-origin: left center;
   transition: transform 0.25s var(--ease-standard);
@@ -1055,7 +1055,7 @@ html.is-locked {
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--teal);
+  color: var(--gilt);
 }
 
 .card__title {
@@ -1565,4 +1565,151 @@ html.is-locked {
 
 .guide[hidden] {
   display: none;
+}
+
+/* ---------- Gold accents (PLAN.md F25) ---------- */
+
+/* From the 2026 poster: thin gold frame lines at an angle, and laurel branches (partials/
+   gilt.njk). They sit behind the section's content; the section isolates them and clips. */
+:has(> .gilt-frame),
+:has(> .laurel) {
+  isolation: isolate;
+}
+
+.gilt-frame,
+.laurel {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* A whole tilted rectangle, like the poster's */
+.gilt-frame--full {
+  inset: 9% 5% 11% 4%;
+  border: 1px solid rgb(var(--gilt-rgb) / 0.45);
+  transform: rotate(-5deg);
+}
+
+/* One corner, top right, its lines fading out to the left and downwards */
+.gilt-frame--corner {
+  top: 72px;
+  right: 3%;
+  width: min(560px, 46%);
+  height: min(420px, 78%);
+  transform: rotate(-5deg);
+  transform-origin: top right;
+}
+
+.gilt-frame--corner::before,
+.gilt-frame--corner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.gilt-frame--corner::before {
+  left: 0;
+  height: 1px;
+  background: linear-gradient(to left, rgb(var(--gilt-rgb) / 0.85), transparent);
+}
+
+.gilt-frame--corner::after {
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, rgb(var(--gilt-rgb) / 0.85), transparent);
+}
+
+/* Laurels: the poster's blue, faint */
+.laurel {
+  width: clamp(64px, 7vw, 120px);
+  height: auto;
+  aspect-ratio: 120 / 252;
+  color: var(--laurel);
+  opacity: 0.4;
+  fill: currentColor;
+}
+
+.laurel__stem {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+
+/* Top left, leaning in */
+.laurel--tl {
+  top: 14%;
+  left: 3%;
+  transform: rotate(22deg);
+}
+
+/* Bottom right, mirrored */
+.laurel--br {
+  right: 3%;
+  bottom: 10%;
+  transform: scaleX(-1) rotate(22deg);
+}
+
+/* In a page header, low on the right */
+.laurel--head {
+  right: 6%;
+  bottom: 8%;
+  transform: scaleX(-1) rotate(18deg);
+}
+
+/* The small gold mark: a sprig and two short lines, like the poster's corner */
+.gilt-mark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--gilt);
+}
+
+.gilt-mark .laurel--sprig {
+  position: static;
+  z-index: auto;
+  width: 12px;
+  opacity: 0.9;
+  color: var(--gilt);
+  transform: rotate(40deg);
+}
+
+.gilt-mark__lines {
+  display: grid;
+  gap: 6px;
+}
+
+.gilt-mark__lines::before,
+.gilt-mark__lines::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 1px;
+  background: rgb(var(--gilt-rgb) / 0.6);
+}
+
+.gilt-mark__lines::after {
+  width: 40px;
+}
+
+@media (max-width: 768px) {
+  .gilt-frame--corner {
+    top: 56px;
+    width: 52%;
+    height: 50%;
+  }
+
+  .laurel--head {
+    display: none;
+  }
+
+  .laurel--tl,
+  .laurel--br {
+    width: 56px;
+  }
+}
+
+.footer__mark {
+  margin-top: 24px;
 }

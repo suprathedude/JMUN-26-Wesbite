@@ -6,6 +6,7 @@ eleventyComputed:
 permalink: /resources/
 pageCss: [resources]
 ---
+{%- from "partials/gilt.njk" import frame, laurel, mark -%}
 {%- from "partials/icons.njk" import icon -%}
 {%- from "partials/guide-card.njk" import guideCard -%}
 
@@ -35,6 +36,8 @@ pageCss: [resources]
 <div class="orb res-page__orb res-page__orb--a" aria-hidden="true"></div>
 <div class="orb res-page__orb res-page__orb--b" aria-hidden="true"></div>
 <div class="orb res-page__orb res-page__orb--c" aria-hidden="true"></div>
+{{ frame("corner") }}
+{{ laurel("laurel--head") }}
 
 <header class="res-head">
   <div class="container res-head__inner">

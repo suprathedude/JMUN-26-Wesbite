@@ -1,0 +1,19 @@
+{#- Gold accents from the 2026 poster (7 October, PLAN.md F25): thin gold frame lines and
+    laurel branches. Decorative only (aria-hidden), styled in components.css ("Gold accents").
+    The section they sit in needs position: relative and a clipped overflow. -#}
+
+{#- An angled frame of thin gold lines. "full" is a whole tilted rectangle, like the poster's;
+    "corner" is one corner with lines that fade out, for page headers. -#}
+{%- macro frame(kind="corner", class="") -%}
+<span class="gilt-frame gilt-frame--{{ kind }} {{ class }}" aria-hidden="true"></span>
+{%- endmacro -%}
+
+{#- A laurel branch, drawn upwards. Its colour is the element's color (currentColor). -#}
+{%- macro laurel(class="") -%}
+<svg class="laurel {{ class }}" viewBox="0 -12 120 252" aria-hidden="true" focusable="false"><path class="laurel__stem" d="M46 236Q22 128 70 10"/><path d="M41.9 214.3Q37.7 192.5 15.7 189.6Q19.9 211.4 41.9 214.3ZM40.8 206.7Q60.9 197.3 58.4 175.2Q38.3 184.6 40.8 206.7ZM39 188.6Q36.6 168.2 16.5 163.9Q18.8 184.4 39 188.6ZM38.5 180.9Q57.8 173.7 57 153.1Q37.7 160.3 38.5 180.9ZM38 162.7Q37.3 143.7 19 138.3Q19.8 157.3 38 162.7ZM38.1 154.9Q56.3 149.6 57.1 130.6Q38.8 135.9 38.1 154.9ZM39 136.5Q39.6 119 23.3 112.9Q22.7 130.3 39 136.5ZM39.7 128.6Q56.7 125 58.7 107.7Q41.7 111.3 39.7 128.6ZM42 110Q43.7 94.2 29.3 87.6Q27.6 103.3 42 110ZM43.3 102Q59 99.8 61.9 84.3Q46.2 86.4 43.3 102ZM46.9 83.2Q49.5 69.2 37 62.3Q34.4 76.3 46.9 83.2ZM48.8 75.1Q63 74.2 66.7 60.4Q52.4 61.3 48.8 75.1ZM53.9 56.1Q56.9 43.8 46.2 37Q43.2 49.3 53.9 56.1ZM56.3 48Q69 48 73 36Q60.3 36 56.3 48ZM62.8 28.8Q66.1 18.2 57.2 11.7Q53.8 22.3 62.8 28.8ZM65.8 20.6Q76.9 21.3 81.1 11Q70 10.3 65.8 20.6ZM70 10Q80.3 3.4 77.5 -8.5Q67.3 -1.9 70 10Z"/></svg>
+{%- endmacro -%}
+
+{#- A small gold sprig with two short lines, like the poster's corner mark. -#}
+{%- macro mark(class="") -%}
+<span class="gilt-mark {{ class }}" aria-hidden="true">{{ laurel("laurel--sprig") }}<span class="gilt-mark__lines"></span></span>
+{%- endmacro -%}

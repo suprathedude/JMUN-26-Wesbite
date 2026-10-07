@@ -5,10 +5,13 @@ permalink: /404.html
 eleventyExcludeFromCollections: true
 pageCss: [not-found]
 ---
+{%- from "partials/gilt.njk" import frame, laurel, mark -%}
 {%- from "partials/placard.njk" import placard -%}
 {#- SPEC 9.9: one raised placard above the line, with a link home and to Committees. -#}
 <section class="nf" aria-labelledby="nf-title">
   <div class="orb nf__orb" aria-hidden="true"></div>
+  {{ frame("corner") }}
+  {{ laurel("laurel--head") }}
   <div class="container nf__inner">
     {{ placard("Point of order", "placard--sign placard--rise nf__placard") }}
     <h1 class="nf__title" id="nf-title">This page doesn't exist.</h1>

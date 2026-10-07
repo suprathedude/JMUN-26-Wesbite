@@ -6,6 +6,7 @@ eleventyComputed:
 permalink: /new-to-mun/
 pageCss: [new-to-mun]
 ---
+{%- from "partials/gilt.njk" import frame, laurel, mark -%}
 {%- from "partials/icons.njk" import icon -%}
 {%- from "partials/placard.njk" import placard -%}
 {%- from "partials/buttons.njk" import registerButton -%}
@@ -14,6 +15,8 @@ pageCss: [new-to-mun]
 {#- Hero: the event-page layout from reference/24, with a raised placard where OakMUN has its globe. -#}
 <section class="ntm-hero" aria-labelledby="ntm-title">
   <div class="orb ntm-hero__orb" aria-hidden="true"></div>
+  {{ frame("corner") }}
+  {{ laurel("laurel--head") }}
   <div class="container ntm-hero__grid">
     <div class="ntm-hero__art" aria-hidden="true" data-reveal="art">
       <div class="ntm-hero__circle">

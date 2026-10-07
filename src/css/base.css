@@ -241,7 +241,7 @@ main:focus {
   letter-spacing: var(--track-label);
   line-height: 1.4;
   text-transform: uppercase;
-  color: var(--teal);
+  color: var(--gilt);
 }
 
 .t-lead {

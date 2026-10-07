@@ -6,7 +6,7 @@ pageCss: [home]
 gallery: true
 pageJs: [gallery, hero-video, countdown, marquee, stats, schedule, ring, faq]
 ---
-{%- from "partials/gilt.njk" import frame, laurel, mark -%}
+{%- from "partials/gilt.njk" import frame, laurel, mark, cuts -%}
 {%- from "partials/icons.njk" import icon -%}
 {%- from "partials/buttons.njk" import registerButton, shine -%}
 {%- from "partials/faq.njk" import faqList -%}
@@ -288,7 +288,7 @@ pageJs: [gallery, hero-video, countdown, marquee, stats, schedule, ring, faq]
 {#- 11. Closing banner. Hidden only if the register link is removed entirely. -#}
 {%- if site.nav.register.url %}
 <section class="closing" aria-labelledby="closing-title">
-  {{ frame("lines") }}
+  {{ cuts() }}
   <div class="container closing__inner">
     <h2 class="closing__title" id="closing-title" data-reveal="mask">{{ site.home.closing | fill({ date: site.start | dayMonth }) }}</h2>
     {{ registerButton(site.nav.register, "", false) }}

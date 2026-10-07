@@ -3,10 +3,16 @@
     The section they sit in needs position: relative and a clipped overflow. -#}
 
 {#- Thin gold lines. "full" is a whole tilted rectangle, like the poster's; "corner" is one
-    corner with lines that fade out, for page headers; "lines" is two plain lines, above and
-    below the content. -#}
+    corner with lines that fade out, for page headers. -#}
 {%- macro frame(kind="corner", class="") -%}
 <span class="gilt-frame gilt-frame--{{ kind }} {{ class }}" aria-hidden="true"></span>
+{%- endmacro -%}
+
+{#- Two straight gold lines cutting across a section's top corners: from a little under
+    halfway down the left edge to a quarter of the way along the top, and from near the right
+    of the top down to the right edge. Drawn in the section's own proportions. -#}
+{%- macro cuts(class="") -%}
+<svg class="gilt-cuts {{ class }}" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 45L25 0M84 0L100 80"/></svg>
 {%- endmacro -%}
 
 {#- A laurel branch, drawn upwards. Its colour is the element's color (currentColor). -#}

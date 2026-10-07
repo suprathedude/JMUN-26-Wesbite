@@ -48,6 +48,20 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addFilter("isSet", isSet);
 
+  // The conference theme's words, line by line, numbered in order, each marked if it's one of
+  // theme.highlight (compared without punctuation).
+  eleventyConfig.addFilter("themeWords", (theme) => {
+    let i = 0;
+    const highlight = (theme.highlight ?? []).map((w) => w.toLowerCase());
+    return (theme.lines ?? []).map((line) =>
+      line.split(/\s+/).filter(Boolean).map((word) => ({
+        word,
+        i: ++i,
+        highlight: highlight.includes(word.replace(/[^\p{L}\p{N}'-]/gu, "").toLowerCase()),
+      })),
+    );
+  });
+
   // Nav highlighting: exact match, or a section prefix (/committees/disec/ lights "Committees").
   // Links to a homepage section (/#faq) are never marked as the current page.
   eleventyConfig.addFilter("isActive", (url, pageUrl) => {

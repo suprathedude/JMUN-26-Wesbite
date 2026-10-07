@@ -81,23 +81,32 @@ pageJs: [gallery, hero-video, countdown, marquee, stats, schedule, ring, faq]
   </div>
 </div>
 
-{#- 4. Theme (reference/03, 04). Only the "announced soon" band until theme.enabled is true. -#}
+{#- 4. Theme (reference/03, 04; the OakMUN recording of 7 October). Only the "announced soon"
+    band until theme.enabled is true. Each word has a blurred copy behind it (CSS, from
+    data-text), so theme-reveal.js can bring it from soft to sharp with opacity alone. Words
+    in theme.highlight are teal. -#}
 {%- if site.theme.enabled %}
+{%- set themeLines = site.theme | themeWords %}
+{%- set n = (themeLines | last | last).i %}
 <section class="theme" aria-labelledby="theme-title" data-theme-reveal>
   <div class="theme__stage">
     <div class="theme__intro" aria-hidden="true" data-theme-intro>
       <p class="theme__pre">Presenting the</p>
-      <p class="theme__big">Conference theme</p>
+      <p class="theme__big" data-text="Conference theme"><span class="theme__sharp">Conference theme</span></p>
     </div>
     <div class="theme__body">
-      <p class="t-label" data-theme-part>Conference theme</p>
+      <p class="t-label theme__eyebrow" data-theme-part>Conference theme</p>
       <h2 class="theme__title" id="theme-title">
-        {%- for word in site.theme.words %}
-        <span class="theme__word{% if loop.index == site.theme.highlight %} is-highlight{% endif %}" data-theme-part style="--i: {{ loop.index }}">{{ word }}</span>
+        {%- for line in themeLines %}
+        <span class="theme__line">
+          {%- for w in line %}
+          <span class="theme__word{% if w.highlight %} is-highlight{% endif %}" data-theme-part data-theme-word data-text="{{ w.word }}" style="--i: {{ w.i }}"><span class="theme__sharp">{{ w.word }}</span></span>{{ " " if not loop.last }}
+          {%- endfor %}
+        </span>
         {%- endfor %}
       </h2>
-      <span class="theme__divider" data-theme-part style="--i: {{ site.theme.words | length + 1 }}"></span>
-      <p class="theme__caption" data-theme-part style="--i: {{ site.theme.words | length + 2 }}">{{ site.theme.caption }}</p>
+      <span class="theme__divider" data-theme-part style="--i: {{ n + 1 }}"></span>
+      <p class="theme__caption" data-theme-part style="--i: {{ n + 2 }}">{{ site.theme.caption }}</p>
     </div>
   </div>
 </section>

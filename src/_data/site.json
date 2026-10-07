@@ -172,12 +172,16 @@
     "chapter": "XIV"
   },
   "theme": {
-    "enabled": false,
-    "words": [
-      "TBC"
+    "enabled": true,
+    "lines": [
+      "Bridge the Divide,",
+      "Let the Truth Guide"
     ],
-    "highlight": 1,
-    "caption": "TBC"
+    "highlight": [
+      "Bridge",
+      "Guide"
+    ],
+    "caption": "Every committee begins with people who disagree. This year, delegates work from the facts and look for answers both sides can stand behind."
   },
   "sgLetter": {
     "name": "Vihaan Tallamraju",

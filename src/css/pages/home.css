@@ -481,9 +481,26 @@
 
 .theme__stage {
   position: relative;
+  isolation: isolate;
   display: grid;
   place-items: center;
+  overflow: hidden;
   padding: var(--section-pad) var(--gutter);
+}
+
+/* A soft glow behind the words, as in OakMUN's reveal */
+.theme__stage::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: min(1100px, 120vw);
+  aspect-ratio: 1.6;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(var(--teal-rgb) / 0.09), transparent);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 .theme__intro {
@@ -499,44 +516,69 @@
 }
 
 .theme__title {
-  font-size: clamp(2.2rem, 4.4vw, 4.8rem);
+  font-size: clamp(2.2rem, 5.2vw, 5.4rem);
   font-weight: 900;
   letter-spacing: -0.035em;
-  line-height: 1.1;
+  line-height: 1.08;
+  color: var(--ink);
+  text-wrap: balance;
 }
 
+.theme__line {
+  display: block;
+}
+
+/* Each word has a blurred copy of itself behind it (from data-text, so the page's text has
+   each word once). At rest only the sharp word shows; theme-reveal.js brings words in soft
+   first (--soft), then sharp, with opacity alone. */
 .theme__word {
+  position: relative;
   display: inline-block;
 }
 
-.theme__word.is-highlight {
+.theme__word::before,
+.theme__big::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  white-space: nowrap;
+  filter: blur(14px);
+  opacity: var(--soft, 0);
+  pointer-events: none;
+}
+
+.theme__word.is-highlight::before,
+.theme__big::before {
+  color: var(--teal);
+}
+
+.theme__word.is-highlight .theme__sharp {
+  padding-bottom: 0.08em;
   background: var(--grad-word);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  padding-bottom: 0.08em;
 }
 
 .theme__divider {
-  width: 56px;
+  width: 64px;
   height: 2px;
   border-radius: 2px;
-  background: var(--teal);
-  opacity: 0.45;
+  background: linear-gradient(90deg, transparent, var(--gilt), transparent);
 }
 
 .theme__caption {
-  max-width: 620px;
+  max-width: 600px;
   font-size: clamp(1rem, 1.3vw, 1.1rem);
   font-style: italic;
   line-height: 1.8;
   color: var(--ink-75);
 }
 
-/* Desktop: a 200 vh scroll-linked reveal. The JS uses the same media query. */
+/* Desktop: a scroll-linked reveal over 240 vh. The JS uses the same media query. */
 @media (pointer: fine) and (min-width: 981px) {
   .theme.is-scrubbing {
-    height: 200vh;
+    height: 240vh;
   }
 
   .theme.is-scrubbing .theme__stage {
@@ -554,7 +596,10 @@
     gap: 10px;
   }
 
-  .theme.is-scrubbing [data-theme-part] {
+  .theme.is-scrubbing [data-theme-part]:not([data-theme-word]),
+  .theme.is-scrubbing .theme__sharp,
+  .theme.is-scrubbing .theme__intro .theme__sharp,
+  .theme.is-scrubbing .theme__pre {
     opacity: 0;
   }
 }
@@ -568,29 +613,63 @@
 }
 
 .theme__big {
+  position: relative;
   font-size: clamp(2.2rem, 5vw, 4.8rem);
   font-weight: 900;
   letter-spacing: -0.035em;
   line-height: 1.05;
+}
+
+.theme__big .theme__sharp {
   background: var(--grad-word);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-/* Phones and touch screens: one simple reveal when the section comes into view */
-.theme.is-pending [data-theme-part] {
+/* Phones and touch screens: the same soft-to-sharp entrance, word by word, once the section
+   comes into view */
+.theme.is-pending [data-theme-part]:not([data-theme-word]),
+.theme.is-pending .theme__sharp {
   opacity: 0;
-  transform: translateY(24px);
 }
 
-.theme.is-revealed [data-theme-part] {
-  opacity: 1;
-  transform: none;
-  transition:
-    opacity 0.55s var(--ease-out-expo),
-    transform 0.55s var(--ease-out-expo);
-  transition-delay: calc(var(--i, 0) * 90ms);
+.theme.is-revealed [data-theme-word] {
+  --d: calc(var(--i, 0) * 120ms + 80ms);
+  animation: theme-rise 1s var(--ease-out-expo) var(--d) both;
+}
+
+.theme.is-revealed [data-theme-word]::before {
+  animation: theme-soft 1s var(--ease-standard) var(--d) both;
+}
+
+.theme.is-revealed [data-theme-word] .theme__sharp {
+  animation: theme-sharp 1s var(--ease-standard) var(--d) both;
+}
+
+.theme.is-revealed [data-theme-part]:not([data-theme-word]) {
+  animation: theme-fade 0.8s var(--ease-out-expo) calc(var(--i, 0) * 120ms + 80ms) both;
+}
+
+@keyframes theme-rise {
+  from { transform: translateY(18px) scale(0.97); }
+  to { transform: none; }
+}
+
+@keyframes theme-soft {
+  0% { opacity: 0; }
+  40% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes theme-sharp {
+  0%, 25% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes theme-fade {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
 }
 
 /* ---------- Stats (reference/05) ---------- */

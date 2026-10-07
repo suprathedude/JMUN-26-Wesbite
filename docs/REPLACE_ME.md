@@ -52,7 +52,7 @@ The Doomsday committee page opens with the Marvel Studios intro, then a clip of 
 | `nav.secondary.url` | `""` (button hidden) | The consent form link; the "Consent form" button appears once it's set |
 | `crest` | `""` | The crest's path (see "Placeholder assets") |
 | `hero.video` | `""` | Optional (see the hero row above) |
-| `theme` | `enabled: false`, words and caption "TBC" | The theme words, which one is highlighted, the caption, then `"enabled": true` |
+| `theme` | On since 7 October: "Bridge the Divide, / Let the Truth Guide" (`lines`), Bridge and Guide in teal (`highlight`). The `caption` was drafted by Claude at your request | The Secretariat's own caption, if they want one |
 | `sgLetter` | One placeholder paragraph; `photo` and `signature` `""` | Vihaan's letter, photo and signature |
 | `sponsors` | `[]` | Sponsors, if any; the strip appears with the first one |
 | `allocations` | One round, "Date TBC (for registrations received by TBC)"; `status` "Registration is open"; `matrixUrl` `""`, so the button reads "Opens with Round 1 (TBC)"; `intro` and `matrixText` end "TBC" | The real rounds (name, date, note each), the status, the matrix link, and the two texts without "TBC" |

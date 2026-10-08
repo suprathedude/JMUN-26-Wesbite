@@ -8,7 +8,7 @@
 {%- macro registerButton(reg, class="", shiny=true) -%}
 {%- set look = "btn--shiny" if shiny else "btn--primary" -%}
 {%- if reg.url | isSet -%}
-<a class="btn {{ look }} {{ class }}" href="{{ reg.url }}">{{ shine() if shiny }}{{ reg.label }}</a>
+<a class="btn {{ look }} {{ class }}" href="{{ reg.url }}"{% if reg.url | isExternal %} target="_blank" rel="noopener"{% endif %}>{{ shine() if shiny }}{{ reg.label }}{% if reg.url | isExternal %}<span class="visually-hidden"> (opens in a new tab)</span>{% endif %}</a>
 {%- else -%}
 <a class="btn {{ look }} is-disabled {{ class }}" role="link" aria-disabled="true" title="Registration link TBC">{{ shine() if shiny }}{{ reg.label }}<span class="visually-hidden"> (link TBC)</span></a>
 {%- endif -%}
@@ -17,6 +17,6 @@
 {#- The optional outlined button (Consent form). Hidden entirely until it has a link. -#}
 {%- macro secondaryButton(sec, class="") -%}
 {%- if sec.url | isSet -%}
-<a class="btn btn--outline {{ class }}" href="{{ sec.url }}">{{ sec.label }}</a>
+<a class="btn btn--outline {{ class }}" href="{{ sec.url }}"{% if sec.url | isExternal %} target="_blank" rel="noopener"{% endif %}>{{ sec.label }}{% if sec.url | isExternal %}<span class="visually-hidden"> (opens in a new tab)</span>{% endif %}</a>
 {%- endif -%}
 {%- endmacro -%}

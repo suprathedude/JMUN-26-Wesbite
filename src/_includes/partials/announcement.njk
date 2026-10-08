@@ -5,7 +5,7 @@
   <div class="strip__inner">
     <p class="strip__text">
       {%- if note.link | isSet -%}
-      <a href="{{ note.link }}">{{ note.text }}</a>
+      <a href="{{ note.link }}"{% if note.link | isExternal %} target="_blank" rel="noopener"{% endif %}>{{ note.text }}{% if note.link | isExternal %}<span class="visually-hidden"> (opens in a new tab)</span>{% endif %}</a>
       {%- else -%}
       {{ note.text }}
       {%- endif -%}

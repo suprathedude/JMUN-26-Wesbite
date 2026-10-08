@@ -1,6 +1,8 @@
 // Hero video (SPEC 5). The hero image is its poster: it paints first and stays the LCP
 // element. The video only loads after the page has, only on screens 768 px and wider, never
 // with Save-Data or reduced motion, and only plays while it's on screen and the tab is open.
+// On a first visit it waits for the photo intro to hand over (8 October): before, it played
+// under the photos, so the first seconds were gone by the time the hero showed.
 const video = document.querySelector("[data-hero-video]");
 const skip =
   !video ||
@@ -22,10 +24,12 @@ function start() {
   video.addEventListener("playing", () => video.classList.add("is-playing"), { once: true });
 
   let onScreen = false;
+  const introShowing = () => document.documentElement.classList.contains("gallery-active");
   const update = () => {
-    if (onScreen && !document.hidden) video.play().catch(() => {});
+    if (onScreen && !document.hidden && !introShowing()) video.play().catch(() => {});
     else video.pause();
   };
+  addEventListener("gallery:state", update);
   new IntersectionObserver(([entry]) => {
     onScreen = entry.isIntersecting;
     update();

@@ -113,6 +113,9 @@ function start() {
   };
 
 
+  // The loading mark goes once the photos are on screen.
+  mountEl.addEventListener("gallery:ready", () => layer.classList.add("is-ready"), { once: true });
+
   // The island is only fetched when the gallery is about to be seen.
   const load = () => {
     loading ??= import(new URL(layer.dataset.bundle, document.baseURI).href)

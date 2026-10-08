@@ -63,6 +63,8 @@ pageJs: [gallery, hero-video, countdown, marquee, stats, schedule, ring, faq]
 
 <div class="gallery" aria-hidden="true" data-gallery data-bundle="/js/hero-gallery.js" data-images="{{ site.gallery.images | dump }}">
   <div class="gallery__root" data-gallery-root></div>
+  {#- Shown until the photos are on screen (8 October) -#}
+  <div class="gallery__wait"><span class="gallery__wait-mark">{% include "partials/crest.njk" %}</span></div>
   <p class="gallery__cue" data-gallery-cue>{{ site.gallery.cue }}<span class="gallery__cue-line"></span></p>
 </div>
 </div>

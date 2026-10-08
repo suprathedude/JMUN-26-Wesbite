@@ -76,13 +76,15 @@
   box-shadow: none;
 }
 
-/* Get QR, between More and Register (4 October) */
-.nav__qr svg {
+/* Get QR, between More and Register (4 October), and on top of Register in the phone menu */
+.nav__qr svg,
+.nav-sheet__qr svg {
   width: 16px;
   height: 16px;
 }
 
-.nav__qr[aria-current="page"] {
+.nav__qr[aria-current="page"],
+.nav-sheet__qr[aria-current="page"] {
   color: var(--teal-light);
 }
 
@@ -657,12 +659,11 @@
   width: 224px;
   padding: 10px;
   list-style: none;
-  border: 1px solid rgb(var(--teal-rgb) / 0.15);
   border-radius: var(--radius-card);
   background: rgb(var(--drop-rgb) / 0.97);
   box-shadow:
     0 24px 60px rgb(var(--shadow-rgb) / 0.6),
-    0 0 0 1px rgb(var(--teal-rgb) / 0.06);
+    0 0 28px rgb(var(--teal-rgb) / 0.12);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-6px);
@@ -690,10 +691,11 @@
 }
 
 .nav__drop a {
+  position: relative;
+  isolation: isolate;
   display: block;
-  padding: 11px 12px 11px 14px;
-  border-left: 2px solid transparent;
-  border-radius: 4px 10px 10px 4px;
+  padding: 11px 14px;
+  border-radius: 10px;
   font-size: var(--fs-nav);
   font-weight: 700;
   letter-spacing: var(--track-nav);
@@ -704,12 +706,30 @@
     background-color var(--dur-hover) var(--ease-standard);
 }
 
+/* No side line (8 October): a soft teal glow fades in behind the item instead. */
+.nav__drop a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(120% 160% at 20% 50%, rgb(var(--teal-rgb) / 0.2), rgb(var(--teal-rgb) / 0.04) 60%, transparent 80%);
+  box-shadow: 0 0 18px rgb(var(--teal-rgb) / 0.12);
+  opacity: 0;
+  transition: opacity var(--dur-hover) var(--ease-standard);
+}
+
 .nav__drop a:hover,
 .nav__drop a:focus-visible,
 .nav__drop a[aria-current="page"] {
-  border-left-color: var(--teal);
-  background: rgb(var(--teal-rgb) / 0.1);
   color: var(--teal);
+  text-shadow: 0 0 12px rgb(var(--teal-rgb) / 0.45);
+}
+
+.nav__drop a:hover::before,
+.nav__drop a:focus-visible::before,
+.nav__drop a[aria-current="page"]::before {
+  opacity: 1;
 }
 
 .nav__drop a:focus-visible {
@@ -1093,6 +1113,16 @@ html.is-locked {
 
 .card__link:focus-visible {
   outline: none;
+}
+
+/* A card link drawn as a filled button (New to MUN on the homepage, 8 October) */
+.card__link--btn {
+  align-self: flex-start;
+  padding: 13px 24px;
+  border-radius: var(--radius-pill);
+  background: var(--grad-primary);
+  box-shadow: var(--shadow-btn);
+  color: var(--navy);
 }
 
 .card:has(.card__link:focus-visible) {
@@ -1630,6 +1660,20 @@ html.is-locked {
 
 .gilt-cuts path {
   vector-effect: non-scaling-stroke;
+}
+
+/* A fixed-height band along the top or bottom edge (the schedule's) */
+.gilt-cuts--top,
+.gilt-cuts--bottom {
+  height: var(--band);
+}
+
+.gilt-cuts--top {
+  inset: 0 0 auto;
+}
+
+.gilt-cuts--bottom {
+  inset: auto 0 0;
 }
 
 /* Softened, on committee pages */

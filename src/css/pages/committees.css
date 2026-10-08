@@ -854,7 +854,7 @@
   z-index: -2;
   background:
     radial-gradient(ellipse 80% 70% at 50% 45%, transparent 50%, rgb(var(--shadow-rgb) / 0.75) 100%),
-    linear-gradient(180deg, transparent 50%, rgb(var(--shadow-rgb) / 0.7) 86%, var(--blue-700) 100%);
+    linear-gradient(180deg, transparent 50%, rgb(var(--shadow-rgb) / 0.7) 86%, var(--doom-deep) 100%);
   pointer-events: none;
 }
 
@@ -927,6 +927,154 @@
 @keyframes dd-blink {
   0%, 49% { opacity: 1; }
   50%, 100% { opacity: 0; }
+}
+
+/* ---------- Doomsday: the page body in Doom's green (8 October) ----------
+   Under the lair, the overview, agenda, background guide and EB take the footage's colours:
+   green-black, green accents with a soft glow, faint scanlines, a slow band of light passing
+   down the page and a gently pulsing glow round the agenda. Motion is transform and opacity
+   only, and stops with reduced motion. */
+
+.c-page--doom {
+  background:
+    radial-gradient(ellipse 70% 30% at 50% 0%, rgb(var(--doom-rgb) / 0.12), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 90% 65%, rgb(var(--doom-rgb) / 0.06), transparent 70%),
+    var(--doom-deep);
+}
+
+/* Scanlines, like the footage */
+.c-page--doom::before,
+.c-page--doom::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.c-page--doom::before {
+  background: repeating-linear-gradient(to bottom, rgb(var(--doom-rgb) / 0.035) 0 1px, transparent 1px 4px);
+}
+
+/* The band of light: drawn across the middle of a layer the page's height, which slides from
+   the top of the page to the bottom. */
+.c-page--doom::after {
+  background: linear-gradient(to bottom, transparent 44%, rgb(var(--doom-rgb) / 0.06) 50%, transparent 56%);
+  transform: translateY(-50%);
+  opacity: 0;
+}
+
+.c-page--doom .gilt-cuts {
+  stroke: rgb(var(--doom-rgb) / 0.5);
+}
+
+.c-page--doom .t-section {
+  color: var(--doom-soft);
+  text-shadow: 0 0 28px rgb(var(--doom-rgb) / 0.35);
+}
+
+.c-page--doom .t-section--bar::after {
+  background: linear-gradient(90deg, var(--doom), rgb(var(--doom-rgb) / 0.2));
+  box-shadow: 0 0 10px rgb(var(--doom-rgb) / 0.6);
+}
+
+.c-page--doom .c-overview {
+  border-bottom-color: rgb(var(--doom-rgb) / 0.16);
+}
+
+.c-page--doom .agenda {
+  border-color: rgb(var(--doom-rgb) / 0.5);
+  background: linear-gradient(135deg, rgb(var(--doom-rgb) / 0.1) 0%, rgb(var(--doom-deep-rgb) / 0.4) 60%, transparent);
+  box-shadow: 0 0 60px rgb(var(--doom-rgb) / 0.1);
+}
+
+/* The agenda's glow, which breathes slowly */
+.c-page--doom .agenda::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  box-shadow:
+    0 0 36px rgb(var(--doom-rgb) / 0.3),
+    inset 0 0 28px rgb(var(--doom-rgb) / 0.08);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.c-page--doom .agenda__title,
+.c-page--doom .agenda__num {
+  color: var(--doom);
+  text-shadow: 0 0 18px rgb(var(--doom-rgb) / 0.45);
+}
+
+.c-page--doom .agenda__item,
+.c-page--doom .agenda__item:last-child {
+  border-color: rgb(var(--doom-rgb) / 0.14);
+}
+
+.c-page--doom .guide {
+  border-color: rgb(var(--doom-rgb) / 0.3);
+  background: linear-gradient(160deg, rgb(var(--doom-rgb) / 0.12), var(--doom-deep));
+  box-shadow: 0 6px 32px rgb(var(--shadow-rgb) / 0.5), 0 0 28px rgb(var(--doom-rgb) / 0.08);
+}
+
+.c-page--doom .guide::before {
+  background: linear-gradient(
+    to top,
+    rgb(var(--doom-deep-rgb) / 0.96) 0%,
+    rgb(var(--doom-deep-rgb) / 0.8) 30%,
+    rgb(var(--doom-deep-rgb) / 0.35) 60%,
+    rgb(var(--doom-deep-rgb) / 0.15) 100%
+  );
+}
+
+.c-page--doom .guide__tag {
+  border: 1px solid rgb(var(--doom-rgb) / 0.35);
+  background: rgb(var(--doom-deep-rgb) / 0.85);
+  color: var(--doom);
+}
+
+.c-page--doom .guide__status.is-ready,
+.c-page--doom .guide__link,
+.c-page--doom .eb-card__role,
+.c-page--doom .eb-card__more {
+  color: var(--doom);
+}
+
+.c-page--doom .eb-card {
+  border-color: rgb(var(--doom-rgb) / 0.2);
+  background: rgb(var(--doom-deep-rgb) / 0.75);
+  box-shadow: 0 0 24px rgb(var(--doom-rgb) / 0.06);
+}
+
+.c-page--doom .eb-card__photo,
+.c-page--doom .photo-tbc {
+  background: linear-gradient(160deg, rgb(var(--doom-rgb) / 0.12), var(--doom-deep));
+}
+
+.c-page--doom .photo-tbc {
+  color: rgb(var(--doom-rgb) / 0.75);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .c-page--doom::after {
+    animation: dd-sweep 9s linear infinite;
+  }
+
+  .c-page--doom .agenda::after {
+    animation: dd-breathe 3.6s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes dd-sweep {
+  0% { opacity: 0; transform: translateY(-50%); }
+  10%, 90% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(50%); }
+}
+
+@keyframes dd-breathe {
+  from { opacity: 0.25; }
+  to { opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {

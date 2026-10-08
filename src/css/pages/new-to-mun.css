@@ -72,24 +72,6 @@
   mask-image: linear-gradient(rgb(var(--shadow-rgb)) 84%, transparent);
 }
 
-/* Over the photo, in its own pixels, fading out with it */
-.ntm-hero__bubble {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  fill: none;
-  stroke: var(--teal);
-  stroke-width: 2.5px;
-  stroke-linejoin: round;
-  pointer-events: none;
-  -webkit-mask-image: linear-gradient(rgb(var(--shadow-rgb)) 84%, transparent);
-  mask-image: linear-gradient(rgb(var(--shadow-rgb)) 84%, transparent);
-}
-
-.ntm-hero__bubble path {
-  vector-effect: non-scaling-stroke;
-}
 
 .ntm-hero__title {
   font-size: clamp(3rem, 7vw, 6rem);
@@ -301,7 +283,7 @@
 }
 
 /* Rounded, with the bottom-left corner squared off and carried down into a tail, like the
-   bubble on the hero photo. The tail is the same fill, so its two edges run straight on from
+   Oakridge speech bubble. The tail is the same fill, so its two edges run straight on from
    the bubble's with no seam; the shadow is a drop-shadow so it follows the tail too. */
 .phrase {
   position: relative;

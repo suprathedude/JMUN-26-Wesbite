@@ -92,7 +92,7 @@ Final as of 3 October: both days, with times.
 
 | Field | Now | Needed |
 | --- | --- | --- |
-| `documents` (Rules of Procedure, Delegation Guidelines, Consent Form) | Descriptions end "(TBC)"; `file` `""`, shown as "Coming soon" | The PDFs, and the descriptions checked |
+| `documents` (Rules of Procedure, Delegate Guidelines, Consent Form) | Descriptions end "(TBC)"; `file` `""`, shown as "Coming soon" | The PDFs, and the descriptions checked |
 | `ipGuides` (IP Journalism, IP Photography) | Descriptions end "(TBC)"; `file` `""`, shown as "Coming soon"; IP Photography's photo supplied 4 October | The PDFs, and the descriptions checked |
 
 ### `socialNight.json`
@@ -110,4 +110,4 @@ Final as of 3 October: both days, with times.
 | Field | Now | Needed |
 | --- | --- | --- |
 | `onTheDay` | "The exact phone rule is TBC."; registration "(place TBC)" | The phone rule, and where registration is |
-| `intro.photo` | A delegate raising a placard (`src/assets/img/ntm/delegate.webp`, sent 7 October): a past Oakridge delegate, cut out. The teal speech bubble on the shoulder is drawn over it in `new-to-mun.njk` (in the photo's own pixels), not part of the file | Check the school's photo consent covers this student. To swap it, use a cut-out (transparent background) cropped at the desk, same file name, and update `alt`; then move or delete the bubble's `<svg>` |
+| `intro.photo` | A delegate raising a placard (`src/assets/img/ntm/delegate.webp`, sent 7 October): a past Oakridge delegate, cut out. | Check the school's photo consent covers this student. To swap it, use a cut-out (transparent background) cropped at the desk, same file name, and update `alt` |

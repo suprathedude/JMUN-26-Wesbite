@@ -74,6 +74,7 @@
   --sn-amber-rgb: 232 120 10;
   --sn-glow-rgb: 255 180 0;
   --doom-rgb: 62 229 138;
+  --doom-deep-rgb: 4 23 12;
 
   /* Ink opacity steps */
   --ink-100: var(--ink);

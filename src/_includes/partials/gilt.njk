@@ -11,16 +11,26 @@
 {#- Two straight gold lines cutting across a section's corners, drawn in the section's own
     proportions (0 to 100 each way). Each place has its own pair, so they read as one frame
     running through the site rather than a repeated sticker. "banner" is the closing banner's
-    (from your drawing, 7 October); "soft" in class blurs them a little (committee pages). -#}
+    (from your drawing, 7 October); "soft" in class blurs them a little (committee pages).
+    The schedule changes height with the day shown, so its lines are drawn in fixed-height
+    bands at the top and bottom instead (8 October), and look the same on both days. -#}
 {%- macro cuts(kind="banner", class="") -%}
 {%- set paths = {
   "banner": "M0 45L25 0M84 0L100 80",
   "letter": "M0 30L16 0M100 64L74 100",
-  "schedule": "M0 90L30 100M86 0L100 9",
   "faq": "M0 60L22 0M100 24L88 100",
   "committee": "M0 18L24 0M100 72L70 100"
 } -%}
+{%- set bands = {
+  "schedule": { "top": ["M86 0L100 100", 185], "bottom": ["M0 0L30 100", 206] }
+} -%}
+{%- if bands[kind] -%}
+{%- for edge, band in bands[kind] -%}
+<svg class="gilt-cuts gilt-cuts--{{ edge }} {{ class }}" style="--band: {{ band[1] }}px" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="{{ band[0] }}"/></svg>
+{%- endfor -%}
+{%- else -%}
 <svg class="gilt-cuts {{ class }}" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="{{ paths[kind] }}"/></svg>
+{%- endif -%}
 {%- endmacro -%}
 
 {#- A laurel branch, drawn upwards. Its colour is the element's color (currentColor). -#}

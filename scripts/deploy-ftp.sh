@@ -58,7 +58,8 @@ seen_marker=0
 while IFS= read -r entry; do
   name="${entry%/}"
   name="${name##*/}"
-  [ -z "$name" ] && continue
+  # "." and ".." are the folder itself and its parent, which GoDaddy's server lists too.
+  case "$name" in "" | "." | "..") continue ;; esac
   [ "$name" = "$MARKER" ] && seen_marker=1
   keep=0
   for k in "${KEEP[@]}"; do [ "$name" = "$k" ] && keep=1; done

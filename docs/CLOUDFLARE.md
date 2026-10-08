@@ -1,5 +1,7 @@
 # The padlock (HTTPS) with Cloudflare
 
+**Set up and live since 8 October 2026** (Cloudflare account: ksupratiik21@gmail.com; nameservers `jimmy.ns.cloudflare.com` and `piper.ns.cloudflare.com`; encryption mode Full; Always Use HTTPS on; `ftp` and `_domainconnect` DNS only). The steps below are kept for reference, or for setting it up again.
+
 GoDaddy's hosting for oakridgejmun.in only has a self-signed certificate, which browsers show as "Not secure", and AutoSSL is switched off on the plan. Cloudflare's free plan fixes that: it gives the site a real certificate that renews itself, and it serves the photos, video, CSS and JavaScript from its own servers, so the GoDaddy server sees far less traffic at busy times.
 
 The domain stays registered at GoDaddy and the website stays on GoDaddy's hosting. Only the domain's **nameservers** move to Cloudflare, which means DNS records are edited in Cloudflare from then on. The GitHub upload is unchanged.

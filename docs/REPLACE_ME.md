@@ -14,7 +14,7 @@ The few that matter most on day one:
 | --- | --- |
 | The consent form link (the "Consent form" button stays hidden until it's set) | `site.json` → `nav.secondary.url`, or the PDF in `resources.json` → `documents` |
 | The announcement bar | `site.json` → `announcement.text` |
-| The HTTPS switch, once oakridgejmun.in has its SSL certificate | `src/.htaccess` ([DEPLOY.md](DEPLOY.md), step 6) |
+| ~~The HTTPS switch~~ Done 8 October: Cloudflare gives the padlock and sends `http://` to `https://` ("Always Use HTTPS"). Leave the `.htaccess` lines switched off | [CLOUDFLARE.md](CLOUDFLARE.md) |
 
 ## Placeholder assets made for this site
 

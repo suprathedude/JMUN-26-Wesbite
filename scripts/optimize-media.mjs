@@ -11,7 +11,9 @@
 //
 // Video (ffmpeg), from src/assets/video/source/ (not committed) to src/assets/video/:
 //   <name>.av1.webm (AV1) and <name>.h264.mp4 (H.264, faststart), 720p, max 40 s, no audio,
-//   plus a poster frame at src/assets/img/<name>-poster.jpg (not made larger than the video).
+//   plus a poster frame at src/assets/img/<name>-poster.jpg (not made larger than the video),
+//   and <name>-tall.av1.webm / <name>-tall.h264.mp4: a 406 x 720 portrait cut from the middle,
+//   for phones (8 October).
 import { readdir, stat, writeFile, mkdir } from "node:fs/promises";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
@@ -113,13 +115,28 @@ async function encodeVideo(file) {
       "-movflags", "+faststart", h264]);
     notes.push(`${h264}: ${kb((await stat(h264)).size)}`);
   }
+  // The portrait cut for phones: the middle of the frame, upright, a fraction of the size.
+  const tallFilters = "scale=-2:720,crop=406:720,fps=30";
+  const av1Tall = path.join(VIDEO_OUT, `${name}-tall.av1.webm`);
+  const h264Tall = path.join(VIDEO_OUT, `${name}-tall.h264.mp4`);
+  if (!(await newer(av1Tall, file))) {
+    await run("ffmpeg", ["-y", "-loglevel", "error", "-i", file, "-t", VIDEO_SECONDS, "-an", "-vf", tallFilters,
+      "-c:v", "libsvtav1", "-crf", "40", "-preset", "6", "-pix_fmt", "yuv420p", av1Tall]);
+    notes.push(`${av1Tall}: ${kb((await stat(av1Tall)).size)}`);
+  }
+  if (!(await newer(h264Tall, file))) {
+    await run("ffmpeg", ["-y", "-loglevel", "error", "-i", file, "-t", VIDEO_SECONDS, "-an", "-vf", tallFilters,
+      "-c:v", "libx264", "-crf", "29", "-preset", "slow", "-profile:v", "high", "-pix_fmt", "yuv420p",
+      "-movflags", "+faststart", h264Tall]);
+    notes.push(`${h264Tall}: ${kb((await stat(h264Tall)).size)}`);
+  }
   if (!(await newer(poster, file))) {
     await mkdir(IMG_DIR, { recursive: true });
     await run("ffmpeg", ["-y", "-loglevel", "error", "-ss", "0.5", "-i", file, "-frames:v", "1",
       "-vf", "scale=-2:'min(1080,ih)'", "-q:v", "3", poster]);
     notes.push(`${poster}: poster frame`);
   }
-  for (const out of [av1, h264]) {
+  for (const out of [av1, h264, av1Tall, h264Tall]) {
     if ((await stat(out)).size > VIDEO_LIMIT) notes.push(`Warning: ${out} is over 6 MB. Trim the clip or raise the CRF.`);
   }
   return notes;

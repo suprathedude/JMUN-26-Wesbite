@@ -1,61 +1,213 @@
-/* 404 (SPEC 9.9): a single raised placard, "Point of order", above the line. */
+/* 404 (8 October): a TV with no signal, after the "no signal" page you sent. Seven colour
+   bars, a black screen in the middle with the 404 drawn in scanlines and split into cyan and
+   magenta at the edges, and a black strip along the bottom. */
+
+@font-face {
+  font-family: "Anton";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/anton-latin-400-normal.woff2") format("woff2");
+}
 
 .nf {
   position: relative;
+  isolation: isolate;
   overflow: clip;
   display: grid;
-  align-items: center;
-  min-height: min(86vh, 860px);
-  padding: calc(var(--section-pad) + 32px) 0 var(--section-pad);
-  background:
-    radial-gradient(circle, rgb(var(--teal-rgb) / 0.055) 1px, transparent 1px) 0 0 / 28px 28px,
-    linear-gradient(180deg, var(--blue-800) 0%, var(--blue-700) 100%);
-  text-align: center;
+  grid-template-rows: 1fr auto;
+  min-height: max(560px, calc(100svh - 42px)); /* the screen, less the announcement bar */
+  background: var(--tv-black);
 }
 
-.nf__orb {
-  top: 50%;
-  left: 50%;
-  width: 820px;
-  aspect-ratio: 1;
-  background: radial-gradient(circle, rgb(var(--teal-dark-rgb) / 0.2) 0%, transparent 62%);
-  transform: translate(-50%, -58%);
+.nf__bars {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
 }
 
-.nf__inner {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.nf__bars span:nth-child(1) { background: var(--tv-white); }
+.nf__bars span:nth-child(2) { background: var(--tv-yellow); }
+.nf__bars span:nth-child(3) { background: var(--tv-cyan); }
+.nf__bars span:nth-child(4) { background: var(--tv-green); }
+.nf__bars span:nth-child(5) { background: var(--tv-magenta); }
+.nf__bars span:nth-child(6) { background: var(--tv-red); }
+.nf__bars span:nth-child(7) { background: var(--tv-blue); }
+
+/* Faint scanlines over the bars, and a soft band of interference that rolls down them */
+.nf::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: repeating-linear-gradient(to bottom, rgb(var(--shadow-rgb) / 0.12) 0 1px, transparent 1px 3px);
+  pointer-events: none;
 }
 
-/* Tilted with rotate, so the rise animation (transform) doesn't undo it */
-.nf__placard {
-  font-size: 30px;
-  rotate: -3deg;
+.nf__roll {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to bottom, transparent 42%, rgb(var(--ink-rgb) / 0.16) 50%, transparent 58%);
+  transform: translateY(-60%);
+  pointer-events: none;
+}
+
+.nf__screen {
+  display: grid;
+  place-items: center;
+  padding: calc(var(--section-pad) + 40px) var(--gutter) 48px;
 }
 
 .nf__title {
-  margin-top: 48px;
-  font-size: clamp(2.2rem, 5vw, 3.6rem);
-  font-weight: 900;
-  letter-spacing: -0.03em;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  width: min(100%, 760px);
+  padding: clamp(24px, 4vw, 40px) clamp(20px, 5vw, 56px) clamp(22px, 3.5vw, 36px);
+  background: var(--tv-black);
+  box-shadow: 0 0 0 1px rgb(var(--ink-rgb) / 0.06), 0 30px 80px rgb(var(--shadow-rgb) / 0.55);
+  text-align: center;
 }
 
-.nf__actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 14px;
-  margin-top: 36px;
+/* The 404: white scanlines (the gaps show the black screen through), with cyan and magenta
+   copies just off each side, like a picture that won't hold still. */
+.nf__code {
+  position: relative;
+  display: block;
+  font-family: "Anton", "Impact", "Arial Narrow", sans-serif;
+  font-size: clamp(7rem, 30vw, 15rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 0.9;
+  color: var(--tv-white);
+  background: repeating-linear-gradient(to bottom, var(--tv-white) 0 3px, rgb(var(--ink-rgb) / 0.55) 3px 5px);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Screen blending: over the white lines the copies vanish, over the gaps and the black they
+   show as colour fringes. */
+.nf__code::before,
+.nf__code::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  -webkit-text-fill-color: currentColor;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.nf__code::before {
+  color: rgb(var(--tv-cyan-rgb) / 0.75);
+  transform: translateX(-5px);
+}
+
+.nf__code::after {
+  color: rgb(var(--tv-magenta-rgb) / 0.75);
+  transform: translateX(5px);
+}
+
+.nf__sub {
+  font-family: "Anton", "Impact", "Arial Narrow", sans-serif;
+  font-size: clamp(1.4rem, 4.6vw, 2.6rem);
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--tv-white);
+}
+
+.nf__strip {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px 24px;
+  padding: 26px clamp(20px, 4vw, 64px);
+  background: var(--tv-black);
+  color: var(--tv-white);
+}
+
+.nf__count,
+.nf__clock {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+
+.nf__clock {
+  justify-self: end;
+}
+
+.nf__msg {
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.nf__msg a {
+  color: var(--tv-white);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+
+@media (hover: hover) {
+  .nf__msg a:hover {
+    color: var(--teal);
+  }
 }
 
 @media (max-width: 768px) {
-  .nf__placard {
-    font-size: 19px;
+  .nf__strip {
+    grid-template-columns: 1fr 1fr;
   }
 
-  .nf__title {
-    margin-top: 36px;
+  .nf__msg {
+    grid-column: 1 / -1;
+    grid-row: 1;
   }
+}
+
+/* Now and then the 404 jumps sideways and its colour edges flicker; the band rolls down. */
+@media (prefers-reduced-motion: no-preference) {
+  .nf__code {
+    animation: nf-jump 4.2s steps(1, end) infinite;
+  }
+
+  .nf__code::before,
+  .nf__code::after {
+    animation: nf-flicker 2.6s linear infinite;
+  }
+
+  .nf__code::after {
+    animation-delay: -1.3s;
+  }
+
+  .nf__roll {
+    animation: nf-roll 7s linear infinite;
+  }
+}
+
+@keyframes nf-jump {
+  0%, 86%, 100% { transform: none; }
+  88% { transform: translateX(-7px); }
+  90% { transform: translateX(5px) translateY(2px); }
+  92% { transform: translateX(-2px); }
+  94% { transform: none; }
+}
+
+@keyframes nf-flicker {
+  0%, 100% { opacity: 1; }
+  45% { opacity: 0.55; }
+  50% { opacity: 1; }
+  52% { opacity: 0.3; }
+  54% { opacity: 1; }
+}
+
+@keyframes nf-roll {
+  from { transform: translateY(-60%); }
+  to { transform: translateY(60%); }
 }

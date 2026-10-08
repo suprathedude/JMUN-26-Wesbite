@@ -40,8 +40,9 @@ eleventyComputed:
 </section>
 {%- endif %}
 
-{#- Gold lines across the page behind the body, softened a little -#}
-<div class="c-page">
+{#- Gold lines across the page behind the body, softened a little. Doomsday's body is in Doom's
+    green instead, to match its opening (8 October). -#}
+<div class="c-page{% if c.cinematic %} c-page--doom{% endif %}">
 {{ cuts("committee", "gilt-cuts--soft") }}
 <div class="container c-body">
   <section class="c-overview" aria-labelledby="overview-title">

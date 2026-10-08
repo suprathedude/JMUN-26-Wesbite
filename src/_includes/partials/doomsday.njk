@@ -28,8 +28,9 @@
 <section class="dd-lair" aria-label="{{ c.cinematic.line }}" data-dd-lair>
   <div class="dd-lair__stage">
     <video class="dd-lair__video" muted playsinline preload="none" poster="{{ media }}doom-poster.jpg" aria-hidden="true" data-dd-doom>
+      {#- VP9 first: about half the size of the H.264 copy, which Safari falls back to -#}
+      <source src="{{ media }}doom.webm" type="video/webm; codecs=vp9">
       <source src="{{ media }}doom.mp4" type="video/mp4">
-      <source src="{{ media }}doom.webm" type="video/webm">
     </video>
     <div class="dd-lair__shade" aria-hidden="true"></div>
     <canvas class="dd-lair__motes" aria-hidden="true" data-dd-motes></canvas>

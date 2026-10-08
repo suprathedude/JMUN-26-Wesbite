@@ -24,7 +24,7 @@ Photos and PDFs live in `src/assets/`:
 | Folder | What goes in it |
 | --- | --- |
 | `src/assets/docs/guides/` | Background guide PDFs |
-| `src/assets/docs/` | Other PDFs (Rules of Procedure, Delegation Guidelines and so on) |
+| `src/assets/docs/` | Other PDFs (Rules of Procedure, Delegate Guidelines and so on) |
 | `src/assets/img/committees/` | One photo per committee. Colour is fine; it's made black and white automatically. |
 | `src/assets/img/logos/` | Committee logo circles (PNG) |
 | `src/assets/img/eb/` | Chair, Vice Chair and Rapporteur photos |
@@ -94,7 +94,7 @@ After, on the UNSC committee page:
 
 ![The background guide card on the UNSC page reading "Available" with "Open background guide"](img/guide-after-committee.jpg)
 
-The **essential documents** (Rules of Procedure, Delegation Guidelines, Consent Form) and the two **International Press style guides** (IP Journalism, IP Photography) work the same way. Upload the PDF to `src/assets/docs/`, then set its `"file"` in `src/_data/resources.json` (the style guides are under `"ipGuides"`), for example `"file": "assets/docs/rules-of-procedure.pdf"`. The card changes from "Coming soon" to "PDF".
+The **essential documents** (Rules of Procedure, Delegate Guidelines, Consent Form) and the two **International Press style guides** (IP Journalism, IP Photography) work the same way. Upload the PDF to `src/assets/docs/`, then set its `"file"` in `src/_data/resources.json` (the style guides are under `"ipGuides"`), for example `"file": "assets/docs/rules-of-procedure.pdf"`. The card changes from "Coming soon" to "PDF".
 
 ---
 

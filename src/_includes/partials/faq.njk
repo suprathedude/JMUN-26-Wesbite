@@ -14,7 +14,7 @@
     <div class="faq-a" id="{{ prefix }}-a{{ loop.index }}" role="region" aria-labelledby="{{ prefix }}-q{{ loop.index }}">
       <p>{{ item.answer }}</p>
       {%- if item.link %}
-      <a class="faq-a__link" href="{{ item.link.url }}">{{ item.link.label }}</a>
+      <a class="faq-a__link" href="{{ item.link.url }}"{% if item.link.url | isExternal %} target="_blank" rel="noopener"{% endif %}>{{ item.link.label }}{% if item.link.url | isExternal %}<span class="visually-hidden"> (opens in a new tab)</span>{% endif %}</a>
       {%- endif %}
     </div>
   </div>

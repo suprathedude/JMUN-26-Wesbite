@@ -53,11 +53,15 @@
   <div class="nav-sheet" id="nav-sheet" role="dialog" aria-modal="true" aria-label="Menu" inert data-lenis-prevent data-sheet>
     <div class="nav-sheet__inner">
       <ul class="nav-sheet__links" role="list">
-        {%- for link in links.left.concat(links.right, links.more.items, [links.qr]) %}
+        {%- for link in links.left.concat(links.right, links.more.items) %}
         <li><a class="nav-sheet__link" href="{{ link.url }}"{% if link.url | isActive(page.url) %} aria-current="page"{% endif %}>{{ link.label }}</a></li>
         {%- endfor %}
       </ul>
+      {#- Get QR shines, stacked on top of Register (8 October). -#}
       <div class="nav-sheet__actions">
+        {%- if links.qr.url | isSet %}
+        <a class="btn btn--shiny btn--block nav-sheet__qr" href="{{ links.qr.url }}"{% if links.qr.url | isActive(page.url) %} aria-current="page"{% endif %}>{{ shine() }}{{ icon("qr-code") }}{{ links.qr.label }}</a>
+        {%- endif %}
         {{ secondaryButton(links.secondary, "btn--block") }}
         {{ registerButton(links.register, "btn--block", false) }}
       </div>

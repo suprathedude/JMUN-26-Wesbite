@@ -47,6 +47,8 @@ export default function (eleventyConfig) {
   eleventyConfig.addWatchTarget("src/css/");
 
   eleventyConfig.addFilter("isSet", isSet);
+  // A full https:// address (another website, such as the registration form) opens in a new tab.
+  eleventyConfig.addFilter("isExternal", (url) => /^https?:\/\//i.test(String(url ?? "")));
 
   // The conference theme's words, line by line, numbered in order, each marked if it's one of
   // theme.highlight (compared without punctuation).

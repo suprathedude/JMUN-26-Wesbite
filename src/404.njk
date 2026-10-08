@@ -4,20 +4,24 @@ title: Page not found
 permalink: /404.html
 eleventyExcludeFromCollections: true
 pageCss: [not-found]
+pageJs: [not-found]
 ---
-{%- from "partials/gilt.njk" import frame, laurel, mark -%}
-{%- from "partials/placard.njk" import placard -%}
-{#- SPEC 9.9: one raised placard above the line, with a link home and to Committees. -#}
+{#- The 404 as a TV with no signal (8 October): colour bars, a black screen with a large 404
+    and "No signal", and a strip along the bottom with the way home and a running clock.
+    The 404 flickers now and then (transform and opacity only); still with reduced motion. -#}
 <section class="nf" aria-labelledby="nf-title">
-  <div class="orb nf__orb" aria-hidden="true"></div>
-  {{ frame("corner") }}
-  {{ laurel("laurel--head") }}
-  <div class="container nf__inner">
-    {{ placard("Point of order", "placard--sign placard--rise nf__placard") }}
-    <h1 class="nf__title" id="nf-title">This page doesn't exist.</h1>
-    <div class="nf__actions">
-      <a class="btn btn--primary" href="/">Go to the homepage</a>
-      <a class="btn btn--outline" href="/committees/">See the committees</a>
-    </div>
+  <div class="nf__bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  <div class="nf__roll" aria-hidden="true"></div>
+  <div class="nf__screen">
+    <h1 class="nf__title" id="nf-title">
+      <span class="visually-hidden">Page not found: </span>
+      <span class="nf__code" data-text="404">404</span>
+      <span class="nf__sub">No signal</span>
+    </h1>
+  </div>
+  <div class="nf__strip">
+    <p class="nf__count" aria-hidden="true">4 - 0 - 4</p>
+    <p class="nf__msg">Sorry, we lost this page. <a href="/">Back to home</a> or <a href="/committees/">see the committees</a>.</p>
+    <p class="nf__clock" aria-hidden="true" data-nf-clock>00:00</p>
   </div>
 </section>

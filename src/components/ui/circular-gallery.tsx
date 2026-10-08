@@ -93,7 +93,7 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
 			let spin = 0; // momentum after a slide, degrees per ms
 			// A slide in progress: pointer id, last x and time, how far it moved, and whether it
 			// has become a drag (then the pointer is captured and the click that follows is eaten).
-			let drag: { id: number; x: number; t: number; moved: number; dragging: boolean; velocity: number } | null = null;
+			let drag: { id: number; x: number; startX: number; t: number; moved: number; dragging: boolean; velocity: number } | null = null;
 			let eatClickUntil = 0; // a drag's closing click, if one comes, arrives before this
 			// Sliding or scrolling sideways by one card's width turns the ring by one card.
 			const dragFactor = anglePerItem / Math.max(cardWidth, 1);
@@ -107,6 +107,9 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
 					const relativeAngle = (((i * anglePerItem + r) % 360) + 360) % 360;
 					const normalizedAngle = relativeAngle > 180 ? 360 - relativeAngle : relativeAngle;
 					el.style.opacity = Math.max(0.3, 1 - normalizedAngle / 180).toFixed(3);
+					// Cards turned away from the viewer take no clicks (8 October): the browser can pick
+					// a card at the back of the ring, through the one in front, as the click target.
+					el.style.pointerEvents = normalizedAngle > 80 ? 'none' : '';
 				});
 			};
 
@@ -185,7 +188,7 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
 			// see touch-action in home.css) or a mouse drag.
 			const onPointerDown = (event: PointerEvent) => {
 				if (event.pointerType === 'mouse' && event.button !== 0) return;
-				drag = { id: event.pointerId, x: event.clientX, t: event.timeStamp, moved: 0, dragging: false, velocity: 0 };
+				drag = { id: event.pointerId, x: event.clientX, startX: event.clientX, t: event.timeStamp, moved: 0, dragging: false, velocity: 0 };
 				spin = 0;
 				eatClickUntil = 0;
 			};
@@ -196,7 +199,9 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
 				drag.x = event.clientX;
 				drag.t = event.timeStamp;
 				drag.moved += Math.abs(dx);
-				if (!drag.dragging && drag.moved > 6) {
+				// A drag only once the pointer has really gone sideways (12 px from where it went
+				// down), so a click with a little wobble, on a trackpad or a phone, still opens a card.
+				if (!drag.dragging && Math.abs(event.clientX - drag.startX) > 12) {
 					drag.dragging = true;
 					root.setPointerCapture(drag.id);
 					root.classList.add('is-dragging');

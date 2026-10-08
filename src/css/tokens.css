@@ -76,6 +76,18 @@
   --doom-rgb: 62 229 138;
   --doom-deep-rgb: 4 23 12;
 
+  /* TV colour bars, for the 404 page only (8 October) */
+  --tv-white: #f2f2f2;
+  --tv-yellow: #f0ef00;
+  --tv-cyan: #00eef0;
+  --tv-green: #00e000;
+  --tv-magenta: #ee00ee;
+  --tv-red: #f00000;
+  --tv-blue: #0010ee;
+  --tv-black: #060606;
+  --tv-cyan-rgb: 0 238 240;
+  --tv-magenta-rgb: 238 0 238;
+
   /* Ink opacity steps */
   --ink-100: var(--ink);
   --ink-85: rgb(var(--ink-rgb) / 0.85); /* lead text */

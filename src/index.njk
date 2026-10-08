@@ -276,7 +276,11 @@ pageJs: [gallery, hero-video, countdown, marquee, stats, schedule, ring, faq]
         <p class="card__text">{{ socialNight.expect }}</p>
         <a class="card__link" href="/social-night/">About Social Night</a>
       </article>
-      <article class="card">
+      <article class="card{% if site.home.newToMunImage %} card--photo{% endif %}">
+        {#- A committee's chairs at work, blurred into the card behind the text (8 October) -#}
+        {%- if site.home.newToMunImage %}
+        <img class="card__photo" src="/{{ site.home.newToMunImage }}" alt="" loading="lazy" sizes="(max-width: 768px) 100vw, 620px" eleventy:widths="640,1000">
+        {%- endif %}
         <span class="card__bar" aria-hidden="true"></span>
         <p class="card__tag">For first-timers</p>
         <h3 class="card__title">New to MUN?</h3>

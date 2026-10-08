@@ -45,6 +45,8 @@ In GoDaddy, open **My Products → Web Hosting → Manage → cPanel Admin**.
 
 **SSL (the padlock).** In cPanel, open **Security → SSL/TLS Status**, tick the domain and click **Run AutoSSL**. Most GoDaddy hosting plans include a free certificate; if yours doesn't, it's under **My Products → SSL Certificates**. It can take up to a few hours to appear. You'll switch on the HTTPS redirect in step 6, once it's working.
 
+**For oakridgejmun.in, AutoSSL is switched off on the plan** (8 October): the padlock comes from Cloudflare instead. Follow [CLOUDFLARE.md](CLOUDFLARE.md), and skip the `.htaccess` HTTPS switch in step 6 (Cloudflare's "Always Use HTTPS" does it).
+
 ## 4. Create an FTP account for the deploy
 
 In cPanel, open **Files → FTP Accounts** and add an account:

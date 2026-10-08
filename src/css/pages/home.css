@@ -1459,6 +1459,34 @@
 }
 
 /* Social Night card: OakMUN's brown and gold, with a moon for Halloween */
+/* New to MUN: a photo blurred into the card, fading out behind the text (8 October) */
+.card--photo {
+  overflow: hidden;
+}
+
+.card__photo {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 35%;
+  filter: blur(3px) saturate(0.85);
+  transform: scale(1.08); /* keeps the blurred edges outside the card */
+  opacity: 0.75;
+}
+
+.card--photo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(100deg, rgb(var(--card-rgb) / 0.95) 0%, rgb(var(--card-rgb) / 0.78) 45%, rgb(var(--card-rgb) / 0.28) 100%),
+    linear-gradient(0deg, rgb(var(--card-rgb) / 0.7) 0%, transparent 50%);
+}
+
 .card--night {
   overflow: hidden;
   border-color: rgb(var(--sn-gold-rgb) / 0.22);

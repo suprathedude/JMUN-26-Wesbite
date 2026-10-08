@@ -106,6 +106,7 @@
     "glanceText": "{count} committees, each with its own agenda and its own chairs. Background guides go up on each committee's page as they're released.",
     "debateText": "Social Night at the end of Day one, and a step-by-step guide for anyone at their first conference.",
     "newToMunText": "What happens in a committee session, what to say and what to bring, explained step by step.",
+    "newToMunImage": "assets/img/ntm/card.jpg",
     "faqIntro": "Quick answers for delegates, parents and faculty advisors.",
     "closing": "Your first committee starts on {date}."
   },

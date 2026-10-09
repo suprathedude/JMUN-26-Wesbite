@@ -14,7 +14,7 @@ The few that matter most on day one:
 | --- | --- |
 | The consent form link (the "Consent form" button stays hidden until it's set) | `site.json` → `nav.secondary.url`, or the PDF in `resources.json` → `documents` |
 | The announcement bar | `site.json` → `announcement.text` |
-| The HTTPS switch, once oakridgejmun.in has its SSL certificate | `src/.htaccess` ([DEPLOY.md](DEPLOY.md), step 6) |
+| ~~The HTTPS switch~~ Done 8 October: Cloudflare gives the padlock and sends `http://` to `https://` ("Always Use HTTPS"). Leave the `.htaccess` lines switched off | [CLOUDFLARE.md](CLOUDFLARE.md) |
 
 ## Placeholder assets made for this site
 
@@ -31,12 +31,12 @@ SPEC 7.4 allows generic UN-room photos and committee logo circles from `srijai-k
 
 | What | Our file | OakMUN source | Notes |
 | --- | --- | --- | --- |
-| ~~Hero background (PLAN.md D4)~~ Done 7 October: your 38 s montage (`src/assets/video/hero.av1.webm`, `hero.h264.mp4`), with the frame at 12.5 s (placards up) as `src/assets/img/hero-poster.jpg`, which phones show instead of the video | Was `src/assets/img/hero/hero-placeholder.jpg` | `public/committee_photos/unsc.jpg` | To change it again: **Photo:** upload it and set `hero.image` in `site.json`. **Video (40 s or less):** this needs a laptop. Save it as `src/assets/video/source/hero.mp4` and run `npm run media`, which makes `src/assets/video/hero.av1.webm`, `hero.h264.mp4` and a poster image. Commit those, then set `hero.video` to `assets/video/hero` and `hero.image` to `assets/img/hero-poster.jpg`. |
+| ~~Hero background (PLAN.md D4)~~ Done 7 October: your 38 s montage (`src/assets/video/hero.av1.webm`, `hero.h264.mp4`), with the frame at 12.5 s (placards up) as `src/assets/img/hero-poster.jpg`, shown until the video starts. Phones get `hero-tall.*` (8 October), a portrait cut from the middle | Was `src/assets/img/hero/hero-placeholder.jpg` | `public/committee_photos/unsc.jpg` | To change it again: **Photo:** upload it and set `hero.image` in `site.json`. **Video (40 s or less):** this needs a laptop. Save it as `src/assets/video/source/hero.mp4` and run `npm run media`, which makes `src/assets/video/hero.av1.webm`, `hero.h264.mp4`, the phone cut `hero-tall.av1.webm` and `hero-tall.h264.mp4`, and a poster image. Commit those, then set `hero.video` to `assets/video/hero` and `hero.image` to `assets/img/hero-poster.jpg`. |
 | Research link list | `resources.json` → `researchLinks` | OakMUN's Resources page | Six public UN websites. Keep, change or add to them. |
 
 ## Marvel footage on the Doomsday page
 
-The Doomsday committee page opens with the Marvel Studios intro, then a clip of Doctor Doom (PLAN.md F28). Both are Marvel's footage, taken (as you asked, 7 October) from Toshit Sai's fan project, github.com/ToshitSai/Avengers-DoomsDay-, which has no licence. Doom's clip was replaced on 8 October with the 4K copy you sent (encoded at 1920 px, and a 864 px wide centre cut for phones). They're used at the school's discretion; if Marvel, Disney or the project's author asks, take them down.
+The Doomsday committee page opens with the Marvel Studios intro, then a clip of Doctor Doom (PLAN.md F28). Both are Marvel's footage, taken (as you asked, 7 October) from Toshit Sai's fan project, github.com/ToshitSai/Avengers-DoomsDay-, which has no licence. Doom's clip was replaced on 8 October with the 4K copy you sent, and re-encoded sharper from it on 9 October (2560 px wide, and a 998 px wide centre cut for phones). The Marvel intro stays at 1180 px: no larger copy of it is available. They're used at the school's discretion; if Marvel, Disney or the project's author asks, take them down.
 
 | What | Where | To remove it |
 | --- | --- | --- |

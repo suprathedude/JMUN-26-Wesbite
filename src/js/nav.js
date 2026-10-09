@@ -7,6 +7,9 @@ const nav = document.querySelector("[data-nav]");
 const STRIP_KEY = "oakjmun-strip";
 const COLLAPSE_AFTER = 80; // px scrolled before the pill may collapse
 const CLOSE_DELAY = 550; // ms before the dropdown closes after the pointer leaves
+// The pill shrinks to the crest while the page scrolls down, and opens out again once
+// scrolling has stopped for this long (9 October), so the links are never hidden for long.
+const IDLE_EXPAND = 1200;
 
 const desktop = matchMedia("(min-width: 769px)");
 const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
@@ -75,6 +78,15 @@ function initCollapse() {
     }
   };
 
+  // Still for a moment: open the pill out again.
+  let idle = 0;
+  const expandWhenIdle = () => {
+    clearTimeout(idle);
+    idle = setTimeout(() => {
+      if (collapsed && !openedByHover) setCollapsed(false);
+    }, IDLE_EXPAND);
+  };
+
   // While the page scrolls, html.is-scrolling holds the drifting glows still (components.css),
   // so nothing animates behind the content as it moves.
   let settle = 0;
@@ -85,6 +97,7 @@ function initCollapse() {
         queued = true;
         requestAnimationFrame(update);
       }
+      expandWhenIdle();
       if (!settle) root.classList.add("is-scrolling");
       clearTimeout(settle);
       settle = setTimeout(() => {
@@ -96,7 +109,10 @@ function initCollapse() {
   );
   desktop.addEventListener("change", update);
   addEventListener("gallery:state", update);
-  if (gallery()) update();
+  if (gallery()) {
+    update();
+    expandWhenIdle();
+  }
 
   crest.addEventListener("click", (event) => {
     if (!collapsed) return;

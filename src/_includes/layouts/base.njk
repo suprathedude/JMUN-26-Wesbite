@@ -44,7 +44,12 @@
   setTimeout(function(){d.classList.remove("is-loading");dispatchEvent(new Event("loader:done"))},was?450:0)}
   addEventListener("load",done);setTimeout(done,12000);
   try{
-  {%- if gallery %}if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("gallery-on");if(location.hash||sessionStorage.getItem("oakjmun-gallery"))d.classList.add("gallery-skip");else d.classList.add("gallery-active")}{% endif -%}
+  {%- if gallery %}if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("gallery-on");if(location.hash||sessionStorage.getItem("oakjmun-gallery"))d.classList.add("gallery-skip");else{d.classList.add("gallery-active");
+  {#- The intro will play: fetch its code and photos now, side by side, rather than the photos only
+      once the code has arrived and started (8 October). crossOrigin matches the 3D loader's
+      requests, so the browser reuses these downloads. -#}
+  var h=d.firstElementChild,m=document.createElement("link");m.rel="modulepreload";m.href="/js/hero-gallery.js";h.appendChild(m);
+  {{ site.gallery.images | dump | safe }}.forEach(function(s,i){var p=document.createElement("link");p.rel="preload";p.as="image";p.href="/"+s;p.crossOrigin="anonymous";if(i<6)p.fetchPriority="high";h.appendChild(p)})}}{% endif -%}
   {%- if portal %}if(!matchMedia("(prefers-reduced-motion: reduce)").matches&&"IntersectionObserver" in window)d.classList.add("portal-on");{% endif -%}
   {%- if site.announcement.enabled %}if(sessionStorage.getItem("oakjmun-strip")==="{{ site.announcement.text | hash }}")d.classList.add("strip-off");{% endif -%}
   }catch(e){}})(document.documentElement)</script>

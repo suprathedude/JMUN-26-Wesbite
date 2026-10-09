@@ -28,8 +28,10 @@
 <section class="dd-lair" aria-label="{{ c.cinematic.line }}" data-dd-lair>
   <div class="dd-lair__stage">
     <video class="dd-lair__video" muted playsinline preload="none" poster="{{ media }}doom-poster.jpg" aria-hidden="true" data-dd-doom>
-      {#- VP9 first: about half the size of the H.264 copy, which Safari falls back to -#}
-      <source src="{{ media }}doom.webm" type="video/webm; codecs=vp9">
+      {#- 2560 px wide, cut from the 4K original (9 October). AV1 first: under half the size of
+          the H.264 copy, which browsers without AV1 (older Safari) fall back to. doomsday.js
+          swaps in the portrait cut (doom-tall.*) on tall screens. -#}
+      <source src="{{ media }}doom.av1.webm" type='video/webm; codecs="av01.0.12M.08"'>
       <source src="{{ media }}doom.mp4" type="video/mp4">
     </video>
     <div class="dd-lair__shade" aria-hidden="true"></div>

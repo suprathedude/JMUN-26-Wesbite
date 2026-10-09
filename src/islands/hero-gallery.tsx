@@ -4,7 +4,7 @@
 // on the root element:
 //   "gallery:scroll"  detail: the page's scroll delta in px (moves the photos)
 //   "gallery:pause"   detail: true to stop drawing, false to start again
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import InfiniteGallery from '@/components/ui/3d-gallery-photography';
 
@@ -17,6 +17,8 @@ const BLUR = { blurIn: { start: 0.0, end: 0.1 }, blurOut: { start: 0.35, end: 0.
 
 function Host({ root, images, startPaused }: { root: HTMLElement; images: Image[]; startPaused: boolean }) {
 	const [paused, setPaused] = useState(startPaused);
+	// Tells gallery.js the photos are on screen, so it can take the loading mark away.
+	const onReady = useCallback(() => root.dispatchEvent(new Event('gallery:ready')), [root]);
 
 	useEffect(() => {
 		const onPause = (event: Event) => setPaused((event as CustomEvent<boolean>).detail);
@@ -35,6 +37,7 @@ function Host({ root, images, startPaused }: { root: HTMLElement; images: Image[
 			className="gallery__three"
 			scrollSource={root}
 			paused={paused}
+			onReady={onReady}
 		/>
 	);
 }

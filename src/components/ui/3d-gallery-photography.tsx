@@ -61,6 +61,8 @@ interface InfiniteGalleryProps {
 	scrollSource?: EventTarget;
 	/** Stops drawing while true. */
 	paused?: boolean;
+	/** Called once the photos have loaded and the scene is drawn. */
+	onReady?: () => void;
 }
 
 interface PlaneData {
@@ -542,6 +544,14 @@ function FallbackGallery({ images }: { images: ImageItem[] }) {
 	);
 }
 
+// Mounts only once the Suspense above has resolved (every photo loaded), then reports it.
+function Ready({ onReady }: { onReady?: () => void }) {
+	useEffect(() => {
+		onReady?.();
+	}, [onReady]);
+	return null;
+}
+
 export default function InfiniteGallery({
 	images,
 	speed = 1,
@@ -559,6 +569,7 @@ export default function InfiniteGallery({
 	},
 	scrollSource,
 	paused = false,
+	onReady,
 }: InfiniteGalleryProps) {
 	const [webglSupported, setWebglSupported] = useState(true);
 
@@ -602,6 +613,7 @@ export default function InfiniteGallery({
 						blurSettings={blurSettings}
 						scrollSource={scrollSource}
 					/>
+					<Ready onReady={onReady} />
 				</Suspense>
 			</Canvas>
 		</div>

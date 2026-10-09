@@ -149,7 +149,7 @@ On the first homepage visit of a session, photos fly out of the dark before the 
 },
 ```
 
-- Upload photos to `src/assets/img/gallery/` and list their paths in `"images"`. 10 to 15 photos works well; up to 15 are on screen at once, each photo once. Use landscape or portrait, about 1200 px on the long side, as `.webp` or `.jpg` (keep each under about 100 KB, since they all load at the start).
+- Upload photos to `src/assets/img/gallery/` and list their paths in `"images"`. 10 to 15 photos works well; up to 15 are on screen at once, each photo once. Use landscape or portrait, about 1000 px on the long side, as `.webp` or `.jpg` (keep each under about 100 KB, since they all load at the start).
 - `"screens"`: how many screens of scrolling it takes to reach the hero.
 - `"cue"`: the small word at the bottom of the screen.
 - People who have turned off animations on their device, and later visits in the same session, start at the hero.

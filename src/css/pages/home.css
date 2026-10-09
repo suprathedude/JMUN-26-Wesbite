@@ -1048,6 +1048,11 @@
   margin-top: 40px;
 }
 
+/* Filled, so the gold line behind it passes under the button rather than through it */
+.schedule__share .btn {
+  background: var(--blue-750);
+}
+
 .schedule__share .btn svg {
   width: 18px;
   height: 18px;

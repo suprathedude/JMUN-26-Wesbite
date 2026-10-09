@@ -36,7 +36,7 @@ SPEC 7.4 allows generic UN-room photos and committee logo circles from `srijai-k
 
 ## Marvel footage on the Doomsday page
 
-The Doomsday committee page opens with the Marvel Studios intro, then a clip of Doctor Doom (PLAN.md F28). Both are Marvel's footage, taken (as you asked, 7 October) from Toshit Sai's fan project, github.com/ToshitSai/Avengers-DoomsDay-, which has no licence. Doom's clip was replaced on 8 October with the 4K copy you sent (encoded at 1920 px, and a 864 px wide centre cut for phones). They're used at the school's discretion; if Marvel, Disney or the project's author asks, take them down.
+The Doomsday committee page opens with the Marvel Studios intro, then a clip of Doctor Doom (PLAN.md F28). Both are Marvel's footage, taken (as you asked, 7 October) from Toshit Sai's fan project, github.com/ToshitSai/Avengers-DoomsDay-, which has no licence. Doom's clip was replaced on 8 October with the 4K copy you sent, and re-encoded sharper from it on 9 October (2560 px wide, and a 998 px wide centre cut for phones). The Marvel intro stays at 1180 px: no larger copy of it is available. They're used at the school's discretion; if Marvel, Disney or the project's author asks, take them down.
 
 | What | Where | To remove it |
 | --- | --- | --- |

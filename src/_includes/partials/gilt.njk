@@ -27,12 +27,24 @@
 {%- set bands = {
   "schedule": { "top": ["M86 0L100 100", 185], "bottom": ["M0 0L30 100", 206] }
 } -%}
+{#- On phones a tall, narrow section turned the lines above into long slashes through the text
+    (10 October), so there each line is drawn as a short cut in a band at its own corner, inside
+    the section's padding. They still meet at the same points across the edges between sections. -#}
+{%- set phone = {
+  "banner": { "top": "M0 100L25 0M86 0L100 100" },
+  "letter": { "top": "M0 100L16 0", "bottom": "M100 0L86 100" },
+  "faq": { "top": "M0 100L22 0", "bottom": "M100 0L86 100" },
+  "committee": { "top": "M0 100L24 0", "bottom": "M100 0L70 100" }
+} -%}
 {%- if bands[kind] -%}
 {%- for edge, band in bands[kind] -%}
 <svg class="gilt-cuts gilt-cuts--{{ edge }} {{ class }}" style="--band: {{ band[1] }}px" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="{{ band[0] }}"/></svg>
 {%- endfor -%}
 {%- else -%}
-<svg class="gilt-cuts {{ class }}" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="{{ paths[kind] }}"/></svg>
+<svg class="gilt-cuts gilt-cuts--full {{ class }}" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="{{ paths[kind] }}"/></svg>
+{%- for edge, d in phone[kind] -%}
+<svg class="gilt-cuts gilt-cuts--{{ edge }} gilt-cuts--phone {{ class }}" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="{{ d }}"/></svg>
+{%- endfor -%}
 {%- endif -%}
 {%- endmacro -%}
 

@@ -53,7 +53,7 @@ The Doomsday committee page opens with the Marvel Studios intro, then a clip of 
 | `crest` | `""` | The crest's path (see "Placeholder assets") |
 | `hero.video` | `assets/video/hero` (7 October) | Done |
 | `theme` | On since 7 October: "Bridge the Divide, / Let the Truth Guide" (`lines`), Bridge and Guide in teal (`highlight`). The `caption` was drafted by Claude at your request | The Secretariat's own caption, if they want one |
-| `sgLetter` | One placeholder paragraph; `photo` and `signature` `""` | Vihaan's letter, photo and signature |
+| `sgLetter` | Done on 11 October: Vihaan's letter, and his photo cropped from his Secretariat post (`assets/img/secretariat/vihaan-tallamraju-letter.jpg`); `signature` `""` | Nothing, unless you want his signature under the letter |
 | `sponsors` | `[]` | Sponsors, if any; the strip appears with the first one |
 | `allocations` | One round, "Date TBC (for registrations received by TBC)"; `status` "Registration is open"; `matrixUrl` `""`, so the button reads "Opens with Round 1 (TBC)"; `intro` and `matrixText` end "TBC" | The real rounds (name, date, note each), the status, the matrix link, and the two texts without "TBC" |
 
@@ -75,7 +75,7 @@ The overviews are final. FCC's and Doomsday's say the scenario is announced with
 
 | Field | Now | Needed |
 | --- | --- | --- |
-| `photo`, `signature` | `""` for everyone; cards show initials in a teal ring | Photos (and signatures, if you want them on the cards) |
+| `photo`, `photoLabelled` | Done on 11 October: each card shows the person's Secretariat post (`assets/img/secretariat/`), with the name, role, crest and signature already on it, so `photoLabelled` keeps the card's own name for screen readers only. Three names were changed to match the posts: Prateek Kumar Mishra, Naga Krishiv Anantha, Aadya Reddy | Nothing. For a plain photo instead, set `photoLabelled` to `false` and the card prints the name and role over it |
 | `instagram` | `""` for everyone; the back of a card has no Instagram button | Handles, if they want them shown |
 
 ### `schedule.json`

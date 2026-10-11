@@ -1,9 +1,10 @@
 {#- A Secretariat flip card (SPEC 9.4, reference/17 and 18). Front: photo or initials, name,
-    role, signature slot. Back: name, role and Instagram when there's a handle. The Flip button
+    role, signature slot. With photoLabelled (the Secretariat's own posts, 11 October), the photo
+    already shows the name, role and signature, so the name is kept for screen readers only. Back: name, role and Instagram when there's a handle. The Flip button
     is the control (aria-pressed); the back stays readable by screen readers. -#}
 {%- macro personCard(p) -%}
 {%- set handle = (p.instagram or "") | replace("@", "") -%}
-<article class="person{% if p.photo %} person--photo{% endif %}" data-person>
+<article class="person{% if p.photo %} person--photo{% endif %}{% if p.photo and p.photoLabelled %} person--post{% endif %}" data-person>
   {#- First in the markup, so Tab reaches Flip before the link on the back. -#}
   <button class="person__flip" type="button" aria-pressed="false" aria-label="Flip {{ p.name }}'s card">Flip</button>
   <div class="person__inner">
@@ -13,7 +14,7 @@
       {%- else %}
       <span class="person__initials" aria-hidden="true">{{ p.name | initials }}</span>
       {%- endif %}
-      <div class="person__label">
+      <div class="person__label{% if p.photo and p.photoLabelled %} visually-hidden{% endif %}">
         <h3 class="person__name">{{ p.name }}</h3>
         <p class="person__role">{{ p.role }}</p>
       </div>

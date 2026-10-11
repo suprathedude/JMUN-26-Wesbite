@@ -875,6 +875,11 @@
   margin-bottom: 8px;
 }
 
+.letter__closing {
+  margin-bottom: 4px;
+  color: var(--ink-85);
+}
+
 .letter__name {
   font-weight: 700;
   color: var(--ink-100);

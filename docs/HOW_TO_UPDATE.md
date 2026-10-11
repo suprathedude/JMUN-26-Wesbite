@@ -282,7 +282,7 @@ Everything else updates by itself:
 | The "Consent form" button (hidden until it has a link) | `site.json` → `nav` → `secondary` → `url` |
 | The contact email | `site.json` → `contact` → `email`, and the last answer in `faq.json` (with its button's `mailto:` link) |
 | The conference dates | `site.json` → `start` and `end`, written like `2026-10-30T08:00:00+05:30`. The countdown and every date on the site follow these. |
-| The Secretary-General's letter | `site.json` → `sgLetter`: `paragraphs` (one item per paragraph), `photo`, `signature` |
+| The Secretary-General's letter | `site.json` → `sgLetter`: `paragraphs` (one item per paragraph), `closing` (the line above the name), `photo`, `signature` |
 | Allocation rounds and the matrix link | `site.json` → `allocations`: `rounds` (`name`, `date`, `note`), `status`, `matrixUrl` |
 | FAQ answers | `faq.json`. An answer can have a button: `"link": { "label": "See allocations", "url": "/allocations/" }` |
 | Social Night details | `socialNight.json`: `time`, `dressCode`, `expect`, `faq`. The photo booth section appears once `photoBooth` has a sentence in it; add `photoBoothImage` for its photo. |

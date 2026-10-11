@@ -35,6 +35,15 @@
   --gilt-light: #f2dfa6;
   /* The poster's blue laurels */
   --laurel: #3482c4;
+  /* The spotlight above the moving grid on Allocations and Resources (backdrops.js), in the
+     colour of the 21st.dev component it comes from */
+  --grid-glow-rgb: 37 99 235;
+  /* Instagram's gradient for the Secretariat cards' "View post" button, a shade deeper than
+     Instagram's own so white text on it passes contrast */
+  --ig-purple: #7b2fbe;
+  --ig-red: #c3164a;
+  --ig-orange: #c8460f;
+  --ig-glow-rgb: 195 22 74;
   --sand: #bc9a6e;
   --yellow: #ffcb00;
   --peach: #f0b4a0;

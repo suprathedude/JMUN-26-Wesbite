@@ -5,6 +5,7 @@ eleventyComputed:
   description: "How committees and countries are given out at {{ site.name }} {{ site.year }}, the allocation rounds and the allocation matrix."
 permalink: /allocations/
 pageCss: [allocations]
+pageJs: [backdrops]
 ---
 {%- from "partials/gilt.njk" import frame, laurel, mark -%}
 {%- from "partials/icons.njk" import icon -%}
@@ -13,6 +14,7 @@ pageCss: [allocations]
 
 {#- One backdrop for both sections, so the glow carries on behind the matrix card. -#}
 <div class="alloc-page">
+  <div class="backdrop backdrop--grid" data-backdrop="grid" aria-hidden="true"><canvas></canvas></div>
   <div class="orb alloc__orb alloc__orb--a" aria-hidden="true"></div>
   <div class="orb alloc__orb alloc__orb--b" aria-hidden="true"></div>
   {{ frame("corner") }}

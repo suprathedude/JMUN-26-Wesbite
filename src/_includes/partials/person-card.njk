@@ -1,12 +1,17 @@
 {#- A Secretariat flip card (SPEC 9.4, reference/17 and 18). Front: photo or initials, name,
     role, signature slot. With photoLabelled (the Secretariat's own posts, 11 October), the photo
-    already shows the name, role and signature, so the name is kept for screen readers only. Back: name, role and Instagram when there's a handle. The Flip button
-    is the control (aria-pressed); the back stays readable by screen readers. -#}
-{%- macro personCard(p) -%}
+    already shows the name, role and signature, so the name is kept for screen readers only.
+    Back (11 October): the same photo blurred behind frosted glass, the name and role top left,
+    the person's quote, and an Instagram button for their post (`post`), or the conference's
+    account until the post's link is in. Clicking the card turns it over (secretariat.js); the
+    Flip button is kept for keyboards and screen readers but isn't shown. -#}
+{%- macro personCard(p, site) -%}
+{%- from "partials/icons.njk" import icon -%}
 {%- set handle = (p.instagram or "") | replace("@", "") -%}
+{%- set igUrl = p.post or ("https://www.instagram.com/" ~ site.contact.instagram ~ "/") -%}
 <article class="person{% if p.photo %} person--photo{% endif %}{% if p.photo and p.photoLabelled %} person--post{% endif %}" data-person>
   {#- First in the markup, so Tab reaches Flip before the link on the back. -#}
-  <button class="person__flip" type="button" aria-pressed="false" aria-label="Flip {{ p.name }}'s card">Flip</button>
+  <button class="person__flip visually-hidden" type="button" aria-pressed="false" aria-label="Flip {{ p.name }}'s card">Flip</button>
   <div class="person__inner">
     <div class="person__face person__front">
       {%- if p.photo %}
@@ -21,14 +26,26 @@
       {%- if p.signature %}
       <img class="person__sig" src="/{{ p.signature }}" alt="" eleventy:widths="320">
       {%- endif %}
+      <span class="person__tap" aria-hidden="true">{{ icon("rotate-cw") }}</span>
     </div>
     <div class="person__face person__back">
-      <p class="person__back-name">{{ p.name }}</p>
-      <p class="person__back-role">{{ p.role }}</p>
-      {%- if handle %}
-      <p class="person__handle">@{{ handle }}</p>
-      <a class="btn btn--primary person__ig" href="https://www.instagram.com/{{ handle }}/" target="_blank" rel="noopener">Instagram ↗<span class="visually-hidden"> (opens in a new tab)</span></a>
+      {%- if p.photo %}
+      <img class="person__back-photo" src="/{{ p.photo }}" alt="" loading="lazy" sizes="(max-width: 400px) 100vw, (max-width: 768px) 50vw, 360px" eleventy:widths="400,800">
       {%- endif %}
+      <div class="person__back-head">
+        <p class="person__back-name">{{ p.name }}</p>
+        <p class="person__back-role">{{ p.role }}</p>
+        {%- if handle %}
+        <p class="person__handle">@{{ handle }}</p>
+        {%- endif %}
+      </div>
+      {%- if p.quote %}
+      <blockquote class="person__quote"><p>“{{ p.quote }}”</p></blockquote>
+      {%- endif %}
+      <a class="person__ig" href="{{ igUrl }}" target="_blank" rel="noopener">
+        <svg class="icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
+        {%- if p.post %}View post{% else %}View on Instagram{% endif %}<span class="visually-hidden"> (opens in a new tab)</span>
+      </a>
     </div>
   </div>
 </article>

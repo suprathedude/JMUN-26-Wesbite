@@ -1676,6 +1676,26 @@ html.is-locked {
   inset: auto 0 0;
 }
 
+/* Phones: the corner bands only (partials/gilt.njk), shallow enough to stay in the padding */
+.gilt-cuts--phone {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .gilt-cuts--full {
+    display: none;
+  }
+
+  .gilt-cuts--phone {
+    display: block;
+  }
+
+  .gilt-cuts--top,
+  .gilt-cuts--bottom {
+    height: 56px;
+  }
+}
+
 /* Softened, on committee pages */
 .gilt-cuts--soft {
   filter: blur(1.5px);

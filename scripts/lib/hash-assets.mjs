@@ -2,6 +2,12 @@
 // (site.css -> site.3f9a1c2b.css) and rewrites every reference to them, so the
 // server can cache them for a year (src/.htaccess). Runs after `eleventy` in build mode only.
 import { createHash } from "node:crypto";
+
+// Part of every hashed name. Changing it renames every stylesheet, script and font at once, so
+// every browser and Cloudflare server fetches them fresh: the way out if a broken copy is ever
+// cached under a name that hasn't changed (12 October: a stylesheet caught half-uploaded stayed
+// in caches for the homepage). Bump the number to use it again.
+const CACHE_ROUND = "2";
 import { readFile, writeFile, rename, readdir } from "node:fs/promises";
 import path from "node:path";
 
@@ -35,7 +41,7 @@ function rewrite(text, manifest) {
 async function hashFiles(files, outDir, manifest) {
   for (const file of files) {
     const buf = await readFile(file);
-    const hash = createHash("sha256").update(buf).digest("hex").slice(0, 8);
+    const hash = createHash("sha256").update(CACHE_ROUND).update(buf).digest("hex").slice(0, 8);
     const ext = path.extname(file);
     const hashed = `${file.slice(0, -ext.length)}.${hash}${ext}`;
     await rename(file, hashed);

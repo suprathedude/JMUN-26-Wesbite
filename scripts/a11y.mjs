@@ -35,7 +35,7 @@ const VIEWPORTS = [
 const STATES = [
   { name: "home: mobile menu open", path: "/", width: 390, run: (page) => page.click("[data-menu-btn]") },
   { name: "home: More dropdown open", path: "/", width: 1440, run: (page) => page.focus("[data-more-btn]").then(() => page.keyboard.press("Enter")) },
-  { name: "secretariat: card flipped", path: "/secretariat/", width: 1440, run: (page) => page.locator(".person__flip").first().click() },
+  { name: "secretariat: card flipped", path: "/secretariat/", width: 1440, run: (page) => page.focus(".person__flip").then(() => page.keyboard.press("Enter")) },
   { name: "social night: second FAQ open", path: "/social-night/", width: 390, run: (page) => page.locator(".faq-q").nth(1).click() },
   { name: "committees: no results", path: "/committees/", width: 1440, run: (page) => page.fill("input[data-search]", "zzzz") },
 ];

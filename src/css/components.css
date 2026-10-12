@@ -1831,3 +1831,37 @@ html.is-locked {
 .footer__mark {
   margin-top: 24px;
 }
+
+/* ---------- Backdrops (11 October, PLAN.md F43) ----------
+   A background layer as the first child of a page wrapper; src/js/backdrops.js draws its canvas.
+   It sits under the gold lines and the content. */
+
+:has(> .backdrop) {
+  isolation: isolate;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: clip;
+  pointer-events: none;
+}
+
+.backdrop canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Allocations and Resources: a spotlight at the top of the page and the moving grid, which
+   stays on screen as the page scrolls. */
+.backdrop--grid {
+  background: radial-gradient(circle 620px at 50% 200px, rgb(var(--grid-glow-rgb) / 0.35), transparent 70%);
+}
+
+.backdrop--grid canvas {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}

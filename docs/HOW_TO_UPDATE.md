@@ -12,7 +12,7 @@ All the content is in `src/_data/`:
 | --- | --- |
 | `site.json` | The conference name, dates and venue; the announcement bar; the Register link; the contact email; homepage text; the theme; the Secretary-General's letter; sponsors; allocation rounds; the short intros on each page |
 | `committees.json` | Every committee: code, full name, agenda, overview, photo, logo, background guide, and its executive board (EB); for IP, its team |
-| `secretariat.json` | The Secretariat: names, roles, photos, signatures, Instagram handles |
+| `secretariat.json` | The Secretariat: names, roles, photos, quotes, Instagram posts and handles |
 | `schedule.json` | Both days of the conference |
 | `faq.json` | The questions and answers on the homepage |
 | `resources.json` | Procedure documents, the International Press style guides and research links |
@@ -202,7 +202,10 @@ Each person in `secretariat.json` looks like this:
   "name": "Aryan Nadimpalli",
   "role": "Deputy Secretary-General",
   "group": "leadership",
-  "photo": "",
+  "photo": "assets/img/secretariat/aryan-nadimpalli.jpg",
+  "photoLabelled": true,
+  "quote": "",
+  "post": "",
   "signature": "",
   "instagram": ""
 }
@@ -210,7 +213,10 @@ Each person in `secretariat.json` looks like this:
 
 - `"group"`: `leadership` for the top six, `usg` for the Under-Secretaries-General. Everyone shows in one even grid, in the order of the file.
 - `"photo"`: upload it to `src/assets/img/secretariat/` first. It's shown tall (4:5), so keep the face in the top half. While it's `""`, the card shows initials.
-- `"instagram"`: the handle, with or without `@`. It appears as a button on the back of the card.
+- `"photoLabelled"`: `true` when the photo already shows the name and role (the Secretariat's own posts), so the card doesn't print them over it. `false` for a plain photo.
+- `"quote"`: a short quote for the back of the card, without quotation marks (the card adds them). Leave it `""` for none.
+- `"post"`: the link to the person's Instagram post. The back's button then says "View post" and opens it; while it's `""`, the button says "View on Instagram" and opens the conference's account.
+- `"instagram"`: the person's own handle, with or without `@`, shown under their role on the back. Optional.
 - To add someone, copy a whole `{ ... }` block, paste it where they should appear, and mind the commas.
 
 ## Turn the theme on
@@ -282,7 +288,7 @@ Everything else updates by itself:
 | The "Consent form" button (hidden until it has a link) | `site.json` → `nav` → `secondary` → `url` |
 | The contact email | `site.json` → `contact` → `email`, and the last answer in `faq.json` (with its button's `mailto:` link) |
 | The conference dates | `site.json` → `start` and `end`, written like `2026-10-30T08:00:00+05:30`. The countdown and every date on the site follow these. |
-| The Secretary-General's letter | `site.json` → `sgLetter`: `paragraphs` (one item per paragraph), `photo`, `signature` |
+| The Secretary-General's letter | `site.json` → `sgLetter`: `paragraphs` (one item per paragraph), `closing` (the line above the name), `photo`, `signature` |
 | Allocation rounds and the matrix link | `site.json` → `allocations`: `rounds` (`name`, `date`, `note`), `status`, `matrixUrl` |
 | FAQ answers | `faq.json`. An answer can have a button: `"link": { "label": "See allocations", "url": "/allocations/" }` |
 | Social Night details | `socialNight.json`: `time`, `dressCode`, `expect`, `faq`. The photo booth section appears once `photoBooth` has a sentence in it; add `photoBoothImage` for its photo. |

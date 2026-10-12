@@ -23,6 +23,7 @@ The few that matter most on day one:
 | ~~Crest~~ Done 4 October: the OakJMUN logo (`src/assets/img/crest.png`, `site.json` → `crest`) | Nav, footer, loading screen | Rebuilt 4 October from your SVG export (a 792 × 842 picture with a transparency mask inside), and served at 64, 128 and 192 px so it stays sharp on high-resolution screens. A true vector file (paths, not an embedded picture) would be sharper still. Was: the OakJMUN crest as an SVG. Put it in `src/assets/` and set `"crest"` in `site.json` to its path. |
 | Browser-tab icon: the OakJMUN logo on a navy square (4 October) | `src/assets/favicon.png` | A simplified version, if the tree is hard to see at 16 px |
 | "Photo TBC" tiles | Wherever a photo field is `""` | Real photos (see the tables below) |
+| Moving grid on Allocations and Resources (11 October) | `src/js/backdrops.js`, `components.css` ("Backdrops") | Adapted from the 21st.dev community component "noise-dark-blue-gradient-with-squares" (rewritten without React). Check its licence on 21st.dev before launch; if it doesn't allow reuse, remove the `backdrop` line from `allocations.njk` and `resources.njk`. |
 | ~~Gallery photos (homepage intro)~~ Done 7 October | `src/assets/img/gallery/oakjmun-01.webp` to `-13.webp`, listed in `site.json` → `gallery.images` | 13 photos from past JMUNs (sent 7 October), 1200 px on the long side. Check the school's photo consent covers the students in them. Was: colour versions of the committee photos. |
 
 ## Borrowed from OakMUN
@@ -53,7 +54,7 @@ The Doomsday committee page opens with the Marvel Studios intro, then a clip of 
 | `crest` | `""` | The crest's path (see "Placeholder assets") |
 | `hero.video` | `assets/video/hero` (7 October) | Done |
 | `theme` | On since 7 October: "Bridge the Divide, / Let the Truth Guide" (`lines`), Bridge and Guide in teal (`highlight`). The `caption` was drafted by Claude at your request | The Secretariat's own caption, if they want one |
-| `sgLetter` | One placeholder paragraph; `photo` and `signature` `""` | Vihaan's letter, photo and signature |
+| `sgLetter` | Done on 11 October: Vihaan's letter and his portrait (`assets/img/secretariat/vihaan-tallamraju-letter.jpg`); `signature` `""` | Nothing, unless you want his signature under the letter |
 | `sponsors` | `[]` | Sponsors, if any; the strip appears with the first one |
 | `allocations` | One round, "Date TBC (for registrations received by TBC)"; `status` "Registration is open"; `matrixUrl` `""`, so the button reads "Opens with Round 1 (TBC)"; `intro` and `matrixText` end "TBC" | The real rounds (name, date, note each), the status, the matrix link, and the two texts without "TBC" |
 
@@ -75,8 +76,10 @@ The overviews are final. FCC's and Doomsday's say the scenario is announced with
 
 | Field | Now | Needed |
 | --- | --- | --- |
-| `photo`, `signature` | `""` for everyone; cards show initials in a teal ring | Photos (and signatures, if you want them on the cards) |
-| `instagram` | `""` for everyone; the back of a card has no Instagram button | Handles, if they want them shown |
+| `photo`, `photoLabelled` | Done on 11 October: each card shows the person's Secretariat post (`assets/img/secretariat/`), with the name, role, crest and signature already on it, so `photoLabelled` keeps the card's own name for screen readers only. Three names were changed to match the posts: Prateek Kumar Mishra, Naga Krishiv Anantha, Aadya Reddy | Nothing. For a plain photo instead, set `photoLabelled` to `false` and the card prints the name and role over it |
+| `quote` | Done on 11 October for nine of the fourteen, from your list | Quotes for Aryan, Raaghav, Ridha, Aadya and Aishani, if they want one (their backs show no quote until then) |
+| `post` | `""` for everyone: the back's button opens the conference's Instagram account ("View on Instagram") | The link to each person's Instagram post; the button then says "View post" |
+| `instagram` | `""` for everyone | Handles, if they want them shown under the role |
 
 ### `schedule.json`
 

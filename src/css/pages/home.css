@@ -194,7 +194,7 @@
 /* The video fades in over its poster once it's actually playing */
 .hero__video {
   opacity: 0;
-  transition: opacity 0.8s var(--ease-standard);
+  transition: opacity 0.4s var(--ease-standard);
 }
 
 .hero__video.is-playing {
@@ -873,6 +873,11 @@
 .letter__signature {
   width: 160px;
   margin-bottom: 8px;
+}
+
+.letter__closing {
+  margin-bottom: 4px;
+  color: var(--ink-85);
 }
 
 .letter__name {

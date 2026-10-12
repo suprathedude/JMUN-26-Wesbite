@@ -47,7 +47,7 @@ if (track && stage && layer && mountEl && root.classList.contains("gallery-on"))
 }
 
 function switchOff() {
-  root.classList.remove("gallery-on", "gallery-skip", "gallery-active");
+  root.classList.remove("gallery-on", "gallery-skip", "gallery-active", "gallery-handover");
   delete root.dataset.galleryEnd;
   root.style.removeProperty("--strip-h");
   if (strip) strip.style.transform = "";
@@ -86,6 +86,7 @@ function start() {
   let loading = null;
   let paused = null;
   let active = null;
+  let handing = false;
   let frame = 0;
   let lastY = scrollY;
   const measure = () => {
@@ -155,6 +156,15 @@ function start() {
       el.style.opacity = u >= 1 ? "" : String(u);
       el.style.transform = u >= 1 ? "" : `translateY(${((1 - u) * 32).toFixed(1)}px)`;
     });
+
+    // The hero starts showing a fifth of the way through the handover; the hero video starts
+    // then (11 October) rather than when the photos have quite gone.
+    const nowHanding = t > 0.2;
+    if (nowHanding !== handing) {
+      handing = nowHanding;
+      root.classList.toggle("gallery-handover", handing);
+      dispatchEvent(new Event("gallery:state"));
+    }
 
     const nowActive = p < 0.98;
     if (nowActive !== active) {

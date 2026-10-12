@@ -161,6 +161,9 @@ pageJs: [gallery, hero-video, countdown, marquee, stats, schedule, ring, faq]
         {%- endfor %}
       </div>
       <div class="letter__sign" data-reveal>
+        {%- if sg.closing %}
+        <p class="letter__closing">{{ sg.closing }}</p>
+        {%- endif %}
         {%- if sg.signature %}
         <img class="letter__signature" src="/{{ sg.signature }}" alt="" eleventy:widths="320">
         {%- endif %}

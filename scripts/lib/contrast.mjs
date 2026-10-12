@@ -108,6 +108,14 @@ export async function contrastProblems(page) {
     await page.evaluate((top) => scrollTo(0, top), y);
     if (y > 0) await page.evaluate(hideFixed);
     await page.waitForTimeout(60);
+    // Let transitions started by the scroll finish (the nav pill opening out again), so the
+    // capture doesn't catch a button halfway in.
+    await page.evaluate(() =>
+      Promise.race([
+        Promise.all(document.getAnimations().filter((a) => a instanceof CSSTransition).map((a) => a.finished.catch(() => {}))),
+        new Promise((done) => setTimeout(done, 2000)),
+      ]),
+    );
     const items = await page.evaluate(collectText);
     if (!items.length) continue;
     const style = await page.addStyleTag({

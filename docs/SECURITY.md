@@ -54,5 +54,12 @@ browser's console (F12) show what was blocked.
 The deploy uses FTPS (FTP over TLS). `FTP_INSECURE=1` (a repository variable) skips checking
 GoDaddy's certificate, because the certificate isn't issued for `ftp.oakridgejmun.in`. The
 connection is still encrypted, but not checked. The live check prints the names the upload
-server's certificate is for; setting the `FTP_HOST` secret to one of those that reaches the same
-server lets the check be switched back on (delete the `FTP_INSECURE` variable).
+server's certificate is for; on 12 October that was `*.prod.sin2.secureserver.net` (GoDaddy's
+Singapore servers). To switch the check back on:
+
+1. cPanel > **Server Information**: note the **Server Name** (it looks like `sg2plcpnl0123`).
+2. Set the `FTP_HOST` secret to that name plus `.prod.sin2.secureserver.net`, for example
+   `sg2plcpnl0123.prod.sin2.secureserver.net`.
+3. Delete the `FTP_INSECURE` variable (Settings > Secrets and variables > Actions > Variables).
+
+If the next deploy fails at "Upload", put `FTP_INSECURE` back (value `1`) and the old `FTP_HOST`.

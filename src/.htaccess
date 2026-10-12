@@ -8,6 +8,21 @@
 DirectoryIndex index.html
 ErrorDocument 404 /404.html
 
+# GoDaddy's server ignores the ErrorDocument line above and sends a plain "404 Not Found"
+# (found 12 October), so an address that matches no file or folder goes to 404.php, which
+# sends the 404 page with a 404 status. Without PHP or mod_rewrite, the line above still applies.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_URI} !^/404\.(php|html)$
+  RewriteRule ^ /404.php [L]
+  # Folders with no page in them (/css/, /img/) too
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_FILENAME}/index.html !-f
+  RewriteRule ^ /404.php [L]
+</IfModule>
+
 # web.config is for Windows hosting only; don't serve it.
 <IfModule mod_authz_core.c>
   <Files "web.config">

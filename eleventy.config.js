@@ -25,6 +25,8 @@ export default function (eleventyConfig) {
   });
   // .htaccess for GoDaddy's Linux (Apache) hosting, web.config for its Windows hosting.
   eleventyConfig.addPassthroughCopy({ "src/.htaccess": ".htaccess", "src/web.config": "web.config" });
+  // The 404 page with a 404 status on GoDaddy, whose server ignores ErrorDocument (src/.htaccess).
+  eleventyConfig.addPassthroughCopy({ "src/404.php": "404.php" });
   eleventyConfig.addPassthroughCopy({ "src/assets/favicon.png": "assets/favicon.png" });
   // Background guides and other documents (PDFs keep their names; see src/.htaccess).
   eleventyConfig.addPassthroughCopy("src/assets/docs/**/*.pdf");

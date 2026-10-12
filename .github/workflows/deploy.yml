@@ -61,3 +61,7 @@ jobs:
           fi
           sudo apt-get install -y -qq lftp > /dev/null
           bash scripts/deploy-ftp.sh
+
+      # Reads the live site: a missing address should get the custom 404 page (scripts/check-live.sh).
+      - name: Check the live site
+        run: bash scripts/check-live.sh

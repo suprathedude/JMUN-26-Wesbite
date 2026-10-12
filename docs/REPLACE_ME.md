@@ -78,7 +78,7 @@ The overviews are final. FCC's and Doomsday's say the scenario is announced with
 | --- | --- | --- |
 | `photo`, `photoLabelled` | Done on 11 October: each card shows the person's Secretariat post (`assets/img/secretariat/`), with the name, role, crest and signature already on it, so `photoLabelled` keeps the card's own name for screen readers only. Three names were changed to match the posts: Prateek Kumar Mishra, Naga Krishiv Anantha, Aadya Reddy | Nothing. For a plain photo instead, set `photoLabelled` to `false` and the card prints the name and role over it |
 | `quote` | Done on 11 October for nine of the fourteen, from your list | Quotes for Aryan, Raaghav, Ridha, Aadya and Aishani, if they want one (their backs show no quote until then) |
-| `post` | `""` for everyone: the back's button opens the conference's Instagram account ("View on Instagram") | The link to each person's Instagram post; the button then says "View post" |
+| `post` | Done on 12 October: everyone's button says "View post" and opens their own Secretariat post | Nothing |
 | `instagram` | `""` for everyone | Handles, if they want them shown under the role |
 
 ### `schedule.json`

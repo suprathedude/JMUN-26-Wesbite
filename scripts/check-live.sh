@@ -24,6 +24,24 @@ else
   head -c 600 "$tmp/404.html"; echo
 fi
 
+# Every stylesheet, script and photo the live homepage uses, compared byte for byte with this
+# build (12 October: a page loaded during an upload came out unstyled, and Cloudflare keeps these
+# files for a year). Their names carry their content, so a file with the same name must match.
+if [ -d _site ]; then
+  checked=0; differ=0
+  for a in $(curl -sS "$URL/" | grep -oE '(href|src|srcset)="/(css|js|img)/[^" ,]+' | sed -E 's/^[a-z]+="//' | sort -u); do
+    [ -f "_site$a" ] || continue
+    checked=$((checked + 1))
+    live="$(curl -sS "$URL$a" | wc -c | tr -d ' ')"
+    built="$(wc -c < "_site$a" | tr -d ' ')"
+    if [ "$live" != "$built" ]; then
+      differ=$((differ + 1))
+      echo "::warning::$a is $live bytes on the live site but $built in the build. Purge Cloudflare's cache (Caching > Configuration > Purge Everything)."
+    fi
+  done
+  echo "Homepage files checked against the build: $checked, differing: $differ"
+fi
+
 echo "web.config (should be refused, 403): $(curl -sS -o /dev/null -w '%{http_code}' "$URL/web.config")"
 echo "404.html itself: $(curl -sS -o /dev/null -w '%{http_code}' "$URL/404.html")"
 

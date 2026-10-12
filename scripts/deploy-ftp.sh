@@ -16,6 +16,7 @@
 #
 # It uploads new files first, then the pages, then deletes files the new build no longer
 # has (old CSS and JS versions), so visitors never get a page pointing at a missing file.
+# Files already live are only replaced if their size changed; pages always are.
 # Because it deletes, it refuses to touch a folder that holds anything it didn't put there.
 set -euo pipefail
 
@@ -83,13 +84,23 @@ for k in "${KEEP[@]}"; do
   excludes="$excludes --exclude-glob \"$k\" --exclude-glob \"$k/\""
 done
 
-# 2. Everything except the pages, adding and replacing only.
-echo "Uploading files"
-ftp "mirror --reverse --no-perms --exclude-glob *.html $excludes \"$SITE/\" \"$DIR/\""
+# 2. Everything except the pages: only files that are new or have changed size (--ignore-time).
+#    The build gives every file a new date, so comparing dates re-uploaded all of them each time,
+#    writing over live stylesheets while visitors loaded them (12 October: a page caught mid-upload
+#    came out unstyled, and Cloudflare keeps stylesheets for a year). CSS, JS and photos have their
+#    content in their names, so a changed one is a new file and never overwrites a live one.
+echo "Uploading new files"
+ftp "mirror --reverse --no-perms --ignore-time --exclude-glob *.html $excludes \"$SITE/\" \"$DIR/\""
 
-# 3. The pages, then remove what the new build no longer has.
-echo "Uploading pages and removing old files"
-ftp "mirror --reverse --no-perms --delete $excludes \"$SITE/\" \"$DIR/\""
+# 3. The pages and server settings, every time: an edit can leave a page the same size (a new
+#    stylesheet name is as long as the old one), so these never rely on the size check.
+echo "Uploading pages"
+always="$(cd "$SITE" && find . -type f \( -name '*.html' -o -name '*.xml' -o -name '*.txt' -o -name '*.php' -o -name '.htaccess' -o -name 'web.config' -o -name "$MARKER" \) -printf '"%P" ')"
+ftp "lcd \"$SITE\"; mput -d -O \"$DIR\" $always"
+
+# 4. Remove what the new build no longer has (old stylesheets and scripts).
+echo "Removing old files"
+ftp "mirror --reverse --no-perms --ignore-time --delete $excludes \"$SITE/\" \"$DIR/\""
 
 rm -f "$SITE/$MARKER"
 echo "Done: $(find "$SITE" -type f | wc -l | tr -d ' ') files are live in $DIR on $FTP_HOST."

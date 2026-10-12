@@ -22,5 +22,16 @@ fi
 
 echo "web.config (should be refused, 403): $(curl -sS -o /dev/null -w '%{http_code}' "$URL/web.config")"
 echo "404.html itself: $(curl -sS -o /dev/null -w '%{http_code}' "$URL/404.html")"
+
+# Straight to GoDaddy's server, past Cloudflare, which hides the server's name. ORIGIN_IP is
+# the cPanel Shared IP Address; its certificate is self-signed, hence -k.
+ORIGIN_IP="${ORIGIN_IP:-118.139.181.170}"
+host="${URL#https://}"
+for path in "/no-such-page-$(date +%s)" "/no-such-file.html" "/no-such-folder/"; do
+  echo "Origin, $path:"
+  curl -sSk -o "$tmp/o.html" -D "$tmp/o.headers" --resolve "$host:443:$ORIGIN_IP" "https://$host$path"
+  sed -n '1p;/^[Ss]erver:/p;/^[Cc]ontent-[Tt]ype:/p;/^[Xx]-/p' "$tmp/o.headers"
+  head -c 300 "$tmp/o.html"; echo
+done
 rm -rf "$tmp"
 exit 0

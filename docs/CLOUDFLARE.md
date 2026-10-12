@@ -70,3 +70,35 @@ Cloudflare's terms ask that its free plan not be used mainly to deliver video. T
 The site is plain files: no database, no logins, no code running on the server for each visit. A page is 15 to 60 KB of HTML; the rest (CSS, JavaScript, fonts, photos, the hero video) is the same for everyone. With Cloudflare in front, those shared files come from Cloudflare's servers in India after the first request, and GoDaddy only sends the small HTML pages. Hundreds of people on the site at once is a light load for that set-up.
 
 Nothing online can be promised never to go down. The parts outside this project are GoDaddy's server, Cloudflare and the Microsoft Forms registration page, and each of those has its own (rare) outages. To keep an eye on it during a busy moment, open cPanel's **Resource Usage** page; if it ever shows limits being hit, GoDaddy can move the hosting to a bigger plan.
+
+## Faster pages: let Cloudflare keep them (12 October)
+
+Waiting for GoDaddy's server was about half of every page load (510 ms of 1.4 s, from Real user
+monitoring). The site now tells Cloudflare it may keep each page for 10 minutes (`s-maxage=600`
+in `src/.htaccess`); Cloudflare only does that for pages once this rule exists:
+
+1. **Caching > Cache Rules > Create rule.** Name: `Cache pages`.
+2. **If incoming requests match:** Custom filter expression: Field `Hostname`, Operator `equals`,
+   Value `oakridgejmun.in`.
+3. **Cache eligibility:** Eligible for cache.
+4. **Edge TTL:** Use cache-control header if present, use Cloudflare's default if not.
+5. **Browser TTL:** Respect origin. Save and Deploy.
+
+An update then shows within 10 minutes of a deploy, or at once after **Caching > Configuration >
+Purge Everything**. The deploy keeps old stylesheets and scripts on the server, so a page
+Cloudflare is still holding never points at a missing file.
+
+## Block bots looking for leaked keys (12 October)
+
+Bots ask every site for files like `/.aws/config` and `/.env`, hoping for leaked passwords. This
+site has none (they get the 404 page), but each one still reaches GoDaddy's server.
+
+1. **Security > WAF > Custom rules > Create rule.** Name: `Block probes`.
+2. **Edit expression** and paste:
+   `(http.request.uri.path contains "/.env") or (http.request.uri.path contains "/.git") or (http.request.uri.path contains "/.aws") or (http.request.uri.path contains "/wp-") or (http.request.uri.path contains "xmlrpc") or (http.request.uri.path contains "phpmyadmin")`
+3. **Then take action:** Block. Deploy.
+
+## Speed settings (12 October)
+
+**Speed > Settings:** turn on **HTTP/3 (with QUIC)** and **Early Hints**, if they're off.
+

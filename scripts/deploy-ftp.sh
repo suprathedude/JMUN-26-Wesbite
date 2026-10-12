@@ -98,9 +98,11 @@ echo "Uploading pages"
 always="$(cd "$SITE" && find . -type f \( -name '*.html' -o -name '*.xml' -o -name '*.txt' -o -name '*.php' -o -name '.htaccess' -o -name 'web.config' -o -name "$MARKER" \) -printf '"%P" ')"
 ftp "lcd \"$SITE\"; mput -d -O \"$DIR\" $always"
 
-# 4. Remove what the new build no longer has (old stylesheets and scripts).
+# 4. Remove what the new build no longer has, except old stylesheets, scripts and photos
+#    (css/, js/, img/): a page Cloudflare is still holding (up to 10 minutes) or open in someone's
+#    browser may still ask for them. They're small, and their names never come back.
 echo "Removing old files"
-ftp "mirror --reverse --no-perms --ignore-time --delete $excludes \"$SITE/\" \"$DIR/\""
+ftp "mirror --reverse --no-perms --ignore-time --delete $excludes --exclude-glob css/ --exclude-glob js/ --exclude-glob img/ \"$SITE/\" \"$DIR/\""
 
 rm -f "$SITE/$MARKER"
 echo "Done: $(find "$SITE" -type f | wc -l | tr -d ' ') files are live in $DIR on $FTP_HOST."

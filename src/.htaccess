@@ -63,10 +63,18 @@ ErrorDocument 404 /404.html
   Header always set Permissions-Policy "camera=(self), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
   Header always set Cross-Origin-Opener-Policy "same-origin"
 
-  # Pages are always checked for a newer version, so an update shows up straight away.
-  <FilesMatch "\.html$">
-    Header set Cache-Control "no-cache"
+  # Pages: browsers check for a newer version every time, and Cloudflare may keep a copy for up
+  # to 10 minutes (s-maxage) and answer from near the visitor instead of GoDaddy's server, which
+  # takes about half a second (12 October; needs the Cache Rule in docs/CLOUDFLARE.md). An update
+  # shows within 10 minutes, or at once after Caching > Purge Everything.
+  <FilesMatch "\.(html|php)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate, s-maxage=600"
   </FilesMatch>
+
+  # Photos and videos in /assets/ keep their names when replaced, so a day at most.
+  <If "%{REQUEST_URI} =~ m#^/assets/#">
+    Header set Cache-Control "public, max-age=86400"
+  </If>
 
   # CSS, JS and font files have a content hash in their names (css/site.0846a8fe.css), and so
   # do the photos in img/, so a changed file always has a new name. They can be kept a year.

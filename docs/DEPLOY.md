@@ -133,6 +133,8 @@ You only need this for bigger changes; GitHub's website is enough for content ed
 | `.github/workflows/deploy.yml` | The GitHub Actions workflow: prepare photos, build, check links, upload. |
 | `scripts/deploy-ftp.sh` | The upload: new files first, then pages, then removes old files. Includes the empty-folder safety check. |
 | `src/.htaccess` | Server settings for Linux hosting: the 404 page, file types, compression, caching, the optional HTTPS redirect. |
+| `src/404.php` | Sends the custom 404 page with a 404 status. GoDaddy's server ignores `ErrorDocument` and answers missing addresses with a plain "404 Not Found" (found 12 October), so `.htaccess` sends them here. Needs PHP, which cPanel hosting has. |
+| `scripts/check-live.sh` | Runs at the end of every GitHub build: checks the live homepage, that a missing address gets the custom 404 page with a 404 status, and that the `.htaccess` rules are in force. Problems show as warnings in the Actions run. |
 | `src/web.config` | The same settings for Windows hosting. |
 | `.nvmrc` | The Node.js version (22) the build uses. |
 | `scripts/lib/validate-data.mjs` | Checks the data files before every build and explains any mistake it finds. |

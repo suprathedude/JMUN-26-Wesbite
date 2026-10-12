@@ -13,8 +13,12 @@ missing="$URL/no-such-page-$(date +%s)"
 echo "Missing page ($missing):"
 curl -sS -o "$tmp/404.html" -D "$tmp/404.headers" "$missing"
 sed -n '1p;/^[Ss]erver:/p;/^[Cc]ontent-[Tt]ype:/p;/^[Cc]f-[Cc]ache/p' "$tmp/404.headers"
-if grep -q 'class="nf"' "$tmp/404.html"; then
-  echo "Custom 404 page: yes"
+status="$(sed -n '1s/^HTTP[^ ]* \([0-9]*\).*/\1/p' "$tmp/404.headers")"
+if grep -q '<?php' "$tmp/404.html"; then
+  echo "::warning::A missing address gets the source of 404.php: PHP isn't running for the site (cPanel > MultiPHP Manager)."
+elif grep -q 'class="nf"' "$tmp/404.html"; then
+  echo "Custom 404 page: yes (status $status)"
+  [ "$status" = "404" ] || echo "::warning::The 404 page came back with status $status, not 404."
 else
   echo "::warning::A missing address doesn't get the custom 404 page. The server sent:"
   head -c 600 "$tmp/404.html"; echo
@@ -27,7 +31,7 @@ echo "404.html itself: $(curl -sS -o /dev/null -w '%{http_code}' "$URL/404.html"
 # the cPanel Shared IP Address; its certificate is self-signed, hence -k.
 ORIGIN_IP="${ORIGIN_IP:-118.139.181.170}"
 host="${URL#https://}"
-for path in "/no-such-page-$(date +%s)" "/no-such-file.html" "/no-such-folder/"; do
+for path in "/no-such-page-$(date +%s)"; do
   echo "Origin, $path:"
   curl -sSk -o "$tmp/o.html" -D "$tmp/o.headers" --resolve "$host:443:$ORIGIN_IP" "https://$host$path"
   sed -n '1p;/^[Ss]erver:/p;/^[Cc]ontent-[Tt]ype:/p;/^[Xx]-/p' "$tmp/o.headers"

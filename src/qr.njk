@@ -5,11 +5,13 @@ eleventyComputed:
   description: "Get your QR code for {{ site.name }} {{ site.year }}."
 permalink: /qr/
 pageCss: [qr]
+pageJs: [qr]
 ---
 {%- from "partials/gilt.njk" import frame, laurel, mark -%}
-{#- The QR page (4 October): laid out, not working yet. The button is disabled until codes
-    are issued. Once they open, the card shows the code with the delegate's name, committee,
-    allocation and link. The text is in site.json qrPage. -#}
+{#- The QR page (4 October; working since 13 October, docs/QR.md). A delegate types the email
+    they registered with; src/js/qr.js asks /api/pass.php, then draws their QR code and fills in
+    their name, committee, allocation and committee page. Until the Secretariat uploads the
+    delegate list, the answer is "not open yet". The text is in site.json qrPage. -#}
 {%- from "partials/icons.njk" import icon -%}
 {%- from "partials/buttons.njk" import shine -%}
 {%- set q = site.qrPage -%}
@@ -22,20 +24,22 @@ pageCss: [qr]
     <div class="qr__copy">
       <h1 class="t-page qr__title" data-reveal="mask">{{ q.title }}</h1>
       <p class="qr__intro" data-reveal>{{ q.intro }}</p>
-      <form class="qr__form" data-reveal onsubmit="return false">
+      <form class="qr__form" data-reveal data-qr-form data-site="{{ site.url }}" novalidate>
         <label class="qr__label" for="qr-email">Registration email</label>
         <div class="qr__row">
-          <input class="qr__input" id="qr-email" type="email" autocomplete="email" placeholder="you@example.com">
-          <button class="btn btn--shiny is-disabled" type="button" aria-disabled="true" aria-describedby="qr-note">{{ shine() }}{{ q.button }}</button>
+          <input class="qr__input" id="qr-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required aria-describedby="qr-note">
+          <button class="btn btn--shiny" type="submit">{{ shine() }}{{ q.button }}</button>
         </div>
         <p class="qr__note" id="qr-note">{{ q.note }}</p>
+        <p class="qr__status" role="status" data-qr-status></p>
       </form>
     </div>
     {#- The pass: the QR code, then who it belongs to. Every value is TBC until codes open. -#}
     <div class="qr__card" data-reveal="art">
-      <div class="qr__code" aria-hidden="true">
-        <span class="qr__frame">{{ icon("qr-code") }}</span>
-        <span class="qr__placeholder">{{ q.placeholder }}</span>
+      <div class="qr__code">
+        <span class="qr__frame" data-qr-code aria-hidden="true">{{ icon("qr-code") }}</span>
+        <span class="qr__placeholder" data-qr-placeholder>{{ q.placeholder }}</span>
+        <a class="btn btn--outline qr__save" download="oakjmun-qr.png" href="#" hidden data-qr-save>{{ q.save }}</a>
       </div>
       <div class="qr__details">
         <h2 class="qr__details-title">{{ q.detailsTitle }}</h2>
@@ -43,16 +47,21 @@ pageCss: [qr]
           {%- for d in q.details %}
           <div class="qr__field">
             <dt>{{ d.label }}</dt>
-            <dd>{{ d.value }}</dd>
+            <dd data-qr-field="{{ d.key }}">{{ d.value }}</dd>
           </div>
           {%- endfor %}
           <div class="qr__field">
             <dt>{{ q.link.label }}</dt>
-            <dd>{%- if q.link.url | isSet %}<a href="{{ q.link.url }}">{{ q.link.url }}</a>{%- else %}TBC{%- endif %}</dd>
+            <dd data-qr-field="link">TBC</dd>
           </div>
         </dl>
         <p class="qr__details-note">{{ q.detailsNote }}</p>
       </div>
     </div>
   </div>
+  {#- Committee names and pages, for the "Your link" line. -#}
+  {%- set pages = [] -%}
+  {%- for c in committees %}{% set pages = (pages.push({ code: c.code, name: c.name, url: "/committees/" ~ c.slug ~ "/" }), pages) %}{% endfor %}
+  <script type="application/json" data-qr-committees>{{ pages | dump | safe }}</script>
+  <script type="application/json" data-qr-messages>{{ q.messages | dump | safe }}</script>
 </section>

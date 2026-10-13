@@ -1,7 +1,9 @@
 # Security
 
-The site is plain files: no database, no logins, no forms that send data to this server, and no
-API keys in the code or in the pages. Registration is a Microsoft Forms link. Checked on
+The site is plain files, plus the small QR system (13 October, `docs/QR.md`): no database, no
+logins, and no API keys in the code or in the pages. The only data the server reads is the
+delegate list the Secretariat uploads to a private folder outside the website's folder, and the
+only thing it writes is the arrivals list next to it, behind a volunteer PIN. Registration is a Microsoft Forms link. Checked on
 12 October: no keys, passwords or tokens anywhere in the repository or its history.
 
 ## The one secret
@@ -19,7 +21,7 @@ is, change it in cPanel > FTP Accounts > Change Password, then update the secret
 | `Content-Security-Policy` | Scripts, styles, fonts, photos, video and requests from any other site, except Cloudflare's visitor statistics. An injected script can't load code from elsewhere or send data out. |
 | `X-Frame-Options` and `frame-ancestors` | Other sites showing this one inside a frame to trick people into clicking (clickjacking). |
 | `Strict-Transport-Security` | Browsers using `http://` for this site for a year after a visit. |
-| `Permissions-Policy` | Microphone, location, payment and USB access. The camera stays allowed for this site only, in case the QR page scans codes. |
+| `Permissions-Policy` | Camera, microphone, location, payment and USB access. (Volunteers scan QR codes with the phone's own camera app, not the website.) |
 | `X-Content-Type-Options`, `Referrer-Policy` | Files being run as a different type; full page addresses being sent to other sites. |
 | `web.config`, `.htaccess` | Refused to visitors. |
 

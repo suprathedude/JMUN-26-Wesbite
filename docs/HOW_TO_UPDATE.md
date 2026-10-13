@@ -282,7 +282,7 @@ Everything else updates by itself:
 | To change | Where |
 | --- | --- |
 | The Resources section titles and the line under each | `site.json` → `resourcesPage` → `sections` |
-| The Get QR page's text, and the name, committee, allocation and link on its card (the page works once QR codes exist; for now its button is disabled) | `site.json` → `qrPage` |
+| The Get QR page's text and messages, and the check-in page's (`/qr/check/`); how to open QR codes and run check-in is in `docs/QR.md` | `site.json` → `qrPage`, `qrCheck` |
 | The Get QR button in the nav (between More and Register) | `site.json` → `nav.qr` |
 | The Register button's link | `site.json` → `nav` → `register` → `url` |
 | The "Consent form" button (hidden until it has a link) | `site.json` → `nav` → `secondary` → `url` |

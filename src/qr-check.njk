@@ -1,0 +1,57 @@
+---
+layout: layouts/base.njk
+title: Desk check-in
+eleventyExcludeFromCollections: true
+eleventyComputed:
+  description: "Registration desk check-in for {{ site.name }} {{ site.year }} volunteers."
+permalink: /qr/check/
+pageCss: [qr]
+pageJs: [qr-check]
+---
+{#- Desk check-in for volunteers (13 October, docs/QR.md). A delegate's QR code opens this page
+    with their code after the #; src/js/qr-check.js sends it with the volunteer PIN to
+    /api/checkin.php and shows who it is. Not in the sitemap or the nav. Text: site.json qrCheck. -#}
+{%- set k = site.qrCheck -%}
+<section class="qr check">
+  <div class="container check__wrap">
+    <h1 class="t-page qr__title">{{ k.title }}</h1>
+    <p class="qr__intro">{{ k.intro }}</p>
+
+    <form class="qr__form" data-check-pin hidden>
+      <label class="qr__label" for="check-pin">{{ k.pinLabel }}</label>
+      <div class="qr__row">
+        <input class="qr__input" id="check-pin" name="pin" type="password" autocomplete="off" required aria-describedby="check-pin-note">
+        <button class="btn btn--shiny" type="submit">{{ k.pinButton }}</button>
+      </div>
+      <p class="qr__note" id="check-pin-note">{{ k.pinNote }}</p>
+    </form>
+
+    <div class="qr__card check__result" data-check-result aria-live="polite">
+      <p class="check__state" data-check-state>{{ k.waiting }}</p>
+      <dl class="qr__list" data-check-details hidden>
+        {%- for d in site.qrPage.details %}
+        <div class="qr__field">
+          <dt>{{ d.label }}</dt>
+          <dd data-check-field="{{ d.key }}"></dd>
+        </div>
+        {%- endfor %}
+      </dl>
+      <p class="qr__details-note" data-check-count></p>
+    </div>
+
+    <form class="qr__form" data-check-email>
+      <label class="qr__label" for="check-email">{{ k.emailLabel }}</label>
+      <div class="qr__row">
+        <input class="qr__input" id="check-email" name="email" type="email" autocomplete="off" required>
+        <button class="btn btn--outline" type="submit">{{ k.emailButton }}</button>
+      </div>
+    </form>
+
+    <div class="check__tools">
+      <button class="btn btn--outline" type="button" data-check-download>{{ k.download }}</button>
+      <button class="btn btn--outline" type="button" data-check-forget>{{ k.forget }}</button>
+    </div>
+  </div>
+  <script type="application/json" data-check-messages>{{ k.messages | dump | safe }}</script>
+  <script type="application/json" data-check-words>{{ { count: k.count } | dump | safe }}</script>
+</section>

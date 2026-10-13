@@ -43,6 +43,11 @@ if [ -d _site ]; then
 fi
 
 echo "web.config (should be refused, 403): $(curl -sS -o /dev/null -w '%{http_code}' "$URL/web.config")"
+# The QR system (docs/QR.md): the API runs as PHP and its shared code is refused.
+pass_status="$(curl -sS -o /dev/null -w '%{http_code}' "$URL/api/pass.php" || true)"
+echo "QR API, opened directly (should be 405): $pass_status"
+[ "$pass_status" = "405" ] || echo "::warning::The QR API isn't answering as expected ($pass_status). Is PHP on?"
+echo "QR shared code (should be refused, 403): $(curl -sS -o /dev/null -w '%{http_code}' "$URL/api/lib.php" || true)"
 echo "404.html itself: $(curl -sS -o /dev/null -w '%{http_code}' "$URL/404.html")"
 
 # Security headers from .htaccess (12 October)

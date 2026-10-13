@@ -28,6 +28,10 @@ ErrorDocument 404 /404.html
   <Files "web.config">
     Require all denied
   </Files>
+  # The QR system's shared code (docs/QR.md): only the other scripts load it.
+  <Files "lib.php">
+    Require all denied
+  </Files>
 </IfModule>
 
 # File types older servers don't know. Without these, AVIF and WebP photos and the font
@@ -60,7 +64,7 @@ ErrorDocument 404 /404.html
   Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
   Header always set X-Frame-Options "DENY"
   Header always set Strict-Transport-Security "max-age=31536000"
-  Header always set Permissions-Policy "camera=(self), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
   Header always set Cross-Origin-Opener-Policy "same-origin"
 
   # Pages: browsers check for a newer version every time, and Cloudflare may keep a copy for up
@@ -70,6 +74,11 @@ ErrorDocument 404 /404.html
   <FilesMatch "\.(html|php)$">
     Header set Cache-Control "public, max-age=0, must-revalidate, s-maxage=600"
   </FilesMatch>
+
+  # The QR pass and check-in answers (docs/QR.md) are never kept anywhere.
+  <If "%{REQUEST_URI} =~ m#^/api/#">
+    Header set Cache-Control "no-store"
+  </If>
 
   # Photos and videos in /assets/ keep their names when replaced, so a day at most.
   <If "%{REQUEST_URI} =~ m#^/assets/#">

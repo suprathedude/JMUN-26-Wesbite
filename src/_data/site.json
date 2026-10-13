@@ -126,22 +126,34 @@
     "details": [
       {
         "label": "Name",
-        "value": "TBC"
+        "value": "TBC",
+        "key": "name"
       },
       {
         "label": "Committee",
-        "value": "TBC"
+        "value": "TBC",
+        "key": "committee"
       },
       {
         "label": "Allocation",
-        "value": "TBC"
+        "value": "TBC",
+        "key": "allocation"
       }
     ],
     "link": {
-      "label": "Your link",
-      "url": "TBC"
+      "label": "Your link"
     },
-    "detailsNote": "Your name, committee, allocation and link fill in from your registration once QR codes open (TBC)."
+    "detailsNote": "Your name, committee, allocation and link fill in from your registration once QR codes open (TBC).",
+    "messages": {
+      "searching": "Finding your registration.",
+      "found": "Here's your QR code. Show it at the registration desk when you arrive; a screenshot works.",
+      "unknown": "We couldn't find that email. Check it's the one you registered with.",
+      "email": "Enter a full email address.",
+      "closed": "QR codes aren't open yet. They open once every allocation is out.",
+      "busy": "Too many tries from this connection. Wait a few minutes and try again.",
+      "error": "Something went wrong. Check your connection and try again."
+    },
+    "save": "Save QR code"
   },
   "resourcesPage": {
     "intro": "Background guides, International Press style guides, procedure documents and research links, added here as they're released.",
@@ -251,5 +263,29 @@
     ],
     "copyright": "© 2026 Oakridge International School",
     "credit": "Designed and Developed by Supratiik Koppuravuri and OakMUN Team"
+  },
+  "qrCheck": {
+    "title": "Desk check-in",
+    "intro": "For volunteers at the registration desk. Scan a delegate's QR code with your phone's camera and open the link, or type their email below.",
+    "pinLabel": "Volunteer PIN",
+    "pinButton": "Save PIN",
+    "pinNote": "Saved on this phone until you tap Forget PIN.",
+    "emailLabel": "Check in by email",
+    "emailButton": "Check in",
+    "waiting": "Waiting for a QR code.",
+    "messages": {
+      "working": "Checking in.",
+      "ok": "Checked in",
+      "already": "Already checked in at",
+      "unknown": "Not on the delegate list. Send them to the Secretariat desk.",
+      "pin": "Wrong PIN.",
+      "nopin": "Check-in isn't set up yet: the PIN hasn't been added.",
+      "closed": "Check-in isn't open yet: the delegate list hasn't been added.",
+      "busy": "Too many wrong PINs. Wait ten minutes.",
+      "error": "Something went wrong. Check your connection and try again."
+    },
+    "count": "checked in",
+    "download": "Download arrivals",
+    "forget": "Forget PIN"
   }
 }

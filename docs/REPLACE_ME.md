@@ -56,7 +56,7 @@ The Doomsday committee page opens with the Marvel Studios intro, then a clip of 
 | `theme` | On since 7 October: "Bridge the Divide, / Let the Truth Guide" (`lines`), Bridge and Guide in teal (`highlight`). The `caption` was drafted by Claude at your request | The Secretariat's own caption, if they want one |
 | `sgLetter` | Done on 11 October: Vihaan's letter and his portrait (`assets/img/secretariat/vihaan-tallamraju-letter.jpg`); `signature` `""` | Nothing, unless you want his signature under the letter |
 | `sponsors` | `[]` | Sponsors, if any; the strip appears with the first one |
-| `allocations` | One round, "Date TBC (for registrations received by TBC)"; `status` "Registration is open"; `matrixUrl` `""`, so the button reads "Opens with Round 1 (TBC)"; `intro` and `matrixText` end "TBC" | The real rounds (name, date, note each), the status, the matrix link, and the two texts without "TBC" |
+| `allocations` | One round, "Date TBC (for registrations received by TBC)"; `status` "Registration is open"; `matrixUrl` set on 13 October (the SharePoint sheet; it opens in a new tab); `intro` ends "TBC" | The real rounds (name, date, note each), the status, and the intro without "TBC" |
 
 Done on 3 October: `url` (https://oakridgejmun.com; changed to https://oakridgejmun.in on 7 October, as the .com is taken), `contact.email` (jmun@oakridge.in; changed to j.mun@oakridge.in on 7 October), `contact.instagram` (oakjmun), `chapter` (XIV, confirmed), the conference times (7:45 am on 30 October to 7:30 pm on 31 October).
 
@@ -64,7 +64,7 @@ Done on 3 October: `url` (https://oakridgejmun.com; changed to https://oakridgej
 
 | Field | Now | Needed |
 | --- | --- | --- |
-| `agenda` | "Agenda TBC" (all 12) | Each agenda |
+| `agenda` | Set on 13 October for UNSC, WHO, Lok Sabha, UNICEF, FCC, COPUOS and Doomsday; "Agenda TBC" for DISEC, UNHRC, UNODC and UNCSW | The four remaining agendas |
 | `image` | Supplied 4 October for 11 committees (FCC uses the file named "armageddon"); UNICEF's added 6 October (a UNICEF press photo of two children with UNICEF backpacks) | Nothing, if you're happy using UNICEF's photo; otherwise one of your own |
 | `logo` | Supplied 4 October for all 12 | Nothing |
 | `guide.file` | `""` (all 12), shown as "Coming soon" | Each background guide PDF |
@@ -89,7 +89,7 @@ Final as of 3 October: both days, with times.
 
 | Question | Now |
 | --- | --- |
-| What's the dress code? | "Western formals on Day one and traditional wear on Day two (TBC)." Remove "(TBC)" once confirmed. |
+| What's the dress code? | Confirmed 13 October: "Western formals on Day one and traditional wear on Day two." |
 
 ### `resources.json`
 
@@ -102,10 +102,10 @@ Final as of 3 October: both days, with times.
 
 | Field | Now | Needed |
 | --- | --- | --- |
-| `dressCode` | "Costumes TBC" | The costume rules |
-| `expect` | Ends "Programme TBC." | The programme, briefly |
+| `dressCode` | Done 13 October: any costume | Nothing |
+| `expect` | Done 13 October: music, dancing, friends, then dinner | Nothing |
 | `photoBooth`, `photoBoothImage` | `""`, so the photo booth section is hidden | A sentence about the booth and a photo of it, if it's confirmed |
-| `faq` | "Do I have to wear a costume?" is "Costume rules TBC." | The costume rules |
+| `faq` | Done 13 October: any costume, nothing elaborate | Nothing |
 | The moon (`src/assets/img/social/moon.webp`) | Drawn by `scripts/make-moon.mjs`, not a photo | Optional: a photo of the full moon you have the rights to, square, cropped to the disc, transparent or black round it, same file name |
 
 ### `newToMun.json`

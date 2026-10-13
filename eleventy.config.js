@@ -52,6 +52,21 @@ export default function (eleventyConfig) {
   // A full https:// address (another website, such as the registration form) opens in a new tab.
   eleventyConfig.addFilter("isExternal", (url) => /^https?:\/\//i.test(String(url ?? "")));
 
+  // Every link to another website or to a document (PDF, spreadsheet) opens in a new tab, wherever
+  // it is on the page, so the site stays open behind it (13 October). Pages of this site open in
+  // the same tab as usual.
+  const ownSite = /^https?:\/\/(www\.)?oakridgejmun\.in(\/|$)/i;
+  const opensNewTab = (href) =>
+    (/^https?:\/\//i.test(href) && !ownSite.test(href)) || /\.(pdf|docx?|xlsx?|pptx?)([?#]|$)/i.test(href);
+  eleventyConfig.addTransform("new-tab-links", (content, outputPath) => {
+    if (!outputPath?.endsWith(".html")) return content;
+    return content.replace(/<a\s[^>]*>/gi, (tag) => {
+      const href = tag.match(/\bhref="([^"]*)"/i)?.[1];
+      if (!href || !opensNewTab(href) || /\btarget=/i.test(tag)) return tag;
+      return tag.replace(/>$/, /\brel=/i.test(tag) ? ' target="_blank">' : ' target="_blank" rel="noopener">');
+    });
+  });
+
   // The conference theme's words, line by line, numbered in order, each marked if it's one of
   // theme.highlight (compared without punctuation).
   eleventyConfig.addFilter("themeWords", (theme) => {

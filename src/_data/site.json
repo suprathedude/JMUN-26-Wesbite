@@ -119,7 +119,7 @@
   "qrPage": {
     "title": "Get your QR code",
     "intro": "Enter the email address you registered with to get your conference QR code.",
-    "note": "QR codes open closer to the conference (TBC).",
+    "note": "QR codes open once every allocation is out (TBC).",
     "button": "Get QR code",
     "placeholder": "Your QR code will appear here",
     "detailsTitle": "Your details",
@@ -215,8 +215,8 @@
       }
     ],
     "status": "Registration is open",
-    "matrixUrl": "",
-    "matrixText": "The full list of committees and countries, and which delegate has each one. (TBC)"
+    "matrixUrl": "https://nordanglia-my.sharepoint.com/:x:/g/personal/anagakrishiv_reddy_oakridge_in/IQAapM9joWCgRJj1tIL79Y4kAaWAmMGD8Cs0Cm6APwvTk7U?e=Qi6Zbb",
+    "matrixText": "The full list of committees and countries, and which delegate has each one."
   },
   "footer": {
     "quickLinks": [

@@ -1501,8 +1501,8 @@ html.is-locked {
   background: linear-gradient(
     to top,
     rgb(var(--wash-rgb) / 0.96) 0%,
-    rgb(var(--wash-rgb) / 0.78) 30%,
-    rgb(var(--wash-rgb) / 0.3) 60%,
+    rgb(var(--wash-rgb) / 0.88) 35%,
+    rgb(var(--wash-rgb) / 0.5) 65%,
     rgb(var(--wash-rgb) / 0.15) 100%
   );
 }
@@ -1530,6 +1530,16 @@ html.is-locked {
 .guide__topic {
   font-size: 0.9rem;
   color: var(--ink-85);
+}
+
+/* Long agendas (13 October) stop at three lines here, so the text stays on the card's dark lower
+   part; the full agenda is in the section above. */
+.guide__topic {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
 }
 
 /* 16 px minimum for running text on phones */

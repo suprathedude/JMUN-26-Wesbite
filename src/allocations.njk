@@ -33,7 +33,11 @@ pageJs: [backdrops]
         <li class="rounds__item">
           <span class="rounds__dot" aria-hidden="true"></span>
           <strong class="rounds__name">{{ r.name }}:</strong>
-          <span class="rounds__date">{{ r.date }}{% if r.note %} <span class="rounds__note">({{ r.note }})</span>{% endif %}</span>
+          <span class="rounds__date">
+            {%- if r.label %}<span class="rounds__badge rounds__badge--{{ r.status or 'soon' }}">{{ r.label }}</span>{% endif %}
+            {%- if r.date %} {{ r.date }}{% endif %}
+            {%- if r.note %} <span class="rounds__note">({{ r.note }})</span>{% endif %}
+          </span>
         </li>
         {%- endfor %}
       </ul>

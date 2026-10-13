@@ -226,16 +226,25 @@
   },
   "sponsors": [],
   "allocations": {
-    "intro": "After you register, you're given a committee and a country in allocation rounds. Each round covers the registrations received before its date. Dates TBC.",
+    "intro": "After you register, you're given a committee and a country in allocation rounds. Each round covers the registrations received before it.",
     "rounds": [
       {
         "name": "Round 1",
-        "date": "Date TBC",
-        "note": "for registrations received by TBC"
+        "status": "released",
+        "label": "Released",
+        "date": "",
+        "note": ""
+      },
+      {
+        "name": "Round 2",
+        "status": "soon",
+        "label": "Coming soon",
+        "date": "",
+        "note": ""
       }
     ],
     "status": "Registration is open",
-    "matrixUrl": "https://nordanglia-my.sharepoint.com/:x:/g/personal/anagakrishiv_reddy_oakridge_in/IQAapM9joWCgRJj1tIL79Y4kAaWAmMGD8Cs0Cm6APwvTk7U?e=Qi6Zbb",
+    "matrixUrl": "https://nordanglia-my.sharepoint.com/:x:/r/personal/anagakrishiv_reddy_oakridge_in/Documents/Oakridge%20JMUN%202026%20Public%20Matrix%20.xlsx?d=w63cfa41a60a144a098f5b482fbf58e24&csf=1&web=1&e=Dp1Twl",
     "matrixText": "The full list of committees and countries, and which delegate has each one."
   },
   "footer": {
@@ -274,7 +283,7 @@
   },
   "qrCheck": {
     "title": "Desk check-in",
-    "intro": "For volunteers at the registration desk. Scan a delegate's QR code with your phone's camera and open the link, or type their email below.",
+    "intro": "For volunteers at the registration desk. Tap Scan QR codes and point your phone's back camera at a delegate's code. No code? Type their email below.",
     "pinLabel": "Volunteer PIN",
     "pinButton": "Save PIN",
     "pinNote": "Saved on this phone until you tap Forget PIN.",
@@ -290,10 +299,20 @@
       "nopin": "Check-in isn't set up yet: the PIN hasn't been added.",
       "closed": "Check-in isn't open yet: the delegate list hasn't been added.",
       "busy": "Too many wrong PINs. Wait ten minutes.",
-      "error": "Something went wrong. Check your connection and try again."
+      "error": "Something went wrong. Check your connection and try again.",
+      "cameraStarting": "Starting the camera.",
+      "cameraBlocked": "The camera is blocked. Allow it for this site in your browser's settings, then tap Scan QR codes again.",
+      "cameraMissing": "No camera was found on this device.",
+      "cameraUnsupported": "This browser can't use the camera. Scan with your phone's camera app instead, or type the delegate's email.",
+      "notOurs": "That isn't an Oakridge JMUN QR code."
     },
     "count": "checked in",
     "download": "Download arrivals",
-    "forget": "Forget PIN"
+    "forget": "Forget PIN",
+    "scanButton": "Scan QR codes",
+    "stopButton": "Stop camera",
+    "cameraHint": "Point the camera at a QR code",
+    "recentTitle": "Checked in on this phone",
+    "recentEmpty": "Nobody yet."
   }
 }

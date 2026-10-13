@@ -56,7 +56,7 @@ The Doomsday committee page opens with the Marvel Studios intro, then a clip of 
 | `theme` | On since 7 October: "Bridge the Divide, / Let the Truth Guide" (`lines`), Bridge and Guide in teal (`highlight`). The `caption` was drafted by Claude at your request | The Secretariat's own caption, if they want one |
 | `sgLetter` | Done on 11 October: Vihaan's letter and his portrait (`assets/img/secretariat/vihaan-tallamraju-letter.jpg`); `signature` `""` | Nothing, unless you want his signature under the letter |
 | `sponsors` | `[]` | Sponsors, if any; the strip appears with the first one |
-| `allocations` | One round, "Date TBC (for registrations received by TBC)"; `status` "Registration is open"; `matrixUrl` set on 13 October (the SharePoint sheet; it opens in a new tab); `intro` ends "TBC" | The real rounds (name, date, note each), the status, and the intro without "TBC" |
+| `allocations` | 13 October: Round 1 "Released", Round 2 "Coming soon" (each round has `status`, `label`, and optional `date` and `note`); `matrixUrl` is the public matrix on SharePoint | Round 2's release (set its `status` to `released` and `label` to `Released`), and any later rounds |
 
 Done on 3 October: `url` (https://oakridgejmun.com; changed to https://oakridgejmun.in on 7 October, as the .com is taken), `contact.email` (jmun@oakridge.in; changed to j.mun@oakridge.in on 7 October), `contact.instagram` (oakjmun), `chapter` (XIV, confirmed), the conference times (7:45 am on 30 October to 7:30 pm on 31 October).
 

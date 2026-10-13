@@ -226,16 +226,25 @@
   },
   "sponsors": [],
   "allocations": {
-    "intro": "After you register, you're given a committee and a country in allocation rounds. Each round covers the registrations received before its date. Dates TBC.",
+    "intro": "After you register, you're given a committee and a country in allocation rounds. Each round covers the registrations received before it.",
     "rounds": [
       {
         "name": "Round 1",
-        "date": "Date TBC",
-        "note": "for registrations received by TBC"
+        "status": "released",
+        "label": "Released",
+        "date": "",
+        "note": ""
+      },
+      {
+        "name": "Round 2",
+        "status": "soon",
+        "label": "Coming soon",
+        "date": "",
+        "note": ""
       }
     ],
     "status": "Registration is open",
-    "matrixUrl": "https://nordanglia-my.sharepoint.com/:x:/g/personal/anagakrishiv_reddy_oakridge_in/IQAapM9joWCgRJj1tIL79Y4kAaWAmMGD8Cs0Cm6APwvTk7U?e=Qi6Zbb",
+    "matrixUrl": "https://nordanglia-my.sharepoint.com/:x:/r/personal/anagakrishiv_reddy_oakridge_in/Documents/Oakridge%20JMUN%202026%20Public%20Matrix%20.xlsx?d=w63cfa41a60a144a098f5b482fbf58e24&csf=1&web=1&e=Dp1Twl",
     "matrixText": "The full list of committees and countries, and which delegate has each one."
   },
   "footer": {

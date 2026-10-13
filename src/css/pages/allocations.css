@@ -88,6 +88,29 @@
   color: var(--ink-75);
 }
 
+/* "Released" and "Coming soon" (13 October) */
+.rounds__badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1px solid rgb(var(--teal-rgb) / 0.4);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-label);
+  font-weight: 800;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--teal-light);
+}
+
+.rounds__badge--released {
+  border-color: var(--teal);
+  background: var(--teal);
+  color: var(--navy);
+}
+
+.rounds__item {
+  align-items: center;
+}
+
 .rounds__note {
   color: var(--ink-60);
 }

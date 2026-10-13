@@ -205,6 +205,9 @@ export default function (eleventyConfig) {
         "js/hero-gallery": "src/islands/hero-gallery.tsx",
         "js/committee-ring": "src/islands/committee-ring.tsx",
         "js/social-portal": "src/islands/social-portal.tsx",
+        // Not React: the QR reader for the desk check-in camera on phones without a built-in
+        // one (iPhones), bundled into a module so qr-check.js can import it (13 October).
+        "js/vendor/jsqr": "node_modules/jsqr/dist/jsQR.js",
       },
       outdir: directories.output,
       bundle: true,

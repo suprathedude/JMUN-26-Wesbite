@@ -15,7 +15,7 @@ folder on GoDaddy that no web address reaches, and only the Secretariat uploads 
 | QR page | `src/qr.njk`, `src/js/qr.js`, text in `site.json` → `qrPage` |
 | Check-in page for volunteers, `/qr/check/` (not in the menu or search engines) | `src/qr-check.njk`, `src/js/qr-check.js`, text in `site.json` → `qrCheck` |
 | Lookup, check-in and arrivals download (PHP on GoDaddy) | `src/api/pass.php`, `checkin.php`, `arrivals.php`, shared code in `lib.php` |
-| QR drawing | `qrcode-generator` (MIT licence), copied to `/js/vendor/` |
+| QR drawing; QR reading on iPhones | `qrcode-generator` (MIT licence); `jsqr` (Apache-2.0), bundled by esbuild into `/js/vendor/` |
 
 The QR holds a link to the check-in page with a code after the `#`. The code is a signature of
 the delegate's email, so it can't be guessed or made up, and it says nothing about them by
@@ -47,15 +47,28 @@ without it every code already given out stops working.
 
 ## On the day
 
-1. Each volunteer opens `https://oakridgejmun.in/qr/check/` once and enters the PIN. It stays on
+1. Each volunteer opens `https://oakridgejmun.in/qr/check/` and enters the PIN. It stays on
    that phone until they tap **Forget PIN**.
-2. Scan a delegate's QR code with the phone's camera and tap the link. The page shows:
-   - **Checked in**, with the delegate's name, committee and allocation;
-   - **Already checked in at** a time, if they've been checked in before;
-   - **Not on the delegate list**: send them to the Secretariat desk.
-3. No phone or no code? Type the delegate's email under **Check in by email**.
-4. **Download arrivals** saves the list so far as a spreadsheet, with the time of each
-   check-in.
+2. Tap **Scan QR codes** and allow the camera. The page uses the phone's back camera, keeps the
+   screen on while scanning, and stops the camera if the volunteer switches app.
+3. Hold each delegate's code in the square. The page reads it by itself, the picture flashes and
+   the phone buzzes:
+   - green, **Checked in**, with the delegate's name, committee and allocation;
+   - amber, **Already checked in at** a time, if they've been checked in before;
+   - red, **Not on the delegate list** (send them to the Secretariat desk) or **That isn't an
+     Oakridge JMUN QR code**.
+   A code left in view is read once; the next delegate can step up straight away.
+4. No phone or no code? Type the delegate's email under **Check in by email**.
+5. The count at the top shows how many have arrived, and **Checked in on this phone** lists the
+   last eight this volunteer let in.
+6. **Download arrivals** saves the whole list so far as a spreadsheet, with the time of each
+   check-in, from every volunteer's phone.
+
+Scanning a code with the phone's own camera app also works: it opens the check-in page with the
+code, and checks the delegate in the same way.
+
+The camera reader: Android phones use the browser's own; iPhones download a small reader
+(jsQR, Apache-2.0 licence, `/js/vendor/jsqr.js`) the first time **Scan QR codes** is tapped.
 
 ## After the conference
 

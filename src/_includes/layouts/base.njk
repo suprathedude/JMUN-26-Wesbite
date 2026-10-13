@@ -54,7 +54,7 @@
   {%- if portal %}if(!matchMedia("(prefers-reduced-motion: reduce)").matches&&"IntersectionObserver" in window)d.classList.add("portal-on");{% endif -%}
   {%- if site.announcement.enabled %}if(sessionStorage.getItem("oakjmun-strip")==="{{ site.announcement.items | dump | hash }}")d.classList.add("strip-off");{% endif -%}
   }catch(e){}})(document.documentElement)</script>
-  <script type="importmap">{"imports":{"lenis":"/js/vendor/lenis.js","qrcode-generator":"/js/vendor/qrcode.js"}}</script>
+  <script type="importmap">{"imports":{"lenis":"/js/vendor/lenis.js","qrcode-generator":"/js/vendor/qrcode.js","jsqr":"/js/vendor/jsqr.js"}}</script>
   <script type="module" src="/js/nav.js"></script>
   <script type="module" src="/js/smooth-scroll.js"></script>
   <script type="module" src="/js/reveal.js"></script>

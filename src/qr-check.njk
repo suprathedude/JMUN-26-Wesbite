@@ -8,13 +8,19 @@ permalink: /qr/check/
 pageCss: [qr]
 pageJs: [qr-check]
 ---
-{#- Desk check-in for volunteers (13 October, docs/QR.md). A delegate's QR code opens this page
-    with their code after the #; src/js/qr-check.js sends it with the volunteer PIN to
-    /api/checkin.php and shows who it is. Not in the sitemap or the nav. Text: site.json qrCheck. -#}
+{#- Desk check-in for volunteers (13 October, docs/QR.md). The page scans delegates' QR codes
+    with the phone's back camera (src/js/qr-check.js) and sends each code, with the volunteer
+    PIN, to /api/checkin.php. A code scanned with the phone's own camera app opens this page
+    with the code after the # and works the same way. Not in the sitemap or the nav.
+    Text: site.json qrCheck. -#}
+{%- from "partials/icons.njk" import icon -%}
 {%- set k = site.qrCheck -%}
 <section class="qr check">
   <div class="container check__wrap">
-    <h1 class="t-page qr__title">{{ k.title }}</h1>
+    <div class="check__head">
+      <h1 class="t-page qr__title">{{ k.title }}</h1>
+      <p class="check__count" data-check-count hidden></p>
+    </div>
     <p class="qr__intro">{{ k.intro }}</p>
 
     <form class="qr__form" data-check-pin hidden>
@@ -26,8 +32,29 @@ pageJs: [qr-check]
       <p class="qr__note" id="check-pin-note">{{ k.pinNote }}</p>
     </form>
 
+    {#- The scanner: the back camera's picture with a square to aim at. It flashes green, amber
+        or red with each result, and the phone buzzes. -#}
+    <div class="check__scanner">
+      <div class="check__view" data-check-view hidden>
+        <video class="check__video" muted playsinline autoplay aria-hidden="true" data-check-video></video>
+        <span class="check__aim" aria-hidden="true"></span>
+        <span class="check__flash" aria-hidden="true" data-check-flash></span>
+        <p class="check__hint" aria-hidden="true">{{ k.cameraHint }}</p>
+      </div>
+      <div class="check__buttons">
+        <button class="btn btn--shiny" type="button" data-check-start>{{ icon("scan-line") }}{{ k.scanButton }}</button>
+        <button class="btn btn--outline" type="button" data-check-stop hidden>{{ k.stopButton }}</button>
+      </div>
+      <p class="qr__status" role="status" data-check-camera-note></p>
+    </div>
+
     <div class="qr__card check__result" data-check-result aria-live="polite">
-      <p class="check__state" data-check-state>{{ k.waiting }}</p>
+      <div class="check__line">
+        <span class="check__icon" data-for="ok" aria-hidden="true">{{ icon("circle-check") }}</span>
+        <span class="check__icon" data-for="warn" aria-hidden="true">{{ icon("clock") }}</span>
+        <span class="check__icon" data-for="bad" aria-hidden="true">{{ icon("circle-x") }}</span>
+        <p class="check__state" data-check-state>{{ k.waiting }}</p>
+      </div>
       <dl class="qr__list" data-check-details hidden>
         {%- for d in site.qrPage.details %}
         <div class="qr__field">
@@ -36,7 +63,6 @@ pageJs: [qr-check]
         </div>
         {%- endfor %}
       </dl>
-      <p class="qr__details-note" data-check-count></p>
     </div>
 
     <form class="qr__form" data-check-email>
@@ -46,6 +72,13 @@ pageJs: [qr-check]
         <button class="btn btn--outline" type="submit">{{ k.emailButton }}</button>
       </div>
     </form>
+
+    <div class="check__recent">
+      <h2 class="qr__label">{{ k.recentTitle }}</h2>
+      <ol class="check__list" role="list" data-check-recent>
+        <li class="check__empty">{{ k.recentEmpty }}</li>
+      </ol>
+    </div>
 
     <div class="check__tools">
       <button class="btn btn--outline" type="button" data-check-download>{{ k.download }}</button>

@@ -2,7 +2,7 @@
 layout: layouts/base.njk
 title: Social Night
 eleventyComputed:
-  description: "Social Night, {{ socialNight.edition }}, on {{ socialNight.date }} in the {{ socialNight.place }} at {{ site.name }} {{ site.year }}. What to expect, what to wear{% if socialNight.photoBooth %}, the 3D photo booth{% endif %} and answers to common questions."
+  description: "Social Night, {{ socialNight.edition }}, on {{ socialNight.date }} in the {{ socialNight.place }} at {{ site.name }} {{ site.year }}. What to expect, what to wear{% if socialNight.photoBooth %}, the photo booth{% endif %} and answers to common questions."
 permalink: /social-night/
 pageCss: [social-night]
 pageJs: [social-night, faq]
@@ -69,12 +69,12 @@ portal: true
 <section class="section sn-booth" aria-labelledby="booth-title">
   <div class="container sn-booth__grid">
     <div class="sn-booth__text">
-      <h2 class="t-section sn-title" id="booth-title" data-reveal="mask">3D photo booth</h2>
+      <h2 class="t-section sn-title" id="booth-title" data-reveal="mask">{{ sn.photoBoothTitle }}</h2>
       <p class="sn-booth__lead">{{ sn.photoBooth }}</p>
     </div>
     <div class="sn-booth__media">
       {%- if sn.photoBoothImage | isSet %}
-      <img src="/{{ sn.photoBoothImage }}" alt="The 3D photo booth" sizes="(max-width: 768px) 100vw, 520px" eleventy:widths="400,800">
+      <img src="/{{ sn.photoBoothImage }}" alt="The photo booth" sizes="(max-width: 768px) 100vw, 520px" eleventy:widths="400,800">
       {%- else %}
       <span class="photo-tbc">Photo TBC</span>
       {%- endif %}

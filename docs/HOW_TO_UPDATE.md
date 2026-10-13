@@ -161,15 +161,17 @@ In `site.json`:
 ```json
 "announcement": {
   "enabled": true,
-  "text": "Allocations for Round 1 are out",
-  "link": "/allocations/"
+  "items": [
+    { "text": "Registrations are open!", "link": "https://forms.cloud.microsoft/..." },
+    { "text": "Allocation Round 1 is out!", "link": "/allocations/" }
+  ]
 },
 ```
 
-- `"text"`: keep it short; it's shown in capitals across the top of every page.
-- `"link"`: optional. Use a page of this site (`/allocations/`) or a full address (`https://...`). Leave it `""` for no link.
+- `"items"`: one message, or several that take turns every 4.5 seconds (hovering or focusing the bar holds the current one). Keep each short: it's shown in capitals across the top of every page, and on one line on phones.
+- `"link"`: optional. Use a page of this site (`/allocations/`) or a full address (`https://...`, which opens in a new tab). Leave it `""` for no link.
 - `"enabled": false` hides the bar.
-- Visitors who closed the bar see it again as soon as the text changes.
+- Visitors who closed the bar see it again as soon as any message changes.
 
 ## Edit the schedule
 
@@ -291,7 +293,8 @@ Everything else updates by itself:
 | The Secretary-General's letter | `site.json` → `sgLetter`: `paragraphs` (one item per paragraph), `closing` (the line above the name), `photo`, `signature` |
 | Allocation rounds and the matrix link | `site.json` → `allocations`: `rounds` (`name`, `date`, `note`), `status`, `matrixUrl` |
 | FAQ answers | `faq.json`. An answer can have a button: `"link": { "label": "See allocations", "url": "/allocations/" }` |
-| Social Night details | `socialNight.json`: `time`, `dressCode`, `expect`, `faq`. The photo booth section appears once `photoBooth` has a sentence in it; add `photoBoothImage` for its photo. |
+| Social Night details | `socialNight.json`: `time`, `dressCode`, `expect`, `faq`. The photo booth section (`photoBoothTitle`, `photoBooth`) shows "Photo TBC" until `photoBoothImage` is set. |
+| Training sessions on New to MUN | `newToMun.json` → `training`: the dates, and each session's `recording` link once it's up (the card then says "Watch the recording"). |
 | Research links | `resources.json` → `researchLinks`: `title`, `url` (must start with `https://`), `description` |
 | The hero photo or video | See [REPLACE_ME.md](REPLACE_ME.md), "Hero background" |
 

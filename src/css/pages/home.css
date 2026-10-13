@@ -604,6 +604,10 @@
 
 /* Desktop: a scroll-linked reveal over 240 vh. The JS uses the same media query. */
 @media (pointer: fine) and (min-width: 981px) {
+  /* The height is there from the first paint (html.theme-scrub, set in <head>), so nothing
+     below jumps down when the script starts: a link to #schedule, or a reload partway down,
+     used to move the page by 1,565 px (13 October). */
+  .theme-scrub .theme,
   .theme.is-scrubbing {
     height: 240vh;
   }

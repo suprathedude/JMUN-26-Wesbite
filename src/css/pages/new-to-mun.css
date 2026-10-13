@@ -448,3 +448,23 @@
     font-size: 1.1rem;
   }
 }
+
+/* ---------- Training sessions (13 October) ---------- */
+
+.ntm-training {
+  background: var(--blue-800);
+}
+
+.training__soon,
+.training__link {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--ink-75);
+}
+
+.training__link {
+  font-weight: 700;
+  color: var(--teal-light);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

@@ -58,10 +58,30 @@
       "text": "Say who you are, what your country thinks and what you'd like the committee to do. Practise it out loud with a timer."
     },
     {
-      "title": "Come to the lead-in.",
-      "text": "The day before the conference, 29 October, your committee meets its Executive Board for a short session to get ready. Time and place TBC."
+      "title": "Join the lead-in.",
+      "text": "The day before the conference, 29 October, your committee meets its Executive Board online for a short session to get ready. The time and the meeting link are TBC."
     }
   ],
+  "training": {
+    "title": "Training sessions",
+    "intro": "Three training sessions before the conference walk you through how committee works. Times TBC. Recordings of each session will be added here afterwards.",
+    "sessions": [
+      {
+        "date": "Friday 16 October",
+        "recording": ""
+      },
+      {
+        "date": "Saturday 17 October",
+        "recording": ""
+      },
+      {
+        "date": "Saturday 24 October",
+        "recording": ""
+      }
+    ],
+    "recordingSoon": "Recording coming later",
+    "recordingLabel": "Watch the recording"
+  },
   "onTheDay": [
     {
       "title": "What to bring",
@@ -77,8 +97,7 @@
       "title": "Your phone",
       "icon": "smartphone",
       "items": [
-        "You can bring your phone, but you can only use it at set times during committee sessions.",
-        "The exact phone rule is TBC."
+        "Phones are allowed, so you can bring yours."
       ]
     },
     {

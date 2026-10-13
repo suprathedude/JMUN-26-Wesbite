@@ -72,6 +72,29 @@ pageCss: [new-to-mun]
   </div>
 </section>
 
+{#- Training sessions (13 October): a card per date, with a link to the recording once
+    newToMun.json → training.sessions[].recording is set. -#}
+{%- set t = g.training -%}
+<section class="section ntm-training" id="training" aria-labelledby="training-title">
+  <div class="container">
+    <h2 class="t-section t-section--bar" data-reveal="mask" id="training-title">{{ t.title }}</h2>
+    <p class="ntm-intro" data-reveal>{{ t.intro }}</p>
+    <ul class="day-panels" role="list" data-reveal>
+      {%- for s in t.sessions %}
+      <li class="day-panel">
+        <span class="day-panel__icon" aria-hidden="true">{{ icon("calendar-days") }}</span>
+        <h3 class="day-panel__title">{{ s.date }}</h3>
+        {%- if s.recording | isSet %}
+        <a class="training__link" href="{{ s.recording }}">{{ t.recordingLabel }}<span class="visually-hidden">, {{ s.date }}</span></a>
+        {%- else %}
+        <p class="training__soon">{{ t.recordingSoon }}</p>
+        {%- endif %}
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+
 {#- Three cards in the site's usual navy and gold. -#}
 <section class="section ntm-day" aria-labelledby="day-title">
   <div class="container">

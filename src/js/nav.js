@@ -18,6 +18,7 @@ function initStrip() {
   const strip = document.querySelector("[data-strip]");
   const close = strip?.querySelector("[data-strip-close]");
   if (!close) return;
+  rotateStrip(strip);
   close.addEventListener("click", () => {
     root.classList.add("strip-off");
     try {
@@ -27,6 +28,33 @@ function initStrip() {
     }
     document.getElementById("main")?.focus({ preventScroll: true });
   });
+}
+
+// Several messages take turns every 4.5 s; hovering or focusing the strip holds the current one.
+// The hidden ones are skipped by screen readers and the keyboard.
+function rotateStrip(strip) {
+  const items = [...strip.querySelectorAll("[data-strip-item]")];
+  if (items.length < 2) return;
+  let current = 0;
+  let held = false;
+  const hold = (on) => () => (held = on);
+  strip.addEventListener("pointerenter", hold(true));
+  strip.addEventListener("pointerleave", hold(false));
+  strip.addEventListener("focusin", hold(true));
+  strip.addEventListener("focusout", hold(false));
+  setInterval(() => {
+    if (held || document.hidden || root.classList.contains("strip-off")) return;
+    const next = (current + 1) % items.length;
+    items.forEach((item, i) => {
+      const on = i === next;
+      item.classList.toggle("is-active", on);
+      item.toggleAttribute("aria-hidden", !on);
+      const link = item.querySelector("a");
+      if (on) link?.removeAttribute("tabindex");
+      else link?.setAttribute("tabindex", "-1");
+    });
+    current = next;
+  }, 4500);
 }
 
 function initCollapse() {

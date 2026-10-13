@@ -425,6 +425,37 @@
   text-transform: uppercase;
 }
 
+/* Messages take turns in one spot (13 October), so the strip never changes height. */
+.strip__stack {
+  display: grid;
+}
+
+.strip__stack > .strip__text {
+  grid-area: 1 / 1;
+  transition:
+    opacity 0.4s var(--ease-standard),
+    transform 0.4s var(--ease-out-expo),
+    visibility 0s linear 0.4s;
+}
+
+.strip__stack > .strip__text:not(.is-active) {
+  opacity: 0;
+  transform: translateY(6px);
+  visibility: hidden;
+}
+
+.strip__stack > .strip__text.is-active {
+  transition-delay: 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .strip__stack > .strip__text,
+  .strip__stack > .strip__text.is-active {
+    transform: none;
+    transition: none;
+  }
+}
+
 .strip__text a {
   text-decoration: underline;
   text-decoration-thickness: 1.5px;

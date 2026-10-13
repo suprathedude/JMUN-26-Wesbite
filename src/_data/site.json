@@ -40,8 +40,16 @@
   },
   "announcement": {
     "enabled": true,
-    "text": "Registration is open",
-    "link": "https://forms.cloud.microsoft/pages/responsepage.aspx?id=e3DJf4-dak-Fa664SP7xA6W6JxUjb5hDmp-UTZ-9A9hUNlNGTElHMUlLVFRYMEZXNTI4STFZUkUyTS4u&route=shorturl"
+    "items": [
+      {
+        "text": "Registrations are open!",
+        "link": "https://forms.cloud.microsoft/pages/responsepage.aspx?id=e3DJf4-dak-Fa664SP7xA6W6JxUjb5hDmp-UTZ-9A9hUNlNGTElHMUlLVFRYMEZXNTI4STFZUkUyTS4u&route=shorturl"
+      },
+      {
+        "text": "Allocation Round 1 is out!",
+        "link": "/allocations/"
+      }
+    ]
   },
   "nav": {
     "left": [

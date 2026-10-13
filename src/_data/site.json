@@ -94,8 +94,9 @@
       ]
     },
     "qr": {
-      "label": "Get QR",
-      "url": "/qr/"
+      "label": "Entry QR",
+      "url": "/qr/",
+      "sheetLabel": "Get your entry QR"
     },
     "register": {
       "label": "Register",
@@ -125,8 +126,8 @@
     "intro": "The students who plan and run Oakridge JMUN 2026."
   },
   "qrPage": {
-    "title": "Get your QR code",
-    "intro": "Enter the email address you registered with to get your conference QR code.",
+    "title": "Get your entry QR code",
+    "intro": "Your entry QR code is your pass for the registration desk: show it when you arrive on Day one and you're checked in. Enter the email address you registered with to get it.",
     "note": "QR codes open once every allocation is out (TBC).",
     "button": "Get QR code",
     "placeholder": "Your QR code will appear here",

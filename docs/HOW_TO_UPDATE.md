@@ -285,7 +285,7 @@ Everything else updates by itself:
 | --- | --- |
 | The Resources section titles and the line under each | `site.json` → `resourcesPage` → `sections` |
 | The Get QR page's text and messages, and the check-in page's (`/qr/check/`); how to open QR codes and run check-in is in `docs/QR.md` | `site.json` → `qrPage`, `qrCheck` |
-| The Get QR button in the nav (between More and Register) | `site.json` → `nav.qr` |
+| The Entry QR button in the nav (between More and Register) | `site.json` → `nav.qr`: `label` in the nav (keep it short, or the nav runs out of room), `sheetLabel` in the phone menu |
 | The Register button's link | `site.json` → `nav` → `register` → `url` |
 | The "Consent form" button (hidden until it has a link) | `site.json` → `nav` → `secondary` → `url` |
 | The contact email | `site.json` → `contact` → `email`, and the last answer in `faq.json` (with its button's `mailto:` link) |

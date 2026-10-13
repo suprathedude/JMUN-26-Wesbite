@@ -43,7 +43,25 @@ if [ -d _site ]; then
 fi
 
 echo "web.config (should be refused, 403): $(curl -sS -o /dev/null -w '%{http_code}' "$URL/web.config")"
+# The QR system (docs/QR.md): the API runs as PHP and its shared code is refused.
+pass_status="$(curl -sS -o /dev/null -w '%{http_code}' "$URL/api/pass.php" || true)"
+echo "QR API, opened directly (should be 405): $pass_status"
+[ "$pass_status" = "405" ] || echo "::warning::The QR API isn't answering as expected ($pass_status). Is PHP on?"
+echo "QR shared code (should be refused, 403): $(curl -sS -o /dev/null -w '%{http_code}' "$URL/api/lib.php" || true)"
 echo "404.html itself: $(curl -sS -o /dev/null -w '%{http_code}' "$URL/404.html")"
+
+# Security headers from .htaccess (12 October)
+headers="$(curl -sSI "$URL/")"
+for h in Content-Security-Policy X-Frame-Options Strict-Transport-Security Permissions-Policy; do
+  grep -qi "^$h:" <<< "$headers" && echo "$h: on" || echo "::warning::$h isn't being sent."
+done
+
+# The upload server's certificate: which names it's for, so the deploy can check it rather than
+# skip the check (FTP_INSECURE). The upload address is ftp. plus the site's address.
+ftp_host="ftp.${URL#https://}"
+cert="$(echo | timeout 15 openssl s_client -starttls ftp -connect "$ftp_host:21" -servername "$ftp_host" 2>/dev/null | openssl x509 -noout -subject -ext subjectAltName -enddate 2>/dev/null)"
+echo "Upload server certificate ($ftp_host):"; echo "${cert:-  (could not read it)}" | sed 's/^/  /'
+
 
 # Straight to GoDaddy's server, past Cloudflare, which hides the server's name. ORIGIN_IP is
 # the cPanel Shared IP Address; its certificate is self-signed, hence -k.

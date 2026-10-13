@@ -13,7 +13,7 @@ The few that matter most on day one:
 | What | Where |
 | --- | --- |
 | The consent form link (the "Consent form" button stays hidden until it's set) | `site.json` → `nav.secondary.url`, or the PDF in `resources.json` → `documents` |
-| The announcement bar | `site.json` → `announcement.text` |
+| The announcement bar | `site.json` → `announcement.items` |
 | ~~The HTTPS switch~~ Done 8 October: Cloudflare gives the padlock and sends `http://` to `https://` ("Always Use HTTPS"). Leave the `.htaccess` lines switched off | [CLOUDFLARE.md](CLOUDFLARE.md) |
 
 ## Placeholder assets made for this site
@@ -23,7 +23,7 @@ The few that matter most on day one:
 | ~~Crest~~ Done 4 October: the OakJMUN logo (`src/assets/img/crest.png`, `site.json` → `crest`) | Nav, footer, loading screen | Rebuilt 4 October from your SVG export (a 792 × 842 picture with a transparency mask inside), and served at 64, 128 and 192 px so it stays sharp on high-resolution screens. A true vector file (paths, not an embedded picture) would be sharper still. Was: the OakJMUN crest as an SVG. Put it in `src/assets/` and set `"crest"` in `site.json` to its path. |
 | Browser-tab icon: the OakJMUN logo on a navy square (4 October) | `src/assets/favicon.png` | A simplified version, if the tree is hard to see at 16 px |
 | "Photo TBC" tiles | Wherever a photo field is `""` | Real photos (see the tables below) |
-| Moving grid on Allocations and Resources (11 October) | `src/js/backdrops.js`, `components.css` ("Backdrops") | Adapted from the 21st.dev community component "noise-dark-blue-gradient-with-squares" (rewritten without React). Check its licence on 21st.dev before launch; if it doesn't allow reuse, remove the `backdrop` line from `allocations.njk` and `resources.njk`. |
+| Moving grid on Allocations and Resources (11 October) | `src/js/backdrops.js`, `components.css` ("Backdrops") | Adapted from the 21st.dev community component "noise-dark-blue-gradient-with-squares" (rewritten without React). Reuse approved on 21st.dev (13 October). |
 | ~~Gallery photos (homepage intro)~~ Done 7 October | `src/assets/img/gallery/oakjmun-01.webp` to `-13.webp`, listed in `site.json` → `gallery.images` | 13 photos from past JMUNs (sent 7 October), 1200 px on the long side. Check the school's photo consent covers the students in them. Was: colour versions of the committee photos. |
 
 ## Borrowed from OakMUN
@@ -49,14 +49,14 @@ The Doomsday committee page opens with the Marvel Studios intro, then a clip of 
 
 | Field | Now | Needed |
 | --- | --- | --- |
-| `announcement.text` | "Registration is open", linking to the registration form (Microsoft Forms, 7 October; also `nav.register.url` and the FAQ's register answer in `faq.json`) | Change it as news comes out |
+| `announcement.items` | Since 13 October two messages take turns: "Registrations are open!" (registration form) and "Allocation Round 1 is out!" (`/allocations/`) | Change them as news comes out |
 | `nav.secondary.url` | `""` (button hidden) | The consent form link; the "Consent form" button appears once it's set |
 | `crest` | `""` | The crest's path (see "Placeholder assets") |
 | `hero.video` | `assets/video/hero` (7 October) | Done |
 | `theme` | On since 7 October: "Bridge the Divide, / Let the Truth Guide" (`lines`), Bridge and Guide in teal (`highlight`). The `caption` was drafted by Claude at your request | The Secretariat's own caption, if they want one |
 | `sgLetter` | Done on 11 October: Vihaan's letter and his portrait (`assets/img/secretariat/vihaan-tallamraju-letter.jpg`); `signature` `""` | Nothing, unless you want his signature under the letter |
 | `sponsors` | `[]` | Sponsors, if any; the strip appears with the first one |
-| `allocations` | One round, "Date TBC (for registrations received by TBC)"; `status` "Registration is open"; `matrixUrl` `""`, so the button reads "Opens with Round 1 (TBC)"; `intro` and `matrixText` end "TBC" | The real rounds (name, date, note each), the status, the matrix link, and the two texts without "TBC" |
+| `allocations` | One round, "Date TBC (for registrations received by TBC)"; `status` "Registration is open"; `matrixUrl` set on 13 October (the SharePoint sheet; it opens in a new tab); `intro` ends "TBC" | The real rounds (name, date, note each), the status, and the intro without "TBC" |
 
 Done on 3 October: `url` (https://oakridgejmun.com; changed to https://oakridgejmun.in on 7 October, as the .com is taken), `contact.email` (jmun@oakridge.in; changed to j.mun@oakridge.in on 7 October), `contact.instagram` (oakjmun), `chapter` (XIV, confirmed), the conference times (7:45 am on 30 October to 7:30 pm on 31 October).
 
@@ -64,7 +64,7 @@ Done on 3 October: `url` (https://oakridgejmun.com; changed to https://oakridgej
 
 | Field | Now | Needed |
 | --- | --- | --- |
-| `agenda` | "Agenda TBC" (all 12) | Each agenda |
+| `agenda` | Set on 13 October for UNSC, WHO, Lok Sabha, UNICEF, FCC, COPUOS and Doomsday; "Agenda TBC" for DISEC, UNHRC, UNODC and UNCSW | The four remaining agendas |
 | `image` | Supplied 4 October for 11 committees (FCC uses the file named "armageddon"); UNICEF's added 6 October (a UNICEF press photo of two children with UNICEF backpacks) | Nothing, if you're happy using UNICEF's photo; otherwise one of your own |
 | `logo` | Supplied 4 October for all 12 | Nothing |
 | `guide.file` | `""` (all 12), shown as "Coming soon" | Each background guide PDF |
@@ -77,7 +77,7 @@ The overviews are final. FCC's and Doomsday's say the scenario is announced with
 | Field | Now | Needed |
 | --- | --- | --- |
 | `photo`, `photoLabelled` | Done on 11 October: each card shows the person's Secretariat post (`assets/img/secretariat/`), with the name, role, crest and signature already on it, so `photoLabelled` keeps the card's own name for screen readers only. Three names were changed to match the posts: Prateek Kumar Mishra, Naga Krishiv Anantha, Aadya Reddy | Nothing. For a plain photo instead, set `photoLabelled` to `false` and the card prints the name and role over it |
-| `quote` | Done on 11 October for nine of the fourteen, from your list | Quotes for Aryan, Raaghav, Ridha, Aadya and Aishani, if they want one (their backs show no quote until then) |
+| `quote` | Done for ten of the fourteen (Raaghav's added 13 October) | Aryan, Ridha, Aadya and Aishani have none, by choice for now (their backs show no quote) |
 | `post` | Done on 12 October: everyone's button says "View post" and opens their own Secretariat post | Nothing |
 | `instagram` | `""` for everyone | Handles, if they want them shown under the role |
 
@@ -89,7 +89,7 @@ Final as of 3 October: both days, with times.
 
 | Question | Now |
 | --- | --- |
-| What's the dress code? | "Western formals on Day one and traditional wear on Day two (TBC)." Remove "(TBC)" once confirmed. |
+| What's the dress code? | Confirmed 13 October: "Western formals on Day one and traditional wear on Day two." |
 
 ### `resources.json`
 
@@ -102,15 +102,17 @@ Final as of 3 October: both days, with times.
 
 | Field | Now | Needed |
 | --- | --- | --- |
-| `dressCode` | "Costumes TBC" | The costume rules |
-| `expect` | Ends "Programme TBC." | The programme, briefly |
-| `photoBooth`, `photoBoothImage` | `""`, so the photo booth section is hidden | A sentence about the booth and a photo of it, if it's confirmed |
-| `faq` | "Do I have to wear a costume?" is "Costume rules TBC." | The costume rules |
+| `dressCode` | Done 13 October: any costume | Nothing |
+| `expect` | Done 13 October: music, dancing, friends, then dinner | Nothing |
+| `photoBooth`, `photoBoothImage` | Confirmed 13 October (a normal photo booth); `photoBoothImage` `""`, shown as "Photo TBC" | A photo of the booth, optional |
+| `faq` | Done 13 October: any costume, nothing elaborate | Nothing |
 | The moon (`src/assets/img/social/moon.webp`) | Drawn by `scripts/make-moon.mjs`, not a photo | Optional: a photo of the full moon you have the rights to, square, cropped to the disc, transparent or black round it, same file name |
 
 ### `newToMun.json`
 
 | Field | Now | Needed |
 | --- | --- | --- |
-| `onTheDay` | "The exact phone rule is TBC."; registration "(place TBC)" | The phone rule, and where registration is |
+| `onTheDay` | Phones allowed (13 October); registration "(place TBC)" | Where registration is |
+| `checklist` (lead-in) | Online, 29 October; "The time and the meeting link are TBC." | The time and the link |
+| `training` | 16, 17 and 24 October; "Times TBC"; `recording` `""` for each, shown as "Recording coming later" | The times, and each recording link |
 | `intro.photo` | A delegate raising a placard (`src/assets/img/ntm/delegate.webp`, sent 7 October): a past Oakridge delegate, cut out. | Check the school's photo consent covers this student. To swap it, use a cut-out (transparent background) cropped at the desk, same file name, and update `alt` |

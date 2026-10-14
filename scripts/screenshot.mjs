@@ -195,6 +195,7 @@ async function main() {
     for (const viewport of VIEWPORTS) {
       // Reduced motion gives stable final states (no count-up in progress).
       const context = await browser.newContext(contextFor(viewport, "reduce"));
+      await context.addInitScript(() => { try { localStorage.setItem("oakjmun-notice", "off"); } catch {} });
       const page = await context.newPage();
       for (const { url, name } of await findPages(SITE)) {
         if (!wanted(name)) continue;
@@ -212,6 +213,7 @@ async function main() {
     for (const state of STATES) {
       if (!wanted(state.name)) continue;
       const context = await browser.newContext(contextFor(state.viewport, "no-preference"));
+      await context.addInitScript(() => { try { localStorage.setItem("oakjmun-notice", "off"); } catch {} });
       const page = await context.newPage();
       await page.goto(origin + (state.path ?? "/"), { waitUntil: "networkidle" });
       await page.evaluate(() => document.fonts.ready);

@@ -95,7 +95,7 @@ Final as of 3 October: both days, with times.
 
 | Field | Now | Needed |
 | --- | --- | --- |
-| `documents` (Rules of Procedure, Delegate Guidelines, Consent Form) | Descriptions end "(TBC)"; `file` `""`, shown as "Coming soon" | The PDFs, and the descriptions checked |
+| `documents` | Rules of Procedure and its slides added 14 October (`assets/docs/`); Delegate Guidelines and Consent Form end "(TBC)", `file` `""`, shown as "Coming soon" | Those two PDFs, and their descriptions without "(TBC)" |
 | `ipGuides` (IP Journalism, IP Photography) | Descriptions end "(TBC)"; `file` `""`, shown as "Coming soon"; IP Photography's photo supplied 4 October | The PDFs, and the descriptions checked |
 
 ### `socialNight.json`

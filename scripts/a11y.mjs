@@ -186,6 +186,7 @@ async function main() {
 
   const open = async (viewport, path) => {
     const context = await browser.newContext({ viewport: { width: viewport.width, height: viewport.height }, isMobile: viewport.isMobile, hasTouch: viewport.hasTouch, deviceScaleFactor: viewport.deviceScaleFactor, reducedMotion: "reduce" });
+    await context.addInitScript(() => { try { localStorage.setItem("oakjmun-notice", "off"); } catch {} });
     const page = await context.newPage();
     await page.goto(origin + path, { waitUntil: "networkidle" });
     return { context, page };

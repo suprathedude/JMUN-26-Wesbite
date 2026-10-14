@@ -64,7 +64,7 @@
   ],
   "training": {
     "title": "Training sessions",
-    "intro": "Three training sessions before the conference walk you through how committee works. Times TBC. Recordings of each session will be added here afterwards.",
+    "intro": "Three online training sessions before the conference walk you through how committee works. Times and joining links will be shared closer to each session (TBC). Recordings of each session will be added here afterwards.",
     "sessions": [
       {
         "date": "Friday 16 October",
@@ -80,7 +80,12 @@
       }
     ],
     "recordingSoon": "Recording coming later",
-    "recordingLabel": "Watch the recording"
+    "recordingLabel": "Watch the recording",
+    "slides": {
+      "label": "Rules of Procedure slides",
+      "file": "assets/docs/oakjmun-2026-rules-of-procedure-slides.pdf",
+      "before": "To get ready, look through the"
+    }
   },
   "onTheDay": [
     {

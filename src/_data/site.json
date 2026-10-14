@@ -51,6 +51,35 @@
       }
     ]
   },
+  "notice": {
+    "enabled": true,
+    "title": "Round 1 allocations are out!",
+    "text": "Every Round 1 allocation has been released. Round 2 is coming soon.",
+    "datesTitle": "Dates for delegates",
+    "dates": [
+      {
+        "label": "Training session 1",
+        "date": "Friday 16 October, online"
+      },
+      {
+        "label": "Training session 2",
+        "date": "Saturday 17 October, online"
+      },
+      {
+        "label": "Training session 3",
+        "date": "Saturday 24 October, online"
+      },
+      {
+        "label": "Lead-in",
+        "date": "Thursday 29 October, the day before the conference"
+      }
+    ],
+    "link": {
+      "label": "See allocations",
+      "url": "/allocations/"
+    },
+    "close": "Close"
+  },
   "nav": {
     "left": [
       {

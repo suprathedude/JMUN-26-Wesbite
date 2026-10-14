@@ -76,5 +76,8 @@
     {{ content | safe }}
   </main>
   {% include "partials/footer.njk" %}
+  {%- if site.notice.enabled and not hideNotice %}
+  {% include "partials/notice.njk" %}
+  {%- endif %}
 </body>
 </html>

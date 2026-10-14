@@ -1,0 +1,28 @@
+{%- from "partials/icons.njk" import icon -%}
+{%- from "partials/buttons.njk" import shine -%}
+{#- The pop-up notice (14 October): news and dates, shown once when someone first opens the site,
+    after the page has loaded (nav.js). Closing it (or following its link) keeps it closed on
+    that browser until the text in site.json → notice changes. A native <dialog>, so focus stays
+    inside it and Esc closes it. -#}
+{%- set n = site.notice -%}
+<dialog class="notice" aria-labelledby="notice-title" tabindex="-1" data-notice data-key="{{ n | dump | hash }}">
+  <div class="notice__card">
+    <button class="notice__x" type="button" aria-label="{{ n.close }}" data-notice-close>{{ icon("x") }}</button>
+    <h2 class="notice__title" id="notice-title">{{ n.title }}</h2>
+    <p class="notice__text">{{ n.text }}</p>
+    {%- if n.dates | length %}
+    <h3 class="notice__sub">{{ n.datesTitle }}</h3>
+    <ul class="notice__dates" role="list">
+      {%- for d in n.dates %}
+      <li><span class="notice__label">{{ d.label }}</span><span class="notice__date">{{ d.date }}</span></li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+    <div class="notice__actions">
+      {%- if n.link.url | isSet %}
+      <a class="btn btn--shiny" href="{{ n.link.url }}" data-notice-link>{{ shine() }}{{ n.link.label }}</a>
+      {%- endif %}
+      <button class="btn btn--outline" type="button" data-notice-close>{{ n.close }}</button>
+    </div>
+  </div>
+</dialog>

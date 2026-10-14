@@ -78,7 +78,8 @@ pageCss: [new-to-mun]
 <section class="section ntm-training" id="training" aria-labelledby="training-title">
   <div class="container">
     <h2 class="t-section t-section--bar" data-reveal="mask" id="training-title">{{ t.title }}</h2>
-    <p class="ntm-intro" data-reveal>{{ t.intro }}</p>
+    <p class="ntm-intro" data-reveal>{{ t.intro }}
+      {%- if t.slides.file | isSet %} {{ t.slides.before }} <a class="training__slides" href="/{{ t.slides.file }}">{{ t.slides.label }}<span class="visually-hidden"> (PDF, opens in a new tab)</span></a>.{% endif %}</p>
     <ul class="day-panels" role="list" data-reveal>
       {%- for s in t.sessions %}
       <li class="day-panel">

@@ -43,6 +43,7 @@ try {
         ? { viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true }
         : { viewport: { width: 1440, height: 900 } },
     );
+    await context.addInitScript(() => { try { localStorage.setItem("oakjmun-notice", "off"); } catch {} });
     const page = await context.newPage();
     const cdp = await context.newCDPSession(page);
     await cdp.send("Emulation.setCPUThrottlingRate", { rate: cpu });

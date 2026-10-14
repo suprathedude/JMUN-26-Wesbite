@@ -468,3 +468,10 @@
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+
+.training__slides {
+  font-weight: 700;
+  color: var(--teal-light);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

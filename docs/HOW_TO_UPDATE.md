@@ -154,6 +154,18 @@ On the first homepage visit of a session, photos fly out of the dark before the 
 - `"cue"`: the small word at the bottom of the screen.
 - People who have turned off animations on their device, and later visits in the same session, start at the hero.
 
+## Change the pop-up notice
+
+The box that opens over the page the first time someone visits (since 14 October). In `site.json` → `notice`:
+
+- `"title"` and `"text"`: the news, in a sentence or two.
+- `"dates"`: the list under "Dates for delegates" (`label` and `date` for each). Leave it `[]` for no list.
+- `"link"`: the main button (`/allocations/` now). Leave `"url": ""` for no button.
+- `"enabled": false` turns it off.
+- Anyone who closed it sees it again as soon as any of its text changes, so change it only when there's real news.
+
+It never shows on the volunteers' check-in page.
+
 ## Change the announcement bar
 
 In `site.json`:

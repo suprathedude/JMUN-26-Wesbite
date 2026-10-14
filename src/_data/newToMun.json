@@ -80,7 +80,12 @@
       }
     ],
     "recordingSoon": "Recording coming later",
-    "recordingLabel": "Watch the recording"
+    "recordingLabel": "Watch the recording",
+    "slides": {
+      "label": "Rules of Procedure slides",
+      "file": "assets/docs/oakjmun-2026-rules-of-procedure-slides.pdf",
+      "before": "To get ready, look through the"
+    }
   },
   "onTheDay": [
     {

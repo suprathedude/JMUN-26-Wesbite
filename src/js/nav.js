@@ -57,6 +57,48 @@ function rotateStrip(strip) {
   }, 4500);
 }
 
+// The pop-up notice (site.json → notice): once per browser until its text changes, after the
+// page has loaded. "off" in storage turns it off (the test scripts set it).
+const NOTICE_KEY = "oakjmun-notice";
+function initNotice() {
+  const dialog = document.querySelector("[data-notice]");
+  if (!dialog || typeof dialog.showModal !== "function") return;
+  const key = dialog.dataset.key;
+  let seen = null;
+  try {
+    seen = localStorage.getItem(NOTICE_KEY);
+  } catch {}
+  if (seen === key || seen === "off") return;
+  const remember = () => {
+    try {
+      localStorage.setItem(NOTICE_KEY, key);
+    } catch {}
+  };
+  dialog.addEventListener("close", () => {
+    remember();
+    root.classList.remove("notice-open");
+    dispatchEvent(new Event("nav:unlock"));
+  });
+  for (const button of dialog.querySelectorAll("[data-notice-close]")) {
+    button.addEventListener("click", () => dialog.close());
+  }
+  dialog.querySelector("[data-notice-link]")?.addEventListener("click", remember);
+  // A click on the dimmed page around the card closes it too.
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+  const open = () =>
+    setTimeout(() => {
+      if (dialog.open) return;
+      root.classList.add("notice-open");
+      dispatchEvent(new Event("nav:lock"));
+      dialog.showModal();
+      dialog.focus(); // the pop-up itself, not its close button, so no focus ring at first
+    }, 700);
+  if (root.classList.contains("is-loading")) addEventListener("loader:done", open, { once: true });
+  else open();
+}
+
 function initCollapse() {
   const crest = nav.querySelector("[data-nav-crest]");
   let collapsed = false;
@@ -281,6 +323,7 @@ function initSheet() {
 }
 
 initStrip();
+initNotice();
 if (nav) {
   initCollapse();
   initMore();

@@ -2,8 +2,13 @@
   "documents": [
     {
       "title": "Rules of Procedure",
-      "description": "How debate works in committee: speeches, motions, points and voting. (TBC)",
-      "file": ""
+      "description": "How debate works in committee: the rules every committee follows, what counts as evidence, and how speeches, motions, points and voting work.",
+      "file": "assets/docs/oakjmun-2026-rules-of-procedure.pdf"
+    },
+    {
+      "title": "Rules of Procedure slides",
+      "description": "A slide-by-slide walk through MUN and its procedure: roll call, setting the agenda, the speakers' list, caucuses, resolutions and voting.",
+      "file": "assets/docs/oakjmun-2026-rules-of-procedure-slides.pdf"
     },
     {
       "title": "Delegate Guidelines",

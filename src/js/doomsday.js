@@ -51,10 +51,26 @@ if (opening && lair && !calm) {
 
   // ---------- The lair ----------
   // A taller cut on portrait screens, so Doom stays in the middle of the frame.
-  if (innerWidth / innerHeight < 0.9) {
+  const tall = innerWidth / innerHeight < 0.9;
+  if (tall) {
     for (const source of doom.querySelectorAll("source")) source.src = source.src.replace("/doom.", "/doom-tall.");
     doom.poster = doom.poster.replace("/doom-poster.", "/doom-tall-poster.");
     doom.load();
+  }
+  // The AV1 copy only where the device decodes AV1 in its graphics chip (16 October). Elsewhere
+  // (most laptops from before 2020) the processor decodes this 2560 px clip and the page
+  // stutters; H.264 is decoded by the graphics chip almost everywhere.
+  const av1 = doom.querySelector('source[type^="video/webm"]');
+  const size = tall ? { width: 998, height: 1610 } : { width: 2560, height: 1074 };
+  if (av1) {
+    (navigator.mediaCapabilities?.decodingInfo({ type: "file", video: { contentType: av1.type, ...size, bitrate: 8e6, framerate: 30 } }) ?? Promise.reject())
+      .then((info) => info.supported && info.powerEfficient)
+      .catch(() => false)
+      .then((smooth) => {
+        if (smooth || !av1.isConnected) return;
+        av1.remove();
+        if (doom.paused) doom.load();
+      });
   }
 
   // The line, letter by letter, in word groups.

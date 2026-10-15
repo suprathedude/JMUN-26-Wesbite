@@ -22,8 +22,10 @@
   background: radial-gradient(circle, rgb(var(--orb-navy-rgb) / 0.55) 0%, transparent 65%);
 }
 
+/* In the style guides section (02), under its content */
 .res-page__orb--c {
-  top: 52%;
+  z-index: -1;
+  top: 120px;
   left: -18%;
   width: 900px;
   aspect-ratio: 1;

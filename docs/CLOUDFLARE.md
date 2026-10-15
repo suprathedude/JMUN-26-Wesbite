@@ -88,6 +88,28 @@ An update then shows within 10 minutes of a deploy, or at once after **Caching >
 Purge Everything**. The deploy keeps old stylesheets and scripts on the server, so a page
 Cloudflare is still holding never points at a missing file.
 
+### Keep pages for a day, cleared on every deploy (16 October)
+
+With only 10 minutes, a quiet page has usually gone from Cloudflare by the next visit, and that
+visitor waits for GoDaddy again. Give GitHub permission to clear Cloudflare's copies after each
+upload, and the deploy then lets Cloudflare keep pages for a day (it sets `s-maxage=86400` in the
+uploaded `.htaccess`). An update still shows as soon as the upload finishes.
+
+1. **Make a token that can only clear this site's cache.** Cloudflare > your profile (top right) >
+   **API Tokens > Create Token > Custom token > Get started**.
+   - Name: `GitHub purge`.
+   - Permissions: **Zone**, **Cache Purge**, **Purge**.
+   - Zone Resources: **Include**, **Specific zone**, `oakridgejmun.in`.
+   - **Continue to summary > Create Token**, and copy the token. Cloudflare shows it once.
+2. **Find the Zone ID.** Cloudflare > `oakridgejmun.in` > **Overview**: it's under **API** on the
+   right (32 letters and numbers).
+3. **Add both to GitHub.** The repository > **Settings > Secrets and variables > Actions > New
+   repository secret**: `CLOUDFLARE_API_TOKEN` (the token) and `CLOUDFLARE_ZONE_ID`.
+
+The next deploy shows **Clear Cloudflare's copies** in its Actions run. If that step ever fails
+(an expired token, say), the run turns red: make a new token, or use Purge Everything by hand.
+Never paste the token anywhere else.
+
 ## Block bots looking for leaked keys (12 October)
 
 Bots ask every site for files like `/.aws/config` and `/.env`, hoping for leaked passwords. This
@@ -98,7 +120,13 @@ site has none (they get the 404 page), but each one still reaches GoDaddy's serv
    `(http.request.uri.path contains "/.env") or (http.request.uri.path contains "/.git") or (http.request.uri.path contains "/.aws") or (http.request.uri.path contains "/wp-") or (http.request.uri.path contains "xmlrpc") or (http.request.uri.path contains "phpmyadmin")`
 3. **Then take action:** Block. Deploy.
 
-## Speed settings (12 October)
+## Speed settings (12 October, 16 October)
 
-**Speed > Settings:** turn on **HTTP/3 (with QUIC)** and **Early Hints**, if they're off.
+- **Speed > Settings:** turn on **HTTP/3 (with QUIC)** and **Early Hints**, if they're off.
+- **Caching > Tiered Cache:** turn on **Smart Tiered Caching** (free). Cloudflare's servers then
+  ask each other before asking GoDaddy, so GoDaddy is asked far less often.
+- **Rocket Loader** (Speed > Settings): keep it **off**. It delays every script on the page and
+  breaks the site's modules.
+- **Speed Brain** can stay as it is: the site already tells Chrome which pages to load ahead
+  (the speculation rules in `src/_includes/layouts/base.njk`, docs/SPEED.md).
 

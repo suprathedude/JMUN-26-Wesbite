@@ -11,6 +11,7 @@ Static site for Oakridge Junior MUN 2026 (30 and 31 October 2026, Oakridge Inter
 - `npm run media`: optimise images and video in `src/assets/` (sharp + ffmpeg)
 - `npm run check`: build, then check every internal link in `_site/`
 - `npm run a11y`: axe, pixel contrast, keyboard and 360 px checks on every page (build first)
+- `npm run perf`: speed check of every page on a 4x slowed processor: load, idle work, scrolling, clicks (build first; docs/SPEED.md)
 - Deploys to GoDaddy hosting: GitHub Actions (`.github/workflows/deploy.yml`) runs `npm run build` and uploads `_site/` over FTPS on every push to `main`. See `docs/DEPLOY.md`.
 
 ## Rules that always apply

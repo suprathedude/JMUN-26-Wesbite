@@ -2,7 +2,7 @@
 // It resolves URLs the way the live server does (src/.htaccess: /path/ -> /path/index.html,
 // unknown -> /404.html) and compresses text with brotli or gzip.
 import { createServer } from "node:http";
-import { brotliCompressSync, gzipSync } from "node:zlib";
+import zlib, { brotliCompressSync, gzipSync } from "node:zlib";
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 
@@ -32,6 +32,22 @@ async function isFile(p) {
   }
 }
 
+// Compressed once per file and kept, as a real server or Cloudflare does: compressing the 1 MB
+// gallery script on every request held up everything behind it (16 October, npm run perf).
+const packed = new Map();
+async function compressed(file, body, encoding) {
+  const { mtimeMs } = await stat(file);
+  const key = `${encoding} ${file}`;
+  const hit = packed.get(key);
+  if (hit?.mtimeMs === mtimeMs) return hit.body;
+  const out =
+    encoding === "br"
+      ? brotliCompressSync(body, { params: { [zlib.constants.BROTLI_PARAM_QUALITY]: 5 } })
+      : gzipSync(body);
+  packed.set(key, { mtimeMs, body: out });
+  return out;
+}
+
 export function serve(dir, port = 0) {
   const root = path.resolve(dir);
   const server = createServer(async (req, res) => {
@@ -57,12 +73,10 @@ export function serve(dir, port = 0) {
     const headers = { "Content-Type": type, Vary: "Accept-Encoding" };
     const accepts = String(req.headers["accept-encoding"] ?? "");
     if (/^(text\/|application\/json|image\/svg)/.test(type)) {
-      if (accepts.includes("br")) {
-        body = brotliCompressSync(body);
-        headers["Content-Encoding"] = "br";
-      } else if (accepts.includes("gzip")) {
-        body = gzipSync(body);
-        headers["Content-Encoding"] = "gzip";
+      const encoding = accepts.includes("br") ? "br" : accepts.includes("gzip") ? "gzip" : "";
+      if (encoding) {
+        body = await compressed(file, body, encoding);
+        headers["Content-Encoding"] = encoding;
       }
     }
     res.writeHead(status, headers);

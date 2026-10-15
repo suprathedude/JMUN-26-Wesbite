@@ -148,6 +148,7 @@ function start() {
     layer.style.opacity = String(1 - out);
     layer.style.transform = out > 0 ? `scale(${(1 + 0.18 * out).toFixed(4)})` : "";
     layer.style.visibility = t >= 1 ? "hidden" : "";
+    layer.classList.toggle("is-gone", t >= 1);
     cue.style.opacity = String(clamp(1 - p / 0.06));
 
     // ...while the hero's lines rise in, one after another.

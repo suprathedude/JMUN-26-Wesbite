@@ -16,12 +16,22 @@ const skip =
 const root = document.documentElement;
 let started = false;
 
-function start() {
+// AV1 (smaller) only where the device decodes it in its graphics chip (16 October). Elsewhere
+// (most laptops from before 2020) the processor decodes it while the page runs; H.264 is decoded
+// by the graphics chip almost everywhere.
+const AV1 = 'video/webm; codecs="av01.0.05M.08"';
+const av1Smooth = (width, height) =>
+  (navigator.mediaCapabilities?.decodingInfo({ type: "file", video: { contentType: AV1, width, height, bitrate: 4e6, framerate: 30 } }) ?? Promise.reject())
+    .then((info) => info.supported && info.powerEfficient)
+    .catch(() => false);
+
+async function start() {
   if (started) return;
   started = true;
   const tall = innerHeight > innerWidth && video.dataset.webmTall;
+  const smooth = await av1Smooth(tall ? 406 : 1280, 720);
   const sources = [
-    [tall ? video.dataset.webmTall : video.dataset.webm, 'video/webm; codecs="av01.0.05M.08"'],
+    ...(smooth ? [[tall ? video.dataset.webmTall : video.dataset.webm, AV1]] : []),
     [tall ? video.dataset.mp4Tall : video.dataset.mp4, "video/mp4"],
   ];
   for (const [src, type] of sources) {

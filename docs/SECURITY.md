@@ -14,6 +14,10 @@ file. GitHub hides it in logs, and builds of pull requests from other people's c
 repository never see it. Never paste it into a file, an issue, a chat or a screenshot. If it ever
 is, change it in cPanel > FTP Accounts > Change Password, then update the secret.
 
+If you add the optional Cloudflare token (`CLOUDFLARE_API_TOKEN`, docs/CLOUDFLARE.md), it can
+only clear this site's cache on Cloudflare, nothing else. Treat it the same way; if it leaks,
+delete it in Cloudflare > your profile > API Tokens and make a new one.
+
 ## What the server sends (src/.htaccess)
 
 | Rule | What it stops |

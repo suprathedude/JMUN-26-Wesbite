@@ -444,6 +444,12 @@
   visibility: hidden;
 }
 
+/* A hidden message's pulsing dot holds still: hidden animations still cost a restyle of the
+   whole page every frame (16 October). */
+.strip__stack > .strip__text:not(.is-active)::before {
+  animation-play-state: paused;
+}
+
 .strip__stack > .strip__text.is-active {
   transition-delay: 0s;
 }
@@ -869,6 +875,14 @@
   transition:
     opacity var(--dur-open) var(--ease-standard),
     visibility 0s;
+}
+
+/* Nothing in the closed sheet animates. Hidden, its button's turning streak still made the
+   browser restyle every page 60 times a second, on every device (16 October, npm run perf). */
+.nav-sheet:not(.is-open) *,
+.nav-sheet:not(.is-open) *::before,
+.nav-sheet:not(.is-open) *::after {
+  animation-play-state: paused;
 }
 
 .nav-sheet__inner {
@@ -1889,22 +1903,80 @@ html.is-locked {
   pointer-events: none;
 }
 
-.backdrop canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
 /* Allocations and Resources: a spotlight at the top of the page and the moving grid, which
-   stays on screen as the page scrolls. */
+   stays on screen as the page scrolls. The grid drifts up and to the left, one square every
+   1.22 s, by transform alone, so the graphics chip moves it and the page does no work (16
+   October; it was a canvas redrawn every frame). Dark edges sit over the lines; the square under
+   the pointer (backdrops.js) sits over both and drifts with the grid. */
 .backdrop--grid {
+  --grid-size: 44px; /* SIZE in backdrops.js */
   background: radial-gradient(circle 620px at 50% 200px, rgb(var(--grid-glow-rgb) / 0.35), transparent 70%);
 }
 
-.backdrop--grid canvas {
+.backdrop__view {
   position: sticky;
   top: 0;
   height: 100vh;
+  overflow: hidden;
+}
+
+.backdrop__lines,
+.backdrop__drift {
+  position: absolute;
+  inset: 0 calc(-1 * var(--grid-size)) calc(-1 * var(--grid-size)) 0;
+  animation: grid-drift 1.222s linear infinite;
+}
+
+.backdrop__lines {
+  background:
+    linear-gradient(90deg, rgb(var(--white-rgb) / 0.1) 1px, transparent 1px) 0 0 / var(--grid-size) var(--grid-size),
+    linear-gradient(rgb(var(--white-rgb) / 0.1) 1px, transparent 1px) 0 0 / var(--grid-size) var(--grid-size);
+}
+
+.backdrop__view::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle farthest-corner, transparent, var(--blue-950));
+}
+
+.backdrop__drift {
+  z-index: 1;
+}
+
+.backdrop__lit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--grid-size);
+  height: var(--grid-size);
+  border: 1.25px solid rgb(var(--grid-edge-rgb) / 0.35);
+  background:
+    linear-gradient(rgb(var(--white-rgb) / 0.2), rgb(var(--white-rgb) / 0.05)),
+    rgb(var(--grid-glow-rgb) / 0.12);
+  box-shadow: 0 0 18px rgb(var(--grid-glow-rgb) / 0.06);
+  opacity: 0;
+}
+
+.backdrop__lit.is-on {
+  opacity: 1;
+}
+
+@keyframes grid-drift {
+  to {
+    transform: translate(calc(-1 * var(--grid-size)), calc(-1 * var(--grid-size)));
+  }
+}
+
+.backdrop.is-calm :is(.backdrop__lines, .backdrop__drift) {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop__lines,
+  .backdrop__drift {
+    animation: none;
+  }
 }
 
 /* ---------- Pop-up notice (partials/notice.njk, 14 October) ---------- */

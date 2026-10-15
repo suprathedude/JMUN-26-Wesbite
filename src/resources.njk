@@ -34,10 +34,9 @@ pageJs: [backdrops]
 
 {#- One backdrop for the whole page, so the glows carry on behind every section. -#}
 <div class="res-page">
-<div class="backdrop backdrop--grid" data-backdrop="grid" aria-hidden="true"><canvas></canvas></div>
+<div class="backdrop backdrop--grid" data-backdrop="grid" aria-hidden="true"><div class="backdrop__view"><div class="backdrop__lines"></div><div class="backdrop__drift" data-grid-drift><span class="backdrop__lit" data-grid-lit></span></div></div></div>
 <div class="orb res-page__orb res-page__orb--a" aria-hidden="true"></div>
 <div class="orb res-page__orb res-page__orb--b" aria-hidden="true"></div>
-<div class="orb res-page__orb res-page__orb--c" aria-hidden="true"></div>
 {{ frame("corner") }}
 {{ laurel("laurel--head") }}
 
@@ -73,6 +72,9 @@ pageJs: [backdrops]
 {#- International Press style guides: two cards, each released like a background guide by
     setting its file in resources.json. -#}
 <section class="res-section" aria-labelledby="ip-title">
+  {#- In this section, not the page: placed by the page's height, it moved while the page was
+      still arriving and counted as the page jumping (16 October). -#}
+  <div class="orb res-page__orb res-page__orb--c" aria-hidden="true"></div>
   <div class="container">
     {{ sectionHead("02", "ip-title", rp.sections.ip) }}
     <div class="res-grid res-grid--two" data-reveal>

@@ -1,13 +1,26 @@
 {%- from "partials/icons.njk" import icon -%}
 {%- from "partials/buttons.njk" import shine -%}
-{#- The pop-up notice (14 October): news and dates, shown once when someone first opens the site,
-    after the page has loaded (nav.js). Closing it (or following its link) keeps it closed on
-    that browser until the text in site.json → notice changes. A native <dialog>, so focus stays
-    inside it and Esc closes it. -#}
+{#- The pop-up notice (14 October): news and dates, shown after the page has loaded (nav.js), on
+    the pages in site.json → notice.pages. With notice.everyVisit (15 October) it opens on every
+    visit to those pages; without it, once per browser until its text changes. A flash box at the
+    top carries the most urgent line, with an optional link (notice.flash.link). A native
+    <dialog>, so focus stays inside it and Esc closes it. -#}
 {%- set n = site.notice -%}
-<dialog class="notice" aria-labelledby="notice-title" tabindex="-1" data-notice data-key="{{ n | dump | hash }}">
+<dialog class="notice" aria-labelledby="notice-title" tabindex="-1" data-notice data-key="{{ n | dump | hash }}"{% if n.everyVisit %} data-every-visit{% endif %}>
   <div class="notice__card">
     <button class="notice__x" type="button" aria-label="{{ n.close }}" data-notice-close>{{ icon("x") }}</button>
+    {%- if n.flash.title %}
+    <div class="notice__flash">
+      <span class="notice__flash-dot" aria-hidden="true"></span>
+      <div>
+        <p class="notice__flash-title">{{ n.flash.title }}</p>
+        {%- if n.flash.text %}<p class="notice__flash-text">{{ n.flash.text }}</p>{% endif %}
+        {%- if n.flash.link.url | isSet %}
+        <a class="notice__flash-link" href="{{ n.flash.link.url }}">{{ n.flash.link.label }}{% if n.flash.link.url | isExternal %}<span class="visually-hidden"> (opens in a new tab)</span>{% endif %}</a>
+        {%- endif %}
+      </div>
+    </div>
+    {%- endif %}
     <h2 class="notice__title" id="notice-title">{{ n.title }}</h2>
     <p class="notice__text">{{ n.text }}</p>
     {%- if n.dates | length %}

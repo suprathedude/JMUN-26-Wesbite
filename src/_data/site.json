@@ -42,6 +42,11 @@
     "enabled": true,
     "items": [
       {
+        "text": "Link for the first delegate training session on 16 October 2026 sent by email",
+        "link": "https://teams.microsoft.com/meet/41303379265088?p=pX6TVFC8wh3yiNSW9w",
+        "flash": true
+      },
+      {
         "text": "Registrations are open!",
         "link": "https://forms.cloud.microsoft/pages/responsepage.aspx?id=e3DJf4-dak-Fa664SP7xA6W6JxUjb5hDmp-UTZ-9A9hUNlNGTElHMUlLVFRYMEZXNTI4STFZUkUyTS4u&route=shorturl"
       },
@@ -53,21 +58,33 @@
   },
   "notice": {
     "enabled": true,
+    "pages": [
+      "/"
+    ],
+    "everyVisit": true,
+    "flash": {
+      "title": "Link for the first delegate training session on 16 October 2026 sent by email",
+      "text": "Friday 16 October, 6:00 pm, on Microsoft Teams. The link is also in the email.",
+      "link": {
+        "label": "Join the session on Microsoft Teams",
+        "url": "https://teams.microsoft.com/meet/41303379265088?p=pX6TVFC8wh3yiNSW9w"
+      }
+    },
     "title": "Round 1 allocations are out!",
     "text": "Every Round 1 allocation has been released. Round 2 is coming soon.",
     "datesTitle": "Dates for delegates",
     "dates": [
       {
         "label": "Training session 1",
-        "date": "Friday 16 October, online"
+        "date": "Friday 16 October, 6:00 pm, online"
       },
       {
         "label": "Training session 2",
-        "date": "Saturday 17 October, online"
+        "date": "Saturday 17 October, 6:00 pm, online"
       },
       {
         "label": "Training session 3",
-        "date": "Saturday 24 October, online"
+        "date": "Saturday 24 October, 6:00 pm, online"
       },
       {
         "label": "Lead-in",

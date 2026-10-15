@@ -68,7 +68,7 @@ function initNotice() {
   try {
     seen = localStorage.getItem(NOTICE_KEY);
   } catch {}
-  if (seen === key || seen === "off") return;
+  if (seen === "off" || (seen === key && !dialog.hasAttribute("data-every-visit"))) return;
   const remember = () => {
     try {
       localStorage.setItem(NOTICE_KEY, key);

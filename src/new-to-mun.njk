@@ -72,8 +72,9 @@ pageCss: [new-to-mun]
   </div>
 </section>
 
-{#- Training sessions (13 October): a card per date, with a link to the recording once
-    newToMun.json → training.sessions[].recording is set. -#}
+{#- Training sessions (13 October): a card per date, with the Teams joining link while
+    newToMun.json → training.sessions[].link is set (15 October), and the recording once
+    .recording is set (it replaces the joining link). -#}
 {%- set t = g.training -%}
 <section class="section ntm-training" id="training" aria-labelledby="training-title">
   <div class="container">
@@ -87,6 +88,8 @@ pageCss: [new-to-mun]
         <h3 class="day-panel__title">{{ s.date }}</h3>
         {%- if s.recording | isSet %}
         <a class="training__link" href="{{ s.recording }}">{{ t.recordingLabel }}<span class="visually-hidden">, {{ s.date }}</span></a>
+        {%- elif s.link | isSet %}
+        <a class="training__link" href="{{ s.link }}">{{ t.joinLabel }}<span class="visually-hidden">, {{ s.date }} (opens in a new tab)</span></a>
         {%- else %}
         <p class="training__soon">{{ t.recordingSoon }}</p>
         {%- endif %}

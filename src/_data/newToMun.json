@@ -64,18 +64,21 @@
   ],
   "training": {
     "title": "Training sessions",
-    "intro": "Three online training sessions on Microsoft Teams, each at 6:00 pm, walk you through how committee works. The joining link for each session is sent to delegates by email. Recordings of each session will be added here afterwards.",
+    "intro": "Three online training sessions on Microsoft Teams, each at 6:00 pm, walk you through how committee works. The joining link for each session is sent to delegates by email and added here. Recordings of each session will be added here afterwards.",
     "sessions": [
       {
         "date": "Friday 16 October, 6:00 pm",
+        "link": "https://teams.microsoft.com/meet/41303379265088?p=pX6TVFC8wh3yiNSW9w",
         "recording": ""
       },
       {
         "date": "Saturday 17 October, 6:00 pm",
+        "link": "",
         "recording": ""
       },
       {
         "date": "Saturday 24 October, 6:00 pm",
+        "link": "",
         "recording": ""
       }
     ],
@@ -85,7 +88,8 @@
       "label": "Rules of Procedure slides",
       "file": "assets/docs/oakjmun-2026-rules-of-procedure-slides.pdf",
       "before": "To get ready, look through the"
-    }
+    },
+    "joinLabel": "Join on Microsoft Teams"
   },
   "onTheDay": [
     {

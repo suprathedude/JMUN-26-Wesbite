@@ -2116,6 +2116,16 @@ html.is-locked {
   line-height: 1.45;
 }
 
+.notice__flash-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-weight: 800;
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
 @media (max-width: 768px) {
   .notice__flash-text {
     font-size: 1rem; /* 16 px minimum for running text on phones */

@@ -161,7 +161,7 @@ The box that opens over the page the first time someone visits (since 14 October
 - `"title"` and `"text"`: the news, in a sentence or two.
 - `"dates"`: the list under "Dates for delegates" (`label` and `date` for each). Leave it `[]` for no list.
 - `"link"`: the main button (`/allocations/` now). Leave `"url": ""` for no button.
-- `"flash"`: the most urgent line, in a highlighted box at the top (`title`, and an optional `text`). Remove it when it's no longer news.
+- `"flash"`: the most urgent line, in a highlighted box at the top (`title`, and an optional `text`), with an optional `link` (`label` and `url`, for example the Teams joining link). Remove it when it's no longer news.
 - `"pages"`: where it opens (`["/"]` is the homepage only). Leave it out to show it on every page.
 - `"everyVisit": true` opens it on every visit to those pages (15 October). Without it, it opens once per browser, and again only when its text changes.
 - `"enabled": false` turns it off.
@@ -309,7 +309,7 @@ Everything else updates by itself:
 | Allocation rounds and the matrix link | `site.json` → `allocations`: `rounds` (`name`, `date`, `note`), `status`, `matrixUrl` |
 | FAQ answers | `faq.json`. An answer can have a button: `"link": { "label": "See allocations", "url": "/allocations/" }` |
 | Social Night details | `socialNight.json`: `time`, `dressCode`, `expect`, `faq`. The photo booth section (`photoBoothTitle`, `photoBooth`) shows "Photo TBC" until `photoBoothImage` is set. |
-| Training sessions on New to MUN | `newToMun.json` → `training`: the dates, and each session's `recording` link once it's up (the card then says "Watch the recording"). |
+| Training sessions on New to MUN | `newToMun.json` → `training`: the dates, each session's Teams joining `link` (the card says "Join on Microsoft Teams"), and its `recording` link once it's up (the card then says "Watch the recording" instead). Joining links on the site are public: anyone with one can ask to join, so keep the Teams lobby on and let a host admit people. |
 | Research links | `resources.json` → `researchLinks`: `title`, `url` (must start with `https://`), `description` |
 | The hero photo or video | See [REPLACE_ME.md](REPLACE_ME.md), "Hero background" |
 

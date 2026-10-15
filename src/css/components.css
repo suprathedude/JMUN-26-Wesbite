@@ -2052,3 +2052,66 @@ html.is-locked {
     gap: 2px;
   }
 }
+
+/* Urgent lines (site.json → announcement.items[].flash, notice.flash; 15 October): a dot that
+   pulses beside the text. Opacity only; still with reduced motion. */
+.strip__text--flash::before,
+.notice__flash-dot {
+  content: "";
+  display: inline-block;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: flash-pulse 1.2s var(--ease-standard) infinite alternate;
+}
+
+.strip__text--flash::before {
+  margin-right: 10px;
+  vertical-align: 1px;
+}
+
+@keyframes flash-pulse {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.25;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .strip__text--flash::before,
+  .notice__flash-dot {
+    animation: none;
+  }
+}
+
+.notice__flash {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0 36px 22px 0;
+  padding: 14px 16px;
+  border-radius: var(--radius-control);
+  background: var(--grad-strip);
+  color: var(--navy);
+}
+
+.notice__flash-dot {
+  margin-top: 6px;
+}
+
+.notice__flash-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.notice__flash-text {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.45;
+}

@@ -114,7 +114,7 @@
     rgb(var(--teal-dark-rgb) / 0.45) 50%,
     rgb(0 20 40 / 0.78) 100%
   );
-  --grad-strip: linear-gradient(90deg, var(--teal-dark) 0%, var(--teal) 50%, var(--teal-dark) 100%);
+  --grad-strip: linear-gradient(90deg, var(--teal-marquee) 0%, var(--teal) 50%, var(--teal-marquee) 100%); /* lighter edges (15 October), so long messages keep navy text above 4.5 to 1 */
   --grad-stat: linear-gradient(145deg, #0a2040 0%, #061628 60%, #030e1a 100%);
   --grad-hairline: linear-gradient(90deg, transparent, rgb(var(--gilt-rgb) / 0.45), transparent);
   --grad-bar: linear-gradient(90deg, var(--gilt), transparent);

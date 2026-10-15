@@ -2104,14 +2104,20 @@ html.is-locked {
 }
 
 .notice__flash-title {
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 800;
   line-height: 1.35;
 }
 
 .notice__flash-text {
   margin-top: 4px;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 600;
   line-height: 1.45;
+}
+
+@media (max-width: 768px) {
+  .notice__flash-text {
+    font-size: 1rem; /* 16 px minimum for running text on phones */
+  }
 }

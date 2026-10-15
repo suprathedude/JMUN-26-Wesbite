@@ -64,7 +64,7 @@ Done on 3 October: `url` (https://oakridgejmun.com; changed to https://oakridgej
 
 | Field | Now | Needed |
 | --- | --- | --- |
-| `agenda` | Set on 13 October for UNSC, WHO, Lok Sabha, UNICEF, FCC, COPUOS and Doomsday; "Agenda TBC" for DISEC, UNHRC, UNODC and UNCSW | The four remaining agendas |
+| `agenda` | Set for every committee except UNHRC (DISEC, UNODC and UNCSW added 15 October) | UNHRC's agenda |
 | `image` | Supplied 4 October for 11 committees (FCC uses the file named "armageddon"); UNICEF's added 6 October (a UNICEF press photo of two children with UNICEF backpacks) | Nothing, if you're happy using UNICEF's photo; otherwise one of your own |
 | `logo` | Supplied 4 October for all 12 | Nothing |
 | `guide.file` | `""` (all 12), shown as "Coming soon" | Each background guide PDF |
@@ -104,7 +104,7 @@ Final as of 3 October: both days, with times.
 | --- | --- | --- |
 | `dressCode` | Done 13 October: any costume | Nothing |
 | `expect` | Done 13 October: music, dancing, friends, then dinner | Nothing |
-| `photoBooth`, `photoBoothImage` | Confirmed 13 October (a normal photo booth); `photoBoothImage` `""`, shown as "Photo TBC" | A photo of the booth, optional |
+| `photoBooth`, `photoBoothImage` | Done 15 October: a group photo from a past Social Night (`assets/img/social/photo-booth.webp`, description in `photoBoothAlt`) | A photo of this year's booth, after the event, if you want it |
 | `faq` | Done 13 October: any costume, nothing elaborate | Nothing |
 | The moon (`src/assets/img/social/moon.webp`) | Drawn by `scripts/make-moon.mjs`, not a photo | Optional: a photo of the full moon you have the rights to, square, cropped to the disc, transparent or black round it, same file name |
 

@@ -409,10 +409,11 @@
   color: var(--ink-85);
 }
 
+/* Landscape, like the photo (15 October), so nobody in the group is cropped out */
 .sn-booth__media {
   overflow: hidden;
-  max-width: 460px;
-  aspect-ratio: 4 / 5;
+  max-width: 560px;
+  aspect-ratio: 4 / 3;
   border: 1px solid rgb(var(--sn-gold-rgb) / 0.2);
   border-radius: var(--radius-tile);
 }

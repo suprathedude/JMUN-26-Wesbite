@@ -74,7 +74,7 @@ portal: true
     </div>
     <div class="sn-booth__media">
       {%- if sn.photoBoothImage | isSet %}
-      <img src="/{{ sn.photoBoothImage }}" alt="The photo booth" sizes="(max-width: 768px) 100vw, 520px" eleventy:widths="400,800">
+      <img src="/{{ sn.photoBoothImage }}" alt="{{ sn.photoBoothAlt or 'The photo booth' }}" sizes="(max-width: 768px) 100vw, 520px" eleventy:widths="400,800">
       {%- else %}
       <span class="photo-tbc">Photo TBC</span>
       {%- endif %}

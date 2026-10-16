@@ -60,6 +60,14 @@
     "close": "Close",
     "popups": [
       {
+        "flash": {
+          "title": "All committee agendas are out!",
+          "text": "Every committee's agenda is on its page.",
+          "link": {
+            "label": "See the committees",
+            "url": "/committees/"
+          }
+        },
         "title": "Round 1 allocations are out!",
         "text": "Every Round 1 allocation has been released. Round 2 is coming soon.",
         "datesTitle": "Training sessions on Microsoft Teams",
@@ -312,7 +320,7 @@
       }
     ],
     "copyright": "© 2026 Oakridge International School",
-    "credit": "Designed and Developed by Supratiik Koppuravuri and OakMUN Team"
+    "credit": "Designed and Developed by Supratiik Koppuravuri and Oakridge MUN Team"
   },
   "qrCheck": {
     "title": "Desk check-in",

@@ -167,8 +167,9 @@ In `site.json` → `notice`:
     `"trainingDates": true` (the training sessions from `newToMun.json`, so a changed date only
     needs changing there) or `"dates"` (a list of `label` and `date`), or both; and `"link"`, the
     main button (leave `"url": ""` for none).
-  - **A single line:** `"headline"`, shown in capitals, and `"highlight"`, the words in it to pick
-    out in teal (copied exactly from the headline). Nothing else shows but the close button.
+  - **A single line:** `"headline"`, shown in capitals, `"highlight"`, the words in it to pick
+    out in teal (copied exactly from the headline), and an optional `"link"` button (the lead-in
+    one goes to New to MUN's lead-in section, `/new-to-mun/#lead-in`).
 - `"pages"`: where they open (`["/"]` is the homepage only). Leave it out to show them on every page.
 - `"everyVisit": true` opens them on every visit to those pages (15 October). Without it, they open
   once per browser, and again only when their text changes.
@@ -318,6 +319,7 @@ Everything else updates by itself:
 | Allocation rounds and the matrix link | `site.json` → `allocations`: `rounds` (`name`, `date`, `note`), `status`, `matrixUrl` |
 | FAQ answers | `faq.json`. An answer can have a button: `"link": { "label": "See allocations", "url": "/allocations/" }` |
 | Social Night details | `socialNight.json`: `time`, `dressCode`, `expect`, `faq`. The photo booth section (`photoBoothTitle`, `photoBooth`) shows "Photo TBC" until `photoBoothImage` is set. |
+| The lead-in session on New to MUN | `newToMun.json` → `leadIn`: the `intro`, and three cards (`panels`), each with a `title`, a Lucide `icon` and its `items`. Put the time and the joining link in the "When and where" card once they're known (they say TBC now). |
 | Training sessions (New to MUN, and Resources → 04 Training Sessions) | `newToMun.json` → `training.sessions`: each session's `date`, its Teams joining `link` (the New to MUN card says "Join on Microsoft Teams"), its `recording` link once it's up (the card then says "Watch the recording" instead), and its `slides`. Both pages read the same list. `recording` and `slides` can be a web address (a OneDrive or SharePoint share link, for example) or a file you put in `src/assets/docs/`, written as `assets/docs/the-file-name.pdf`. Save slides as PDF if you can (File > Export > PDF in PowerPoint): a PDF opens on any phone, a `.pptx` only downloads. Until then each card says "Recording coming later" and "Slides coming later". Joining links on the site are public: anyone with one can ask to join, so keep the Teams lobby on and let a host admit people. |
 | Research links | `resources.json` → `researchLinks`: `title`, `url` (must start with `https://`), `description` |
 | The hero photo or video | See [REPLACE_ME.md](REPLACE_ME.md), "Hero background" |

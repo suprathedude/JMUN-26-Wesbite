@@ -7,7 +7,7 @@
 
     A pop-up is either news (title, text, an optional flash box at the top with an optional link,
     an optional list of dates and a button) or a single headline in capitals, with the words in
-    `highlight` picked out. Native <dialog>s, so focus stays inside and Esc closes them;
+    `highlight` picked out and an optional button. Native <dialog>s, so focus stays inside and Esc closes them;
     data-lenis-prevent lets the mouse wheel and trackpad scroll a long one while smooth
     scrolling holds the page still. -#}
 {%- set n = site.notice -%}
@@ -26,6 +26,11 @@
       {{ p.headline | keepHyphened | safe }}
       {%- endif -%}
     </h2>
+    {%- if p.link.url | isSet %}
+    <div class="notice__actions">
+      <a class="btn btn--shiny" href="{{ p.link.url }}" data-notice-link>{{ shine() }}{{ p.link.label }}</a>
+    </div>
+    {%- endif %}
     {%- else %}
     {%- if p.flash.title %}
     <div class="notice__flash">

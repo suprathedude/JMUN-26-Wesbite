@@ -14,7 +14,7 @@ pageJs: [backdrops]
 
 {#- One backdrop for both sections, so the glow carries on behind the matrix card. -#}
 <div class="alloc-page">
-  <div class="backdrop backdrop--grid" data-backdrop="grid" aria-hidden="true"><canvas></canvas></div>
+  <div class="backdrop backdrop--grid" data-backdrop="grid" aria-hidden="true"><div class="backdrop__view"><div class="backdrop__lines"></div><div class="backdrop__drift" data-grid-drift><span class="backdrop__lit" data-grid-lit></span></div></div></div>
   <div class="orb alloc__orb alloc__orb--a" aria-hidden="true"></div>
   <div class="orb alloc__orb alloc__orb--b" aria-hidden="true"></div>
   {{ frame("corner") }}

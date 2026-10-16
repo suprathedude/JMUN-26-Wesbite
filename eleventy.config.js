@@ -31,8 +31,9 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/api": "api" });
   eleventyConfig.addPassthroughCopy({ "node_modules/qrcode-generator/dist/qrcode.mjs": "js/vendor/qrcode.js" });
   eleventyConfig.addPassthroughCopy({ "src/assets/favicon.png": "assets/favicon.png" });
-  // Background guides and other documents (PDFs keep their names; see src/.htaccess).
-  eleventyConfig.addPassthroughCopy("src/assets/docs/**/*.pdf");
+  // Background guides and other documents (PDFs keep their names; see src/.htaccess), and
+  // PowerPoint slides from the training sessions (16 October; a PDF copy opens on any phone).
+  eleventyConfig.addPassthroughCopy("src/assets/docs/**/*.{pdf,pptx}");
   eleventyConfig.addPassthroughCopy("src/assets/video/*.{webm,mp4}"); // npm run media's output, not the sources
   // Doomsday's opening (PLAN.md F28): the Marvel Studios intro and Doom's clip, with stills.
   eleventyConfig.addPassthroughCopy("src/assets/video/doomsday/*.{webm,mp4,jpg}");
@@ -54,6 +55,13 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("isSet", isSet);
   // A full https:// address (another website, such as the registration form) opens in a new tab.
   eleventyConfig.addFilter("isExternal", (url) => /^https?:\/\//i.test(String(url ?? "")));
+  // Escapes text and keeps words joined by a hyphen ("lead-in") on one line, for big headlines
+  // that would otherwise break at the hyphen (16 October). Output with | safe.
+  eleventyConfig.addFilter("keepHyphened", (text) =>
+    String(text ?? "")
+      .replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`)
+      .replace(/[\p{L}\p{N}]+(?:-[\p{L}\p{N}]+)+/gu, (word) => `<span class="nowrap">${word}</span>`),
+  );
 
   // Every link to another website or to a document (PDF, spreadsheet) opens in a new tab, wherever
   // it is on the page, so the site stays open behind it (13 October). Pages of this site open in

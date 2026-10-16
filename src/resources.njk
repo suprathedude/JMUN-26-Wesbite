@@ -2,7 +2,7 @@
 layout: layouts/base.njk
 title: Resources
 eleventyComputed:
-  description: "Background guides, International Press style guides, procedure documents and research links for {{ site.name }} {{ site.year }}."
+  description: "Background guides, International Press style guides, procedure documents, training session recordings and slides, and research links for {{ site.name }} {{ site.year }}."
 permalink: /resources/
 pageCss: [resources]
 pageJs: [backdrops]
@@ -34,10 +34,9 @@ pageJs: [backdrops]
 
 {#- One backdrop for the whole page, so the glows carry on behind every section. -#}
 <div class="res-page">
-<div class="backdrop backdrop--grid" data-backdrop="grid" aria-hidden="true"><canvas></canvas></div>
+<div class="backdrop backdrop--grid" data-backdrop="grid" aria-hidden="true"><div class="backdrop__view"><div class="backdrop__lines"></div><div class="backdrop__drift" data-grid-drift><span class="backdrop__lit" data-grid-lit></span></div></div></div>
 <div class="orb res-page__orb res-page__orb--a" aria-hidden="true"></div>
 <div class="orb res-page__orb res-page__orb--b" aria-hidden="true"></div>
-<div class="orb res-page__orb res-page__orb--c" aria-hidden="true"></div>
 {{ frame("corner") }}
 {{ laurel("laurel--head") }}
 
@@ -73,6 +72,9 @@ pageJs: [backdrops]
 {#- International Press style guides: two cards, each released like a background guide by
     setting its file in resources.json. -#}
 <section class="res-section" aria-labelledby="ip-title">
+  {#- In this section, not the page: placed by the page's height, it moved while the page was
+      still arriving and counted as the page jumping (16 October). -#}
+  <div class="orb res-page__orb res-page__orb--c" aria-hidden="true"></div>
   <div class="container">
     {{ sectionHead("02", "ip-title", rp.sections.ip) }}
     <div class="res-grid res-grid--two" data-reveal>
@@ -105,9 +107,44 @@ pageJs: [backdrops]
   </div>
 </section>
 
+{#- Training sessions (16 October): the same sessions as New to MUN (newToMun.json →
+    training.sessions), each with its recording and the slides used, as they're added. A
+    recording or slides entry can be a web address or a file in src/assets/docs/. -#}
+{%- set tr = newToMun.training %}
+<section class="res-section" aria-labelledby="training-title">
+  <div class="container">
+    {{ sectionHead("04", "training-title", rp.sections.training) }}
+    <ul class="sessions" role="list" data-reveal>
+      {%- for s in tr.sessions %}
+      {%- set name = tr.sessionLabel ~ " " ~ loop.index %}
+      <li class="session">
+        <span class="session__num">{{ name }}</span>
+        <h3 class="session__date">{{ s.date }}</h3>
+        <ul class="session__files" role="list">
+          <li>
+            {%- if s.recording | isSet %}
+            <a class="session__link" href="{{ s.recording if (s.recording | isExternal) else '/' ~ s.recording }}">{{ icon("circle-play") }}{{ tr.recordingLabel }}<span class="visually-hidden">, {{ name }} (opens in a new tab)</span></a>
+            {%- else %}
+            <span class="session__soon">{{ icon("circle-play") }}{{ tr.recordingSoon }}</span>
+            {%- endif %}
+          </li>
+          <li>
+            {%- if s.slides | isSet %}
+            <a class="session__link" href="{{ s.slides if (s.slides | isExternal) else '/' ~ s.slides }}">{{ icon("presentation") }}{{ tr.slidesLabel }}<span class="visually-hidden">, {{ name }} (opens in a new tab)</span></a>
+            {%- else %}
+            <span class="session__soon">{{ icon("presentation") }}{{ tr.slidesSoon }}</span>
+            {%- endif %}
+          </li>
+        </ul>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+
 <section class="res-section res-section--last" aria-labelledby="links-title">
   <div class="container">
-    {{ sectionHead("04", "links-title", rp.sections.links) }}
+    {{ sectionHead("05", "links-title", rp.sections.links) }}
     <ul class="links" role="list" data-reveal>
       {%- for l in resources.researchLinks %}
       <li>

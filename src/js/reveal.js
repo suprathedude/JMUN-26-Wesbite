@@ -66,10 +66,19 @@ if (root.classList.contains("reveal-on") && "IntersectionObserver" in window) {
 
   // While the loading screen is showing, wait for it, so the first screen's entrances are
   // seen. Otherwise start at once: waiting for every picture would hold the page back.
-  if (root.classList.contains("is-slow")) {
-    addEventListener("loader:done", start, { once: true });
+  const begin = () => {
+    if (root.classList.contains("is-slow")) {
+      addEventListener("loader:done", start, { once: true });
+    } else {
+      start();
+    }
+  };
+  // A page Chrome built ahead in the background (the speculation rules in base.njk) waits until
+  // it's actually opened, so its entrances aren't over before anyone sees them.
+  if (document.prerendering) {
+    document.addEventListener("prerenderingchange", begin, { once: true });
   } else {
-    start();
+    begin();
   }
 
   // Pictures still on their way fade in when they land.

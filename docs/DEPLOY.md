@@ -69,6 +69,10 @@ On GitHub, open the repository, then **Settings → Secrets and variables → Ac
 
 Secrets are hidden once saved; even admins can't read them back. They're never shown in build logs.
 
+Two more secrets are optional: `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ZONE_ID` let the deploy clear
+Cloudflare's copies of the pages after each upload, so pages load from Cloudflare for longer
+(docs/CLOUDFLARE.md, "Keep pages for a day").
+
 Two optional settings go under the **Variables** tab on the same page (not Secrets):
 
 | Name | When to add it |

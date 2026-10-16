@@ -57,43 +57,61 @@ function rotateStrip(strip) {
   }, 4500);
 }
 
-// The pop-up notice (site.json → notice): once per browser until its text changes, after the
-// page has loaded. "off" in storage turns it off (the test scripts set it).
+// The pop-ups (site.json → notice), after the page has loaded: the first one, then each of the
+// others as the one before is closed (16 October). The page stays locked from the first opening
+// to the last closing, so it doesn't jump in between. On every visit with notice.everyVisit;
+// otherwise once per browser until their text changes. "off" in storage turns them off (the
+// test scripts set it). Following a pop-up's link leaves the page, so the rest wait for the
+// next visit.
 const NOTICE_KEY = "oakjmun-notice";
 function initNotice() {
-  const dialog = document.querySelector("[data-notice]");
-  if (!dialog || typeof dialog.showModal !== "function") return;
-  const key = dialog.dataset.key;
+  const dialogs = [...document.querySelectorAll("[data-notice]")];
+  if (!dialogs.length || typeof dialogs[0].showModal !== "function") return;
+  const key = dialogs[0].dataset.key;
   let seen = null;
   try {
     seen = localStorage.getItem(NOTICE_KEY);
   } catch {}
-  if (seen === "off" || (seen === key && !dialog.hasAttribute("data-every-visit"))) return;
+  if (seen === "off" || (seen === key && !dialogs[0].hasAttribute("data-every-visit"))) return;
   const remember = () => {
     try {
       localStorage.setItem(NOTICE_KEY, key);
     } catch {}
   };
-  dialog.addEventListener("close", () => {
-    remember();
-    root.classList.remove("notice-open");
-    dispatchEvent(new Event("nav:unlock"));
-  });
-  for (const button of dialog.querySelectorAll("[data-notice-close]")) {
-    button.addEventListener("click", () => dialog.close());
-  }
-  dialog.querySelector("[data-notice-link]")?.addEventListener("click", remember);
-  // A click on the dimmed page around the card closes it too.
-  dialog.addEventListener("click", (event) => {
-    if (event.target === dialog) dialog.close();
+  const show = (dialog) => {
+    if (dialog.open) return;
+    dialog.showModal();
+    dialog.focus(); // the pop-up itself, not its close button, so no focus ring at first
+  };
+  let leaving = false;
+  dialogs.forEach((dialog, i) => {
+    const next = dialogs[i + 1];
+    dialog.addEventListener("close", () => {
+      remember();
+      if (next && !leaving) {
+        setTimeout(() => show(next), 220);
+        return;
+      }
+      root.classList.remove("notice-open");
+      dispatchEvent(new Event("nav:unlock"));
+    });
+    for (const button of dialog.querySelectorAll("[data-notice-close]")) {
+      button.addEventListener("click", () => dialog.close());
+    }
+    dialog.querySelector("[data-notice-link]")?.addEventListener("click", (event) => {
+      if (event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey) leaving = true;
+      remember();
+    });
+    // A click on the dimmed page around the card closes it too.
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
   });
   const open = () =>
     setTimeout(() => {
-      if (dialog.open) return;
       root.classList.add("notice-open");
       dispatchEvent(new Event("nav:lock"));
-      dialog.showModal();
-      dialog.focus(); // the pop-up itself, not its close button, so no focus ring at first
+      show(dialogs[0]);
     }, 700);
   if (root.classList.contains("is-loading")) addEventListener("loader:done", open, { once: true });
   else open();

@@ -114,5 +114,5 @@ Final as of 3 October: both days, with times.
 | --- | --- | --- |
 | `onTheDay` | Phones allowed (13 October); registration "(place TBC)" | Where registration is |
 | `checklist` (lead-in) | Online, 29 October; "The time and the meeting link are TBC." | The time and the link |
-| `training` | 16, 17 and 24 October; "Times TBC"; `recording` `""` for each, shown as "Recording coming later" | The times, and each recording link |
+| `training` | 16, 21 and 26 October (16 October), 6:00 pm; `recording` and `slides` `""` for each, shown as "Recording coming later" and "Slides coming later" (on New to MUN and Resources) | Each recording link and the slides used |
 | `intro.photo` | A delegate raising a placard (`src/assets/img/ntm/delegate.webp`, sent 7 October): a past Oakridge delegate, cut out. | Check the school's photo consent covers this student. To swap it, use a cut-out (transparent background) cropped at the desk, same file name, and update `alt` |

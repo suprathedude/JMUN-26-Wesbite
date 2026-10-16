@@ -54,13 +54,45 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_DIR: ${{ vars.FTP_DIR }}
           FTP_INSECURE: ${{ vars.FTP_INSECURE }}
+          CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
           if [ -z "$FTP_HOST" ] || [ -z "$FTP_USER" ] || [ -z "$FTP_PASSWORD" ]; then
             echo "::warning::The site built fine but wasn't uploaded: add FTP_HOST, FTP_USER and FTP_PASSWORD to the repository's secrets (docs/DEPLOY.md, step 5)."
             exit 0
           fi
+          # With the Cloudflare secrets, the next step clears Cloudflare's copies after every
+          # upload, so Cloudflare may keep each page for a day instead of 10 minutes.
+          if [ -n "$CLOUDFLARE_ZONE_ID" ] && [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+            sed -i 's/s-maxage=600/s-maxage=86400/' _site/.htaccess
+          fi
           sudo apt-get install -y -qq lftp > /dev/null
           bash scripts/deploy-ftp.sh
+
+      # Cloudflare keeps a copy of each page near visitors (docs/CLOUDFLARE.md, "Faster pages").
+      # This clears those copies so the update shows at once. Needs CLOUDFLARE_ZONE_ID and
+      # CLOUDFLARE_API_TOKEN (a token allowed only to purge this site's cache) in the
+      # repository's secrets; without them it does nothing.
+      - name: Clear Cloudflare's copies
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$FTP_HOST" ] || [ -z "$CLOUDFLARE_ZONE_ID" ] || [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "No Cloudflare secrets: nothing to clear (pages may be up to 10 minutes old on Cloudflare)."
+            exit 0
+          fi
+          answer="$(curl -sS -X POST "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/purge_cache" \
+            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}')"
+          if echo "$answer" | grep -q '"success":[[:space:]]*true'; then
+            echo "Cloudflare's copies cleared."
+          else
+            echo "::error::Cloudflare didn't clear its copies, so visitors may see the old pages for up to a day. Check the CLOUDFLARE_API_TOKEN secret (docs/CLOUDFLARE.md), or use Caching > Configuration > Purge Everything. Cloudflare said: $answer"
+            exit 1
+          fi
 
       # Reads the live site: a missing address should get the custom 404 page (scripts/check-live.sh).
       - name: Check the live site

@@ -154,19 +154,26 @@ On the first homepage visit of a session, photos fly out of the dark before the 
 - `"cue"`: the small word at the bottom of the screen.
 - People who have turned off animations on their device, and later visits in the same session, start at the hero.
 
-## Change the pop-up notice
+## Change the pop-ups
 
-The box that opens over the page the first time someone visits (since 14 October). In `site.json` → `notice`:
+The boxes that open over the homepage after it loads (since 14 October). Since 16 October there
+can be several: the first opens, and each of the others opens as the one before it is closed.
+In `site.json` → `notice`:
 
-- `"title"` and `"text"`: the news, in a sentence or two.
-- `"dates"`: the list under "Dates for delegates" (`label` and `date` for each). Leave it `[]` for no list.
-- `"link"`: the main button (`/allocations/` now). Leave `"url": ""` for no button.
-- `"flash"`: the most urgent line, in a highlighted box at the top (`title`, and an optional `text`), with an optional `link` (`label` and `url`, for example the Teams joining link). Remove it when it's no longer news.
-- `"pages"`: where it opens (`["/"]` is the homepage only). Leave it out to show it on every page.
-- `"everyVisit": true` opens it on every visit to those pages (15 October). Without it, it opens once per browser, and again only when its text changes.
-- `"enabled": false` turns it off.
+- `"popups"`: the list, in the order they open. Each one is either news or a single line.
+  - **News:** `"title"` and `"text"` (a sentence or two); an optional `"flash"`, the most urgent
+    line in a highlighted box at the top (`title`, optional `text`, optional `link` with `label`
+    and `url`, for example the Teams joining link); optional `"dates"` with a `"datesTitle"` (a
+    list of `label` and `date`); and `"link"`, the main button (leave `"url": ""` for none).
+  - **A single line:** `"headline"`, shown in capitals, and `"highlight"`, the words in it to pick
+    out in teal (copied exactly from the headline). Nothing else shows but the close button.
+- `"pages"`: where they open (`["/"]` is the homepage only). Leave it out to show them on every page.
+- `"everyVisit": true` opens them on every visit to those pages (15 October). Without it, they open
+  once per browser, and again only when their text changes.
+- `"enabled": false` turns them all off. To drop one, delete it from the list.
 
-It never shows on the volunteers' check-in page.
+Following a pop-up's button (See allocations) leaves the page, so the ones after it wait for the
+next visit. They never show on the volunteers' check-in page.
 
 ## Change the announcement bar
 
@@ -309,7 +316,7 @@ Everything else updates by itself:
 | Allocation rounds and the matrix link | `site.json` → `allocations`: `rounds` (`name`, `date`, `note`), `status`, `matrixUrl` |
 | FAQ answers | `faq.json`. An answer can have a button: `"link": { "label": "See allocations", "url": "/allocations/" }` |
 | Social Night details | `socialNight.json`: `time`, `dressCode`, `expect`, `faq`. The photo booth section (`photoBoothTitle`, `photoBooth`) shows "Photo TBC" until `photoBoothImage` is set. |
-| Training sessions on New to MUN | `newToMun.json` → `training`: the dates, each session's Teams joining `link` (the card says "Join on Microsoft Teams"), and its `recording` link once it's up (the card then says "Watch the recording" instead). Joining links on the site are public: anyone with one can ask to join, so keep the Teams lobby on and let a host admit people. |
+| Training sessions (New to MUN, and Resources → 04 Training Sessions) | `newToMun.json` → `training.sessions`: each session's `date`, its Teams joining `link` (the New to MUN card says "Join on Microsoft Teams"), its `recording` link once it's up (the card then says "Watch the recording" instead), and its `slides`. Both pages read the same list. `recording` and `slides` can be a web address (a OneDrive or SharePoint share link, for example) or a file you put in `src/assets/docs/`, written as `assets/docs/the-file-name.pdf`. Save slides as PDF if you can (File > Export > PDF in PowerPoint): a PDF opens on any phone, a `.pptx` only downloads. Until then each card says "Recording coming later" and "Slides coming later". Joining links on the site are public: anyone with one can ask to join, so keep the Teams lobby on and let a host admit people. |
 | Research links | `resources.json` → `researchLinks`: `title`, `url` (must start with `https://`), `description` |
 | The hero photo or video | See [REPLACE_ME.md](REPLACE_ME.md), "Hero background" |
 

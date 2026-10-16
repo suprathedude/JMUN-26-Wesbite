@@ -26,8 +26,10 @@
   {%- endfor %}
   {#- Runs before first paint: marks JS as available and hides a strip dismissed earlier this
       session. Also (PLAN.md F11, F12): turns on the entrances unless motion is reduced, and starts the
-      loading screen, which only shows if the page still hasn't loaded after 0.6 s. When the
-      page has loaded (or after 12 s whatever happens) it goes, and "loader:done" fires. If
+      loading screen, which only shows if the page still isn't ready after 0.6 s. When the page
+      is ready (its text, styles, scripts and font; or after 12 s whatever happens) it goes, and
+      "loader:done" fires. Photos don't hold it: they fade in as they arrive (16 October; waiting
+      for every photo showed the loading screen on most clicks). If
       reveal.js never ran by then, the entrances are switched off so nothing stays hidden.
       On the homepage it decides whether the gallery intro plays (gallery.js): not with reduced
       motion; later visits in the session, and addresses with a #section, start at the hero
@@ -43,6 +45,7 @@
   if(!d.classList.contains("portal-ready"))d.classList.remove("portal-on");
   if(!document.querySelector(".theme.is-scrubbing"))d.classList.remove("theme-scrub");
   setTimeout(function(){d.classList.remove("is-loading");dispatchEvent(new Event("loader:done"))},was?450:0)}
+  addEventListener("DOMContentLoaded",function(){var f=document.fonts;if(!f||f.status==="loaded")return done();Promise.race([f.ready,new Promise(function(r){setTimeout(r,1500)})]).then(done)});
   addEventListener("load",done);setTimeout(done,12000);
   try{
   {%- if gallery %}if(!matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("gallery-on");if(location.hash||sessionStorage.getItem("oakjmun-gallery"))d.classList.add("gallery-skip");else{d.classList.add("gallery-active");
@@ -54,6 +57,12 @@
   {%- if portal %}if(!matchMedia("(prefers-reduced-motion: reduce)").matches&&"IntersectionObserver" in window)d.classList.add("portal-on");{% endif -%}
   {%- if site.announcement.enabled %}if(sessionStorage.getItem("oakjmun-strip")==="{{ site.announcement.items | dump | hash }}")d.classList.add("strip-off");{% endif -%}
   }catch(e){}})(document.documentElement)</script>
+  {#- Speculation rules (16 October): resting the pointer on a link to another page of the site
+      for a moment (or pressing it, on a phone) makes Chrome and Edge load that page in the
+      background, so it opens at once on the click. The homepage, Social Night and Doomsday carry
+      video or 3D, so they're only fetched, not built ahead. PDFs, the check-in page and anything
+      opening in a new tab are left alone. Other browsers ignore this. -#}
+  <script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/api/*","/qr/check/*","/*.pdf"]}},{"not":{"selector_matches":"[target=_blank],[download],[href='/'],[href^='/#'],[href^='/social-night'],[href^='/committees/doomsday']"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/api/*","/qr/check/*","/*.pdf"]}},{"not":{"selector_matches":"[target=_blank],[download]"}}]},"eagerness":"moderate"}]}</script>
   <script type="importmap">{"imports":{"lenis":"/js/vendor/lenis.js","qrcode-generator":"/js/vendor/qrcode.js","jsqr":"/js/vendor/jsqr.js"}}</script>
   <script type="module" src="/js/nav.js"></script>
   <script type="module" src="/js/smooth-scroll.js"></script>

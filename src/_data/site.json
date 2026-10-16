@@ -62,40 +62,29 @@
       "/"
     ],
     "everyVisit": true,
-    "flash": {
-      "title": "Link for the first delegate training session on 16 October 2026 sent by email",
-      "text": "Friday 16 October, 6:00 pm, on Microsoft Teams. The link is also in the email.",
-      "link": {
-        "label": "Join the session on Microsoft Teams",
-        "url": "https://teams.microsoft.com/meet/41303379265088?p=pX6TVFC8wh3yiNSW9w"
+    "close": "Close",
+    "popups": [
+      {
+        "flash": {
+          "title": "Link for the first delegate training session on 16 October 2026 sent by email",
+          "text": "Friday 16 October, 6:00 pm, on Microsoft Teams. The link is also in the email.",
+          "link": {
+            "label": "Join the session on Microsoft Teams",
+            "url": "https://teams.microsoft.com/meet/41303379265088?p=pX6TVFC8wh3yiNSW9w"
+          }
+        },
+        "title": "Round 1 allocations are out!",
+        "text": "Every Round 1 allocation has been released. Round 2 is coming soon.",
+        "link": {
+          "label": "See allocations",
+          "url": "/allocations/"
+        }
+      },
+      {
+        "headline": "Your experience begins on 29th Oct, with an online EB lead-in session.",
+        "highlight": "online EB lead-in session"
       }
-    },
-    "title": "Round 1 allocations are out!",
-    "text": "Every Round 1 allocation has been released. Round 2 is coming soon.",
-    "datesTitle": "Dates for delegates",
-    "dates": [
-      {
-        "label": "Training session 1",
-        "date": "Friday 16 October, 6:00 pm, online"
-      },
-      {
-        "label": "Training session 2",
-        "date": "Saturday 17 October, 6:00 pm, online"
-      },
-      {
-        "label": "Training session 3",
-        "date": "Saturday 24 October, 6:00 pm, online"
-      },
-      {
-        "label": "Lead-in",
-        "date": "Thursday 29 October, the day before the conference"
-      }
-    ],
-    "link": {
-      "label": "See allocations",
-      "url": "/allocations/"
-    },
-    "close": "Close"
+    ]
   },
   "nav": {
     "left": [
@@ -211,7 +200,7 @@
     "save": "Save QR code"
   },
   "resourcesPage": {
-    "intro": "Background guides, International Press style guides, procedure documents and research links, added here as they're released.",
+    "intro": "Background guides, International Press style guides, procedure documents, training session recordings and slides, and research links, added here as they are released.",
     "guidesNone": "Background guides coming soon",
     "guidesSome": "{count} of {total} background guides out",
     "guidesAll": "All background guides out",
@@ -227,6 +216,10 @@
       "docs": {
         "title": "Essential Documents",
         "sub": "Rules of Procedure · Slides · Delegate Guidelines · Consent Form"
+      },
+      "training": {
+        "title": "Training Sessions",
+        "sub": "Recordings · Slides · Three sessions on Microsoft Teams"
       },
       "links": {
         "title": "Research Links",

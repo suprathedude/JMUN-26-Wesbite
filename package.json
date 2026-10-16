@@ -12,6 +12,7 @@
     "build": "eleventy",
     "shots": "node scripts/screenshot.mjs",
     "a11y": "node scripts/a11y.mjs",
+    "perf": "node scripts/perf.mjs",
     "media": "node scripts/optimize-media.mjs",
     "check": "npm run build && node scripts/check-links.mjs"
   },

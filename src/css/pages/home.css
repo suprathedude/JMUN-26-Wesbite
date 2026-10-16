@@ -52,6 +52,16 @@
   visibility: hidden;
 }
 
+/* Hidden (skipped, or scrolled past: .is-gone from gallery.js) or loaded, nothing in the
+   gallery keeps animating: hidden animations still cost the page a restyle every frame. */
+.gallery-skip .gallery *,
+.gallery-skip .gallery *::after,
+.gallery.is-gone *,
+.gallery.is-gone *::after,
+.gallery.is-ready .gallery__wait-mark {
+  animation-play-state: paused;
+}
+
 .gallery__root,
 .gallery__three {
   position: absolute;
@@ -1477,6 +1487,9 @@
   width: 720px;
   aspect-ratio: 1;
   background: radial-gradient(circle, rgb(var(--teal-dark-rgb) / 0.12) 0%, transparent 65%);
+  /* Holds still (16 October): while the section is skipped off screen, Chrome can't hand the
+     drift to the graphics chip and restyled the whole homepage every frame for it. */
+  animation: none;
 }
 
 .debate__title em {

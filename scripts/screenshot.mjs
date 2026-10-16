@@ -144,7 +144,7 @@ const STATES = [
     viewport: VIEWPORTS[1],
     async run(page) {
       await page.evaluate(() => scrollTo(0, 330));
-      await page.locator(".person__flip").nth(1).click();
+      await page.locator("[data-person]").nth(1).click(); // the card (its Flip button is hidden)
       await page.waitForTimeout(900);
     },
   },

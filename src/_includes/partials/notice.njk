@@ -41,10 +41,17 @@
     {%- endif %}
     <h2 class="notice__title" id="{{ titleId }}">{{ p.title }}</h2>
     {%- if p.text %}<p class="notice__text">{{ p.text }}</p>{% endif %}
-    {%- if p.dates | length %}
+    {#- The dates: the training sessions from newToMun.json (trainingDates: true, 16 October),
+        so they're only ever typed once, and/or a list of its own. -#}
+    {%- set dates = [] %}
+    {%- if p.trainingDates %}
+    {%- for s in newToMun.training.sessions %}{% set dates = (dates.push({ label: newToMun.training.sessionLabel ~ " " ~ loop.index, date: s.date }), dates) %}{% endfor %}
+    {%- endif %}
+    {%- for d in p.dates %}{% set dates = (dates.push(d), dates) %}{% endfor %}
+    {%- if dates | length %}
     <h3 class="notice__sub">{{ p.datesTitle }}</h3>
     <ul class="notice__dates" role="list">
-      {%- for d in p.dates %}
+      {%- for d in dates %}
       <li><span class="notice__label">{{ d.label }}</span><span class="notice__date">{{ d.date }}</span></li>
       {%- endfor %}
     </ul>

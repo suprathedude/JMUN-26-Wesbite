@@ -2126,7 +2126,7 @@ html.is-locked {
 
 .notice__dates li {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  grid-template-columns: minmax(0, 0.55fr) minmax(0, 1.45fr); /* short labels, room for a whole date */
   gap: 12px;
   padding: 11px 0;
   border-bottom: 1px solid rgb(var(--teal-rgb) / 0.15);

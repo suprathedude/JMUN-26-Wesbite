@@ -48,7 +48,9 @@ async function compressed(file, body, encoding) {
   return out;
 }
 
-export function serve(dir, port = 0) {
+// htmlDelay (ms) holds every page back that long before answering, like a slow web host
+// (npm run perf; GoDaddy takes about half a second, docs/CLOUDFLARE.md).
+export function serve(dir, port = 0, { htmlDelay = 0 } = {}) {
   const root = path.resolve(dir);
   const server = createServer(async (req, res) => {
     const url = new URL(req.url, "http://localhost");
@@ -79,6 +81,7 @@ export function serve(dir, port = 0) {
         headers["Content-Encoding"] = encoding;
       }
     }
+    if (htmlDelay && type.startsWith("text/html")) await new Promise((r) => setTimeout(r, htmlDelay));
     res.writeHead(status, headers);
     res.end(body);
   });

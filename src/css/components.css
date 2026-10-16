@@ -399,7 +399,6 @@
 .strip {
   position: relative;
   z-index: var(--z-strip);
-  view-transition-name: site-strip;
   background: var(--grad-strip);
   color: var(--navy);
 }
@@ -516,7 +515,6 @@
 .nav {
   position: absolute;
   top: var(--nav-top);
-  view-transition-name: site-nav;
   left: 50%;
   z-index: 2;
   width: max-content;

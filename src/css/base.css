@@ -276,34 +276,12 @@ html.lenis body {
   pointer-events: none;
 }
 
-/* ---------- Motion between pages and as things come on screen (PLAN.md F11) ---------- */
+/* ---------- Motion as things come on screen (PLAN.md F11) ---------- */
 
-/* Page to page: a short crossfade. The announcement strip and the nav pill are carried
-   across, so they stay put while the page under them changes. Browsers without
-   cross-document view transitions simply load the next page. */
-@view-transition {
-  navigation: auto;
-}
-
-::view-transition-old(root) {
-  animation: page-out calc(var(--dur-page) * 0.55) var(--ease-standard) both;
-}
-
-::view-transition-new(root) {
-  animation: page-in var(--dur-page) var(--ease-standard) both;
-}
-
-@keyframes page-out {
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes page-in {
-  from {
-    opacity: 0;
-  }
-}
+/* Page to page there's no animation (16 October): the crossfade and the committee photo
+   growing into its header (view transitions) held each new page back by about 0.3 s and then
+   played for 0.8 s more, so a committee took over a second to open after the click. The next
+   page now shows the moment it's ready (docs/SPEED.md). */
 
 /* Entrances (reveal.js). html.reveal-on is set in <head> only when motion is fine. */
 .reveal-on [data-reveal]:not([data-reveal="mask"]) {
@@ -387,7 +365,4 @@ reveal-line {
     scroll-behavior: auto !important;
   }
 
-  @view-transition {
-    navigation: none;
-  }
 }

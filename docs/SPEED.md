@@ -53,8 +53,29 @@ Measured before and after on the slowed processor:
 - **A glow on Resources** was placed by the page's height, so it moved while the page was still
   arriving and counted as the page jumping. It's placed by its own section now.
 
+## Opening a committee (16 October)
+
+From a click on a committee to its page being open took 1.6 to 2.5 seconds (measured in Chrome
+with the page held back half a second, as GoDaddy does). The time went on the page-to-page
+animation (view transitions): the crossfade, and the committee's photo growing into the page's
+header. The browser held the new page back about 0.3 s to set it up, then played it for 0.8 s.
+Both are gone: the next page shows the moment it's ready.
+
+| From a click on a committee to its page open | Before | After |
+| --- | --- | --- |
+| Page held back half a second (GoDaddy, nothing kept by Cloudflare) | 1.6 to 2.5 s | 0.6 s |
+| Page answered at once (Cloudflare keeping it) | 1.2 s | 0.1 s |
+
+In Chrome and Edge, resting the pointer on a committee for a moment also builds its page in the
+background (speculation rules), so it opens at once even from GoDaddy. Test tools turn that off,
+so the table doesn't count it. On phones, and for a quick click, the half second of waiting for
+GoDaddy is what's left; the Cloudflare **Cache pages** rule (docs/CLOUDFLARE.md) removes it.
+
+`npm run perf -- --delay 500` runs the speed check with every page held back half a second.
+
 ## Keep it fast
 
+- No page-to-page animations (view transitions): they hold every new page back.
 - Animate only `transform` and `opacity` (CLAUDE.md). Anything that animates inside something
   hidden (`visibility: hidden`, a closed menu, a message that isn't showing) needs
   `animation-play-state: paused` while hidden.

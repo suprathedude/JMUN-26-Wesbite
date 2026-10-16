@@ -64,7 +64,8 @@ pageCss: [new-to-mun]
         <span class="check__icon" aria-hidden="true">{{ icon("circle-check") }}</span>
         <div>
           <h3 class="check__title">{{ c.title }}</h3>
-          <p class="check__text">{{ c.text }}</p>
+          <p class="check__text">{{ c.text }}
+            {%- if c.link.url %} <a class="check__link" href="{{ c.link.url }}">{{ c.link.label }}</a>{% endif %}</p>
         </div>
       </li>
       {%- endfor %}
@@ -96,6 +97,30 @@ pageCss: [new-to-mun]
       </li>
       {%- endfor %}
     </ul>
+  </div>
+</section>
+
+{#- The lead-in (16 October): what it is, when, what happens and how to get ready, in the same
+    cards as "On the day". The second homepage pop-up and the checklist link here (#lead-in).
+    Text: newToMun.json → leadIn. -#}
+{%- set li = g.leadIn -%}
+<section class="section ntm-leadin" id="lead-in" aria-labelledby="leadin-title">
+  <div class="container">
+    <h2 class="t-section t-section--bar" data-reveal="mask" id="leadin-title">{{ li.title }}</h2>
+    <p class="ntm-intro" data-reveal>{{ li.intro }}</p>
+    <div class="day-panels" data-reveal>
+      {%- for p in li.panels %}
+      <div class="day-panel">
+        <span class="day-panel__icon" aria-hidden="true">{{ icon(p.icon) }}</span>
+        <h3 class="day-panel__title">{{ p.title }}</h3>
+        <ul class="day-panel__list">
+          {%- for item in p.items %}
+          <li>{{ item }}</li>
+          {%- endfor %}
+        </ul>
+      </div>
+      {%- endfor %}
+    </div>
   </div>
 </section>
 

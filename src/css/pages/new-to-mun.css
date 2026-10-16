@@ -215,6 +215,13 @@
   color: var(--ink-75);
 }
 
+.check__link {
+  font-weight: 700;
+  color: var(--teal-light);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* ---------- On the day: three cards ---------- */
 
 .ntm-day {
@@ -453,6 +460,12 @@
 
 .ntm-training {
   background: var(--blue-800);
+}
+
+/* ---------- The lead-in (16 October): the same three cards as On the day ---------- */
+
+.ntm-leadin {
+  background: var(--blue-900);
 }
 
 .training__soon,

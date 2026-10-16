@@ -59,7 +59,11 @@
     },
     {
       "title": "Join the lead-in.",
-      "text": "The day before the conference, 29 October, your committee meets its Executive Board online for a short session to get ready. The time and the meeting link are TBC."
+      "text": "The day before the conference, 29 October, your committee meets its Executive Board online for a short session to get ready. The time and the meeting link are TBC.",
+      "link": {
+        "label": "What happens at the lead-in",
+        "url": "#lead-in"
+      }
     }
   ],
   "training": {
@@ -96,6 +100,40 @@
       "file": "assets/docs/oakjmun-2026-rules-of-procedure-slides.pdf",
       "before": "To get ready, look through the"
     }
+  },
+  "leadIn": {
+    "title": "The lead-in session",
+    "intro": "The lead-in is where your conference begins: a short online session the day before, led by your committee's Executive Board, the chairs who will run your debate. You meet the people you'll be debating with, so you walk into the first session on 30 October already knowing your chairs, your committee and what is expected of you.",
+    "panels": [
+      {
+        "title": "When and where",
+        "icon": "calendar-clock",
+        "items": [
+          "Thursday 29 October, the day before the conference",
+          "Online, with the rest of your committee",
+          "Time and joining link TBC"
+        ]
+      },
+      {
+        "title": "What happens",
+        "icon": "users",
+        "items": [
+          "Your Executive Board introduces themselves, and you meet the other delegates in your committee",
+          "They go through the agenda and what they expect from the debate",
+          "You can ask about the background guide, the rules of procedure or anything else you're unsure of"
+        ]
+      },
+      {
+        "title": "How to get ready",
+        "icon": "list-checks",
+        "items": [
+          "Read your committee's background guide",
+          "Know your country's position on the agenda",
+          "Have your opening speech drafted",
+          "Join a few minutes early, from a quiet place"
+        ]
+      }
+    ]
   },
   "onTheDay": [
     {

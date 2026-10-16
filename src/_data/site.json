@@ -84,7 +84,11 @@
       },
       {
         "headline": "Your experience begins on 29th Oct, with an online EB lead-in session.",
-        "highlight": "online EB lead-in session"
+        "highlight": "online EB lead-in session",
+        "link": {
+          "label": "What is the lead-in?",
+          "url": "/new-to-mun/#lead-in"
+        }
       }
     ]
   },

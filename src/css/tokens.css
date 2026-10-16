@@ -168,7 +168,6 @@
   --dur-open: 0.3s;
   --dur-enter: 0.6s;
   --dur-reveal: 1s; /* entrances as things come on screen (reveal.js) */
-  --dur-page: 0.42s; /* the fade between pages */
 
   /* Layout */
   --content-max: 1200px;

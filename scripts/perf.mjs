@@ -3,6 +3,7 @@
 //
 //   npm run perf                       every page, desktop (1440 x 900), CPU 4x slower
 //   npm run perf -- /committees/ --phone --cpu 6
+//   npm run perf -- --delay 500       every page held back half a second, like GoDaddy's server
 //   npm run perf -- --json out.json    also save the numbers
 //
 // Per page it reports:
@@ -29,13 +30,14 @@ const flag = (name, fallback) => {
 };
 const phone = args.includes("--phone");
 const cpu = Number(flag("cpu", 4));
+const htmlDelay = Number(flag("delay", 0));
 const jsonOut = flag("json", null);
-const only = args.filter((a, i) => a.startsWith("/") && args[i - 1] !== "--json");
+const only = args.filter((a, i) => a.startsWith("/") && !["--json", "--delay", "--cpu"].includes(args[i - 1]));
 const PAGES = only.length
   ? only
   : ["/", "/committees/", "/committees/unsc/", "/committees/doomsday/", "/secretariat/", "/social-night/", "/new-to-mun/", "/resources/", "/allocations/", "/qr/"];
 
-const { server, origin } = await serve("_site");
+const { server, origin } = await serve("_site", 0, { htmlDelay });
 const browser = await chromium.launch();
 const viewport = phone ? { width: 390, height: 844 } : { width: 1440, height: 900 };
 const contextOptions = phone

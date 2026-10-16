@@ -163,8 +163,10 @@ In `site.json` → `notice`:
 - `"popups"`: the list, in the order they open. Each one is either news or a single line.
   - **News:** `"title"` and `"text"` (a sentence or two); an optional `"flash"`, the most urgent
     line in a highlighted box at the top (`title`, optional `text`, optional `link` with `label`
-    and `url`, for example the Teams joining link); optional `"dates"` with a `"datesTitle"` (a
-    list of `label` and `date`); and `"link"`, the main button (leave `"url": ""` for none).
+    and `url`, for example the Teams joining link); a list of dates under `"datesTitle"`, either
+    `"trainingDates": true` (the training sessions from `newToMun.json`, so a changed date only
+    needs changing there) or `"dates"` (a list of `label` and `date`), or both; and `"link"`, the
+    main button (leave `"url": ""` for none).
   - **A single line:** `"headline"`, shown in capitals, and `"highlight"`, the words in it to pick
     out in teal (copied exactly from the headline). Nothing else shows but the close button.
 - `"pages"`: where they open (`["/"]` is the homepage only). Leave it out to show them on every page.

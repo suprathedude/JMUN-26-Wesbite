@@ -75,6 +75,8 @@
         },
         "title": "Round 1 allocations are out!",
         "text": "Every Round 1 allocation has been released. Round 2 is coming soon.",
+        "datesTitle": "Training sessions on Microsoft Teams",
+        "trainingDates": true,
         "link": {
           "label": "See allocations",
           "url": "/allocations/"

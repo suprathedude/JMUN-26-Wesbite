@@ -247,6 +247,79 @@
   }
 }
 
+/* Training sessions (16 October): a card per session, with its recording and slides, or a
+   note that they're coming, beneath a rule */
+.sessions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 32px;
+}
+
+.session {
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid; /* the rules line up across the cards when a date wraps */
+  align-content: start;
+  row-gap: 10px;
+  height: 100%;
+  padding: 26px 26px 28px;
+  border: var(--border-card);
+  border-radius: var(--radius-card);
+  background: rgb(var(--card-rgb) / 0.65);
+}
+
+.session__num {
+  font-size: var(--fs-label);
+  font-weight: 800;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: rgb(var(--teal-rgb) / 0.85);
+}
+
+.session__date {
+  font-size: var(--fs-card);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink-100);
+}
+
+.session__files {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  margin-top: 8px;
+  padding-top: 18px;
+  border-top: 1px solid rgb(var(--teal-rgb) / 0.15);
+}
+
+.session__link,
+.session__soon {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+}
+
+.session__link {
+  color: var(--teal-light);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.session__link:hover {
+  color: var(--ink-100);
+}
+
+.session__soon {
+  color: var(--ink-75);
+}
+
+.session__files .icon {
+  flex: none;
+  font-size: 1.2rem;
+}
+
 @media (max-width: 980px) {
   .res-grid,
   .links {
@@ -257,7 +330,8 @@
 @media (max-width: 768px) {
   .res-grid,
   .res-grid--two,
-  .links {
+  .links,
+  .sessions {
     grid-template-columns: 1fr;
   }
 

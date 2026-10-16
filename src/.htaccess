@@ -44,6 +44,7 @@ ErrorDocument 404 /404.html
   AddType image/svg+xml .svg
   AddType video/webm .webm
   AddType video/mp4 .mp4
+  AddType application/vnd.openxmlformats-officedocument.presentationml.presentation .pptx
   AddCharset utf-8 .html .css .js .svg
 </IfModule>
 

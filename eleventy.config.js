@@ -31,8 +31,9 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/api": "api" });
   eleventyConfig.addPassthroughCopy({ "node_modules/qrcode-generator/dist/qrcode.mjs": "js/vendor/qrcode.js" });
   eleventyConfig.addPassthroughCopy({ "src/assets/favicon.png": "assets/favicon.png" });
-  // Background guides and other documents (PDFs keep their names; see src/.htaccess).
-  eleventyConfig.addPassthroughCopy("src/assets/docs/**/*.pdf");
+  // Background guides and other documents (PDFs keep their names; see src/.htaccess), and
+  // PowerPoint slides from the training sessions (16 October; a PDF copy opens on any phone).
+  eleventyConfig.addPassthroughCopy("src/assets/docs/**/*.{pdf,pptx}");
   eleventyConfig.addPassthroughCopy("src/assets/video/*.{webm,mp4}"); // npm run media's output, not the sources
   // Doomsday's opening (PLAN.md F28): the Marvel Studios intro and Doom's clip, with stills.
   eleventyConfig.addPassthroughCopy("src/assets/video/doomsday/*.{webm,mp4,jpg}");

@@ -1,41 +1,61 @@
 {%- from "partials/icons.njk" import icon -%}
 {%- from "partials/buttons.njk" import shine -%}
-{#- The pop-up notice (14 October): news and dates, shown after the page has loaded (nav.js), on
-    the pages in site.json → notice.pages. With notice.everyVisit (15 October) it opens on every
-    visit to those pages; without it, once per browser until its text changes. A flash box at the
-    top carries the most urgent line, with an optional link (notice.flash.link). A native
-    <dialog>, so focus stays inside it and Esc closes it. -#}
+{#- The pop-ups (14 October): news shown after the page has loaded (nav.js), on the pages in
+    site.json → notice.pages. Since 16 October there can be several (notice.popups): each one
+    opens as the one before it is closed. With notice.everyVisit (15 October) they open on every
+    visit to those pages; without it, once per browser until their text changes.
+
+    A pop-up is either news (title, text, an optional flash box at the top with an optional link,
+    an optional list of dates and a button) or a single headline in capitals, with the words in
+    `highlight` picked out. Native <dialog>s, so focus stays inside and Esc closes them;
+    data-lenis-prevent lets the mouse wheel and trackpad scroll a long one while smooth
+    scrolling holds the page still. -#}
 {%- set n = site.notice -%}
-<dialog class="notice" aria-labelledby="notice-title" tabindex="-1" data-notice data-key="{{ n | dump | hash }}"{% if n.everyVisit %} data-every-visit{% endif %}>
+{%- set key = n | dump | hash -%}
+{%- for p in n.popups %}
+{%- set titleId = "notice-title-" ~ loop.index %}
+<dialog class="notice{% if p.headline %} notice--headline{% endif %}" aria-labelledby="{{ titleId }}" tabindex="-1" data-notice data-key="{{ key }}"{% if n.everyVisit %} data-every-visit{% endif %} data-lenis-prevent>
   <div class="notice__card">
     <button class="notice__x" type="button" aria-label="{{ n.close }}" data-notice-close>{{ icon("x") }}</button>
-    {%- if n.flash.title %}
+    {%- if p.headline %}
+    {%- set at = p.headline.indexOf(p.highlight) if p.highlight else -1 %}
+    <h2 class="notice__headline" id="{{ titleId }}">
+      {%- if at > -1 -%}
+      {{ p.headline.slice(0, at) | keepHyphened | safe }}<mark class="notice__mark">{{ p.highlight | keepHyphened | safe }}</mark>{{ p.headline.slice(at + p.highlight.length) | keepHyphened | safe }}
+      {%- else -%}
+      {{ p.headline | keepHyphened | safe }}
+      {%- endif -%}
+    </h2>
+    {%- else %}
+    {%- if p.flash.title %}
     <div class="notice__flash">
       <span class="notice__flash-dot" aria-hidden="true"></span>
       <div>
-        <p class="notice__flash-title">{{ n.flash.title }}</p>
-        {%- if n.flash.text %}<p class="notice__flash-text">{{ n.flash.text }}</p>{% endif %}
-        {%- if n.flash.link.url | isSet %}
-        <a class="notice__flash-link" href="{{ n.flash.link.url }}">{{ n.flash.link.label }}{% if n.flash.link.url | isExternal %}<span class="visually-hidden"> (opens in a new tab)</span>{% endif %}</a>
+        <p class="notice__flash-title">{{ p.flash.title }}</p>
+        {%- if p.flash.text %}<p class="notice__flash-text">{{ p.flash.text }}</p>{% endif %}
+        {%- if p.flash.link.url | isSet %}
+        <a class="notice__flash-link" href="{{ p.flash.link.url }}">{{ p.flash.link.label }}{% if p.flash.link.url | isExternal %}<span class="visually-hidden"> (opens in a new tab)</span>{% endif %}</a>
         {%- endif %}
       </div>
     </div>
     {%- endif %}
-    <h2 class="notice__title" id="notice-title">{{ n.title }}</h2>
-    <p class="notice__text">{{ n.text }}</p>
-    {%- if n.dates | length %}
-    <h3 class="notice__sub">{{ n.datesTitle }}</h3>
+    <h2 class="notice__title" id="{{ titleId }}">{{ p.title }}</h2>
+    {%- if p.text %}<p class="notice__text">{{ p.text }}</p>{% endif %}
+    {%- if p.dates | length %}
+    <h3 class="notice__sub">{{ p.datesTitle }}</h3>
     <ul class="notice__dates" role="list">
-      {%- for d in n.dates %}
+      {%- for d in p.dates %}
       <li><span class="notice__label">{{ d.label }}</span><span class="notice__date">{{ d.date }}</span></li>
       {%- endfor %}
     </ul>
     {%- endif %}
     <div class="notice__actions">
-      {%- if n.link.url | isSet %}
-      <a class="btn btn--shiny" href="{{ n.link.url }}" data-notice-link>{{ shine() }}{{ n.link.label }}</a>
+      {%- if p.link.url | isSet %}
+      <a class="btn btn--shiny" href="{{ p.link.url }}" data-notice-link>{{ shine() }}{{ p.link.label }}</a>
       {%- endif %}
       <button class="btn btn--outline" type="button" data-notice-close>{{ n.close }}</button>
     </div>
+    {%- endif %}
   </div>
 </dialog>
+{%- endfor %}

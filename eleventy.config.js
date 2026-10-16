@@ -54,6 +54,13 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("isSet", isSet);
   // A full https:// address (another website, such as the registration form) opens in a new tab.
   eleventyConfig.addFilter("isExternal", (url) => /^https?:\/\//i.test(String(url ?? "")));
+  // Escapes text and keeps words joined by a hyphen ("lead-in") on one line, for big headlines
+  // that would otherwise break at the hyphen (16 October). Output with | safe.
+  eleventyConfig.addFilter("keepHyphened", (text) =>
+    String(text ?? "")
+      .replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`)
+      .replace(/[\p{L}\p{N}]+(?:-[\p{L}\p{N}]+)+/gu, (word) => `<span class="nowrap">${word}</span>`),
+  );
 
   // Every link to another website or to a document (PDF, spreadsheet) opens in a new tab, wherever
   // it is on the page, so the site stays open behind it (13 October). Pages of this site open in

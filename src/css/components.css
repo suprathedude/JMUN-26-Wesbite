@@ -2135,6 +2135,14 @@ html.is-locked {
   color: var(--ink-100);
 }
 
+/* A session that's over is crossed out (16 October) */
+.notice__dates .is-done :is(.notice__label, .notice__date) {
+  color: var(--ink-60);
+  text-decoration: line-through;
+  text-decoration-color: rgb(var(--teal-rgb) / 0.85);
+  text-decoration-thickness: 2px;
+}
+
 .notice__actions {
   display: flex;
   flex-wrap: wrap;

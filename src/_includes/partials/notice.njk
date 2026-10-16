@@ -47,17 +47,18 @@
     <h2 class="notice__title" id="{{ titleId }}">{{ p.title }}</h2>
     {%- if p.text %}<p class="notice__text">{{ p.text }}</p>{% endif %}
     {#- The dates: the training sessions from newToMun.json (trainingDates: true, 16 October),
-        so they're only ever typed once, and/or a list of its own. -#}
+        so they're only ever typed once, and/or a list of its own. One that's over (done: true)
+        is crossed out. -#}
     {%- set dates = [] %}
     {%- if p.trainingDates %}
-    {%- for s in newToMun.training.sessions %}{% set dates = (dates.push({ label: newToMun.training.sessionLabel ~ " " ~ loop.index, date: s.date }), dates) %}{% endfor %}
+    {%- for s in newToMun.training.sessions %}{% set dates = (dates.push({ label: newToMun.training.sessionLabel ~ " " ~ loop.index, date: s.date, done: s.done }), dates) %}{% endfor %}
     {%- endif %}
     {%- for d in p.dates %}{% set dates = (dates.push(d), dates) %}{% endfor %}
     {%- if dates | length %}
     <h3 class="notice__sub">{{ p.datesTitle }}</h3>
     <ul class="notice__dates" role="list">
       {%- for d in dates %}
-      <li><span class="notice__label">{{ d.label }}</span><span class="notice__date">{{ d.date }}</span></li>
+      <li{% if d.done %} class="is-done"{% endif %}><span class="notice__label">{{ d.label }}</span><span class="notice__date">{{ d.date }}{% if d.done %}<span class="visually-hidden"> ({{ newToMun.training.doneLabel }})</span>{% endif %}</span></li>
       {%- endfor %}
     </ul>
     {%- endif %}

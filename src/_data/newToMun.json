@@ -72,18 +72,21 @@
     "sessions": [
       {
         "date": "Friday 16 October, 6:00 pm",
-        "link": "https://teams.microsoft.com/meet/41303379265088?p=pX6TVFC8wh3yiNSW9w",
-        "recording": "",
-        "slides": ""
+        "done": true,
+        "link": "",
+        "recording": "https://drive.google.com/file/d/1BdxuQ18mHMyQ90eLIjAS_2TEhTVyuZab/view?usp=sharing",
+        "slides": "https://canva.link/oakjmun-2026-training-module-1"
       },
       {
         "date": "Wednesday 21 October, 6:00 pm",
+        "done": false,
         "link": "",
         "recording": "",
         "slides": ""
       },
       {
         "date": "Monday 26 October, 6:00 pm",
+        "done": false,
         "link": "",
         "recording": "",
         "slides": ""
@@ -94,6 +97,7 @@
     "slidesSoon": "Slides coming later",
     "slidesLabel": "Open the slides",
     "sessionLabel": "Session",
+    "doneLabel": "done",
     "joinLabel": "Join on Microsoft Teams",
     "slides": {
       "label": "Rules of Procedure slides",

@@ -272,7 +272,7 @@ In `site.json`:
 
 ```json
 "sponsors": [
-  { "name": "Kia", "logo": "assets/img/sponsors/kia.svg", "url": "", "white": true },
+  { "name": "Car Kia", "logo": "assets/img/sponsors/car-kia.png", "url": "https://carkia.in", "white": true },
   { "name": "Acme Ltd", "logo": "assets/img/sponsors/acme.svg", "url": "https://acme.example", "white": false }
 ],
 ```

@@ -298,9 +298,9 @@
   },
   "sponsors": [
     {
-      "name": "Kia",
-      "logo": "assets/img/sponsors/kia.svg",
-      "url": "",
+      "name": "Car Kia",
+      "logo": "assets/img/sponsors/car-kia.png",
+      "url": "https://carkia.in",
       "white": true
     }
   ],

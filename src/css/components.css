@@ -2293,9 +2293,24 @@ html.is-locked {
   border-bottom: 1px solid rgb(var(--teal-rgb) / 0.15);
 }
 
+/* A list with longer labels than "Session 1" (17 October: who registration was extended for)
+   splits the row in half. */
+.notice__dates--even li {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
 .notice__label {
   font-weight: 700;
   color: var(--ink-100);
+}
+
+/* A smaller line under a label: the grades that can register */
+.notice__detail {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink-75);
 }
 
 /* A line under the dates, with a link (17 October: where to find the training recordings) */
@@ -2343,6 +2358,18 @@ html.is-locked {
   .notice__dates li {
     grid-template-columns: minmax(0, 1fr);
     gap: 2px;
+  }
+
+  /* The grades sit beside the label while they fit, so a row is two lines, not three. The
+     gap is the label's, so grades that move down a line start flush with it. */
+  .notice__name {
+    margin-right: 8px;
+  }
+
+  .notice__detail {
+    display: inline-block;
+    margin-top: 0;
+    white-space: nowrap;
   }
 }
 

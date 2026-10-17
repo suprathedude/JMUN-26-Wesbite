@@ -1,7 +1,7 @@
 // npm run shots
 // Full-page screenshots of every page in _site at 390x844 and 1440x900, plus a few
-// interaction states (collapsed nav, dropdown, mobile menu, tablet nav), saved to
-// screenshots/. Run `npm run build` first.
+// interaction states (collapsed nav, dropdown, mobile menu, tablet nav, the homepage pop-ups),
+// saved to screenshots/. Run `npm run build` first.
 //
 //   npm run shots                 every page and every state
 //   npm run shots -- home faq     only pages whose name contains one of the words
@@ -173,6 +173,22 @@ const STATES = [
       await page.waitForTimeout(1500);
     },
   },
+  // The pop-ups (site.json → notice, 17 October), which every other screenshot turns off. The
+  // first opens after the page has loaded, the second as the first is closed.
+  ...[VIEWPORTS[0], VIEWPORTS[1]].flatMap((viewport) => [
+    { name: `home-popup-1-${viewport.width}`, viewport, notice: true, run: (page) => page.waitForSelector(".notice[open]").then(() => page.waitForTimeout(600)) },
+    {
+      name: `home-popup-2-${viewport.width}`,
+      viewport,
+      notice: true,
+      async run(page) {
+        await page.waitForSelector(".notice[open]");
+        await page.click(".notice[open] .notice__x");
+        await page.waitForFunction(() => document.querySelectorAll("[data-notice]")[1]?.open);
+        await page.waitForTimeout(600);
+      },
+    },
+  ]),
   { name: "home-nav-1024", viewport: { width: 1024, height: 768, deviceScaleFactor: 1 }, async run() {} },
   { name: "home-nav-1250", viewport: { width: 1250, height: 800, deviceScaleFactor: 1 }, async run() {} },
 ];
@@ -213,7 +229,7 @@ async function main() {
     for (const state of STATES) {
       if (!wanted(state.name)) continue;
       const context = await browser.newContext(contextFor(state.viewport, "no-preference"));
-      await context.addInitScript(() => { try { localStorage.setItem("oakjmun-notice", "off"); } catch {} });
+      if (!state.notice) await context.addInitScript(() => { try { localStorage.setItem("oakjmun-notice", "off"); } catch {} });
       const page = await context.newPage();
       await page.goto(origin + (state.path ?? "/"), { waitUntil: "networkidle" });
       await page.evaluate(() => document.fonts.ready);

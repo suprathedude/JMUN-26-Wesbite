@@ -163,12 +163,33 @@ In `site.json` → `notice`:
 - `"popups"`: the list, in the order they open. Each one is either news or a single line.
   - **News:** `"title"` and `"text"` (a sentence or two); an optional `"flash"`, the most urgent
     line in a highlighted box at the top (`title`, optional `text`, optional `link` with `label`
-    and `url`, for example the Teams joining link); a list of dates under `"datesTitle"`, either
+    and `url`, for example the Teams joining link); `"lists"`, one or more lists of dates, each
+    under its own `"title"` (17 October: the extended registration dates, then the training
+    sessions); and `"link"`, the main button (leave `"url": ""` for none). A list has either
     `"trainingDates": true` (the training sessions from `newToMun.json`, so a changed date only
-    needs changing there) or `"dates"` (a list of `label` and `date`), or both; an optional
-    `"datesNote"` under the dates (`text`, and a `link` with `label` and `url`, now pointing to the
-    training recordings on Resources, `/resources/#training`); and `"link"`, the main button
-    (leave `"url": ""` for none).
+    needs changing there) or `"dates"` (a list of `label` and `date`, and an optional `detail`,
+    a smaller line under the label such as `"Grades 9 to 12"`), or both; and an optional `"note"`
+    under it (`text`, and a `link` with `label` and `url`, now pointing to the training
+    recordings on Resources, `/resources/#training`). For example:
+
+    ```json
+    "lists": [
+      {
+        "title": "Registration extended until",
+        "dates": [
+          { "label": "Delegates", "detail": "Grades 6 to 8", "date": "Wednesday 28 October" }
+        ]
+      },
+      {
+        "title": "Training sessions on Microsoft Teams",
+        "trainingDates": true,
+        "note": { "text": "Missed a training session?", "link": { "label": "Find the recordings and slides here!", "url": "/resources/#training" } }
+      }
+    ]
+    ```
+
+    Each list makes the pop-up longer. On phones it scrolls, so take a list out once it's no
+    longer news.
   - **A single line:** `"headline"`, shown in capitals, `"highlight"`, the words in it to pick
     out in teal (copied exactly from the headline), and an optional `"link"` button (the lead-in
     one goes to New to MUN's lead-in section, `/new-to-mun/#lead-in`).

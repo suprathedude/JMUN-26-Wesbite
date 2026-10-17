@@ -6,7 +6,7 @@
     visit to those pages; without it, once per browser until their text changes.
 
     A pop-up is either news (title, text, an optional flash box at the top with an optional link,
-    an optional list of dates and a button) or a single headline in capitals, with the words in
+    optional lists of dates and a button) or a single headline in capitals, with the words in
     `highlight` picked out and an optional button. Native <dialog>s, so focus stays inside and Esc closes them;
     data-lenis-prevent lets the mouse wheel and trackpad scroll a long one while smooth
     scrolling holds the page still. -#}
@@ -46,26 +46,31 @@
     {%- endif %}
     <h2 class="notice__title" id="{{ titleId }}">{{ p.title }}</h2>
     {%- if p.text %}<p class="notice__text">{{ p.text }}</p>{% endif %}
-    {#- The dates: the training sessions from newToMun.json (trainingDates: true, 16 October),
-        so they're only ever typed once, and/or a list of its own. One that's over (done: true)
-        is crossed out. -#}
+    {#- Lists of dates (17 October: several, each under its own title). A list holds the
+        training sessions from newToMun.json (trainingDates: true, 16 October), so they're only
+        ever typed once, and/or dates of its own, each with an optional detail line under its
+        label. One that's over (done: true) is crossed out. A list's own dates can have long
+        labels ("Organising Committee"), so they get half the row instead of the training
+        sessions' short "Session 1" column. -#}
+    {%- for l in p.lists %}
     {%- set dates = [] %}
-    {%- if p.trainingDates %}
+    {%- if l.trainingDates %}
     {%- for s in newToMun.training.sessions %}{% set dates = (dates.push({ label: newToMun.training.sessionLabel ~ " " ~ loop.index, date: s.date, done: s.done }), dates) %}{% endfor %}
     {%- endif %}
-    {%- for d in p.dates %}{% set dates = (dates.push(d), dates) %}{% endfor %}
+    {%- for d in l.dates %}{% set dates = (dates.push(d), dates) %}{% endfor %}
     {%- if dates | length %}
-    <h3 class="notice__sub">{{ p.datesTitle }}</h3>
-    <ul class="notice__dates" role="list">
+    <h3 class="notice__sub">{{ l.title }}</h3>
+    <ul class="notice__dates{% if not l.trainingDates %} notice__dates--even{% endif %}" role="list">
       {%- for d in dates %}
-      <li{% if d.done %} class="is-done"{% endif %}><span class="notice__label">{{ d.label }}</span><span class="notice__date">{{ d.date }}{% if d.done %}<span class="visually-hidden"> ({{ newToMun.training.doneLabel }})</span>{% endif %}</span></li>
+      <li{% if d.done %} class="is-done"{% endif %}><span class="notice__label">{% if d.detail %}<span class="notice__name">{{ d.label }}</span><span class="visually-hidden">, </span><span class="notice__detail">{{ d.detail }}</span>{% else %}{{ d.label }}{% endif %}</span><span class="notice__date">{{ d.date }}{% if d.done %}<span class="visually-hidden"> ({{ newToMun.training.doneLabel }})</span>{% endif %}</span></li>
       {%- endfor %}
     </ul>
     {%- endif %}
-    {%- if p.datesNote.text %}
-    <p class="notice__note">{{ p.datesNote.text }}
-      {%- if p.datesNote.link.url | isSet %} <a class="notice__note-link" href="{{ p.datesNote.link.url }}">{{ p.datesNote.link.label }}</a>{% endif %}</p>
+    {%- if l.note.text %}
+    <p class="notice__note">{{ l.note.text }}
+      {%- if l.note.link.url | isSet %} <a class="notice__note-link" href="{{ l.note.link.url }}">{{ l.note.link.label }}</a>{% endif %}</p>
     {%- endif %}
+    {%- endfor %}
     <div class="notice__actions">
       {%- if p.link.url | isSet %}
       <a class="btn btn--shiny" href="{{ p.link.url }}" data-notice-link>{{ shine() }}{{ p.link.label }}</a>

@@ -106,6 +106,34 @@ function initNotice() {
     dialog.addEventListener("click", (event) => {
       if (event.target === dialog) dialog.close();
     });
+    // "Scroll for more" (17 October): shown while there's more of the card below its edge. The
+    // card's size changes as the pop-up opens and as the window does; its scroll bar's width is
+    // kept clear of the fade.
+    const card = dialog.querySelector(".notice__card");
+    const more = dialog.querySelector("[data-notice-more]");
+    if (card && more) {
+      let queued = false;
+      const update = () => {
+        queued = false;
+        dialog.classList.toggle("has-more", card.scrollHeight - card.clientHeight - card.scrollTop > 24);
+      };
+      const queue = () => {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(update);
+      };
+      new ResizeObserver(() => {
+        const cs = getComputedStyle(card);
+        const bar = card.offsetWidth - card.clientWidth - parseFloat(cs.borderLeftWidth) - parseFloat(cs.borderRightWidth);
+        dialog.style.setProperty("--notice-bar", `${Math.max(0, bar)}px`);
+        update();
+      }).observe(card);
+      card.addEventListener("scroll", queue, { passive: true });
+      more.addEventListener("click", () => {
+        const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+        card.scrollBy({ top: card.clientHeight * 0.6, behavior: still ? "auto" : "smooth" });
+      });
+    }
   });
   const open = () =>
     setTimeout(() => {

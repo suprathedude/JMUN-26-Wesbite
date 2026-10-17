@@ -189,7 +189,9 @@ In `site.json` → `notice`:
     ```
 
     Each list makes the pop-up longer. On phones it scrolls, so take a list out once it's no
-    longer news.
+    longer news. While a pop-up runs past the bottom of the screen, a small button at its foot
+    says so (`"more"` in `notice`, "Scroll for more") and scrolls it on when tapped; it goes once
+    the end of the pop-up is in sight.
   - **A single line:** `"headline"`, shown in capitals, `"highlight"`, the words in it to pick
     out in teal (copied exactly from the headline), and an optional `"link"` button (the lead-in
     one goes to New to MUN's lead-in section, `/new-to-mun/#lead-in`).

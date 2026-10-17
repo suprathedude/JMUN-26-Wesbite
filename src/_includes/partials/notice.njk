@@ -79,5 +79,12 @@
     </div>
     {%- endif %}
   </div>
+  {#- While there's more of the pop-up below the screen's edge (nav.js adds has-more), a fade
+      and a button that scrolls it on, for anyone who wouldn't think to scroll (17 October).
+      Hidden from screen readers and out of the Tab order: reading or tabbing through the
+      pop-up already moves down it. -#}
+  <div class="notice__more" aria-hidden="true">
+    <button class="notice__more-btn" type="button" tabindex="-1" data-notice-more>{{ n.more }}{{ icon("chevron-down") }}</button>
+  </div>
 </dialog>
 {%- endfor %}

@@ -2135,6 +2135,24 @@ html.is-locked {
   color: var(--ink-100);
 }
 
+/* A line under the dates, with a link (17 October: where to find the training recordings) */
+.notice__note {
+  margin-top: 16px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.notice__note-link {
+  font-weight: 700;
+  color: var(--teal-light);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.notice__note-link:hover {
+  color: var(--ink-100);
+}
+
 /* A session that's over is crossed out (16 October) */
 .notice__dates .is-done :is(.notice__label, .notice__date) {
   color: var(--ink-60);

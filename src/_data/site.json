@@ -72,6 +72,13 @@
         "text": "Every Round 1 allocation has been released. Round 2 is coming soon.",
         "datesTitle": "Training sessions on Microsoft Teams",
         "trainingDates": true,
+        "datesNote": {
+          "text": "Missed a training session?",
+          "link": {
+            "label": "Find the recordings and slides here!",
+            "url": "/resources/#training"
+          }
+        },
         "link": {
           "label": "See allocations",
           "url": "/allocations/"

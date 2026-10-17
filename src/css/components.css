@@ -1707,8 +1707,8 @@ html.is-locked {
   background: linear-gradient(
     to top,
     rgb(var(--wash-rgb) / 0.96) 0%,
-    rgb(var(--wash-rgb) / 0.88) 35%,
-    rgb(var(--wash-rgb) / 0.5) 65%,
+    rgb(var(--wash-rgb) / 0.9) 35%,
+    rgb(var(--wash-rgb) / 0.66) 65%,
     rgb(var(--wash-rgb) / 0.15) 100%
   );
 }

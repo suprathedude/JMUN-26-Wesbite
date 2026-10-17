@@ -62,6 +62,10 @@
       {%- endfor %}
     </ul>
     {%- endif %}
+    {%- if p.datesNote.text %}
+    <p class="notice__note">{{ p.datesNote.text }}
+      {%- if p.datesNote.link.url | isSet %} <a class="notice__note-link" href="{{ p.datesNote.link.url }}">{{ p.datesNote.link.label }}</a>{% endif %}</p>
+    {%- endif %}
     <div class="notice__actions">
       {%- if p.link.url | isSet %}
       <a class="btn btn--shiny" href="{{ p.link.url }}" data-notice-link>{{ shine() }}{{ p.link.label }}</a>

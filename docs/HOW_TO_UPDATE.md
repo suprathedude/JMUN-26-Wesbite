@@ -165,8 +165,10 @@ In `site.json` → `notice`:
     line in a highlighted box at the top (`title`, optional `text`, optional `link` with `label`
     and `url`, for example the Teams joining link); a list of dates under `"datesTitle"`, either
     `"trainingDates": true` (the training sessions from `newToMun.json`, so a changed date only
-    needs changing there) or `"dates"` (a list of `label` and `date`), or both; and `"link"`, the
-    main button (leave `"url": ""` for none).
+    needs changing there) or `"dates"` (a list of `label` and `date`), or both; an optional
+    `"datesNote"` under the dates (`text`, and a `link` with `label` and `url`, now pointing to the
+    training recordings on Resources, `/resources/#training`); and `"link"`, the main button
+    (leave `"url": ""` for none).
   - **A single line:** `"headline"`, shown in capitals, `"highlight"`, the words in it to pick
     out in teal (copied exactly from the headline), and an optional `"link"` button (the lead-in
     one goes to New to MUN's lead-in section, `/new-to-mun/#lead-in`).

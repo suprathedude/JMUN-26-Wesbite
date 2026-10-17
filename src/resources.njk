@@ -111,7 +111,7 @@ pageJs: [backdrops]
     training.sessions), each with its recording and the slides used, as they're added. A
     recording or slides entry can be a web address or a file in src/assets/docs/. -#}
 {%- set tr = newToMun.training %}
-<section class="res-section" aria-labelledby="training-title">
+<section class="res-section" id="training" aria-labelledby="training-title">
   <div class="container">
     {{ sectionHead("04", "training-title", rp.sections.training) }}
     <ul class="sessions" role="list" data-reveal>

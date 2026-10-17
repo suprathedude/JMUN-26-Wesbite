@@ -15,6 +15,7 @@ Static site for Oakridge Junior MUN 2026 (30 and 31 October 2026, Oakridge Inter
 - Deploys to GoDaddy hosting: GitHub Actions (`.github/workflows/deploy.yml`) runs `npm run build` and uploads `_site/` over FTPS on every push to `main`. See `docs/DEPLOY.md`.
 
 ## Rules that always apply
+- IMPORTANT: Before any major change or task (a new feature or section, a layout or design change, anything that touches several pages, or anything that overrules SPEC.md), ask me questions first until the request is completely clear, and wait for my answers before starting. Small, exact edits (a typo, a link, a date, a line of text) can go ahead straight away.
 - All changeable content lives in `src/_data/*.json`. Never hard-code names, dates, agendas or links in templates.
 - Nav, footer and announcement bar exist once, in `src/_includes/partials/`.
 - Main colour is OakMUN navy `#003057`, with the OakMUN blue shade ramp in `src/css/tokens.css`. Use tokens, never raw hex values in component CSS.

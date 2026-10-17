@@ -1,17 +1,42 @@
-{#- Buttons whose link may still be TBC. Until the URL is set, the Register button keeps
-    its look for review but isn't a link (PLAN.md 5.2, S3). -#}
+{%- from "partials/icons.njk" import icon -%}
+{#- Buttons whose link may still be TBC (PLAN.md 5.2, S3). -#}
 
 {#- The glow and shimmer layer inside a shiny button (btn--shiny, components.css). -#}
 {%- macro shine() -%}<span class="btn__fx" aria-hidden="true"></span>{%- endmacro -%}
 
-{#- shiny: the shiny style (default); false gives the plain teal button. -#}
-{%- macro registerButton(reg, class="", shiny=true) -%}
+{#- The Register button (17 October): it opens a small menu of the forms in site.json →
+    nav.register.options (delegates register; International Press and the Organising Committee
+    take applications), each opening in a new tab. nav.js opens and closes it, and turns it
+    upwards where there's no room below. shiny: the shiny style (default); false gives the
+    plain teal button. align: where the menu lines up with the button (start, end or center).
+    A form with no link yet is listed as "link TBC". -#}
+{%- macro registerButton(reg, class="", shiny=true, align="start") -%}
 {%- set look = "btn--shiny" if shiny else "btn--primary" -%}
-{%- if reg.url | isSet -%}
-<a class="btn {{ look }} {{ class }}" href="{{ reg.url }}"{% if reg.url | isExternal %} target="_blank" rel="noopener"{% endif %}>{{ shine() if shiny }}{{ reg.label }}{% if reg.url | isExternal %}<span class="visually-hidden"> (opens in a new tab)</span>{% endif %}</a>
-{%- else -%}
-<a class="btn {{ look }} is-disabled {{ class }}" role="link" aria-disabled="true" title="Registration link TBC">{{ shine() if shiny }}{{ reg.label }}<span class="visually-hidden"> (link TBC)</span></a>
-{%- endif -%}
+<div class="reg-menu reg-menu--{{ align }}" data-reg-menu>
+  <button class="btn {{ look }} {{ class }} reg-menu__btn" type="button" aria-expanded="false" data-reg-btn>{{ shine() if shiny }}{{ reg.label }}{{ icon("chevron-down") }}</button>
+  <ul class="reg-menu__list" role="list">
+    {%- for o in reg.options %}
+    <li>
+      {%- if o.url | isSet %}
+      <a class="reg-menu__link" href="{{ o.url }}"><span class="reg-menu__name">{{ o.title }} ↗</span><span class="reg-menu__tag">{{ o.tag }}<span class="visually-hidden">, opens in a new tab</span></span></a>
+      {%- else %}
+      <span class="reg-menu__link is-tbc"><span class="reg-menu__name">{{ o.title }}</span><span class="reg-menu__tag">{{ o.tag }}: link TBC</span></span>
+      {%- endif %}
+    </li>
+    {%- endfor %}
+  </ul>
+</div>
+{%- endmacro -%}
+
+{#- The same forms as a column of buttons, for the phone menu, where a menu inside the menu
+    would be fiddly. -#}
+{%- macro registerLinks(reg) -%}
+<div class="reg-links">
+  <p class="reg-links__title">{{ reg.sheetTitle or reg.label }}</p>
+  {%- for o in reg.options %}{% if o.url | isSet %}
+  <a class="btn {{ 'btn--primary' if loop.first else 'btn--outline' }} btn--block" href="{{ o.url }}">{{ o.title }} ↗<span class="visually-hidden"> ({{ o.tag }}, opens in a new tab)</span></a>
+  {%- endif %}{% endfor %}
+</div>
 {%- endmacro -%}
 
 {#- The optional outlined button (Consent form). Hidden entirely until it has a link. -#}

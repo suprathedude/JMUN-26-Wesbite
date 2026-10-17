@@ -1,5 +1,5 @@
 {%- from "partials/icons.njk" import icon -%}
-{%- from "partials/buttons.njk" import registerButton, secondaryButton, shine -%}
+{%- from "partials/buttons.njk" import registerButton, registerLinks, secondaryButton, shine -%}
 {%- set links = site.nav -%}
 <div class="nav-anchor">
   <nav class="nav" aria-label="Main" data-nav>
@@ -41,7 +41,7 @@
           {%- endif %}
           {{ secondaryButton(links.secondary, "btn--nav") }}
           {#- The nav's Register is the plain teal button; Get QR beside it shines (6 October). -#}
-          {{ registerButton(links.register, "btn--nav nav__register", false) }}
+          {{ registerButton(links.register, "btn--nav nav__register", false, "end") }}
           <button class="nav__menu" type="button" aria-expanded="false" aria-controls="nav-sheet" aria-label="Open menu" data-menu-btn>
             <span class="nav__menu-bars" aria-hidden="true"><span></span><span></span><span></span></span>
           </button>
@@ -64,7 +64,7 @@
         <a class="btn btn--shiny btn--block nav-sheet__qr" href="{{ links.qr.url }}"{% if links.qr.url | isActive(page.url) %} aria-current="page"{% endif %}>{{ shine() }}{{ icon("qr-code") }}{{ links.qr.sheetLabel or links.qr.label }}</a>
         {%- endif %}
         {{ secondaryButton(links.secondary, "btn--block") }}
-        {{ registerButton(links.register, "btn--block", false) }}
+        {{ registerLinks(links.register) }}
       </div>
     </div>
   </div>

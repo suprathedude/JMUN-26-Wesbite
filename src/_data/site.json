@@ -143,7 +143,30 @@
     },
     "register": {
       "label": "Register",
-      "url": "https://forms.cloud.microsoft/pages/responsepage.aspx?id=e3DJf4-dak-Fa664SP7xA6W6JxUjb5hDmp-UTZ-9A9hUNlNGTElHMUlLVFRYMEZXNTI4STFZUkUyTS4u&route=shorturl"
+      "sheetTitle": "Register or apply",
+      "options": [
+        {
+          "key": "delegate",
+          "title": "Delegate",
+          "tag": "Registration",
+          "button": "Register as a delegate",
+          "url": "https://forms.cloud.microsoft/pages/responsepage.aspx?id=e3DJf4-dak-Fa664SP7xA6W6JxUjb5hDmp-UTZ-9A9hUNlNGTElHMUlLVFRYMEZXNTI4STFZUkUyTS4u&route=shorturl"
+        },
+        {
+          "key": "ip",
+          "title": "International Press",
+          "tag": "Application",
+          "button": "Apply to join",
+          "url": "https://forms.cloud.microsoft/r/jdbAnERhdK"
+        },
+        {
+          "key": "oc",
+          "title": "Organising Committee",
+          "tag": "Application",
+          "button": "Apply to join",
+          "url": "https://forms.cloud.microsoft/r/U4USbL6RTx"
+        }
+      ]
     },
     "secondary": {
       "label": "Consent form",
@@ -160,7 +183,8 @@
     "newToMunText": "What happens in a committee session, what to say and what to bring, explained step by step.",
     "newToMunImage": "assets/img/ntm/card.jpg",
     "faqIntro": "Quick answers for delegates, parents and faculty advisors.",
-    "closing": "Your first committee starts on {date}."
+    "closing": "Your first committee starts on {date}.",
+    "showSponsors": false
   },
   "committeesPage": {
     "intro": "{count} committees, one weekend. Find yours."
@@ -272,7 +296,14 @@
       "Welcome to Oakridge JMUN 2026."
     ]
   },
-  "sponsors": [],
+  "sponsors": [
+    {
+      "name": "Car Kia",
+      "logo": "assets/img/sponsors/car-kia.png",
+      "url": "https://carkia.in",
+      "white": true
+    }
+  ],
   "allocations": {
     "intro": "After you register, you're given a committee and a country in allocation rounds. Each round covers the registrations received before it.",
     "rounds": [
@@ -327,7 +358,8 @@
       }
     ],
     "copyright": "© 2026 Oakridge International School",
-    "credit": "Designed and Developed by Supratiik Koppuravuri and Oakridge MUN Team"
+    "credit": "Designed and Developed by Supratiik Koppuravuri and Oakridge MUN Team",
+    "sponsorsLabel": "Sponsored by"
   },
   "qrCheck": {
     "title": "Desk check-in",

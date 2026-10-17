@@ -29,7 +29,7 @@ Photos and PDFs live in `src/assets/`:
 | `src/assets/img/logos/` | Committee logo circles (PNG) |
 | `src/assets/img/eb/` | Chair, Vice Chair and Rapporteur photos |
 | `src/assets/img/secretariat/` | Secretariat photos and the Secretary-General's signature |
-| `src/assets/img/sponsors/` | Sponsor logos (PNG or JPG) |
+| `src/assets/img/sponsors/` | Sponsor logos (SVG, PNG or JPG) |
 
 Name files in lower case with hyphens and no spaces, for example `unsc-chair.jpg`. In the data files, a path starts at `assets/`, without `src/`. For example, the file `src/assets/img/eb/unsc-chair.jpg` is written as `"assets/img/eb/unsc-chair.jpg"`.
 
@@ -267,16 +267,20 @@ In `site.json`:
 
 ## Add a sponsor
 
-1. Upload the logo to `src/assets/img/sponsors/`, as a PNG or JPG at least 400 pixels wide (for example `acme.png`).
-2. In `site.json`, add the sponsor to `"sponsors"` (the list is empty, `[]`, until the first one):
+1. Upload the logo to `src/assets/img/sponsors/`, ideally as an SVG (sharp at every size), otherwise a PNG or JPG at least 400 pixels wide (for example `acme.svg`).
+2. In `site.json`, add the sponsor to `"sponsors"`:
 
 ```json
 "sponsors": [
-  { "name": "Acme Ltd", "logo": "assets/img/sponsors/acme.png", "url": "https://acme.example" }
+  { "name": "Car Kia", "logo": "assets/img/sponsors/car-kia.png", "url": "https://carkia.in", "white": true },
+  { "name": "Acme Ltd", "logo": "assets/img/sponsors/acme.svg", "url": "https://acme.example", "white": false }
 ],
 ```
 
-For a second sponsor, add a comma after the first `}` and another `{ ... }`. The "Our sponsors" strip appears at the bottom of the homepage as soon as there's one. `"url"` is optional; use `""` for none.
+- Sponsors show in the footer of every page, under `footer` → `sponsorsLabel` ("Sponsored by").
+- `"white": true` shows the logo in plain white, which suits a one-colour logo on the navy footer. Use `false` for a logo with several colours.
+- `"url"` is optional; use `""` for none, or the sponsor's website to make the logo a link.
+- `site.json` → `home` → `showSponsors`: `true` also shows an "Our sponsors" strip at the bottom of the homepage.
 
 ## Add or remove a committee
 
@@ -313,7 +317,7 @@ Everything else updates by itself:
 | The Resources section titles and the line under each | `site.json` → `resourcesPage` → `sections` |
 | The Get QR page's text and messages, and the check-in page's (`/qr/check/`); how to open QR codes and run check-in is in `docs/QR.md` | `site.json` → `qrPage`, `qrCheck` |
 | The Entry QR button in the nav (between More and Register) | `site.json` → `nav.qr`: `label` in the nav (keep it short, or the nav runs out of room), `sheetLabel` in the phone menu |
-| The Register button's link | `site.json` → `nav` → `register` → `url` |
+| The Register button and its dropdown (nav, homepage hero, homepage closing banner and the New to MUN page): delegate registration, and applications to International Press and the Organising Committee | `site.json` → `nav` → `register` (17 October): `label` on the button, `sheetTitle` above the three buttons in the phone menu, and one entry per form in `options` (`title`, the small `tag` under it, `button` for the International Press button on the IP committee page, and the form's `url`). An entry with `"url": ""` shows as "link TBC". |
 | The "Consent form" button (hidden until it has a link) | `site.json` → `nav` → `secondary` → `url` |
 | The contact email | `site.json` → `contact` → `email`, and the last answer in `faq.json` (with its button's `mailto:` link) |
 | The conference dates | `site.json` → `start` and `end`, written like `2026-10-30T08:00:00+05:30`. The countdown and every date on the site follow these. |

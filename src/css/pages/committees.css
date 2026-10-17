@@ -434,6 +434,25 @@
   margin-top: 24px;
 }
 
+/* International Press: the button to apply, under the style guides (17 October). Full width
+   on phones, where its label wraps rather than pushing the page wider than the screen. */
+.c-apply {
+  margin-top: 28px;
+}
+
+.c-apply .btn {
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .c-apply .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* Executive board (SPEC 8.6) */
 .eb {
   margin-top: 72px;

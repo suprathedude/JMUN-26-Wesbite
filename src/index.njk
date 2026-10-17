@@ -308,18 +308,19 @@ pageJs: [gallery, hero-video, countdown, marquee, stats, schedule, ring, faq]
 </section>
 
 {#- 11. Closing banner. Hidden only if the register link is removed entirely. -#}
-{%- if site.nav.register.url %}
+{%- if site.nav.register.options | length %}
 <section class="closing" aria-labelledby="closing-title">
   {{ cuts() }}
   <div class="container closing__inner">
     <h2 class="closing__title" id="closing-title" data-reveal="mask">{{ site.home.closing | fill({ date: site.start | dayMonth }) }}</h2>
-    {{ registerButton(site.nav.register, "", false) }}
+    {{ registerButton(site.nav.register, "", false, "center") }}
   </div>
 </section>
 {%- endif %}
 
-{#- 12. Sponsors (reference/11): only when site.json lists some -#}
-{%- if site.sponsors | length %}
+{#- 12. Sponsors (reference/11): only when site.json lists some and home.showSponsors is on
+    (17 October: off, as the footer shows them on every page). -#}
+{%- if site.sponsors | length and site.home.showSponsors %}
 <section class="sponsors" aria-labelledby="sponsors-title">
   <div class="container">
     <h2 class="sponsors__title" id="sponsors-title">Our sponsors</h2>
@@ -327,7 +328,7 @@ pageJs: [gallery, hero-video, countdown, marquee, stats, schedule, ring, faq]
       {%- for s in site.sponsors %}
       <li class="sponsors__item">
         {%- if s.url %}<a href="{{ s.url }}" rel="noopener">{% endif -%}
-        <img src="/{{ s.logo }}" alt="{{ s.name }}" eleventy:widths="400">
+        <img src="/{{ s.logo }}" alt="{{ s.name }}"{% if s.logo.endsWith(".svg") %} eleventy:ignore{% else %} eleventy:widths="400"{% endif %}>
         {%- if s.url %}</a>{% endif -%}
       </li>
       {%- endfor %}

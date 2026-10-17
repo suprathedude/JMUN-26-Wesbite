@@ -46,7 +46,7 @@
         "link": "https://forms.cloud.microsoft/pages/responsepage.aspx?id=e3DJf4-dak-Fa664SP7xA6W6JxUjb5hDmp-UTZ-9A9hUNlNGTElHMUlLVFRYMEZXNTI4STFZUkUyTS4u&route=shorturl"
       },
       {
-        "text": "Allocation Round 1 is out!",
+        "text": "Allocation Round 2 is out!",
         "link": "/allocations/"
       }
     ]
@@ -58,6 +58,7 @@
     ],
     "everyVisit": true,
     "close": "Close",
+    "more": "Scroll for more",
     "popups": [
       {
         "flash": {
@@ -68,17 +69,41 @@
             "url": "/committees/"
           }
         },
-        "title": "Round 1 allocations are out!",
-        "text": "Every Round 1 allocation has been released. Round 2 is coming soon.",
-        "datesTitle": "Training sessions on Microsoft Teams",
-        "trainingDates": true,
-        "datesNote": {
-          "text": "Missed a training session?",
-          "link": {
-            "label": "Find the recordings and slides here!",
-            "url": "/resources/#training"
+        "title": "Round 2 allocations are out!",
+        "text": "Rounds 1 and 2 have both been released. Round 3 is coming soon.",
+        "lists": [
+          {
+            "title": "Registration extended until",
+            "dates": [
+              {
+                "label": "Organising Committee",
+                "detail": "Grades 9 to 12",
+                "date": "Tuesday 20 October"
+              },
+              {
+                "label": "International Press",
+                "detail": "Grades 9 to 12",
+                "date": "Sunday 25 October"
+              },
+              {
+                "label": "Delegates",
+                "detail": "Grades 6 to 8",
+                "date": "Wednesday 28 October"
+              }
+            ]
+          },
+          {
+            "title": "Training sessions on Microsoft Teams",
+            "trainingDates": true,
+            "note": {
+              "text": "Missed a training session?",
+              "link": {
+                "label": "Find the recordings and slides here!",
+                "url": "/resources/#training"
+              }
+            }
           }
-        },
+        ],
         "link": {
           "label": "See allocations",
           "url": "/allocations/"
@@ -157,7 +182,7 @@
           "title": "International Press",
           "tag": "Application",
           "button": "Apply to join",
-          "url": "https://forms.cloud.microsoft/r/jdbAnERhdK"
+          "url": "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=e3DJf4-dak-Fa664SP7xA6W6JxUjb5hDmp-UTZ-9A9hUNUcxWlg4T1Q2NlNVWkVWUTQ2RUtSMzM1SC4u"
         },
         {
           "key": "oc",
@@ -316,6 +341,13 @@
       },
       {
         "name": "Round 2",
+        "status": "released",
+        "label": "Released",
+        "date": "",
+        "note": ""
+      },
+      {
+        "name": "Round 3",
         "status": "soon",
         "label": "Coming soon",
         "date": "",

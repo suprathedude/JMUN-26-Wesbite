@@ -10,6 +10,8 @@
 //     readers (desktop width only, where every control is in the tab order)
 //   - at 360 px: nothing scrolls sideways, labels are at least 11 px and running text at
 //     least 16 px (CLAUDE.md)
+//   - the homepage pop-ups (site.json → notice), open: axe, contrast, keyboard and 360 px
+//     (17 October; every other check turns them off)
 // Run `npm run build` first. Exits with an error if anything fails, so it can gate a deploy.
 //
 //   npm run a11y                 every page
@@ -30,6 +32,19 @@ const VIEWPORTS = [
   { width: 390, height: 844, isMobile: true, hasTouch: true, deviceScaleFactor: 2 },
   { width: 1440, height: 900, isMobile: false, hasTouch: false, deviceScaleFactor: 1 },
 ];
+const SMALL = { width: 360, height: 780, isMobile: true, hasTouch: true, deviceScaleFactor: 2 };
+
+// Open the nth pop-up: the first opens after the page has loaded, each later one as the one
+// before it is closed.
+const POPUP = ".notice[open]";
+const popup = (n) => async (page) => {
+  await page.waitForSelector(POPUP);
+  for (let i = 1; i < n; i++) {
+    await page.click(`${POPUP} .notice__x`);
+    await page.waitForFunction((i) => document.querySelectorAll("[data-notice]")[i]?.open, i);
+  }
+};
+const POPUP_CHECKS = { contrast: `${POPUP} .notice__card`, keyboard: POPUP };
 
 // Interaction states, so axe also sees what only appears after a click.
 const STATES = [
@@ -38,6 +53,12 @@ const STATES = [
   { name: "secretariat: card flipped", path: "/secretariat/", width: 1440, run: (page) => page.focus(".person__flip").then(() => page.keyboard.press("Enter")) },
   { name: "social night: second FAQ open", path: "/social-night/", width: 390, run: (page) => page.locator(".faq-q").nth(1).click() },
   { name: "committees: no results", path: "/committees/", width: 1440, run: (page) => page.fill("input[data-search]", "zzzz") },
+  { name: "home: first pop-up", path: "/", width: 390, notice: true, checks: POPUP_CHECKS, run: popup(1) },
+  { name: "home: first pop-up", path: "/", width: 1440, notice: true, checks: POPUP_CHECKS, run: popup(1) },
+  { name: "home: first pop-up", path: "/", width: 360, notice: true, checks: { ...POPUP_CHECKS, phone: true }, run: popup(1) },
+  { name: "home: second pop-up", path: "/", width: 390, notice: true, checks: POPUP_CHECKS, run: popup(2) },
+  { name: "home: second pop-up", path: "/", width: 1440, notice: true, checks: POPUP_CHECKS, run: popup(2) },
+  { name: "home: second pop-up", path: "/", width: 360, notice: true, checks: { ...POPUP_CHECKS, phone: true }, run: popup(2) },
 ];
 
 // One h1, and headings only ever go one level deeper at a time.
@@ -73,8 +94,9 @@ async function settle(page) {
   await page.waitForLoadState("networkidle");
 }
 
-// Tab through the page and check every stop.
-async function keyboardProblems(page) {
+// Tab through the page and check every stop. With `within` (an open pop-up), Tab starts inside
+// it and has to stay there.
+async function keyboardProblems(page, { within } = {}) {
   const problems = [];
   const seen = new Set();
   for (let i = 0; i < 200; i++) {
@@ -82,13 +104,15 @@ async function keyboardProblems(page) {
     // Let focus styles and the skip link's slide-in finish. (With reduced motion every change
     // still runs as a 0.01 ms transition, which can take a frame or two to show up here.)
     await page.waitForTimeout(50);
-    const stop = await page.evaluate((index) => {
+    const stop = await page.evaluate(([index, within]) => {
       const el = document.activeElement;
       if (!el || el === document.body) return { done: true };
       const key = el.outerHTML.slice(0, 120) + "|" + Math.round(el.getBoundingClientRect().top + scrollY);
       const name = (el.getAttribute("aria-label") || el.textContent || el.getAttribute("href") || el.tagName).trim().replace(/\s+/g, " ").slice(0, 40);
       const problems = [];
-      if (index === 0 && !el.classList.contains("skip-link")) problems.push("the first Tab doesn't reach the skip link");
+      if (within) {
+        if (!el.closest(within)) problems.push("focus left the pop-up");
+      } else if (index === 0 && !el.classList.contains("skip-link")) problems.push("the first Tab doesn't reach the skip link");
       // Read the finished style: with transitions off the computed value jumps to its end.
       const ring = (node) => {
         if (!node) return false;
@@ -109,7 +133,7 @@ async function keyboardProblems(page) {
       else if (r.bottom < 0 || r.top > innerHeight || r.right < 0 || r.left > innerWidth) problems.push("focused off screen");
       if (el.closest('[aria-hidden="true"]')) problems.push("focusable inside aria-hidden");
       return { key, name, problems };
-    }, i);
+    }, [i, within]);
     if (stop.done || seen.has(stop.key)) break;
     seen.add(stop.key);
     for (const p of stop.problems) problems.push(`"${stop.name}": ${p}`);
@@ -158,14 +182,14 @@ async function check(page, label, { contrast = false, keyboard = false } = {}) {
     issues.push({ label, id: "heading-order", impact: "moderate", help: problem, targets: [], count: 1 });
   }
   if (keyboard) {
-    for (const problem of await keyboardProblems(page)) {
+    for (const problem of await keyboardProblems(page, { within: typeof keyboard === "string" ? keyboard : undefined })) {
       issues.push({ label, id: "keyboard", impact: "serious", help: problem, targets: [], count: 1 });
     }
     await page.evaluate(() => document.activeElement?.blur());
   }
   if (contrast) {
     await settle(page);
-    for (const problem of await contrastProblems(page)) {
+    for (const problem of await contrastProblems(page, { within: typeof contrast === "string" ? contrast : undefined })) {
       issues.push({ label, id: "contrast", impact: "serious", help: problem, targets: [], count: 1 });
     }
   }
@@ -184,9 +208,9 @@ async function main() {
   const all = [];
   let checked = 0;
 
-  const open = async (viewport, path) => {
+  const open = async (viewport, path, { notice = false } = {}) => {
     const context = await browser.newContext({ viewport: { width: viewport.width, height: viewport.height }, isMobile: viewport.isMobile, hasTouch: viewport.hasTouch, deviceScaleFactor: viewport.deviceScaleFactor, reducedMotion: "reduce" });
-    await context.addInitScript(() => { try { localStorage.setItem("oakjmun-notice", "off"); } catch {} });
+    if (!notice) await context.addInitScript(() => { try { localStorage.setItem("oakjmun-notice", "off"); } catch {} });
     const page = await context.newPage();
     await page.goto(origin + path, { waitUntil: "networkidle" });
     return { context, page };
@@ -203,10 +227,9 @@ async function main() {
         await context.close();
       }
     }
-    const small = { width: 360, height: 780, isMobile: true, hasTouch: true, deviceScaleFactor: 2 };
     for (const { url, name } of await findPages(SITE)) {
       if (!wanted(name)) continue;
-      const { context, page } = await open(small, url);
+      const { context, page } = await open(SMALL, url);
       await settle(page);
       for (const problem of await page.evaluate(phoneProblems)) {
         all.push({ label: `${name} at 360`, id: "phone", impact: "serious", help: problem, targets: [], count: 1 });
@@ -216,12 +239,18 @@ async function main() {
     }
     for (const state of STATES) {
       if (!wanted(state.name)) continue;
-      const viewport = VIEWPORTS.find((v) => v.width === state.width);
-      const { context, page } = await open(viewport, state.path);
+      const viewport = [...VIEWPORTS, SMALL].find((v) => v.width === state.width);
+      const { context, page } = await open(viewport, state.path, { notice: state.notice });
       await state.run(page);
       await page.waitForTimeout(400);
-      const result = await check(page, `${state.name} at ${state.width}`);
+      const label = `${state.name} at ${state.width}`;
+      const result = await check(page, label, state.checks);
       all.push(...result.issues);
+      if (state.checks?.phone) {
+        for (const problem of await page.evaluate(phoneProblems)) {
+          all.push({ label, id: "phone", impact: "serious", help: problem, targets: [], count: 1 });
+        }
+      }
       checked++;
       await context.close();
     }

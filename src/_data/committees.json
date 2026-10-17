@@ -42,7 +42,7 @@
     "logo": "assets/img/logos/disec.png",
     "guide": {
       "status": "coming-soon",
-      "file": ""
+      "file": "assets/docs/guides/disec.pdf"
     },
     "eb": [
       {
@@ -307,7 +307,7 @@
     "logo": "assets/img/logos/copuos.png",
     "guide": {
       "status": "coming-soon",
-      "file": ""
+      "file": "assets/docs/guides/copuos.pdf"
     },
     "eb": [
       {
@@ -344,7 +344,7 @@
     "logo": "assets/img/logos/doomsday.png",
     "guide": {
       "status": "coming-soon",
-      "file": ""
+      "file": "assets/docs/guides/doomsday.pdf"
     },
     "eb": [
       {

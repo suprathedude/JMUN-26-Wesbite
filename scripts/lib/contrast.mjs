@@ -3,8 +3,14 @@
 // It scrolls down a screen at a time; at each stop it notes the visible text and its colour,
 // makes all text transparent, captures the screen, and compares each text colour with the
 // worst background pixel behind it (the lightest one for light text, the darkest for dark).
+// Text that wraps is measured a line at a time (17 October): one box around all its lines
+// also took in whatever sat beside the shorter lines, such as a highlighted word's background.
 // It doesn't use a full-page capture: that enlarges the viewport, which moves anything sized
 // in vh, so the measured boxes wouldn't line up with the pixels.
+//
+// With `within` (a selector, 17 October), only the text inside that box is checked, and the box
+// is scrolled instead of the page: an open pop-up's card, which scrolls by itself over a locked,
+// dimmed page.
 import sharp from "sharp";
 
 const AA = 4.5;
@@ -21,9 +27,9 @@ const ratio = (a, b) => {
 };
 const blend = (fg, alpha, bg) => fg.map((c, i) => c * alpha + bg[i] * (1 - alpha));
 
-// Runs in the page: every element with its own visible text that sits fully on screen and
-// hasn't been checked at an earlier stop, and how it's drawn.
-function collectText() {
+// Runs in the page: every element with its own visible text that sits fully on screen (or
+// fully in sight inside `within`) and hasn't been checked at an earlier stop, and how it's drawn.
+function collectText(within) {
   const parse = (value) => {
     const m = value.match(/rgba?\(([^)]+)\)/);
     if (!m) return null;
@@ -44,8 +50,10 @@ function collectText() {
     }
     return false;
   };
+  const root = within ? document.querySelector(within) : document.body;
+  const view = within ? root.getBoundingClientRect() : { top: 0, bottom: innerHeight };
   const items = [];
-  for (const el of document.querySelectorAll("body *")) {
+  for (const el of root.querySelectorAll("*")) {
     if (el.dataset.contrastDone) continue;
     const own = [...el.childNodes].filter((n) => n.nodeType === 3 && n.textContent.trim());
     if (!own.length) continue;
@@ -55,17 +63,17 @@ function collectText() {
     if (cs.visibility === "hidden" || cs.display === "none") continue;
     if (cs.backgroundClip === "text" || cs.webkitBackgroundClip === "text") continue; // gradient text: checked by eye
     if (facingAway(el)) continue;
-    const boxes = own.map((n) => {
+    const boxes = own.flatMap((n) => {
       const range = document.createRange();
       range.selectNodeContents(n);
-      return range.getBoundingClientRect();
+      return [...range.getClientRects()];
     }).filter((r) => r.width > 0 && r.height > 0);
     if (!boxes.length) continue;
     const left = Math.min(...boxes.map((r) => r.left));
     const top = Math.min(...boxes.map((r) => r.top));
     const right = Math.max(...boxes.map((r) => r.right));
     const bottom = Math.max(...boxes.map((r) => r.bottom));
-    if (top < 0 || bottom > innerHeight) continue; // checked at another stop
+    if (top < view.top || bottom > view.bottom) continue; // checked at another stop
     el.dataset.contrastDone = "1";
     let opacity = 1;
     for (let e = el; e; e = e.parentElement) opacity *= parseFloat(getComputedStyle(e).opacity);
@@ -78,10 +86,7 @@ function collectText() {
       path.unshift(e.tagName.toLowerCase() + (e.classList.length ? "." + [...e.classList].slice(0, 2).join(".") : ""));
     }
     items.push({
-      x: left,
-      y: top,
-      w: right - left,
-      h: bottom - top,
+      boxes: boxes.map((r) => ({ x: r.left, y: r.top, w: r.width, h: r.height })),
       rgb: color.rgb,
       alpha: color.alpha * opacity,
       size: parseFloat(cs.fontSize),
@@ -100,13 +105,16 @@ function hideFixed() {
   }
 }
 
-export async function contrastProblems(page) {
+export async function contrastProblems(page, { within } = {}) {
   const problems = [];
-  const { height, viewport } = await page.evaluate(() => ({ height: document.documentElement.scrollHeight, viewport: innerHeight }));
-  const step = Math.max(200, viewport - 240); // stops overlap, so every line is fully on screen at one of them
+  const { height, viewport } = await page.evaluate((sel) => {
+    const box = sel && document.querySelector(sel);
+    return box ? { height: box.scrollHeight, viewport: box.clientHeight } : { height: document.documentElement.scrollHeight, viewport: innerHeight };
+  }, within);
+  const step = Math.max(within ? 120 : 200, viewport - 240); // stops overlap, so every line is fully on screen at one of them
   for (let y = 0; y < height; y += step) {
-    await page.evaluate((top) => scrollTo(0, top), y);
-    if (y > 0) await page.evaluate(hideFixed);
+    await page.evaluate(([top, sel]) => (sel ? (document.querySelector(sel).scrollTop = top) : scrollTo(0, top)), [y, within]);
+    if (y > 0 && !within) await page.evaluate(hideFixed);
     await page.waitForTimeout(60);
     // Let transitions started by the scroll finish (the nav pill opening out again), so the
     // capture doesn't catch a button halfway in.
@@ -116,16 +124,16 @@ export async function contrastProblems(page) {
         new Promise((done) => setTimeout(done, 2000)),
       ]),
     );
-    const items = await page.evaluate(collectText);
+    const items = await page.evaluate(collectText, within);
     if (!items.length) continue;
     const style = await page.addStyleTag({
-      content: "*, *::before, *::after { color: transparent !important; -webkit-text-fill-color: transparent !important; text-shadow: none !important; caret-color: transparent !important; }",
+      content: "*, *::before, *::after { color: transparent !important; -webkit-text-fill-color: transparent !important; text-shadow: none !important; text-decoration-color: transparent !important; caret-color: transparent !important; }",
     });
     const png = await page.screenshot();
     await style.evaluate((el) => el.remove());
     problems.push(...(await measure(png, items, page)));
   }
-  await page.evaluate(() => scrollTo(0, 0));
+  await page.evaluate((sel) => (sel ? (document.querySelector(sel).scrollTop = 0) : scrollTo(0, 0)), within);
   return problems;
 }
 
@@ -134,19 +142,26 @@ async function measure(png, items, page) {
   const scale = info.width / (await page.evaluate(() => innerWidth));
   const problems = [];
   for (const item of items) {
-    const x0 = Math.max(0, Math.floor(item.x * scale));
-    const y0 = Math.max(0, Math.floor(item.y * scale));
-    const x1 = Math.min(info.width, Math.ceil((item.x + item.w) * scale));
-    const y1 = Math.min(info.height, Math.ceil((item.y + item.h) * scale));
-    if (x1 <= x0 || y1 <= y0) continue;
-    const step = Math.max(1, Math.floor(Math.sqrt(((x1 - x0) * (y1 - y0)) / 600)));
+    const area = item.boxes.reduce((sum, b) => sum + b.w * b.h * scale * scale, 0);
+    const step = Math.max(1, Math.floor(Math.sqrt(area / 600)));
     const pixels = [];
-    for (let y = y0; y < y1; y += step) {
-      for (let x = x0; x < x1; x += step) {
-        const i = (y * info.width + x) * 3;
-        pixels.push([data[i], data[i + 1], data[i + 2]]);
+    for (const b of item.boxes) {
+      // A pixel in from each edge: a highlighted word's background ends exactly where its
+      // line's box does, so the outermost row can be the colour beyond it. Letters never reach
+      // the edge of their box.
+      const inset = Math.min(1, b.w / 4, b.h / 4);
+      const x0 = Math.max(0, Math.ceil((b.x + inset) * scale));
+      const y0 = Math.max(0, Math.ceil((b.y + inset) * scale));
+      const x1 = Math.min(info.width, Math.floor((b.x + b.w - inset) * scale));
+      const y1 = Math.min(info.height, Math.floor((b.y + b.h - inset) * scale));
+      for (let y = y0; y < y1; y += step) {
+        for (let x = x0; x < x1; x += step) {
+          const i = (y * info.width + x) * 3;
+          pixels.push([data[i], data[i + 1], data[i + 2]]);
+        }
       }
     }
+    if (!pixels.length) continue;
     pixels.sort((a, b) => luminance(a) - luminance(b));
     const median = pixels[Math.floor(pixels.length / 2)];
     const lightText = luminance(blend(item.rgb, item.alpha, median)) > luminance(median);

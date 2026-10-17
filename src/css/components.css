@@ -1707,8 +1707,8 @@ html.is-locked {
   background: linear-gradient(
     to top,
     rgb(var(--wash-rgb) / 0.96) 0%,
-    rgb(var(--wash-rgb) / 0.88) 35%,
-    rgb(var(--wash-rgb) / 0.5) 65%,
+    rgb(var(--wash-rgb) / 0.9) 35%,
+    rgb(var(--wash-rgb) / 0.66) 65%,
     rgb(var(--wash-rgb) / 0.15) 100%
   );
 }
@@ -2293,9 +2293,24 @@ html.is-locked {
   border-bottom: 1px solid rgb(var(--teal-rgb) / 0.15);
 }
 
+/* A list with longer labels than "Session 1" (17 October: who registration was extended for)
+   splits the row in half. */
+.notice__dates--even li {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
 .notice__label {
   font-weight: 700;
   color: var(--ink-100);
+}
+
+/* A smaller line under a label: the grades that can register */
+.notice__detail {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink-75);
 }
 
 /* A line under the dates, with a link (17 October: where to find the training recordings) */
@@ -2331,6 +2346,69 @@ html.is-locked {
   margin-top: 26px;
 }
 
+/* "Scroll for more" (17 October): while a pop-up runs past the bottom of the screen, a soft fade
+   along its bottom edge and a small button that scrolls it on. It goes once the end is in sight.
+   Inside the card's border, and clear of its scroll bar where there is one (--notice-bar, nav.js). */
+.notice__more {
+  position: absolute;
+  right: calc(1px + var(--notice-bar, 0px));
+  bottom: 1px;
+  left: 1px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 84px;
+  padding-bottom: 14px;
+  border-radius: 0 0 calc(var(--radius-tile) - 1px) calc(var(--radius-tile) - 1px);
+  background: linear-gradient(transparent, var(--blue-900) 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease-standard);
+}
+
+.notice.has-more .notice__more {
+  opacity: 1;
+}
+
+.notice__more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px 8px 16px;
+  border: 1px solid rgb(var(--teal-rgb) / 0.45);
+  border-radius: 999px;
+  background: rgb(var(--night-rgb) / 0.88);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--ink-100);
+}
+
+.notice.has-more .notice__more-btn {
+  pointer-events: auto;
+}
+
+.notice__more-btn:hover {
+  border-color: var(--teal-light);
+}
+
+/* The arrow nudges down three times, then rests */
+.notice.has-more .notice__more-btn svg {
+  animation: more-nudge 1.4s var(--ease-standard) 0.6s 3;
+}
+
+@keyframes more-nudge {
+  50% {
+    transform: translateY(3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .notice.has-more .notice__more-btn svg {
+    animation: none;
+  }
+}
+
 @media (max-width: 560px) {
   .notice__card {
     padding: 30px 22px 24px;
@@ -2343,6 +2421,18 @@ html.is-locked {
   .notice__dates li {
     grid-template-columns: minmax(0, 1fr);
     gap: 2px;
+  }
+
+  /* The grades sit beside the label while they fit, so a row is two lines, not three. The
+     gap is the label's, so grades that move down a line start flush with it. */
+  .notice__name {
+    margin-right: 8px;
+  }
+
+  .notice__detail {
+    display: inline-block;
+    margin-top: 0;
+    white-space: nowrap;
   }
 }
 

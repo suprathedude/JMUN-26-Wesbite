@@ -43,7 +43,7 @@
     "items": [
       {
         "text": "Registrations are open!",
-        "link": "https://forms.cloud.microsoft/pages/responsepage.aspx?id=e3DJf4-dak-Fa664SP7xA6W6JxUjb5hDmp-UTZ-9A9hUNlNGTElHMUlLVFRYMEZXNTI4STFZUkUyTS4u&route=shorturl"
+        "link": "/register/"
       },
       {
         "text": "Allocation Round 1 is out!",
@@ -143,7 +143,7 @@
     },
     "register": {
       "label": "Register",
-      "url": "https://forms.cloud.microsoft/pages/responsepage.aspx?id=e3DJf4-dak-Fa664SP7xA6W6JxUjb5hDmp-UTZ-9A9hUNlNGTElHMUlLVFRYMEZXNTI4STFZUkUyTS4u&route=shorturl"
+      "url": "/register/"
     },
     "secondary": {
       "label": "Consent form",
@@ -294,6 +294,44 @@
     "status": "Registration is open",
     "matrixUrl": "https://nordanglia-my.sharepoint.com/:x:/g/personal/anagakrishiv_reddy_oakridge_in/IQAapM9joWCgRJj1tIL79Y4kAaWAmMGD8Cs0Cm6APwvTk7U?e=WHSkK6",
     "matrixText": "The full list of committees and countries, and which delegate has each one."
+  },
+  "registerPage": {
+    "title": "Register.",
+    "intro": "There are three ways to take part in Oakridge JMUN 2026: as a delegate, in International Press or on the Organising Committee. Each form opens in a new tab.",
+    "note": "International Press and the Organising Committee take applications: the Secretariat reads each one and gets back to you.",
+    "options": [
+      {
+        "key": "delegate",
+        "tag": "Registration",
+        "icon": "landmark",
+        "title": "Delegate",
+        "text": "Represent a country in one of the committees: research its view, debate the agenda and vote on resolutions.",
+        "button": "Register as a delegate",
+        "url": "https://forms.cloud.microsoft/pages/responsepage.aspx?id=e3DJf4-dak-Fa664SP7xA6W6JxUjb5hDmp-UTZ-9A9hUNlNGTElHMUlLVFRYMEZXNTI4STFZUkUyTS4u&route=shorturl"
+      },
+      {
+        "key": "ip",
+        "tag": "Application",
+        "icon": "newspaper",
+        "title": "International Press",
+        "text": "Report on the conference as a journalist or photographer, with the International Press team.",
+        "button": "Apply to join",
+        "url": "https://forms.cloud.microsoft/r/jdbAnERhdK",
+        "more": {
+          "label": "About International Press",
+          "url": "/committees/ip/"
+        }
+      },
+      {
+        "key": "oc",
+        "tag": "Application",
+        "icon": "clipboard-list",
+        "title": "Organising Committee",
+        "text": "Help run the conference behind the scenes, before and during the two days.",
+        "button": "Apply to join",
+        "url": "https://forms.cloud.microsoft/r/U4USbL6RTx"
+      }
+    ]
   },
   "footer": {
     "quickLinks": [

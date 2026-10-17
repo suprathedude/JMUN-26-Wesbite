@@ -1,0 +1,52 @@
+---
+layout: layouts/base.njk
+title: Register
+eleventyComputed:
+  description: "Register as a delegate, or apply to International Press or the Organising Committee, for {{ site.name }} {{ site.year }}."
+permalink: /register/
+pageCss: [register]
+---
+{#- The Register page (17 October): every Register button leads here. Three ways to take part,
+    each with its form, which opens in a new tab: delegates register, International Press and
+    the Organising Committee take applications. Text and form links: site.json → registerPage. -#}
+{%- from "partials/gilt.njk" import frame, laurel -%}
+{%- from "partials/icons.njk" import icon -%}
+{%- from "partials/buttons.njk" import shine -%}
+{%- set r = site.registerPage -%}
+
+<div class="reg-page">
+  <div class="orb reg-page__orb reg-page__orb--a" aria-hidden="true"></div>
+  <div class="orb reg-page__orb reg-page__orb--b" aria-hidden="true"></div>
+  {{ frame("corner") }}
+  {{ laurel("laurel--head") }}
+
+  <section class="reg" aria-labelledby="reg-title">
+    <div class="container">
+      <div class="reg__title-wrap">
+        <h1 class="reg__title" id="reg-title" data-reveal="mask">{{ r.title }}</h1>
+      </div>
+      <p class="reg__intro" data-reveal>{{ r.intro }}</p>
+
+      <ul class="ways" role="list" data-reveal>
+        {%- for o in r.options %}
+        <li class="way">
+          <span class="way__icon" aria-hidden="true">{{ icon(o.icon) }}</span>
+          <span class="way__tag">{{ o.tag }}</span>
+          <h2 class="way__title">{{ o.title }}</h2>
+          <p class="way__text">{{ o.text }}</p>
+          {%- if o.more.url %}
+          <a class="way__more" href="{{ o.more.url }}">{{ o.more.label }}</a>
+          {%- endif %}
+          {%- if o.url | isSet %}
+          <a class="btn btn--shiny way__btn" href="{{ o.url }}">{{ shine() }}{{ o.button }} ↗<span class="visually-hidden"> ({{ o.title }}, opens in a new tab)</span></a>
+          {%- else %}
+          <span class="btn btn--outline way__btn is-disabled" aria-disabled="true">{{ o.button }} (link TBC)</span>
+          {%- endif %}
+        </li>
+        {%- endfor %}
+      </ul>
+
+      <p class="reg__note" data-reveal>{{ r.note }}</p>
+    </div>
+  </section>
+</div>

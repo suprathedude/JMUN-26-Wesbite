@@ -13,10 +13,10 @@
   },
   {
     "question": "How do I register?",
-    "answer": "Registration is open. Fill in the online registration form: use the link below, or the Register button at the top of every page.",
+    "answer": "Registration is open. Delegates fill in the registration form; International Press and the Organising Committee take applications. All three are on the Register page, behind the Register button at the top of every page.",
     "link": {
-      "label": "Open the registration form",
-      "url": "https://forms.cloud.microsoft/pages/responsepage.aspx?id=e3DJf4-dak-Fa664SP7xA6W6JxUjb5hDmp-UTZ-9A9hUNlNGTElHMUlLVFRYMEZXNTI4STFZUkUyTS4u&route=shorturl"
+      "label": "Go to the Register page",
+      "url": "/register/"
     }
   },
   {

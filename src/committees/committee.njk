@@ -19,6 +19,7 @@ eleventyComputed:
 {%- set agendas = (c.agenda if (c.agenda | dump)[0] == "[" else [c.agenda]) if c.agenda else [] -%}
 {%- from "partials/icons.njk" import icon -%}
 {%- from "partials/guide-card.njk" import guideCard -%}
+{%- from "partials/buttons.njk" import shine -%}
 {%- from "partials/doomsday.njk" import ddOpening -%}
 
 {#- Hero card (reference/14). A committee with a "cinematic" opening (Doomsday) has that instead. -#}
@@ -78,6 +79,15 @@ eleventyComputed:
     {{ guideCard({ tag: c.code, title: "Background guide", text: agendas | join("; "), image: c.image, file: c.guide.file, linkLabel: "Open background guide" }) }}
     {%- endif %}
   </div>
+
+  {%- if c.press %}
+  {#- Joining IP (17 October): its application form, from the Register page's list. -#}
+  {%- for o in site.registerPage.options %}{% if o.key == "ip" and (o.url | isSet) %}
+  <p class="c-apply" data-reveal>
+    <a class="btn btn--shiny" href="{{ o.url }}">{{ shine() }}{{ o.button }} {{ o.title }} ↗<span class="visually-hidden"> (opens in a new tab)</span></a>
+  </p>
+  {%- endif %}{% endfor %}
+  {%- endif %}
 
   {%- if c.team %}
   {#- IP team (6 October): wide cards, photo beside name, role and bio. -#}

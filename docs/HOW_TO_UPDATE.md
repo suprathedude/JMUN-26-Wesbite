@@ -313,7 +313,8 @@ Everything else updates by itself:
 | The Resources section titles and the line under each | `site.json` → `resourcesPage` → `sections` |
 | The Get QR page's text and messages, and the check-in page's (`/qr/check/`); how to open QR codes and run check-in is in `docs/QR.md` | `site.json` → `qrPage`, `qrCheck` |
 | The Entry QR button in the nav (between More and Register) | `site.json` → `nav.qr`: `label` in the nav (keep it short, or the nav runs out of room), `sheetLabel` in the phone menu |
-| The Register button's link | `site.json` → `nav` → `register` → `url` |
+| The Register button's link | `site.json` → `nav` → `register` → `url`: the Register page, `/register/` (17 October). The forms themselves are on that page (next row). |
+| The Register page (`/register/`): delegate registration, and applications to International Press and the Organising Committee | `site.json` → `registerPage`: the `title`, `intro` and `note`, and one card per way to take part in `options` (`tag`, Lucide `icon`, `title`, `text`, `button`, the form's `url`, and an optional `more` link). The International Press card's form also shows as a button on the IP committee page. A card with `"url": ""` shows its button greyed out as "link TBC". |
 | The "Consent form" button (hidden until it has a link) | `site.json` → `nav` → `secondary` → `url` |
 | The contact email | `site.json` → `contact` → `email`, and the last answer in `faq.json` (with its button's `mailto:` link) |
 | The conference dates | `site.json` → `start` and `end`, written like `2026-10-30T08:00:00+05:30`. The countdown and every date on the site follow these. |

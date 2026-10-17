@@ -65,6 +65,25 @@
     </div>
   </div>
 
+  {#- Sponsors (17 October): site.json → sponsors. A logo drawn for light backgrounds is shown in
+      white with "white": true. SVG logos are used as they are, not resized. -#}
+  {%- if site.sponsors | length %}
+  <div class="container">
+    <div class="footer__sponsors">
+      <p class="footer__heading footer__sponsors-label">{{ site.footer.sponsorsLabel }}</p>
+      <ul class="footer__sponsor-list" role="list">
+        {%- for s in site.sponsors %}
+        <li>
+          {%- if s.url %}<a href="{{ s.url }}" rel="noopener">{% endif -%}
+          <img class="footer__sponsor{% if s.white %} is-white{% endif %}" src="/{{ s.logo }}" alt="{{ s.name }}" loading="lazy"{% if s.logo.endsWith(".svg") %} eleventy:ignore{% else %} eleventy:widths="400"{% endif %}>
+          {%- if s.url %}<span class="visually-hidden"> (opens in a new tab)</span></a>{% endif %}
+        </li>
+        {%- endfor %}
+      </ul>
+    </div>
+  </div>
+  {%- endif %}
+
   <div class="container">
     <div class="footer__bottom">
       <p>{{ site.footer.copyright }}</p>

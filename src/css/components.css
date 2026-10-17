@@ -771,6 +771,136 @@
   outline-offset: -2px;
 }
 
+/* ---------- Register menu (17 October; buttons.njk registerButton, nav.js) ----------
+   The Register button opens the forms: delegate registration, and applications to
+   International Press and the Organising Committee. Styled like the nav's More menu. */
+
+.reg-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.reg-menu.is-open {
+  z-index: 30;
+}
+
+.reg-menu__btn .icon {
+  font-size: 0.95em;
+  transition: transform var(--dur-open) var(--ease-standard);
+}
+
+.reg-menu.is-open .reg-menu__btn .icon {
+  transform: rotate(180deg);
+}
+
+.reg-menu__list {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  width: max-content;
+  min-width: 100%;
+  max-width: min(320px, calc(100vw - 32px));
+  padding: 8px;
+  list-style: none;
+  border: 1px solid rgb(var(--teal-rgb) / 0.14);
+  border-radius: var(--radius-card);
+  background: rgb(var(--drop-rgb) / 0.97);
+  box-shadow:
+    0 24px 60px rgb(var(--shadow-rgb) / 0.6),
+    0 0 28px rgb(var(--teal-rgb) / 0.12);
+  text-align: left;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition:
+    opacity var(--dur-open) var(--ease-standard),
+    transform var(--dur-open) var(--ease-standard),
+    visibility 0s linear var(--dur-open);
+}
+
+.reg-menu--end .reg-menu__list {
+  right: 0;
+  left: auto;
+}
+
+.reg-menu--center .reg-menu__list {
+  left: 50%;
+  translate: -50% 0;
+}
+
+/* Opened upwards when there's no room below (nav.js) */
+.reg-menu.is-up .reg-menu__list {
+  top: auto;
+  bottom: calc(100% + 10px);
+  transform: translateY(6px);
+}
+
+.reg-menu.is-open .reg-menu__list {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity var(--dur-open) var(--ease-standard),
+    transform var(--dur-open) var(--ease-standard),
+    visibility 0s;
+}
+
+.reg-menu__link {
+  display: grid;
+  gap: 3px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  color: var(--ink-85);
+  transition:
+    color var(--dur-hover) var(--ease-standard),
+    background-color var(--dur-hover) var(--ease-standard);
+}
+
+.reg-menu__name {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: var(--track-nav);
+  text-transform: uppercase;
+}
+
+.reg-menu__tag {
+  font-size: var(--fs-label);
+  font-weight: 600;
+  color: var(--ink-60);
+}
+
+a.reg-menu__link:hover,
+a.reg-menu__link:focus-visible {
+  background: rgb(var(--teal-rgb) / 0.1);
+  color: var(--teal);
+}
+
+a.reg-menu__link:focus-visible {
+  outline-offset: -2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reg-menu__list,
+  .reg-menu.is-up .reg-menu__list {
+    transform: none;
+  }
+}
+
+/* The phone menu lists the forms as buttons */
+.reg-links {
+  display: grid;
+  gap: 10px;
+}
+
+.reg-links__title {
+  margin-top: 6px;
+  font-size: var(--fs-label);
+  font-weight: 800;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--teal-light);
+}
+
 /* Menu button (tablet and phone) */
 .nav__menu {
   display: none;
@@ -1029,6 +1159,39 @@ html.is-locked {
 .footer__details a {
   color: var(--teal);
   transition: color var(--dur-hover) var(--ease-standard);
+}
+
+/* Sponsors, just above the bottom line (17 October; footer.njk) */
+.footer__sponsors {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 32px;
+  padding-block: 28px;
+  border-top: 1px solid rgb(var(--ink-rgb) / 0.06);
+}
+
+.footer__sponsors-label {
+  margin-bottom: 0;
+}
+
+.footer__sponsor-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px 40px;
+}
+
+.footer__sponsor {
+  display: block;
+  width: auto;
+  height: 30px;
+}
+
+/* A logo drawn for light backgrounds, in white */
+.footer__sponsor.is-white {
+  filter: brightness(0) invert(1);
+  opacity: 0.92;
 }
 
 .footer__bottom {

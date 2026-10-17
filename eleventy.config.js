@@ -207,6 +207,8 @@ export default function (eleventyConfig) {
   eleventyConfig.addWatchTarget("./src/islands/");
   eleventyConfig.addWatchTarget("./src/components/");
   eleventyConfig.addPassthroughCopy("src/assets/img/gallery");
+  // Sponsor logos drawn as SVG are used as they are (footer.njk), not turned into photos.
+  eleventyConfig.addPassthroughCopy("src/assets/img/sponsors/*.svg");
   eleventyConfig.on("eleventy.before", async ({ directories }) => {
     await esbuild({
       entryPoints: {

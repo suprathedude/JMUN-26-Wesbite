@@ -340,8 +340,74 @@ function initSheet() {
   });
 }
 
+// The Register buttons (17 October; buttons.njk): each opens a small menu of the forms. A
+// click or Enter opens and closes it; Esc, a click elsewhere, moving on with the keyboard or
+// scrolling away closes it. It opens upwards when the space below (on screen, and inside a
+// section that clips its contents) is too small.
+function initRegisterMenus() {
+  const menus = [...document.querySelectorAll("[data-reg-menu]")];
+  const clipBox = (el) => {
+    let bottom = innerHeight;
+    let top = 0;
+    for (let node = el.parentElement; node && node !== document.body; node = node.parentElement) {
+      const { overflow } = getComputedStyle(node);
+      if (/hidden|clip/.test(overflow)) {
+        const box = node.getBoundingClientRect();
+        bottom = Math.min(bottom, box.bottom);
+        top = Math.max(top, box.top);
+      }
+    }
+    return { top, bottom };
+  };
+  for (const menu of menus) {
+    const button = menu.querySelector("[data-reg-btn]");
+    const list = menu.querySelector(".reg-menu__list");
+    if (!button || !list) continue;
+    let openedAt = 0;
+    const close = () => {
+      if (!menu.classList.contains("is-open")) return;
+      menu.classList.remove("is-open");
+      button.setAttribute("aria-expanded", "false");
+    };
+    const open = () => {
+      for (const other of menus) if (other !== menu) other.dispatchEvent(new Event("reg:close"));
+      const box = button.getBoundingClientRect();
+      const room = clipBox(menu);
+      const needed = list.offsetHeight + 16;
+      menu.classList.toggle("is-up", box.bottom + needed > room.bottom && box.top - needed > room.top);
+      menu.classList.add("is-open");
+      button.setAttribute("aria-expanded", "true");
+      openedAt = scrollY;
+    };
+    menu.addEventListener("reg:close", close);
+    button.addEventListener("click", () => (menu.classList.contains("is-open") ? close() : open()));
+    list.addEventListener("click", (event) => {
+      if (event.target.closest("a")) close();
+    });
+    menu.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || !menu.classList.contains("is-open")) return;
+      close();
+      button.focus();
+    });
+    menu.addEventListener("focusout", (event) => {
+      if (!menu.contains(event.relatedTarget)) close();
+    });
+    document.addEventListener("pointerdown", (event) => {
+      if (!menu.contains(event.target)) close();
+    });
+    addEventListener(
+      "scroll",
+      () => {
+        if (menu.classList.contains("is-open") && Math.abs(scrollY - openedAt) > 80) close();
+      },
+      { passive: true },
+    );
+  }
+}
+
 initStrip();
 initNotice();
+initRegisterMenus();
 if (nav) {
   initCollapse();
   initMore();

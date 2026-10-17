@@ -81,8 +81,8 @@ eleventyComputed:
   </div>
 
   {%- if c.press %}
-  {#- Joining IP (17 October): its application form, from the Register page's list. -#}
-  {%- for o in site.registerPage.options %}{% if o.key == "ip" and (o.url | isSet) %}
+  {#- Joining IP (17 October): its application form, from the Register button's list. -#}
+  {%- for o in site.nav.register.options %}{% if o.key == "ip" and (o.url | isSet) %}
   <p class="c-apply" data-reveal>
     <a class="btn btn--shiny" href="{{ o.url }}">{{ shine() }}{{ o.button }} {{ o.title }} ↗<span class="visually-hidden"> (opens in a new tab)</span></a>
   </p>

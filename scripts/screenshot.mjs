@@ -174,21 +174,22 @@ const STATES = [
     },
   },
   // The pop-ups (site.json → notice, 17 October), which every other screenshot turns off. The
-  // first opens after the page has loaded, the second as the first is closed.
-  ...[VIEWPORTS[0], VIEWPORTS[1]].flatMap((viewport) => [
-    { name: `home-popup-1-${viewport.width}`, viewport, notice: true, run: (page) => page.waitForSelector(".notice[open]").then(() => page.waitForTimeout(600)) },
-    {
-      name: `home-popup-2-${viewport.width}`,
+  // first opens after the page has loaded, each later one as the one before is closed.
+  ...[VIEWPORTS[0], VIEWPORTS[1]].flatMap((viewport) =>
+    [1, 2, 3].map((n) => ({
+      name: `home-popup-${n}-${viewport.width}`,
       viewport,
       notice: true,
       async run(page) {
         await page.waitForSelector(".notice[open]");
-        await page.click(".notice[open] .notice__x");
-        await page.waitForFunction(() => document.querySelectorAll("[data-notice]")[1]?.open);
+        for (let i = 1; i < n; i++) {
+          await page.click(".notice[open] .notice__x");
+          await page.waitForFunction((i) => document.querySelectorAll("[data-notice]")[i]?.open, i);
+        }
         await page.waitForTimeout(600);
       },
-    },
-  ]),
+    })),
+  ),
   { name: "home-nav-1024", viewport: { width: 1024, height: 768, deviceScaleFactor: 1 }, async run() {} },
   { name: "home-nav-1250", viewport: { width: 1250, height: 800, deviceScaleFactor: 1 }, async run() {} },
 ];

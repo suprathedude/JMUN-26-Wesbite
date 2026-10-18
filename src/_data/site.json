@@ -42,7 +42,7 @@
     "enabled": true,
     "items": [
       {
-        "text": "Registrations are open!",
+        "text": "Delegates: register by 28 October",
         "link": "https://forms.cloud.microsoft/pages/responsepage.aspx?id=e3DJf4-dak-Fa664SP7xA6W6JxUjb5hDmp-UTZ-9A9hUNlNGTElHMUlLVFRYMEZXNTI4STFZUkUyTS4u&route=shorturl"
       },
       {
@@ -73,7 +73,27 @@
         "text": "Rounds 1 and 2 have both been released. Round 3 is coming soon.",
         "lists": [
           {
-            "title": "Registration extended until",
+            "title": "Training sessions on Microsoft Teams",
+            "trainingDates": true,
+            "note": {
+              "text": "Missed a training session?",
+              "link": {
+                "label": "Find the recordings and slides here!",
+                "url": "/resources/#training"
+              }
+            }
+          }
+        ],
+        "link": {
+          "label": "See allocations",
+          "url": "/allocations/"
+        }
+      },
+      {
+        "title": "Registration has been extended",
+        "lists": [
+          {
+            "title": "New closing dates",
             "dates": [
               {
                 "label": "Organising Committee",
@@ -91,23 +111,9 @@
                 "date": "Wednesday 28 October"
               }
             ]
-          },
-          {
-            "title": "Training sessions on Microsoft Teams",
-            "trainingDates": true,
-            "note": {
-              "text": "Missed a training session?",
-              "link": {
-                "label": "Find the recordings and slides here!",
-                "url": "/resources/#training"
-              }
-            }
           }
         ],
-        "link": {
-          "label": "See allocations",
-          "url": "/allocations/"
-        }
+        "register": true
       },
       {
         "headline": "Your experience begins on 29th Oct, with an online EB lead-in session.",

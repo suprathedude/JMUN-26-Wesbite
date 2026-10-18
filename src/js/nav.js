@@ -371,15 +371,17 @@ function initSheet() {
 // The Register buttons (17 October; buttons.njk): each opens a small menu of the forms. A
 // click or Enter opens and closes it; Esc, a click elsewhere, moving on with the keyboard or
 // scrolling away closes it. It opens upwards when the space below (on screen, and inside a
-// section that clips its contents) is too small.
+// section that clips or scrolls its contents, like a pop-up's card) is too small. Esc closes
+// just the menu, not a pop-up it's in. In a pop-up the closed menu waits above its button, so
+// its hidden list doesn't hang below the card's end and make it scroll.
 function initRegisterMenus() {
   const menus = [...document.querySelectorAll("[data-reg-menu]")];
   const clipBox = (el) => {
     let bottom = innerHeight;
     let top = 0;
     for (let node = el.parentElement; node && node !== document.body; node = node.parentElement) {
-      const { overflow } = getComputedStyle(node);
-      if (/hidden|clip/.test(overflow)) {
+      const { overflow, overflowY } = getComputedStyle(node);
+      if (/hidden|clip/.test(overflow) || /auto|scroll/.test(overflowY)) {
         const box = node.getBoundingClientRect();
         bottom = Math.min(bottom, box.bottom);
         top = Math.max(top, box.top);
@@ -392,10 +394,18 @@ function initRegisterMenus() {
     const list = menu.querySelector(".reg-menu__list");
     if (!button || !list) continue;
     let openedAt = 0;
+    const card = menu.closest(".notice__card");
+    const rest = () => {
+      if (!card || menu.classList.contains("is-open")) return;
+      menu.classList.add("is-up");
+      card.dispatchEvent(new Event("scroll")); // so "Scroll for more" is worked out again
+    };
+    rest();
     const close = () => {
       if (!menu.classList.contains("is-open")) return;
       menu.classList.remove("is-open");
       button.setAttribute("aria-expanded", "false");
+      if (card) setTimeout(rest, 300); // once it has faded out where it was
     };
     const open = () => {
       for (const other of menus) if (other !== menu) other.dispatchEvent(new Event("reg:close"));
@@ -414,6 +424,7 @@ function initRegisterMenus() {
     });
     menu.addEventListener("keydown", (event) => {
       if (event.key !== "Escape" || !menu.classList.contains("is-open")) return;
+      event.preventDefault();
       close();
       button.focus();
     });

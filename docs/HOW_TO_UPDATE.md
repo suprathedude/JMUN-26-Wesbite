@@ -164,8 +164,10 @@ In `site.json` → `notice`:
   - **News:** `"title"` and `"text"` (a sentence or two); an optional `"flash"`, the most urgent
     line in a highlighted box at the top (`title`, optional `text`, optional `link` with `label`
     and `url`, for example the Teams joining link); `"lists"`, one or more lists of dates, each
-    under its own `"title"` (17 October: the extended registration dates, then the training
-    sessions); and `"link"`, the main button (leave `"url": ""` for none). A list has either
+    under its own `"title"`; and `"link"`, the main button (leave `"url": ""` for none), or
+    instead `"register": true` for the Register button with its menu of forms, the same as in the
+    hero (18 October: the extended registration dates are a pop-up of their own with it, after
+    the allocations and training one, so the training links are near the top). A list has either
     `"trainingDates": true` (the training sessions from `newToMun.json`, so a changed date only
     needs changing there) or `"dates"` (a list of `label` and `date`, and an optional `detail`,
     a smaller line under the label such as `"Grades 9 to 12"`), or both; and an optional `"note"`
@@ -173,13 +175,24 @@ In `site.json` → `notice`:
     recordings on Resources, `/resources/#training`). For example:
 
     ```json
+    {
+      "title": "Registration has been extended",
+      "lists": [
+        {
+          "title": "New closing dates",
+          "dates": [
+            { "label": "Delegates", "detail": "Grades 6 to 8", "date": "Wednesday 28 October" }
+          ]
+        }
+      ],
+      "register": true
+    }
+    ```
+
+    and, in the first pop-up:
+
+    ```json
     "lists": [
-      {
-        "title": "Registration extended until",
-        "dates": [
-          { "label": "Delegates", "detail": "Grades 6 to 8", "date": "Wednesday 28 October" }
-        ]
-      },
       {
         "title": "Training sessions on Microsoft Teams",
         "trainingDates": true,
@@ -187,6 +200,8 @@ In `site.json` → `notice`:
       }
     ]
     ```
+
+    A closing date that has passed: add `"done": true` to it and it's crossed out, or delete it.
 
     Each list makes the pop-up longer. On phones it scrolls, so take a list out once it's no
     longer news. While a pop-up runs past the bottom of the screen, a small button at its foot
@@ -201,7 +216,7 @@ In `site.json` → `notice`:
 - `"enabled": false` turns them all off. To drop one, delete it from the list.
 
 Following a pop-up's button (See allocations) leaves the page, so the ones after it wait for the
-next visit. They never show on the volunteers' check-in page.
+next visit. The Register menu's forms open in a new tab, so the pop-ups carry on.
 
 ## Change the announcement bar
 

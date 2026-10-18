@@ -338,7 +338,7 @@ Everything else updates by itself:
 | To change | Where |
 | --- | --- |
 | The Resources section titles and the line under each | `site.json` → `resourcesPage` → `sections` |
-| The Get QR page's text and messages, and the check-in page's (`/qr/check/`); how to open QR codes and run check-in is in `docs/QR.md` | `site.json` → `qrPage`, `qrCheck` |
+| The Get QR page's text and messages, and the PDF pass's words (`pdf`); how QR passes and desk check-in work is in `docs/QR.md` | `site.json` → `qrPage` |
 | The Entry QR button in the nav (between More and Register) | `site.json` → `nav.qr`: `label` in the nav (keep it short, or the nav runs out of room), `sheetLabel` in the phone menu |
 | The Register button and its dropdown (nav, homepage hero, homepage closing banner and the New to MUN page): delegate registration, and applications to International Press and the Organising Committee | `site.json` → `nav` → `register` (17 October): `label` on the button, `sheetTitle` above the three buttons in the phone menu, and one entry per form in `options` (`title`, the small `tag` under it, `button` for the International Press button on the IP committee page, and the form's `url`). An entry with `"url": ""` shows as "link TBC". |
 | The "Consent form" button (hidden until it has a link) | `site.json` → `nav` → `secondary` → `url` |

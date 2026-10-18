@@ -239,6 +239,12 @@
         "label": "Allocation",
         "value": "TBC",
         "key": "allocation"
+      },
+      {
+        "label": "Details",
+        "value": "TBC",
+        "key": "detail",
+        "optional": true
       }
     ],
     "link": {
@@ -247,14 +253,20 @@
     "detailsNote": "Your name, committee, allocation and link fill in from your registration once QR codes open (TBC).",
     "messages": {
       "searching": "Finding your registration.",
-      "found": "Here's your QR code. Show it at the registration desk when you arrive; a screenshot works.",
+      "found": "Here's your QR code. Show it at the registration desk when you arrive: save it as an image, or download the PDF to print.",
       "unknown": "We couldn't find that email. Check it's the one you registered with.",
       "email": "Enter a full email address.",
       "closed": "QR codes aren't open yet. They open once every allocation is out.",
       "busy": "Too many tries from this connection. Wait a few minutes and try again.",
       "error": "Something went wrong. Check your connection and try again."
     },
-    "save": "Save QR code"
+    "save": "Save as image",
+    "pdf": {
+      "button": "Download PDF",
+      "title": "Entry pass",
+      "instruction": "Show this pass at the registration desk when you arrive on Day one.",
+      "note": "This code checks you in, so keep it to yourself. A printout or a screenshot both work."
+    }
   },
   "resourcesPage": {
     "intro": "Background guides, International Press style guides, procedure documents, training session recordings and slides, and research links, added here as they are released.",
@@ -392,39 +404,5 @@
     "copyright": "© 2026 Oakridge International School",
     "credit": "Designed and Developed by Supratiik Koppuravuri and Oakridge MUN Team",
     "sponsorsLabel": "Sponsored by"
-  },
-  "qrCheck": {
-    "title": "Desk check-in",
-    "intro": "For volunteers at the registration desk. Tap Scan QR codes and point your phone's back camera at a delegate's code. No code? Type their email below.",
-    "pinLabel": "Volunteer PIN",
-    "pinButton": "Save PIN",
-    "pinNote": "Saved on this phone until you tap Forget PIN.",
-    "emailLabel": "Check in by email",
-    "emailButton": "Check in",
-    "waiting": "Waiting for a QR code.",
-    "messages": {
-      "working": "Checking in.",
-      "ok": "Checked in",
-      "already": "Already checked in at",
-      "unknown": "Not on the delegate list. Send them to the Secretariat desk.",
-      "pin": "Wrong PIN.",
-      "nopin": "Check-in isn't set up yet: the PIN hasn't been added.",
-      "closed": "Check-in isn't open yet: the delegate list hasn't been added.",
-      "busy": "Too many wrong PINs. Wait ten minutes.",
-      "error": "Something went wrong. Check your connection and try again.",
-      "cameraStarting": "Starting the camera.",
-      "cameraBlocked": "The camera is blocked. Allow it for this site in your browser's settings, then tap Scan QR codes again.",
-      "cameraMissing": "No camera was found on this device.",
-      "cameraUnsupported": "This browser can't use the camera. Scan with your phone's camera app instead, or type the delegate's email.",
-      "notOurs": "That isn't an Oakridge JMUN QR code."
-    },
-    "count": "checked in",
-    "download": "Download arrivals",
-    "forget": "Forget PIN",
-    "scanButton": "Scan QR codes",
-    "stopButton": "Stop camera",
-    "cameraHint": "Point the camera at a QR code",
-    "recentTitle": "Checked in on this phone",
-    "recentEmpty": "Nobody yet."
   }
 }

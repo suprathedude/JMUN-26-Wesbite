@@ -178,7 +178,7 @@
   }
 }
 
-/* Working QR page and desk check-in (13 October, docs/QR.md) */
+/* Working QR page (13 October; passes from the check-in app since 18 October, docs/QR.md) */
 .qr__status:empty {
   display: none;
 }
@@ -202,222 +202,15 @@
   height: 100%;
 }
 
-.qr__save[hidden] {
-  display: none;
-}
-
-/* ---------- Desk check-in (/qr/check/) ---------- */
-
-.check__wrap {
-  display: grid;
-  gap: 24px;
-  max-width: 640px;
-}
-
-.check__head {
+/* Save the pass: as an image, or as a PDF to print (18 October) */
+.qr__saves {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px 20px;
-}
-
-.check__count {
-  padding: 8px 16px;
-  border: 1px solid rgb(var(--teal-rgb) / 0.35);
-  border-radius: var(--radius-pill);
-  background: rgb(var(--teal-rgb) / 0.1);
-  font-size: var(--fs-label);
-  font-weight: 800;
-  letter-spacing: var(--track-label);
-  text-transform: uppercase;
-  color: var(--teal-light);
-}
-
-.check__scanner {
-  display: grid;
-  gap: 14px;
-}
-
-/* The camera's picture, with a square to aim at and the rest dimmed */
-.check__view {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
-  border: var(--border-card);
-  border-radius: var(--radius-tile);
-  background: var(--blue-950);
-}
-
-.check__video {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.check__aim {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  height: 66%;
-  aspect-ratio: 1;
-  border: 3px solid var(--teal-light);
-  border-radius: var(--radius-card);
-  box-shadow: 0 0 0 100vmax rgb(var(--night-rgb) / 0.45);
-  transform: translate(-50%, -50%);
-}
-
-.check__flash {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  pointer-events: none;
-  background: var(--teal);
-}
-
-.check__flash[data-tone="warn"] {
-  background: var(--yellow);
-}
-
-.check__flash[data-tone="bad"] {
-  background: var(--red);
-}
-
-.check__flash.is-on {
-  animation: check-flash 0.7s var(--ease-standard);
-}
-
-@keyframes check-flash {
-  30% {
-    opacity: 0.4;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .check__flash.is-on {
-    animation: none;
-  }
-}
-
-.check__hint {
-  position: absolute;
-  inset: auto 0 12px;
-  font-size: var(--fs-label);
-  font-weight: 800;
-  letter-spacing: var(--track-label);
-  text-align: center;
-  text-transform: uppercase;
-  color: var(--white);
-}
-
-.check__buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.check__buttons .btn svg {
-  width: 1.2em;
-  height: 1.2em;
-  margin-right: 8px;
-}
-
-/* The result: a big line in green, amber or red, then who it is */
-.check__line {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.check__icon {
-  display: none;
-  flex: none;
-  font-size: 2.2rem;
-}
-
-.check__result[data-tone="ok"] .check__icon[data-for="ok"],
-.check__result[data-tone="warn"] .check__icon[data-for="warn"],
-.check__result[data-tone="bad"] .check__icon[data-for="bad"] {
-  display: block;
-}
-
-.check__state {
-  font-size: clamp(1.35rem, 4.5vw, 1.85rem);
-  font-weight: 800;
-  line-height: 1.25;
-  color: var(--ink-100);
-}
-
-.check__result[data-tone="ok"] {
-  border-color: var(--teal);
-}
-
-.check__result[data-tone="ok"] :is(.check__state, .check__icon) {
-  color: var(--teal-light);
-}
-
-.check__result[data-tone="warn"] {
-  border-color: var(--yellow);
-}
-
-.check__result[data-tone="warn"] :is(.check__state, .check__icon) {
-  color: var(--yellow);
-}
-
-.check__result[data-tone="bad"] {
-  border-color: var(--red);
-}
-
-.check__result[data-tone="bad"] .check__icon {
-  color: var(--red);
-}
-
-.check__recent {
-  display: grid;
+  justify-content: center;
   gap: 10px;
 }
 
-.check__list {
-  display: grid;
-  gap: 8px;
-}
-
-.check__item,
-.check__empty {
-  display: flex;
-  gap: 12px;
-  padding: 10px 14px;
-  border: var(--border-card);
-  border-left: 3px solid var(--teal);
-  border-radius: var(--radius-control);
-  background: rgb(var(--card-rgb) / 0.5);
-  color: var(--ink-85);
-}
-
-.check__item[data-tone="warn"] {
-  border-left-color: var(--yellow);
-}
-
-.check__empty {
-  border-left-color: rgb(var(--teal-rgb) / 0.35);
-  color: var(--ink-60);
-}
-
-.check__time {
-  flex: none;
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
-  color: var(--ink-100);
-}
-
-.check__tools {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.check [hidden],
-.qr__details-note[hidden] {
+.qr__saves[hidden],
+.qr__field[hidden] {
   display: none;
 }

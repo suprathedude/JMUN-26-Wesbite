@@ -61,11 +61,12 @@ ErrorDocument 404 /404.html
   # statistics (Real user monitoring), so scripts, styles, fonts, photos, video and requests may
   # only come from this site; the inline scripts are the site's own (the head script, the import
   # map). No other site may show this one in a frame (clickjacking), and browsers stay on https
-  # for a year. Camera stays allowed here for a possible QR scanner; the rest are switched off.
+  # for a year. The camera, microphone and the rest are switched off: the desk QR scanner is a
+  # separate app (18 October, docs/QR.md).
   Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
   Header always set X-Frame-Options "DENY"
   Header always set Strict-Transport-Security "max-age=31536000"
-  Header always set Permissions-Policy "camera=(self), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()"
   Header always set Cross-Origin-Opener-Policy "same-origin"
 
   # Pages: browsers check for a newer version every time, and Cloudflare may keep a copy for up

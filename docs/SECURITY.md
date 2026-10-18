@@ -25,7 +25,7 @@ delete it in Cloudflare > your profile > API Tokens and make a new one.
 | `Content-Security-Policy` | Scripts, styles, fonts, photos, video and requests from any other site, except Cloudflare's visitor statistics. An injected script can't load code from elsewhere or send data out. |
 | `X-Frame-Options` and `frame-ancestors` | Other sites showing this one inside a frame to trick people into clicking (clickjacking). |
 | `Strict-Transport-Security` | Browsers using `http://` for this site for a year after a visit. |
-| `Permissions-Policy` | Microphone, location, payment and USB access. The camera is allowed for this site only, for the desk check-in scanner (`/qr/check/`); the browser still asks the volunteer first. |
+| `Permissions-Policy` | Camera, microphone, location, payment and USB access, all switched off. The desk check-in scanner is a separate app (docs/QR.md). |
 | `X-Content-Type-Options`, `Referrer-Policy` | Files being run as a different type; full page addresses being sent to other sites. |
 | `web.config`, `.htaccess` | Refused to visitors. |
 

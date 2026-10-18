@@ -1,87 +1,62 @@
-# QR codes and desk check-in
+# QR passes and desk check-in
 
-Built on 13 October. A delegate types the email they registered with on the QR page
-(`/qr/`) and gets their QR code, with their name, committee, allocation and a link to their
-committee's page. At the registration desk, volunteers scan the code with their phone's camera
-and the delegate is marked as arrived. The arrivals list downloads as a spreadsheet.
+Since 18 October the QR system has two halves:
 
-Nothing about delegates is in GitHub or on the public website. The list lives in a private
-folder on GoDaddy that no web address reaches, and only the Secretariat uploads it.
+- **This website** gives each delegate their QR pass on the QR page (`/qr/`): they type the email
+  they registered with and get their QR code, their name, committee, allocation and a link to
+  their committee's page, and can save the pass as an image or download it as a PDF to print.
+- **The check-in app**, a separate private app on Vercel (the `oakjmun-checkin` repo), keeps the
+  delegate list and is where the Organising Committee scans passes at the registration desk.
+  Its own `README.md` and `SETUP.md` explain it and how to set it up.
 
-## How it works
+Nothing about delegates is in this repo or on the public website, and the website never shows the
+check-in app's address.
+
+## How a pass is looked up
+
+1. The QR page (`src/qr.njk`, `src/js/qr.js`) sends the email to this website's own server,
+   `/api/pass.php`.
+2. `pass.php` asks the check-in app for that delegate's pass, using the app's address and key in
+   GoDaddy's private folder (below), and passes the answer back. The visitor's browser only ever
+   talks to oakridgejmun.in.
+3. The QR page draws the code. It holds `OAKJMUN:` and a 20-character code, never a web address:
+   a phone's own camera app shows a meaningless code, and only the check-in app's scanner can use
+   it. The code is a signature of the delegate's email, so it can't be guessed, and it never
+   changes when the delegate sheet is uploaded again.
+4. **Save as image** saves a PNG of the code; **Download PDF** makes a one-page A4 pass with
+   their details and the code (`src/js/pass-pdf.js`, loaded only when it's tapped).
 
 | Part | File |
 | --- | --- |
-| QR page | `src/qr.njk`, `src/js/qr.js`, text in `site.json` → `qrPage` |
-| Check-in page for volunteers, `/qr/check/` (not in the menu or search engines) | `src/qr-check.njk`, `src/js/qr-check.js`, text in `site.json` → `qrCheck` |
-| Lookup, check-in and arrivals download (PHP on GoDaddy) | `src/api/pass.php`, `checkin.php`, `arrivals.php`, shared code in `lib.php` |
-| QR drawing; QR reading on iPhones | `qrcode-generator` (MIT licence); `jsqr` (Apache-2.0), bundled by esbuild into `/js/vendor/` |
+| QR page | `src/qr.njk`, `src/js/qr.js`, `src/js/pass-pdf.js`, text in `site.json` → `qrPage` (the PDF's words under `pdf`) |
+| Asks the check-in app (PHP on GoDaddy) | `src/api/pass.php`, shared code in `src/api/lib.php` |
+| QR drawing | `qrcode-generator` (MIT licence), copied to `/js/vendor/` |
 
-The QR holds a link to the check-in page with a code after the `#`. The code is a signature of
-the delegate's email, so it can't be guessed or made up, and it says nothing about them by
-itself.
+## Connecting the website to the check-in app
 
-## Opening QR codes (once every allocation is out)
+Once the check-in app is running (its `SETUP.md`):
 
-1. **Make the delegate list.** In the allocation spreadsheet, keep one row per delegate with
-   these column headings: `Email`, `Name`, `Committee`, `Allocation`. Other columns are ignored.
-   Write the committee as it is on the site, by its short name (`UNSC`, `Lok Sabha`) or full
-   name, so "Your link" opens the right page. Then save it as CSV: in Excel, **File > Save a
-   copy (or Export) > CSV UTF-8**.
-2. **Upload it.** cPanel > **File Manager**. Open your home folder (the one that holds
-   `public_html`). Make a folder called `oakjmun-private` if it isn't there, open it, upload the
-   CSV and rename it `delegates.csv`. Never put it inside `public_html`.
-3. **Set the volunteer PIN.** In the same folder, **+ File** > `pin.txt`, then edit it and type
-   the PIN on the first line: at least 8 letters and numbers. Give it to volunteers in person,
-   not in a group chat.
-4. **Test it.** Add a row for yourself, look up your email on the QR page, then scan the code
-   with your phone and check in on the page that opens.
-5. **Change the note** on the QR page: `site.json` → `qrPage.note` (it says codes open once
-   every allocation is out).
+1. cPanel > **File Manager**. Open your home folder (the one that holds `public_html`), then
+   `oakjmun-private` (make it if it isn't there). Never put it inside `public_html`.
+2. **+ File**, name it `checkin.json`, then **Edit** it:
 
-To change allocations later, upload a new `delegates.csv` over the old one. QR codes don't
-change: they depend on the email only.
+   ```json
+   { "url": "https://the-check-in-app-address", "key": "the PASS_KEY from Vercel" }
+   ```
 
-Don't delete `key.txt` in that folder (it's made automatically): it signs the codes, and
-without it every code already given out stops working.
+3. On the check-in app's admin page, turn **QR passes on the website** on.
+4. Look yourself up on the QR page with an email that's on the delegate sheet.
 
-## On the day
-
-1. Each volunteer opens `https://oakridgejmun.in/qr/check/` and enters the PIN. It stays on
-   that phone until they tap **Forget PIN**.
-2. Tap **Scan QR codes** and allow the camera. The page uses the phone's back camera, keeps the
-   screen on while scanning, and stops the camera if the volunteer switches app.
-3. Hold each delegate's code in the square. The page reads it by itself, the picture flashes and
-   the phone buzzes:
-   - green, **Checked in**, with the delegate's name, committee and allocation;
-   - amber, **Already checked in at** a time, if they've been checked in before;
-   - red, **Not on the delegate list** (send them to the Secretariat desk) or **That isn't an
-     Oakridge JMUN QR code**.
-   A code left in view is read once; the next delegate can step up straight away.
-4. No phone or no code? Type the delegate's email under **Check in by email**.
-5. The count at the top shows how many have arrived, and **Checked in on this phone** lists the
-   last eight this volunteer let in.
-6. **Download arrivals** saves the whole list so far as a spreadsheet, with the time of each
-   check-in, from every volunteer's phone.
-
-Scanning a code with the phone's own camera app also works: it opens the check-in page with the
-code, and checks the delegate in the same way.
-
-The camera reader: Android phones use the browser's own; iPhones download a small reader
-(jsQR, Apache-2.0 licence, `/js/vendor/jsqr.js`) the first time **Scan QR codes** is tapped.
-
-## After the conference
-
-Download the arrivals, then delete `delegates.csv`, `arrivals.csv` and `pin.txt` from
-`oakjmun-private`.
+Until `checkin.json` is there, or while passes are off on the admin page, the QR page says QR
+codes aren't open yet. Change that note in `site.json` → `qrPage.note` once they are.
 
 ## Privacy and limits
 
 - Someone who knows a delegate's email can see their name, committee and allocation on the QR
-  page, which the public allocation matrix shows anyway. They can't check anyone in or see the
-  arrivals list without the PIN.
-- One connection can look up 60 emails in 10 minutes; a phone that types 10 wrong PINs in 10
-  minutes has to wait. A whole school network shares one connection, so the limit is generous.
-- If the website ever moves into a folder inside `public_html`, `oakjmun-private` must move
-  next to the website's own folder. The folder refuses web requests anyway (it holds a
-  `.htaccess` that says so).
+  page, which the public allocation matrix shows anyway. They can't check anyone in: that needs an
+  OC email on the check-in app's list and the PIN.
+- One connection can look up 60 emails in 10 minutes, here and again in the check-in app. A whole
+  school network shares one connection, so the limit is generous.
+- `oakjmun-private` refuses web requests anyway (it holds a `.htaccess` that says so). If the
+  website ever moves into a folder inside `public_html`, the private folder must move next to the
+  website's own folder.

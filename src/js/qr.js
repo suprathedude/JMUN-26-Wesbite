@@ -1,21 +1,30 @@
 // The QR page (13 October, docs/QR.md): looks up the delegate by the email they registered with
-// (/api/pass.php), then draws their QR code and fills in their details. The code holds a link to
-// the desk check-in page with a signed code, never the delegate's details.
+// (/api/pass.php, which asks the check-in app since 18 October), then draws their QR code, fills
+// in their details and offers the pass as an image or a PDF to print. The code holds "OAKJMUN:"
+// and a signed code for the desk scanner: never a web address or the delegate's details.
 import qrcode from "qrcode-generator";
 
 const form = document.querySelector("[data-qr-form]");
 const status = document.querySelector("[data-qr-status]");
 const code = document.querySelector("[data-qr-code]");
 const placeholder = document.querySelector("[data-qr-placeholder]");
+const saves = document.querySelector("[data-qr-saves]");
 const save = document.querySelector("[data-qr-save]");
+const pdfButton = document.querySelector("[data-qr-pdf]");
 const read = (selector) => JSON.parse(document.querySelector(selector)?.textContent || "{}");
 const messages = read("[data-qr-messages]");
 const committees = read("[data-qr-committees]");
+const pdfWords = read("[data-qr-pdf-words]");
 const field = (key) => document.querySelector(`[data-qr-field="${key}"]`);
 
 const say = (text) => {
   status.textContent = text;
 };
+
+// The pass on screen, for the PDF.
+let current = null;
+const fileName = (name, ext) =>
+  `oakjmun-pass-${String(name || "delegate").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")}.${ext}`;
 
 // The committee, matched by its code or name as the allocation sheet writes it.
 const committeeOf = (text) => {
@@ -44,8 +53,9 @@ const png = (qr) => {
 
 const show = (pass) => {
   const qr = qrcode(0, "M");
-  qr.addData(`${form.dataset.site}/qr/check/#${pass.token}`);
+  qr.addData(pass.qr);
   qr.make();
+  current = { pass, qr };
   code.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 2, scalable: true });
   code.classList.add("is-ready");
   code.removeAttribute("aria-hidden");
@@ -53,12 +63,16 @@ const show = (pass) => {
   code.setAttribute("aria-label", `QR code for ${pass.name}`);
   placeholder.hidden = true;
   save.href = png(qr);
-  save.hidden = false;
+  save.download = fileName(pass.name, "png");
+  saves.hidden = false;
 
   field("name").textContent = pass.name || "TBC";
   field("committee").textContent = pass.committee || "TBC";
   field("allocation").textContent = pass.allocation || "TBC";
-  const committee = committeeOf(pass.committee || "");
+  // Portfolio, position, party and constituency, for the committees that have them.
+  field("detail").textContent = pass.detail || "";
+  field("detail").closest("[data-qr-optional]").hidden = !pass.detail;
+  const committee = committeeOf(pass.code || "") ?? committeeOf(pass.committee || "");
   const link = document.createElement("a");
   link.href = committee?.url ?? "/committees/";
   link.textContent = committee ? `${committee.code} committee page` : "All committees";
@@ -80,7 +94,7 @@ form?.addEventListener("submit", async (event) => {
       body: JSON.stringify({ email }),
     });
     const body = await res.json().catch(() => ({}));
-    if (res.ok && body.token) {
+    if (res.ok && body.qr) {
       show(body);
       say(messages.found);
     } else {
@@ -90,5 +104,24 @@ form?.addEventListener("submit", async (event) => {
     say(messages.error);
   } finally {
     button.disabled = false;
+  }
+});
+
+pdfButton?.addEventListener("click", async () => {
+  if (!current) return;
+  pdfButton.disabled = true;
+  try {
+    const { passPdf } = await import(new URL(form.dataset.pdf, document.baseURI).href);
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(passPdf({ ...current, words: pdfWords }));
+    link.download = fileName(current.pass.name, "pdf");
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(link.href), 4000);
+  } catch {
+    say(messages.error);
+  } finally {
+    pdfButton.disabled = false;
   }
 });

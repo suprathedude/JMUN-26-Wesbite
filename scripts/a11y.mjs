@@ -59,6 +59,11 @@ const STATES = [
   { name: "home: second pop-up", path: "/", width: 390, notice: true, checks: POPUP_CHECKS, run: popup(2) },
   { name: "home: second pop-up", path: "/", width: 1440, notice: true, checks: POPUP_CHECKS, run: popup(2) },
   { name: "home: second pop-up", path: "/", width: 360, notice: true, checks: { ...POPUP_CHECKS, phone: true }, run: popup(2) },
+  { name: "home: second pop-up, Register menu open", path: "/", width: 390, notice: true, checks: POPUP_CHECKS, run: (page) => popup(2)(page).then(() => page.click(`${POPUP} [data-reg-btn]`)) },
+  { name: "home: second pop-up, Register menu open", path: "/", width: 1440, notice: true, checks: POPUP_CHECKS, run: (page) => popup(2)(page).then(() => page.click(`${POPUP} [data-reg-btn]`)) },
+  { name: "home: third pop-up", path: "/", width: 390, notice: true, checks: POPUP_CHECKS, run: popup(3) },
+  { name: "home: third pop-up", path: "/", width: 1440, notice: true, checks: POPUP_CHECKS, run: popup(3) },
+  { name: "home: third pop-up", path: "/", width: 360, notice: true, checks: { ...POPUP_CHECKS, phone: true }, run: popup(3) },
 ];
 
 // One h1, and headings only ever go one level deeper at a time.

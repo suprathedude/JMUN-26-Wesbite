@@ -60,10 +60,10 @@
   {#- Speculation rules (16 October): resting the pointer on a link to another page of the site
       for a moment (or pressing it, on a phone) makes Chrome and Edge load that page in the
       background, so it opens at once on the click. The homepage, Social Night and Doomsday carry
-      video or 3D, so they're only fetched, not built ahead. PDFs, the check-in page and anything
-      opening in a new tab are left alone. Other browsers ignore this. -#}
-  <script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/api/*","/qr/check/*","/*.pdf"]}},{"not":{"selector_matches":"[target=_blank],[download],[href='/'],[href^='/#'],[href^='/social-night'],[href^='/committees/doomsday']"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/api/*","/qr/check/*","/*.pdf"]}},{"not":{"selector_matches":"[target=_blank],[download]"}}]},"eagerness":"moderate"}]}</script>
-  <script type="importmap">{"imports":{"lenis":"/js/vendor/lenis.js","qrcode-generator":"/js/vendor/qrcode.js","jsqr":"/js/vendor/jsqr.js"}}</script>
+      video or 3D, so they're only fetched, not built ahead. PDFs and anything opening in a new tab
+      are left alone. Other browsers ignore this. -#}
+  <script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/api/*","/*.pdf"]}},{"not":{"selector_matches":"[target=_blank],[download],[href='/'],[href^='/#'],[href^='/social-night'],[href^='/committees/doomsday']"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/api/*","/*.pdf"]}},{"not":{"selector_matches":"[target=_blank],[download]"}}]},"eagerness":"moderate"}]}</script>
+  <script type="importmap">{"imports":{"lenis":"/js/vendor/lenis.js","qrcode-generator":"/js/vendor/qrcode.js"}}</script>
   <script type="module" src="/js/nav.js"></script>
   <script type="module" src="/js/smooth-scroll.js"></script>
   <script type="module" src="/js/reveal.js"></script>

@@ -9,9 +9,11 @@ pageJs: [qr]
 ---
 {%- from "partials/gilt.njk" import frame, laurel, mark -%}
 {#- The QR page (4 October; working since 13 October, docs/QR.md). A delegate types the email
-    they registered with; src/js/qr.js asks /api/pass.php, then draws their QR code and fills in
-    their name, committee, allocation and committee page. Until the Secretariat uploads the
-    delegate list, the answer is "not open yet". The text is in site.json qrPage. -#}
+    they registered with; src/js/qr.js asks /api/pass.php, which asks the check-in app (18
+    October), then draws their QR code, fills in their name, committee, allocation and committee
+    page, and offers it as an image or a PDF to print (src/js/pass-pdf.js). Until the check-in
+    app is connected and the Secretariat opens passes, the answer is "not open yet". The text is
+    in site.json qrPage. -#}
 {%- from "partials/icons.njk" import icon -%}
 {%- from "partials/buttons.njk" import shine -%}
 {%- set q = site.qrPage -%}
@@ -24,7 +26,7 @@ pageJs: [qr]
     <div class="qr__copy">
       <h1 class="t-page qr__title" data-reveal="mask">{{ q.title }}</h1>
       <p class="qr__intro" data-reveal>{{ q.intro }}</p>
-      <form class="qr__form" data-reveal data-qr-form data-site="{{ site.url }}" novalidate>
+      <form class="qr__form" data-reveal data-qr-form data-pdf="/js/pass-pdf.js" novalidate>
         <label class="qr__label" for="qr-email">Registration email</label>
         <div class="qr__row">
           <input class="qr__input" id="qr-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required aria-describedby="qr-note">
@@ -39,13 +41,16 @@ pageJs: [qr]
       <div class="qr__code">
         <span class="qr__frame" data-qr-code aria-hidden="true">{{ icon("qr-code") }}</span>
         <span class="qr__placeholder" data-qr-placeholder>{{ q.placeholder }}</span>
-        <a class="btn btn--outline qr__save" download="oakjmun-qr.png" href="#" hidden data-qr-save>{{ q.save }}</a>
+        <div class="qr__saves" hidden data-qr-saves>
+          <a class="btn btn--outline qr__save" download="oakjmun-pass.png" href="#" data-qr-save>{{ q.save }}</a>
+          <button class="btn btn--outline qr__save" type="button" data-qr-pdf>{{ q.pdf.button }}</button>
+        </div>
       </div>
       <div class="qr__details">
         <h2 class="qr__details-title">{{ q.detailsTitle }}</h2>
         <dl class="qr__list">
           {%- for d in q.details %}
-          <div class="qr__field">
+          <div class="qr__field"{% if d.optional %} hidden data-qr-optional{% endif %}>
             <dt>{{ d.label }}</dt>
             <dd data-qr-field="{{ d.key }}">{{ d.value }}</dd>
           </div>
@@ -64,4 +69,6 @@ pageJs: [qr]
   {%- for c in committees %}{% set pages = (pages.push({ code: c.code, name: c.name, url: "/committees/" ~ c.slug ~ "/" }), pages) %}{% endfor %}
   <script type="application/json" data-qr-committees>{{ pages | dump | safe }}</script>
   <script type="application/json" data-qr-messages>{{ q.messages | dump | safe }}</script>
+  {%- set pdfWords = { site: site.name ~ " " ~ site.year, title: q.pdf.title, instruction: q.pdf.instruction, note: q.pdf.note, when: (site.start | eventDates(site.end)) ~ " · " ~ site.venueShort } %}
+  <script type="application/json" data-qr-pdf-words>{{ pdfWords | dump | safe }}</script>
 </section>

@@ -46,7 +46,7 @@
         "link": "https://forms.cloud.microsoft/pages/responsepage.aspx?id=e3DJf4-dak-Fa664SP7xA6W6JxUjb5hDmp-UTZ-9A9hUNlNGTElHMUlLVFRYMEZXNTI4STFZUkUyTS4u&route=shorturl"
       },
       {
-        "text": "Allocation Round 2 is out!",
+        "text": "Allocation Round 3 is out!",
         "link": "/allocations/"
       }
     ]
@@ -69,8 +69,8 @@
             "url": "/committees/"
           }
         },
-        "title": "Round 2 allocations are out!",
-        "text": "Rounds 1 and 2 have both been released. Round 3 is coming soon.",
+        "title": "Round 3 allocations are out!",
+        "text": "Rounds 1, 2 and 3 have all been released.",
         "lists": [
           {
             "title": "Training sessions on Microsoft Teams",
@@ -259,7 +259,7 @@
       "found": "Here's your QR code. Show it at the registration desk when you arrive: save it as an image, or download the PDF to print.",
       "unknown": "We couldn't find that email. Check it's the one you registered with. If you haven't been allotted a country yet, your QR code will be here once you are.",
       "email": "Enter a full email address.",
-      "closed": "QR codes aren't open yet. They open once every allocation is out.",
+      "closed": "QR codes aren't open yet. Check back here soon.",
       "busy": "Too many tries from this connection. Wait a few minutes and try again.",
       "error": "Something went wrong. Check your connection and try again."
     },
@@ -363,8 +363,8 @@
       },
       {
         "name": "Round 3",
-        "status": "soon",
-        "label": "Coming soon",
+        "status": "released",
+        "label": "Released",
         "date": "",
         "note": ""
       }

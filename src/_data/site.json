@@ -90,34 +90,6 @@
         }
       },
       {
-        "title": "Registration has been extended",
-        "lists": [
-          {
-            "title": "New closing dates",
-            "doneLabel": "closed",
-            "dates": [
-              {
-                "label": "Organising Committee",
-                "detail": "Grades 9 to 12",
-                "date": "Tuesday 20 October",
-                "done": true
-              },
-              {
-                "label": "International Press",
-                "detail": "Grades 9 to 12",
-                "date": "Sunday 25 October"
-              },
-              {
-                "label": "Delegates",
-                "detail": "Grades 6 to 8",
-                "date": "Wednesday 28 October"
-              }
-            ]
-          }
-        ],
-        "register": true
-      },
-      {
         "headline": "Your experience begins on 29th Oct, with an online EB lead-in session.",
         "highlight": "online EB lead-in session",
         "link": {

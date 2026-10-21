@@ -62,19 +62,19 @@
     "popups": [
       {
         "flash": {
-          "title": "All committee agendas are out!",
-          "text": "Every committee's agenda is on its page.",
+          "title": "QR codes are out!",
+          "text": "Your entry QR code is your pass at the registration desk on Day one. Get yours with the email you registered with.",
           "link": {
-            "label": "See the committees",
-            "url": "/committees/"
+            "label": "Get your QR code",
+            "url": "/qr/"
           }
         },
-        "title": "Round 3 allocations are out!",
+        "title": "Final round of allocations coming soon!",
         "text": "Rounds 1, 2 and 3 have all been released.",
         "lists": [
           {
-            "title": "Training sessions on Microsoft Teams",
-            "trainingDates": true,
+            "title": "Training session on Microsoft Teams",
+            "trainingDates": "upcoming",
             "note": {
               "text": "Missed a training session?",
               "link": {
@@ -365,6 +365,13 @@
         "name": "Round 3",
         "status": "released",
         "label": "Released",
+        "date": "",
+        "note": ""
+      },
+      {
+        "name": "Final round",
+        "status": "soon",
+        "label": "Coming soon",
         "date": "",
         "note": ""
       }

@@ -6,6 +6,11 @@ declare(strict_types=1);
 require __DIR__ . '/lib.php';
 
 $in = read_post();
+// The switch in site.json → qrPage → open (docs/QR.md): until it's on, no pass is given out,
+// whatever the check-in app says.
+if (!passes_open()) {
+    respond(503, ['error' => 'closed']);
+}
 if (!within_limit('pass', 60, 600)) {
     respond(429, ['error' => 'busy']);
 }

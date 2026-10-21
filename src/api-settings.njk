@@ -1,0 +1,10 @@
+---
+permalink: /api/settings.php
+eleventyExcludeFromCollections: true
+---
+<?php
+// Made by the build from site.json → qrPage → open (src/api-settings.njk), so the QR page and
+// /api/pass.php open together, with one switch. Never edit this file on the server.
+declare(strict_types=1);
+
+const PASSES_OPEN = {{ "true" if site.qrPage.open === true else "false" }};

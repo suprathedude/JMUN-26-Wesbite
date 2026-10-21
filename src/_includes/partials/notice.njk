@@ -50,7 +50,8 @@
     {#- Lists of dates (17 October: several, each under its own title). A list holds the
         training sessions from newToMun.json (trainingDates: true, 16 October), so they're only
         ever typed once, and/or dates of its own, each with an optional detail line under its
-        label. One that's over (done: true) is crossed out. A list's own dates can have long
+        label. One that's over (done: true) is crossed out, read out as the list's doneLabel ("closed")
+        or the training sessions' "done". A list's own dates can have long
         labels ("Organising Committee"), so they get half the row instead of the training
         sessions' short "Session 1" column. -#}
     {%- for l in p.lists %}
@@ -63,7 +64,7 @@
     <h3 class="notice__sub">{{ l.title }}</h3>
     <ul class="notice__dates{% if not l.trainingDates %} notice__dates--even{% endif %}" role="list">
       {%- for d in dates %}
-      <li{% if d.done %} class="is-done"{% endif %}><span class="notice__label">{% if d.detail %}<span class="notice__name">{{ d.label }}</span><span class="visually-hidden">, </span><span class="notice__detail">{{ d.detail }}</span>{% else %}{{ d.label }}{% endif %}</span><span class="notice__date">{{ d.date }}{% if d.done %}<span class="visually-hidden"> ({{ newToMun.training.doneLabel }})</span>{% endif %}</span></li>
+      <li{% if d.done %} class="is-done"{% endif %}><span class="notice__label">{% if d.detail %}<span class="notice__name">{{ d.label }}</span><span class="visually-hidden">, </span><span class="notice__detail">{{ d.detail }}</span>{% else %}{{ d.label }}{% endif %}</span><span class="notice__date">{{ d.date }}{% if d.done %}<span class="visually-hidden"> ({{ l.doneLabel or newToMun.training.doneLabel }})</span>{% endif %}</span></li>
       {%- endfor %}
     </ul>
     {%- endif %}

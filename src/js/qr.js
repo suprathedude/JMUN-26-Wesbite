@@ -32,24 +32,85 @@ const committeeOf = (text) => {
   return committees.find?.((c) => c.code.toLowerCase() === key || c.name.toLowerCase() === key);
 };
 
-// A PNG of the code for "Save QR code": black on white with a quiet border, 12 px a square.
-const png = (qr) => {
-  const cells = qr.getModuleCount();
-  const size = 12;
-  const margin = 4;
+// "Save as image" (21 October): the pass as a picture, like the card on the page. The name, then
+// committee · allocation, then the code on a cream card with a white square around it. The
+// colours are the site's own tokens, read from the CSS; the text is the page's Montserrat.
+const token = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+// Lines of text that fit in `width`, at the largest size from `size` down that needs no more
+// than `most` lines.
+function fit(ctx, text, width, weight, size, most) {
+  for (let px = size; ; px -= 2) {
+    ctx.font = `${weight} ${px}px Montserrat, system-ui, sans-serif`;
+    const lines = [];
+    for (const word of text.split(" ")) {
+      const last = lines.at(-1);
+      if (last !== undefined && ctx.measureText(`${last} ${word}`).width <= width) lines[lines.length - 1] = `${last} ${word}`;
+      else lines.push(word);
+    }
+    if (lines.length <= most || px <= size / 2) return { lines, px, font: ctx.font };
+  }
+}
+
+async function passImage(pass, qr) {
+  await Promise.all(["800 50px Montserrat", "500 28px Montserrat"].map((f) => document.fonts?.load(f).catch(() => {})));
+  const W = 1080;
+  const pad = 90;
+  const card = 630; // the cream card
+  const inset = 46; // cream border around the white square
   const canvas = document.createElement("canvas");
-  canvas.width = canvas.height = (cells + margin * 2) * size;
   const ctx = canvas.getContext("2d");
-  ctx.fillStyle = "#fff";
+  const name = fit(ctx, pass.name || "", W - pad * 2, 800, 50, 2);
+  const line = [pass.code || pass.committee, pass.allocation].filter(Boolean).join(" · ");
+  const sub = fit(ctx, line, W - pad * 2, 500, 28, 2);
+  const nameH = name.lines.length * name.px * 1.2;
+  const subH = sub.lines.length * sub.px * 1.35;
+  canvas.width = W;
+  canvas.height = Math.round(pad + nameH + 22 + subH + 62 + card + pad);
+
+  ctx.fillStyle = token("--blue-700");
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "#000";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "top";
+  let y = pad;
+  ctx.font = name.font;
+  ctx.fillStyle = token("--ink");
+  for (const l of name.lines) {
+    ctx.fillText(l, W / 2, y);
+    y += name.px * 1.2;
+  }
+  y += 22;
+  ctx.font = sub.font;
+  ctx.fillStyle = `rgba(${token("--ink-rgb").split(/\s+/).join(",")}, 0.6)`;
+  for (const l of sub.lines) {
+    ctx.fillText(l, W / 2, y);
+    y += sub.px * 1.35;
+  }
+  // Whole pixels from here, so the squares of the code meet without seams.
+  y = Math.round(y + 62);
+
+  // The cream card, rounded, then the white square, then the code: dark on white with a quiet
+  // border of two squares, so any scanner reads it.
+  const x = (W - card) / 2;
+  ctx.fillStyle = token("--ink");
+  ctx.beginPath();
+  ctx.roundRect(x, y, card, card, 42);
+  ctx.fill();
+  const square = card - inset * 2;
+  ctx.fillStyle = token("--white");
+  ctx.fillRect(x + inset, y + inset, square, square);
+  const cells = qr.getModuleCount();
+  const margin = 2;
+  const cell = Math.floor(square / (cells + margin * 2));
+  const offset = Math.round((square - cell * cells) / 2);
+  ctx.fillStyle = token("--blue-950");
   for (let r = 0; r < cells; r++) {
     for (let c = 0; c < cells; c++) {
-      if (qr.isDark(r, c)) ctx.fillRect((c + margin) * size, (r + margin) * size, size, size);
+      if (qr.isDark(r, c)) ctx.fillRect(x + inset + offset + c * cell, y + inset + offset + r * cell, cell, cell);
     }
   }
   return canvas.toDataURL("image/png");
-};
+}
 
 const show = (pass) => {
   const qr = qrcode(0, "M");
@@ -62,8 +123,11 @@ const show = (pass) => {
   code.setAttribute("role", "img");
   code.setAttribute("aria-label", `QR code for ${pass.name}`);
   placeholder.hidden = true;
-  save.href = png(qr);
   save.download = fileName(pass.name, "png");
+  save.removeAttribute("href");
+  passImage(pass, qr).then((url) => {
+    if (current?.qr === qr) save.href = url;
+  });
   saves.hidden = false;
 
   field("name").textContent = pass.name || "TBC";

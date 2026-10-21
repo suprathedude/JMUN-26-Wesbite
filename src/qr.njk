@@ -17,6 +17,9 @@ pageJs: [qr]
 {%- from "partials/icons.njk" import icon -%}
 {%- from "partials/buttons.njk" import shine -%}
 {%- set q = site.qrPage -%}
+{#- The switch (21 October): site.json qrPage.open. Off, the form is greyed out with the
+    "opening soon" note, and /api/pass.php refuses too (src/api-settings.njk). -#}
+{%- set open = q.open === true -%}
 
 <section class="qr">
   <div class="orb qr__orb" aria-hidden="true"></div>
@@ -26,13 +29,13 @@ pageJs: [qr]
     <div class="qr__copy">
       <h1 class="t-page qr__title" data-reveal="mask">{{ q.title }}</h1>
       <p class="qr__intro" data-reveal>{{ q.intro }}</p>
-      <form class="qr__form" data-reveal data-qr-form data-pdf="/js/pass-pdf.js" novalidate>
+      <form class="qr__form{% if not open %} is-closed{% endif %}" data-reveal data-qr-form data-pdf="/js/pass-pdf.js"{% if not open %} data-closed{% endif %} novalidate>
         <label class="qr__label" for="qr-email">Registration email</label>
         <div class="qr__row">
-          <input class="qr__input" id="qr-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required aria-describedby="qr-note">
-          <button class="btn btn--shiny" type="submit">{{ shine() }}{{ q.button }}</button>
+          <input class="qr__input" id="qr-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required aria-describedby="qr-note"{% if not open %} disabled{% endif %}>
+          <button class="btn btn--shiny{% if not open %} is-disabled{% endif %}" type="submit"{% if not open %} disabled{% endif %}>{{ shine() }}{{ q.button }}</button>
         </div>
-        <p class="qr__note" id="qr-note">{{ q.note }}</p>
+        <p class="qr__note" id="qr-note">{{ q.note if open else q.closedNote }}</p>
         <p class="qr__status" role="status" data-qr-status></p>
       </form>
     </div>

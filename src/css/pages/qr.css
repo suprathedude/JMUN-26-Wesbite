@@ -70,6 +70,15 @@
   border-color: var(--teal);
 }
 
+/* Not open yet (site.json qrPage.open): the box and button are greyed out, the note stays clear */
+.qr__form.is-closed .qr__row {
+  opacity: 0.5;
+}
+
+.qr__form.is-closed .qr__input {
+  cursor: not-allowed;
+}
+
 .qr__note {
   margin-top: 14px;
   font-size: 0.95rem;

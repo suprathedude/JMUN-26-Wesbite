@@ -82,6 +82,8 @@ const show = (pass) => {
 
 form?.addEventListener("submit", async (event) => {
   event.preventDefault();
+  // Not open yet (site.json qrPage.open): the form is greyed out, and the server says no too.
+  if (form.hasAttribute("data-closed")) return say(messages.closed);
   const email = form.elements.email.value.trim();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return say(messages.email);
   const button = form.querySelector("button");

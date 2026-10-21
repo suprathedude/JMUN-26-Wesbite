@@ -47,10 +47,63 @@ function read_post(): array
     return is_array($data) ? $data : [];
 }
 
+// True once site.json → qrPage → open is on, from settings.php, which the build makes. A missing
+// file counts as off.
+function passes_open(): bool
+{
+    $file = __DIR__ . '/settings.php';
+    if (is_file($file)) {
+        require_once $file;
+    }
+    return defined('PASSES_OPEN') && PASSES_OPEN === true;
+}
+
+// Cloudflare's addresses (cloudflare.com/ips). A visitor's own address in CF-Connecting-IP is
+// believed only from these, so nobody can send a made-up one to get round the lookup limit.
+const CLOUDFLARE = [
+    '173.245.48.0/20', '103.21.244.0/22', '103.22.200.0/22', '103.31.4.0/22', '141.101.64.0/18',
+    '108.162.192.0/18', '190.93.240.0/20', '188.114.96.0/20', '197.234.240.0/22', '198.41.128.0/17',
+    '162.158.0.0/15', '104.16.0.0/13', '104.24.0.0/14', '172.64.0.0/13', '131.0.72.0/22',
+    '2400:cb00::/32', '2606:4700::/32', '2803:f800::/32', '2405:b500::/32', '2405:8100::/32',
+    '2a06:98c0::/29', '2c0f:f248::/32',
+];
+
+function in_range(string $ip, string $cidr): bool
+{
+    [$net, $bits] = explode('/', $cidr);
+    $a = @inet_pton($ip);
+    $b = @inet_pton($net);
+    if ($a === false || $b === false || strlen($a) !== strlen($b)) {
+        return false;
+    }
+    $bits = (int) $bits;
+    $whole = intdiv($bits, 8);
+    if (strncmp($a, $b, $whole) !== 0) {
+        return false;
+    }
+    $rest = $bits % 8;
+    if ($rest === 0) {
+        return true;
+    }
+    $mask = (0xff << (8 - $rest)) & 0xff;
+    return (ord($a[$whole]) & $mask) === (ord($b[$whole]) & $mask);
+}
+
 function client_ip(): string
 {
-    // Visitors arrive through Cloudflare, which passes on their own address.
-    $ip = $_SERVER['HTTP_CF_CONNECTING_IP'] ?? $_SERVER['REMOTE_ADDR'] ?? '';
+    $remote = (string) ($_SERVER['REMOTE_ADDR'] ?? '');
+    $ip = $remote;
+    // Through Cloudflare, the connection comes from Cloudflare and the visitor's own address is
+    // passed on in CF-Connecting-IP.
+    $passed = (string) ($_SERVER['HTTP_CF_CONNECTING_IP'] ?? '');
+    if ($passed !== '' && filter_var($remote, FILTER_VALIDATE_IP)) {
+        foreach (CLOUDFLARE as $cidr) {
+            if (in_range($remote, $cidr)) {
+                $ip = filter_var($passed, FILTER_VALIDATE_IP) ? $passed : $remote;
+                break;
+            }
+        }
+    }
     return filter_var($ip, FILTER_VALIDATE_IP) ? $ip : 'unknown';
 }
 

@@ -47,8 +47,26 @@ Once the check-in app is running (its `SETUP.md`):
 3. On the check-in app's admin page, turn **QR passes on the website** on.
 4. Look yourself up on the QR page with an email that's on the delegate sheet.
 
-Until `checkin.json` is there, or while passes are off on the admin page, the QR page says QR
-codes aren't open yet. Change that note in `site.json` → `qrPage.note` once they are.
+## Turning QR passes on
+
+Passes are given out only when all three are on, so nothing opens by accident:
+
+1. **The website's switch:** `site.json` → `qrPage` → `"open": true` (21 October; it's `false`
+   until the Secretariat says go). While it's off, the QR page stays in the nav but its email box
+   and button are greyed out under `qrPage.closedNote` ("QR codes open soon"), and
+   `/api/pass.php` refuses every lookup as well: the build writes the switch into
+   `/api/settings.php` (`src/api-settings.njk`), so the page and the server always agree.
+2. `checkin.json` in GoDaddy's private folder (above).
+3. **QR passes on the website** on the check-in app's admin page.
+
+With any of them off, a delegate sees "QR codes aren't open yet" (`qrPage.messages.closed`). To
+close passes again quickly on the day, switch them off on the admin page: that's instant, with no
+commit. `qrPage.note` is the line under the email box once passes are open.
+
+Tested end to end on 21 October with the check-in app running locally and its dummy sheet: the
+lookup (with capitals and spaces in the email), the code on screen and in the saved image both
+decoding to the delegate's code, the PDF, a Lok Sabha delegate's extra details, an unknown email,
+then the desk app scanning the pass through a camera (green, then amber on a second scan).
 
 ## Privacy and limits
 
@@ -57,6 +75,10 @@ codes aren't open yet. Change that note in `site.json` → `qrPage.note` once th
   OC email on the check-in app's list and the PIN.
 - One connection can look up 60 emails in 10 minutes, here and again in the check-in app. A whole
   school network shares one connection, so the limit is generous.
+- The visitor's address comes from the connection itself. Only when the connection comes from
+  Cloudflare's own addresses (the list in `src/api/lib.php`, from cloudflare.com/ips) is the
+  address Cloudflare passes on believed, so nobody can get round the limit by sending a made-up
+  one. If Cloudflare ever adds addresses, add them to that list.
 - `oakjmun-private` refuses web requests anyway (it holds a `.htaccess` that says so). If the
   website ever moves into a folder inside `public_html`, the private folder must move next to the
   website's own folder.

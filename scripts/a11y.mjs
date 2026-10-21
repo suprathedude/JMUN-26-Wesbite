@@ -19,6 +19,7 @@
 import { chromium } from "playwright";
 import { AxeBuilder } from "@axe-core/playwright";
 import { stat } from "node:fs/promises";
+import { readFileSync } from "node:fs";
 import { serve } from "./lib/serve.mjs";
 import { findPages } from "./lib/pages.mjs";
 import { contrastProblems } from "./lib/contrast.mjs";
@@ -45,6 +46,7 @@ const popup = (n) => async (page) => {
   }
 };
 const POPUP_CHECKS = { contrast: `${POPUP} .notice__card`, keyboard: POPUP };
+const POPUPS = JSON.parse(readFileSync(new URL("../src/_data/site.json", import.meta.url), "utf8")).notice?.popups ?? [];
 
 // Interaction states, so axe also sees what only appears after a click.
 const STATES = [
@@ -53,17 +55,28 @@ const STATES = [
   { name: "secretariat: card flipped", path: "/secretariat/", width: 1440, run: (page) => page.focus(".person__flip").then(() => page.keyboard.press("Enter")) },
   { name: "social night: second FAQ open", path: "/social-night/", width: 390, run: (page) => page.locator(".faq-q").nth(1).click() },
   { name: "committees: no results", path: "/committees/", width: 1440, run: (page) => page.fill("input[data-search]", "zzzz") },
-  { name: "home: first pop-up", path: "/", width: 390, notice: true, checks: POPUP_CHECKS, run: popup(1) },
-  { name: "home: first pop-up", path: "/", width: 1440, notice: true, checks: POPUP_CHECKS, run: popup(1) },
-  { name: "home: first pop-up", path: "/", width: 360, notice: true, checks: { ...POPUP_CHECKS, phone: true }, run: popup(1) },
-  { name: "home: second pop-up", path: "/", width: 390, notice: true, checks: POPUP_CHECKS, run: popup(2) },
-  { name: "home: second pop-up", path: "/", width: 1440, notice: true, checks: POPUP_CHECKS, run: popup(2) },
-  { name: "home: second pop-up", path: "/", width: 360, notice: true, checks: { ...POPUP_CHECKS, phone: true }, run: popup(2) },
-  { name: "home: second pop-up, Register menu open", path: "/", width: 390, notice: true, checks: POPUP_CHECKS, run: (page) => popup(2)(page).then(() => page.click(`${POPUP} [data-reg-btn]`)) },
-  { name: "home: second pop-up, Register menu open", path: "/", width: 1440, notice: true, checks: POPUP_CHECKS, run: (page) => popup(2)(page).then(() => page.click(`${POPUP} [data-reg-btn]`)) },
-  { name: "home: third pop-up", path: "/", width: 390, notice: true, checks: POPUP_CHECKS, run: popup(3) },
-  { name: "home: third pop-up", path: "/", width: 1440, notice: true, checks: POPUP_CHECKS, run: popup(3) },
-  { name: "home: third pop-up", path: "/", width: 360, notice: true, checks: { ...POPUP_CHECKS, phone: true }, run: popup(3) },
+  // Every pop-up in site.json (notice.popups) at three widths, and its Register menu open where
+  // it has one, so adding or removing a pop-up needs no change here.
+  ...POPUPS.flatMap((p, i) => [
+    ...[390, 1440, 360].map((width) => ({
+      name: `home: pop-up ${i + 1}`,
+      path: "/",
+      width,
+      notice: true,
+      checks: width === 360 ? { ...POPUP_CHECKS, phone: true } : POPUP_CHECKS,
+      run: popup(i + 1),
+    })),
+    ...(p.register
+      ? [390, 1440].map((width) => ({
+          name: `home: pop-up ${i + 1}, Register menu open`,
+          path: "/",
+          width,
+          notice: true,
+          checks: POPUP_CHECKS,
+          run: (page) => popup(i + 1)(page).then(() => page.click(`${POPUP} [data-reg-btn]`)),
+        }))
+      : []),
+  ]),
 ];
 
 // One h1, and headings only ever go one level deeper at a time.

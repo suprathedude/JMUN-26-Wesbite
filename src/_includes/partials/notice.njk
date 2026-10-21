@@ -48,8 +48,8 @@
     <h2 class="notice__title" id="{{ titleId }}">{{ p.title }}</h2>
     {%- if p.text %}<p class="notice__text">{{ p.text }}</p>{% endif %}
     {#- Lists of dates (17 October: several, each under its own title). A list holds the
-        training sessions from newToMun.json (trainingDates: true, 16 October), so they're only
-        ever typed once, and/or dates of its own, each with an optional detail line under its
+        training sessions from newToMun.json (trainingDates: true, 16 October; "upcoming", 21
+        October, leaves out the ones that are done), so they're only ever typed once, and/or dates of its own, each with an optional detail line under its
         label. One that's over (done: true) is crossed out, read out as the list's doneLabel ("closed")
         or the training sessions' "done". A list's own dates can have long
         labels ("Organising Committee"), so they get half the row instead of the training
@@ -57,7 +57,7 @@
     {%- for l in p.lists %}
     {%- set dates = [] %}
     {%- if l.trainingDates %}
-    {%- for s in newToMun.training.sessions %}{% set dates = (dates.push({ label: newToMun.training.sessionLabel ~ " " ~ loop.index, date: s.date, done: s.done }), dates) %}{% endfor %}
+    {%- for s in newToMun.training.sessions %}{% if not (l.trainingDates == "upcoming" and s.done) %}{% set dates = (dates.push({ label: newToMun.training.sessionLabel ~ " " ~ loop.index, date: s.date, done: s.done }), dates) %}{% endif %}{% endfor %}
     {%- endif %}
     {%- for d in l.dates %}{% set dates = (dates.push(d), dates) %}{% endfor %}
     {%- if dates | length %}

@@ -79,10 +79,10 @@
       },
       {
         "date": "Wednesday 21 October, 6:00 pm",
-        "done": false,
+        "done": true,
         "link": "",
-        "recording": "",
-        "slides": ""
+        "recording": "https://drive.google.com/file/d/14sjCZfaIDUm6FDTc-HFKKjSMH4A5ZYb_/view?usp=sharing",
+        "slides": "https://canva.link/oakjmun-2026-training-module-2"
       },
       {
         "date": "Monday 26 October, 6:00 pm",

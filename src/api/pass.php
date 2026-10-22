@@ -25,16 +25,37 @@ if ($app === null) {
 
 [$status, $body] = post_json($app['url'] . '/api/pass', ['email' => $email, 'visitor' => client_ip()], ['X-Pass-Key: ' . $app['key']]);
 
-if ($status === 200 && preg_match('/^OAKJMUN:[0-9a-f]{20}$/', (string) ($body['qr'] ?? ''))) {
-    $text = fn (string $k) => is_string($body[$k] ?? null) ? $body[$k] : '';
-    respond(200, [
+// One delegate's pass, with only the fields the QR page shows; null if it isn't a pass.
+function pass_of(mixed $p): ?array
+{
+    if (!is_array($p) || !preg_match('/^OAKJMUN:[0-9a-f]{20}$/', (string) ($p['qr'] ?? ''))) {
+        return null;
+    }
+    $text = fn (string $k) => is_string($p[$k] ?? null) ? $p[$k] : '';
+    return [
         'name' => $text('name'),
         'committee' => $text('committee'),
         'code' => $text('code'),
         'allocation' => $text('allocation'),
         'detail' => $text('detail'),
-        'qr' => $body['qr'],
-    ]);
+        'qr' => $p['qr'],
+    ];
+}
+
+if ($status === 200) {
+    // Brothers and sisters on one email (22 October): the app sends each one's pass, and the QR
+    // page shows a button for each name.
+    if (is_array($body['people'] ?? null)) {
+        $people = array_values(array_filter(array_map('pass_of', array_slice($body['people'], 0, 6))));
+        if (count($people) > 1) {
+            respond(200, ['people' => $people]);
+        }
+        if (count($people) === 1) {
+            respond(200, $people[0]);
+        }
+    } elseif (($one = pass_of($body)) !== null) {
+        respond(200, $one);
+    }
 }
 // The app's answers the QR page has words for; anything else (or no answer) is "error".
 $known = ['closed' => 503, 'unknown' => 404, 'email' => 400, 'busy' => 429];

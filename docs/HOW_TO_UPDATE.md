@@ -211,8 +211,10 @@ In `site.json` → `notice`:
     out in teal (copied exactly from the headline), and an optional `"link"` button (the lead-in
     one goes to New to MUN's lead-in section, `/new-to-mun/#lead-in`).
 - `"pages"`: where they open (`["/"]` is the homepage only). Leave it out to show them on every page.
-- `"everyVisit": true` opens them on every visit to those pages (15 October). Without it, they open
-  once per browser, and again only when their text changes.
+- `"everyVisit": true` opens them once per visit (22 October): the first time someone reaches the
+  page, and not again when they come back to it in the same visit. A new tab or a reopened browser
+  is a new visit. Without it, they open once per browser, and again only when their text changes.
+  Either way, changed text shows again.
 - `"enabled": false` turns them all off. To drop one, delete it from the list.
 
 Following a pop-up's button (See allocations) leaves the page, so the ones after it wait for the

@@ -70,6 +70,23 @@
   border-color: var(--teal);
 }
 
+/* One email, more than one delegate (22 October): a button for each name */
+.qr__choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.qr__choices[hidden] {
+  display: none;
+}
+
+.qr__choice[aria-pressed="true"] {
+  border-color: var(--teal);
+  background: rgb(var(--teal-rgb) / 0.14);
+}
+
 /* Not open yet (site.json qrPage.open): the box and button are greyed out, the note stays clear */
 .qr__form.is-closed .qr__row {
   opacity: 0.5;

@@ -23,7 +23,11 @@ check-in app's address.
    a phone's own camera app shows a meaningless code, and only the check-in app's scanner can use
    it. The code is a signature of the delegate's email, so it can't be guessed, and it never
    changes when the delegate sheet is uploaded again.
-4. **Save as image** saves the pass as a picture (their name, committee · allocation, and the code on a cream card, 21 October); **Download PDF** makes a one-page A4 pass with
+4. **One email, more than one delegate** (brothers and sisters on a parent's address, 22 October):
+   the check-in app keeps each of them with their own code, and the QR page shows a button for
+   each name; choosing one shows that delegate's pass. `qrPage.messages.choose` is the line above
+   the buttons.
+5. **Save as image** saves the pass as a picture (their name, committee · allocation, and the code on a cream card, 21 October); **Download PDF** makes a one-page A4 pass with
    their details and the code (`src/js/pass-pdf.js`, loaded only when it's tapped).
 
 | Part | File |

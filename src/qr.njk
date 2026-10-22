@@ -36,7 +36,9 @@ pageJs: [qr]
           <button class="btn btn--shiny{% if not open %} is-disabled{% endif %}" type="submit"{% if not open %} disabled{% endif %}>{{ shine() }}{{ q.button }}</button>
         </div>
         <p class="qr__note" id="qr-note">{{ q.note if open else q.closedNote }}</p>
-        <p class="qr__status" role="status" data-qr-status></p>
+        <p class="qr__status" id="qr-status-text" role="status" data-qr-status></p>
+        {#- One email, more than one delegate (22 October): a button for each name. -#}
+        <div class="qr__choices" role="group" aria-labelledby="qr-status-text" hidden data-qr-choices></div>
       </form>
     </div>
     {#- The pass: the QR code, then who it belongs to. Every value is TBC until codes open. -#}

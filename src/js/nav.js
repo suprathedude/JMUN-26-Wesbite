@@ -59,23 +59,35 @@ function rotateStrip(strip) {
 
 // The pop-ups (site.json → notice), after the page has loaded: the first one, then each of the
 // others as the one before is closed (16 October). The page stays locked from the first opening
-// to the last closing, so it doesn't jump in between. On every visit with notice.everyVisit;
-// otherwise once per browser until their text changes. "off" in storage turns them off (the
-// test scripts set it). Following a pop-up's link leaves the page, so the rest wait for the
-// next visit.
+// to the last closing, so it doesn't jump in between. With notice.everyVisit, once per visit
+// (22 October): the first time the page is reached in a tab, and not again on coming back to it
+// in the same visit; a new tab or a reopened browser is a new visit. Without it, once per browser
+// until their text changes. New text shows again either way. "off" in storage turns them off
+// (the test scripts set it). Following a pop-up's link leaves the page, so the rest wait for the
+// next visit. A page the browser got ready in advance (speculation rules) waits until it's
+// actually shown.
 const NOTICE_KEY = "oakjmun-notice";
+const VISIT_KEY = "oakjmun-notice-visit";
 function initNotice() {
   const dialogs = [...document.querySelectorAll("[data-notice]")];
   if (!dialogs.length || typeof dialogs[0].showModal !== "function") return;
+  if (document.prerendering) {
+    document.addEventListener("prerenderingchange", initNotice, { once: true });
+    return;
+  }
   const key = dialogs[0].dataset.key;
+  const everyVisit = dialogs[0].hasAttribute("data-every-visit");
   let seen = null;
+  let seenThisVisit = null;
   try {
     seen = localStorage.getItem(NOTICE_KEY);
+    seenThisVisit = sessionStorage.getItem(VISIT_KEY);
   } catch {}
-  if (seen === "off" || (seen === key && !dialogs[0].hasAttribute("data-every-visit"))) return;
+  if (seen === "off" || (everyVisit ? seenThisVisit : seen) === key) return;
   const remember = () => {
     try {
       localStorage.setItem(NOTICE_KEY, key);
+      sessionStorage.setItem(VISIT_KEY, key);
     } catch {}
   };
   const show = (dialog) => {
@@ -140,6 +152,7 @@ function initNotice() {
       root.classList.add("notice-open");
       dispatchEvent(new Event("nav:lock"));
       show(dialogs[0]);
+      remember(); // seen once it's open, so coming back to the page this visit doesn't reopen it
     }, 700);
   if (root.classList.contains("is-loading")) addEventListener("loader:done", open, { once: true });
   else open();

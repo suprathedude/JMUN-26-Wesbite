@@ -2,8 +2,9 @@
 {%- from "partials/buttons.njk" import shine, registerButton -%}
 {#- The pop-ups (14 October): news shown after the page has loaded (nav.js), on the pages in
     site.json → notice.pages. Since 16 October there can be several (notice.popups): each one
-    opens as the one before it is closed. With notice.everyVisit (15 October) they open on every
-    visit to those pages; without it, once per browser until their text changes.
+    opens as the one before it is closed. With notice.everyVisit they open once per visit (22
+    October; not again on coming back to the page); without it, once per browser until their
+    text changes.
 
     A pop-up is either news (title, text, an optional flash box at the top with an optional link,
     optional lists of dates and a button, or with register: true the Register menu of forms, as

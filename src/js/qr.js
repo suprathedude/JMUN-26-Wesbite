@@ -16,6 +16,7 @@ const messages = read("[data-qr-messages]");
 const committees = read("[data-qr-committees]");
 const pdfWords = read("[data-qr-pdf-words]");
 const field = (key) => document.querySelector(`[data-qr-field="${key}"]`);
+const choices = document.querySelector("[data-qr-choices]");
 
 const say = (text) => {
   status.textContent = text;
@@ -160,7 +161,26 @@ form?.addEventListener("submit", async (event) => {
       body: JSON.stringify({ email }),
     });
     const body = await res.json().catch(() => ({}));
-    if (res.ok && body.qr) {
+    choices.hidden = true;
+    choices.replaceChildren();
+    if (res.ok && Array.isArray(body.people) && body.people.length) {
+      // One email, more than one delegate: a button for each name, then that one's pass.
+      say(messages.choose);
+      for (const person of body.people) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "btn btn--outline qr__choice";
+        button.textContent = person.name;
+        button.setAttribute("aria-pressed", "false");
+        button.addEventListener("click", () => {
+          for (const b of choices.children) b.setAttribute("aria-pressed", String(b === button));
+          show(person);
+          say(messages.found);
+        });
+        choices.append(button);
+      }
+      choices.hidden = false;
+    } else if (res.ok && body.qr) {
       show(body);
       say(messages.found);
     } else {

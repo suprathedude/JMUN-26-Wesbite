@@ -49,14 +49,15 @@
       {
         "role": "Vice Chair",
         "name": "Anirudh Duddilla",
-        "photo": "",
+        "photo": "assets/img/eb/disec-anirudh-duddilla.jpg",
         "bio": ""
       },
       {
         "role": "Rapporteur",
         "name": "Ansh Batra",
-        "photo": "",
-        "bio": ""
+        "photo": "assets/img/eb/disec-ansh-batra.jpg",
+        "bio": "",
+        "focus": "60% center"
       }
     ]
   },
@@ -83,8 +84,9 @@
       {
         "role": "Vice Chair",
         "name": "Satvik Chenna",
-        "photo": "",
-        "bio": ""
+        "photo": "assets/img/eb/unhrc-satvik-chenna.jpg",
+        "bio": "",
+        "focus": "55% center"
       },
       {
         "role": "Rapporteur",
@@ -118,13 +120,13 @@
       {
         "role": "Vice Chair",
         "name": "Vedh Madapu",
-        "photo": "",
+        "photo": "assets/img/eb/lok-sabha-vedh-madapu.jpg",
         "bio": ""
       },
       {
         "role": "Rapporteur",
         "name": "Reyaan Villa",
-        "photo": "",
+        "photo": "assets/img/eb/lok-sabha-reyaan-villa.jpg",
         "bio": ""
       }
     ]

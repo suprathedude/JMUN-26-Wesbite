@@ -56,7 +56,8 @@ pageJs: [qr]
       </aside>
       {%- endif %}
     </div>
-    {#- The pass: the QR code, then who it belongs to. Every value is TBC until codes open. -#}
+    {#- The pass: the QR code, then who it belongs to. Before a search each value is a quiet
+        dash (qrPage.messages.empty; 23 October, "TBC" looked unfinished). -#}
     <div class="qr__card" data-reveal="art">
       <div class="qr__code">
         <span class="qr__frame" data-qr-code aria-hidden="true">{{ icon("qr-code") }}</span>
@@ -72,12 +73,12 @@ pageJs: [qr]
           {%- for d in q.details %}
           <div class="qr__field"{% if d.optional %} hidden data-qr-optional{% endif %}>
             <dt>{{ d.label }}</dt>
-            <dd data-qr-field="{{ d.key }}">{{ d.value }}</dd>
+            <dd class="is-empty" data-qr-field="{{ d.key }}">{{ q.messages.empty }}</dd>
           </div>
           {%- endfor %}
           <div class="qr__field">
             <dt>{{ q.link.label }}</dt>
-            <dd data-qr-field="link">TBC</dd>
+            <dd class="is-empty" data-qr-field="link">{{ q.messages.empty }}</dd>
           </div>
         </dl>
         <p class="qr__details-note">{{ q.detailsNote }}</p>

@@ -218,6 +218,12 @@
   color: var(--teal);
 }
 
+/* Before a search: a quiet dash, not a value */
+.qr__field dd.is-empty {
+  font-weight: 500;
+  color: var(--ink-60);
+}
+
 .qr__details-note {
   margin-top: 14px;
   font-size: 0.95rem;

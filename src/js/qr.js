@@ -131,17 +131,20 @@ const show = (pass) => {
   });
   saves.hidden = false;
 
-  field("name").textContent = pass.name || "TBC";
-  field("committee").textContent = pass.committee || "TBC";
-  field("allocation").textContent = pass.allocation || "TBC";
+  for (const key of ["name", "committee", "allocation"]) {
+    field(key).textContent = pass[key] || messages.empty;
+    field(key).classList.toggle("is-empty", !pass[key]);
+  }
   // Portfolio, position, party and constituency, for the committees that have them.
   field("detail").textContent = pass.detail || "";
+  field("detail").classList.remove("is-empty");
   field("detail").closest("[data-qr-optional]").hidden = !pass.detail;
   const committee = committeeOf(pass.code || "") ?? committeeOf(pass.committee || "");
   const link = document.createElement("a");
   link.href = committee?.url ?? "/committees/";
   link.textContent = committee ? `${committee.code} committee page` : "All committees";
   field("link").replaceChildren(link);
+  field("link").classList.remove("is-empty");
   document.querySelector(".qr__details-note")?.setAttribute("hidden", "");
 };
 

@@ -1485,6 +1485,19 @@ html.is-locked {
   color: var(--ink-60);
 }
 
+/* A person without a photo yet (23 October): their initials over "Photo TBC" */
+.photo-tbc--initials {
+  align-content: center;
+  gap: 10px;
+}
+
+.photo-tbc__initials {
+  font-size: 2.75rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  color: var(--ink-85);
+}
+
 /* ---------- Placard (SPEC 10): New to MUN? and the 404 ---------- */
 
 /* A raised tent card: white face about 3.2:1, a 4 px teal strip on top, the name in navy,

@@ -99,6 +99,8 @@ eleventyComputed:
         <div class="eb-card__photo">
           {%- if m.photo %}
           <img src="/{{ m.photo }}" alt="{{ m.name }}, {{ m.role }}" sizes="(max-width: 768px) 40vw, 300px" eleventy:widths="400,800">
+          {%- elif m.name %}
+          <span class="photo-tbc photo-tbc--initials"><span class="photo-tbc__initials" aria-hidden="true">{{ m.name | initials }}</span>Photo TBC</span>
           {%- else %}
           <span class="photo-tbc">Photo TBC</span>
           {%- endif %}
@@ -109,6 +111,8 @@ eleventyComputed:
           {%- if m.bio %}
           <p class="eb-card__bio" id="bio-{{ c.slug }}-{{ loop.index }}">{{ m.bio }}</p>
           <button class="eb-card__more" type="button" aria-expanded="false" aria-controls="bio-{{ c.slug }}-{{ loop.index }}" hidden>Read more</button>
+          {%- elif m.name %}
+          <p class="eb-card__bio is-tbc">Bio TBC</p>
           {%- endif %}
         </div>
       </article>
@@ -118,7 +122,8 @@ eleventyComputed:
   {%- endif %}
 
   {%- if c.eb %}
-  {#- Executive board (SPEC 8.6). An empty name reads "EB announced soon". -#}
+  {#- Executive board (SPEC 8.6). An empty name reads "EB announced soon"; a name without a photo
+      shows their initials over "Photo TBC", and without a bio "Bio TBC" (23 October). -#}
   <section class="eb" aria-labelledby="eb-title">
     <h2 class="t-section t-section--bar" id="eb-title" data-reveal="mask">Executive board</h2>
     <div class="eb__grid" data-reveal>
@@ -127,6 +132,8 @@ eleventyComputed:
         <div class="eb-card__photo">
           {%- if m.photo %}
           <img src="/{{ m.photo }}" alt="{{ m.name }}, {{ m.role }}" sizes="(max-width: 768px) 40vw, 400px" eleventy:widths="400,800">
+          {%- elif m.name %}
+          <span class="photo-tbc photo-tbc--initials"><span class="photo-tbc__initials" aria-hidden="true">{{ m.name | initials }}</span>Photo TBC</span>
           {%- else %}
           <span class="photo-tbc">Photo TBC</span>
           {%- endif %}
@@ -138,6 +145,8 @@ eleventyComputed:
           {%- if m.bio %}
           <p class="eb-card__bio" id="bio-{{ c.slug }}-{{ loop.index }}">{{ m.bio }}</p>
           <button class="eb-card__more" type="button" aria-expanded="false" aria-controls="bio-{{ c.slug }}-{{ loop.index }}" hidden>Read more</button>
+          {%- else %}
+          <p class="eb-card__bio is-tbc">Bio TBC</p>
           {%- endif %}
           {%- else %}
           <h3 class="eb-card__name is-tbc">EB announced soon</h3>

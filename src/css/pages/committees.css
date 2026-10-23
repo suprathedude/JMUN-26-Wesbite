@@ -507,7 +507,8 @@
   color: var(--ink-100);
 }
 
-.eb-card__name.is-tbc {
+.eb-card__name.is-tbc,
+.eb-card__bio.is-tbc {
   color: var(--ink-60);
 }
 

@@ -232,7 +232,9 @@
         "If your registration form gave a parent's email address for both the student and the parent, use that parent's email address here."
       ],
       "contact": "Having trouble getting your QR code? Email",
-      "contacts": [],
+      "contacts": [
+        { "email": "saisantoshsupratik_koppuravuri@oakridge.in", "label": "Supratiik", "role": "USG Technology" }
+      ],
       "contactEnd": "for help."
     },
     "messages": {

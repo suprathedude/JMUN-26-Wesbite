@@ -229,8 +229,9 @@
       {
         "role": "Vice Chair",
         "name": "Snigdha Kurra",
-        "photo": "",
-        "bio": ""
+        "photo": "assets/img/eb/uncsw-snigdha-kurra.jpg",
+        "bio": "",
+        "focus": "55% center"
       }
     ]
   },
@@ -251,7 +252,7 @@
       {
         "role": "Chair",
         "name": "Sathvik Vadari",
-        "photo": "",
+        "photo": "assets/img/eb/unicef-sathvik-vadari.jpg",
         "bio": ""
       },
       {
@@ -291,13 +292,14 @@
       {
         "role": "Vice Chair",
         "name": "Aarav Kolla",
-        "photo": "",
-        "bio": ""
+        "photo": "assets/img/eb/fcc-aarav-kolla.jpg",
+        "bio": "",
+        "focus": "58% center"
       },
       {
         "role": "Vice Chair",
         "name": "Hasini Jaishetty",
-        "photo": "",
+        "photo": "assets/img/eb/fcc-hasini-jaishetty.jpg",
         "bio": ""
       }
     ]
@@ -332,7 +334,7 @@
       {
         "role": "Vice Chair",
         "name": "Nitya Lanka",
-        "photo": "",
+        "photo": "assets/img/eb/copuos-nitya-lanka.jpg",
         "bio": ""
       }
     ]

@@ -55,6 +55,18 @@ const STATES = [
   { name: "secretariat: card flipped", path: "/secretariat/", width: 1440, run: (page) => page.focus(".person__flip").then(() => page.keyboard.press("Enter")) },
   { name: "social night: second FAQ open", path: "/social-night/", width: 390, run: (page) => page.locator(".faq-q").nth(1).click() },
   { name: "committees: no results", path: "/committees/", width: 1440, run: (page) => page.fill("input[data-search]", "zzzz") },
+  // A committee page's bio pop-out (23 October), open on a long bio.
+  ...[390, 1440].map((width) => ({
+    name: "lok sabha: bio pop-out open",
+    path: "/committees/lok-sabha/",
+    width,
+    checks: { contrast: ".bio-pop[open] .bio-pop__body", keyboard: ".bio-pop[open]" },
+    run: async (page) => {
+      await page.locator(".eb-card__more:visible").first().click();
+      await page.waitForSelector(".bio-pop[open]");
+      await page.waitForTimeout(600);
+    },
+  })),
   // Every pop-up in site.json (notice.popups) at three widths, and its Register menu open where
   // it has one, so adding or removing a pop-up needs no change here.
   ...POPUPS.flatMap((p, i) => [

@@ -98,7 +98,9 @@ eleventyComputed:
       <article class="eb-card eb-card--wide" data-readmore>
         <div class="eb-card__photo">
           {%- if m.photo %}
-          <img src="/{{ m.photo }}" alt="{{ m.name }}, {{ m.role }}" sizes="(max-width: 768px) 40vw, 300px" eleventy:widths="400,800">
+          <img src="/{{ m.photo }}" alt="{{ m.name }}, {{ m.role }}"{% if m.focus %} style="object-position: {{ m.focus }}"{% endif %} sizes="(max-width: 768px) 40vw, 300px" eleventy:widths="400,800">
+          {%- elif m.name %}
+          <span class="photo-tbc photo-tbc--initials"><span class="photo-tbc__initials" aria-hidden="true">{{ m.name | initials }}</span>Photo TBC</span>
           {%- else %}
           <span class="photo-tbc">Photo TBC</span>
           {%- endif %}
@@ -108,7 +110,9 @@ eleventyComputed:
           <p class="eb-card__role">{{ m.role }}</p>
           {%- if m.bio %}
           <p class="eb-card__bio" id="bio-{{ c.slug }}-{{ loop.index }}">{{ m.bio }}</p>
-          <button class="eb-card__more" type="button" aria-expanded="false" aria-controls="bio-{{ c.slug }}-{{ loop.index }}" hidden>Read more</button>
+          <button class="eb-card__more" type="button" aria-haspopup="dialog" hidden>Read more<span class="visually-hidden"> about {{ m.name }}</span></button>
+          {%- elif m.name %}
+          <p class="eb-card__bio is-tbc">Bio TBC</p>
           {%- endif %}
         </div>
       </article>
@@ -118,7 +122,8 @@ eleventyComputed:
   {%- endif %}
 
   {%- if c.eb %}
-  {#- Executive board (SPEC 8.6). An empty name reads "EB announced soon". -#}
+  {#- Executive board (SPEC 8.6). An empty name reads "EB announced soon"; a name without a photo
+      shows their initials over "Photo TBC", and without a bio "Bio TBC" (23 October). -#}
   <section class="eb" aria-labelledby="eb-title">
     <h2 class="t-section t-section--bar" id="eb-title" data-reveal="mask">Executive board</h2>
     <div class="eb__grid" data-reveal>
@@ -126,7 +131,9 @@ eleventyComputed:
       <article class="eb-card" data-readmore>
         <div class="eb-card__photo">
           {%- if m.photo %}
-          <img src="/{{ m.photo }}" alt="{{ m.name }}, {{ m.role }}" sizes="(max-width: 768px) 40vw, 400px" eleventy:widths="400,800">
+          <img src="/{{ m.photo }}" alt="{{ m.name }}, {{ m.role }}"{% if m.focus %} style="object-position: {{ m.focus }}"{% endif %} sizes="(max-width: 768px) 40vw, 400px" eleventy:widths="400,800">
+          {%- elif m.name %}
+          <span class="photo-tbc photo-tbc--initials"><span class="photo-tbc__initials" aria-hidden="true">{{ m.name | initials }}</span>Photo TBC</span>
           {%- else %}
           <span class="photo-tbc">Photo TBC</span>
           {%- endif %}
@@ -137,7 +144,9 @@ eleventyComputed:
           <h3 class="eb-card__name">{{ m.name }}</h3>
           {%- if m.bio %}
           <p class="eb-card__bio" id="bio-{{ c.slug }}-{{ loop.index }}">{{ m.bio }}</p>
-          <button class="eb-card__more" type="button" aria-expanded="false" aria-controls="bio-{{ c.slug }}-{{ loop.index }}" hidden>Read more</button>
+          <button class="eb-card__more" type="button" aria-haspopup="dialog" hidden>Read more<span class="visually-hidden"> about {{ m.name }}</span></button>
+          {%- else %}
+          <p class="eb-card__bio is-tbc">Bio TBC</p>
           {%- endif %}
           {%- else %}
           <h3 class="eb-card__name is-tbc">EB announced soon</h3>
@@ -147,6 +156,22 @@ eleventyComputed:
       {%- endfor %}
     </div>
   </section>
+  {%- endif %}
+
+  {#- The whole bio (23 October): Read more on a card opens it here, filled in from that card
+      (js/readmore.js), so each bio is written once. -#}
+  {%- if c.eb or c.team %}
+  <dialog class="bio-pop" aria-labelledby="bio-pop-name" data-bio-pop data-lenis-prevent>
+    <div class="bio-pop__card">
+      <button class="bio-pop__x" type="button" aria-label="{{ site.notice.close }}" data-bio-close>{{ icon("x") }}</button>
+      <div class="bio-pop__photo" data-bio-photo></div>
+      <div class="bio-pop__body" tabindex="0">
+        <p class="eb-card__role bio-pop__role" data-bio-role></p>
+        <h2 class="bio-pop__name" id="bio-pop-name" data-bio-name></h2>
+        <p class="bio-pop__bio" data-bio-text></p>
+      </div>
+    </div>
+  </dialog>
   {%- endif %}
 
 </div>

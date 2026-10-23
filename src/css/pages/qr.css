@@ -102,6 +102,41 @@
   color: var(--ink-60);
 }
 
+/* Good to know (23 October): a quiet box under the form */
+.qr__help {
+  max-width: 520px;
+  margin-top: 28px;
+  padding: 20px 22px;
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card);
+  background: rgb(var(--card-rgb) / 0.35);
+}
+
+.qr__help-title {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-75);
+}
+
+.qr__help-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+  padding-left: 18px;
+  font-size: 0.95rem;
+  color: var(--ink-75);
+  list-style: disc;
+}
+
+.qr__help-list a {
+  color: var(--teal);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+
 /* The pass: the code (a dashed square with a QR icon, for now) above the delegate's details */
 .qr__card {
   display: grid;
@@ -183,6 +218,12 @@
   color: var(--teal);
 }
 
+/* Before a search: a quiet dash, not a value */
+.qr__field dd.is-empty {
+  font-weight: 500;
+  color: var(--ink-60);
+}
+
 .qr__details-note {
   margin-top: 14px;
   font-size: 0.95rem;
@@ -195,6 +236,7 @@
   }
 
   .qr__note,
+  .qr__help-list,
   .qr__details-note {
     font-size: 1rem; /* 16 px minimum for running text on phones */
   }

@@ -202,22 +202,18 @@
     "details": [
       {
         "label": "Name",
-        "value": "TBC",
         "key": "name"
       },
       {
         "label": "Committee",
-        "value": "TBC",
         "key": "committee"
       },
       {
         "label": "Allocation",
-        "value": "TBC",
         "key": "allocation"
       },
       {
         "label": "Details",
-        "value": "TBC",
         "key": "detail",
         "optional": true
       }
@@ -226,7 +222,19 @@
       "label": "Your link"
     },
     "detailsNote": "Your name, committee, allocation and link fill in from your registration.",
+    "help": {
+      "title": "Good to know",
+      "items": [
+        "If your registration form gave a parent's email address for both the student and the parent, use that parent's email address here."
+      ],
+      "contact": "Having trouble getting your QR code? Email",
+      "contacts": [
+        { "email": "saisantoshsupratik_koppuravuri@oakridge.in", "role": "Supratiik, USG of Tech" }
+      ],
+      "contactEnd": "for help."
+    },
     "messages": {
+      "empty": "–",
       "searching": "Finding your registration.",
       "choose": "This email is used by more than one delegate. Choose your name:",
       "found": "Here's your QR code. Show it at the registration desk when you arrive: save it as an image, or download the PDF to print.",

@@ -40,8 +40,24 @@ pageJs: [qr]
         {#- One email, more than one delegate (22 October): a button for each name. -#}
         <div class="qr__choices" role="group" aria-labelledby="qr-status-text" hidden data-qr-choices></div>
       </form>
+      {#- Good to know (23 October): shared parent emails, and who to email for help. -#}
+      {%- if q.help %}
+      <aside class="qr__help" aria-labelledby="qr-help-title" data-reveal>
+        <h2 class="qr__help-title" id="qr-help-title">{{ q.help.title }}</h2>
+        <ul class="qr__help-list">
+          {%- for item in q.help.items %}
+          <li>{{ item }}</li>
+          {%- endfor %}
+          {#- The conference's email (site.contact.email), then anyone in help.contacts. -#}
+          {%- set contacts = [{ email: site.contact.email }].concat(q.help.contacts or []) %}
+          <li>{{ q.help.contact }}
+            {%- for c in contacts %}{{ " or" if loop.last and not loop.first else ("," if not loop.first) }} <a href="mailto:{{ c.email }}">{{ c.label or c.email }}</a>{% if c.role %} ({{ c.role }}){% endif %}{% endfor %} {{ q.help.contactEnd }}</li>
+        </ul>
+      </aside>
+      {%- endif %}
     </div>
-    {#- The pass: the QR code, then who it belongs to. Every value is TBC until codes open. -#}
+    {#- The pass: the QR code, then who it belongs to. Before a search each value is a quiet
+        dash (qrPage.messages.empty; 23 October, "TBC" looked unfinished). -#}
     <div class="qr__card" data-reveal="art">
       <div class="qr__code">
         <span class="qr__frame" data-qr-code aria-hidden="true">{{ icon("qr-code") }}</span>
@@ -57,12 +73,12 @@ pageJs: [qr]
           {%- for d in q.details %}
           <div class="qr__field"{% if d.optional %} hidden data-qr-optional{% endif %}>
             <dt>{{ d.label }}</dt>
-            <dd data-qr-field="{{ d.key }}">{{ d.value }}</dd>
+            <dd class="is-empty" data-qr-field="{{ d.key }}">{{ q.messages.empty }}</dd>
           </div>
           {%- endfor %}
           <div class="qr__field">
             <dt>{{ q.link.label }}</dt>
-            <dd data-qr-field="link">TBC</dd>
+            <dd class="is-empty" data-qr-field="link">{{ q.messages.empty }}</dd>
           </div>
         </dl>
         <p class="qr__details-note">{{ q.detailsNote }}</p>

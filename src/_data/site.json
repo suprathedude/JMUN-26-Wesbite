@@ -63,7 +63,7 @@
       {
         "flash": {
           "title": "QR codes are out!",
-          "text": "Your entry QR code is your pass at the registration desk on Day one. Get yours with the email you registered with.",
+          "text": "Your entry QR code is your pass at the registration desk in the Palm Court on Day one. Get yours with the email you registered with.",
           "link": {
             "label": "Get your QR code",
             "url": "/qr/"
@@ -192,7 +192,7 @@
   },
   "qrPage": {
     "title": "Get your entry QR code",
-    "intro": "Your entry QR code is your pass for the registration desk: show it when you arrive on Day one and you're checked in. Enter the email address you registered with to get it.",
+    "intro": "Your entry QR code is your pass for the registration desk in the Palm Court: show it when you arrive on Day one and you're checked in. Enter the email address you registered with to get it.",
     "open": true,
     "note": "Use the same email address as on your registration form.",
     "closedNote": "QR codes open soon (date TBC). Come back to this page to get yours.",
@@ -240,7 +240,7 @@
     "pdf": {
       "button": "Download PDF",
       "title": "Entry pass",
-      "instruction": "Show this pass at the registration desk when you arrive on Day one.",
+      "instruction": "Show this pass at the registration desk in the Palm Court on Day one.",
       "note": "This code checks you in, so keep it to yourself. A printout or a screenshot both work."
     }
   },

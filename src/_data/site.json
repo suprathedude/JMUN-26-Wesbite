@@ -226,6 +226,15 @@
       "label": "Your link"
     },
     "detailsNote": "Your name, committee, allocation and link fill in from your registration.",
+    "help": {
+      "title": "Good to know",
+      "items": [
+        "If your registration form gave a parent's email address for both the student and the parent, use that parent's email address here."
+      ],
+      "contact": "Having trouble getting your QR code? Email",
+      "contacts": [],
+      "contactEnd": "for help."
+    },
     "messages": {
       "searching": "Finding your registration.",
       "choose": "This email is used by more than one delegate. Choose your name:",

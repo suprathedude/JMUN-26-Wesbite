@@ -16,6 +16,7 @@
         "role": "Chair",
         "name": "Akash P Videsh",
         "photo": "assets/img/eb/unsc-akash-p-videsh.jpg",
+        "focus": "42% center",
         "bio": "Akash Videsh is a young science enthusiast and a Computer Science Engineering graduate from VIT Chennai, currently carving his path in the professional world. He began his MUN journey back in 8th grade and has since taken on a range of leadership roles, including Secretary-General, Chief Advisor and Chairperson, at several prominent school and collegiate MUNs. His passion for international affairs continues today, with active participation in college and city-level circuits, especially in dynamic crisis committees where quick thinking is key. He has also served as the President of the Debate Society of VIT Chennai and was a prominent member of the VIT Chennai MUN delegation. A lifelong quizzer, he was a dominant force in the Coimbatore quiz scene throughout high school, leading his school to success in some of the country's most prestigious quiz competitions."
       },
       {
@@ -76,6 +77,7 @@
         "role": "Chair",
         "name": "D Sai Srikar",
         "photo": "assets/img/eb/unhrc-d-sai-srikar.jpg",
+        "focus": "45% center",
         "bio": "Srikar has been an active participant in Model UN for over four years. He has dedicated countless weekends to learning through MUN, and he looks forward to another exciting weekend where he can share what he's learned!"
       },
       {
@@ -88,6 +90,7 @@
         "role": "Rapporteur",
         "name": "Vivaan Sharma",
         "photo": "assets/img/eb/unhrc-vivaan-sharma.jpg",
+        "focus": "38% center",
         "bio": "Vivaan Sharma is a Grade 11 student, having previously attended Oakridge International School, and currently studying at CHIREC International School, where he is taking Mathematics, Physics and Chemistry, along with Finance, a field in which he hopes to pursue a career. With half a decade of Model United Nations experience under his belt, Vivaan has developed a particular interest in UNHRC and UNSC, where diplomacy, debate and international affairs take centre stage. Outside committee, he enjoys playing basketball and can often be found on the court when he isn't occupied with academics or MUN."
       }
     ]
@@ -109,6 +112,7 @@
         "role": "Chair",
         "name": "Manan Garg",
         "photo": "assets/img/eb/lok-sabha-manan-garg.jpg",
+        "focus": "43% center",
         "bio": "Manan Garg, yes, the one common name when we talk about Indian committees in Hyderabad, is an experienced MUN enthusiast who has always been renowned for his dominance and fiery speeches in Indian committees. At present a CA aspirant, his experience in Model United Nations has been extensive, with 35+ conferences. When he doesn't have his head buried in the lively chaos of Lok Sabha debates, he is seen playing box cricket with friends or satiating his appetite for rerunning Marvel movies and series. Apart from Indian committees, you can also see him chairing cricket-oriented simulations and Marvel or film-oriented simulations, and he was on the EB of the first ever IFI simulation in the Hyderabad MUN circuit. He has also served as the Chief Advisor to several successful MUN conferences, contributing to their overall execution and overseeing end-to-end financial management. You must have delegated with him, and chances are you've either rallied behind his lobby... or watched your bloc crumble against it. He believes the best way to win is to lead and dominate. His committees are known for integrating both the fun and technical aspects, making the committee exciting as well as productive. He looks forward to seeing you all in the committee."
       },
       {
@@ -142,12 +146,14 @@
         "role": "Chair",
         "name": "Syed Hudaifah",
         "photo": "assets/img/eb/who-syed-hudaifah.jpg",
+        "focus": "45% center",
         "bio": "With nearly a decade in MUNs and over 100 conferences under his belt, Hudaifah is a quantum physicist and a passionate food connoisseur. Returning to Oakridge is always a special experience, and he looks forward to being a part of OakJMUN 2026!"
       },
       {
         "role": "Vice Chair",
         "name": "Pratheek Konda",
         "photo": "assets/img/eb/who-pratheek-konda.jpg",
+        "focus": "62% center",
         "bio": "Pratheek Konda is an aspiring doctor and an IBDP 1 student at Oakridge International School, taking Biology, Chemistry and Mathematics at Higher Level. He loves Barca with his whole heart and plays football for his school. He would love to see each and every one of you at OakJMUN 2026."
       },
       {
@@ -181,12 +187,14 @@
         "role": "Vice Chair",
         "name": "Aripra Sharma",
         "photo": "assets/img/eb/unodc-aripra-sharma.jpg",
+        "focus": "60% center",
         "bio": "whirlwind (n): a rush of chaos and momentum. Take your pick on whether that's a connotation of the word itself or a personal biography. Aripra is an IBDP1 student at CHIREC and she's a mix of B99 reruns and blasts of Green Day and Drake, paired with the desire to live by the words \"I go to seek a great perhaps.\" What keeps her coming back to MUNs is the chance to take all that chaos and put it towards something meaningful. As Vice Chair, she hopes to see this committee become a whirlwind of its own: delegates listening, building on ideas and speaking up, nerves and all."
       },
       {
         "role": "Rapporteur",
         "name": "Satvik Amula",
         "photo": "assets/img/eb/unodc-satvik-amula.jpg",
+        "focus": "42% center",
         "bio": "Satvik Amula is a DP1 student currently studying at CHIREC International School, with intentions of studying biochemical sciences and a passion for research. He intends to pursue medicine in the future. Having performed in multiple conferences, he finds MUNs a spectacular platform for innovative ideas, debating, improving public speaking, research and learning how the world functions. In his free time, he loves to read and binge-watch sitcoms, and loves basketball (although his skills may be questionable). As Rapporteur, he aims to make the committee just as invigorating, exciting and enjoyable as it is educational for all delegates, to the best of his ability."
       }
     ]
@@ -275,6 +283,7 @@
         "role": "Chair",
         "name": "Dhanush Malhotra",
         "photo": "assets/img/eb/fcc-dhanush-malhotra.jpg",
+        "focus": "55% center",
         "bio": "Dhanush Malhotra is a law student at ICFAI, Hyderabad. Law school has guided him to recover his lost interest in debates, BPDs, APDs, MUNs, politics, international policies and the joy of a good argument. A growing name in the MUN circuit, having served on the Executive Board at more than 40 conferences, he looks forward to great debate, meaningful discussions and creative strategies. In his free time, Dhanush enjoys listening to music, reading, and watching movies and TV shows."
       },
       {
@@ -308,12 +317,14 @@
         "role": "Chair",
         "name": "Shrey Vajpayee",
         "photo": "assets/img/eb/copuos-shrey-vajpayee.jpg",
+        "focus": "58% center",
         "bio": "Shrey is an IBDP 2 student at Oakridge International School, eyeing a career in finance. He has a deep interest in global politics, and wholeheartedly looks forward to another productive weekend of Model UN."
       },
       {
         "role": "Vice Chair",
         "name": "Harini Reddy",
         "photo": "assets/img/eb/copuos-harini-reddy.jpg",
+        "focus": "55% center",
         "bio": "Harini Reddy is an IBDP 2 student at Oakridge Gachibowli, balancing Business Management, Economics and Maths AI at Higher Level. She hopes to study quantitative finance and build a career in the field. Though she has always been a little shy of public speaking, guiding the participants of a Junior Model United Nations conference remains one of her favourite pursuits, and a role she approaches with great responsibility and excitement. She is thrilled to serve as your Vice Chair in COPUOS!"
       },
       {

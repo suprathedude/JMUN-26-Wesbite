@@ -528,9 +528,6 @@
   }
 }
 
-.eb-card.is-open .eb-card__bio {
-  display: block;
-}
 
 .eb-card__more {
   justify-self: start;
@@ -608,6 +605,139 @@
   .eb-card--wide .eb-card__body {
     padding: 20px 18px;
   }
+}
+
+/* ---------- The whole bio, in a pop-out (23 October, js/readmore.js) ---------- */
+
+.bio-pop {
+  width: min(760px, calc(100% - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  color: var(--ink-85);
+}
+
+.bio-pop::backdrop {
+  background: rgb(var(--night-rgb) / 0.72);
+}
+
+.bio-pop__card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  min-height: min(440px, calc(100dvh - 32px)); /* a shorter bio still gets a proper photo */
+  max-height: calc(100dvh - 32px);
+  overflow: hidden;
+  border: var(--border-card);
+  border-radius: var(--radius-tile);
+  background:
+    radial-gradient(ellipse at 80% 0%, rgb(var(--teal-rgb) / 0.1), transparent 60%),
+    var(--blue-900);
+  box-shadow: var(--shadow-card-hover);
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.bio-pop__photo {
+  min-height: 100%;
+  background: linear-gradient(160deg, var(--blue-700), var(--blue-650));
+}
+
+.bio-pop__photo img,
+.bio-pop__photo .photo-tbc {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bio-pop__body {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 40px 36px 36px;
+}
+
+.bio-pop__body:focus {
+  outline: none;
+}
+
+.bio-pop__body:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: -4px;
+}
+
+.bio-pop__name {
+  margin-bottom: 8px;
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--ink-100);
+}
+
+.bio-pop__bio {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ink-75);
+}
+
+.bio-pop__x {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgb(var(--ink-rgb) / 0.16);
+  border-radius: 50%;
+  background: rgb(var(--night-rgb) / 0.55);
+  color: var(--ink-100);
+  transition: transform var(--dur-hover) var(--ease-standard);
+}
+
+.bio-pop__x:hover {
+  transform: rotate(90deg);
+}
+
+/* Phones: the photo on top, then the bio; the whole card scrolls. */
+@media (max-width: 640px) {
+  .bio-pop__card {
+    display: block;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .bio-pop__photo {
+    aspect-ratio: 4 / 3;
+    min-height: 0;
+  }
+
+  .bio-pop__body {
+    max-height: none;
+    overflow: visible;
+    padding: 24px 22px 28px;
+  }
+}
+
+.c-page--doom .bio-pop__card {
+  border-color: rgb(var(--doom-rgb) / 0.3);
+  background:
+    radial-gradient(ellipse at 80% 0%, rgb(var(--doom-rgb) / 0.12), transparent 60%),
+    var(--doom-deep);
+}
+
+.c-page--doom .bio-pop__photo {
+  background: linear-gradient(160deg, rgb(var(--doom-rgb) / 0.12), var(--doom-deep));
 }
 
 /* ---------- Doomsday's opening (PLAN.md F28, partials/doomsday.njk) ---------- */

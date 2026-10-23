@@ -135,7 +135,7 @@
     "logo": "assets/img/logos/who.png",
     "guide": {
       "status": "coming-soon",
-      "file": ""
+      "file": "assets/docs/guides/who.pdf"
     },
     "eb": [
       {
@@ -168,7 +168,7 @@
     "logo": "assets/img/logos/unodc.png",
     "guide": {
       "status": "coming-soon",
-      "file": ""
+      "file": "assets/docs/guides/unodc.pdf"
     },
     "eb": [
       {
@@ -201,7 +201,7 @@
     "logo": "assets/img/logos/uncsw.png",
     "guide": {
       "status": "coming-soon",
-      "file": ""
+      "file": "assets/docs/guides/uncsw.pdf"
     },
     "eb": [
       {
@@ -235,7 +235,7 @@
     "logo": "assets/img/logos/unicef.png",
     "guide": {
       "status": "coming-soon",
-      "file": ""
+      "file": "assets/docs/guides/unicef.pdf"
     },
     "eb": [
       {

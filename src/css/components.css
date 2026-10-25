@@ -2344,6 +2344,21 @@ html.is-locked {
   color: var(--ink-100);
 }
 
+/* A session's Teams link, under its date (25 October) */
+.notice__join {
+  display: block;
+  width: fit-content;
+  margin-top: 4px;
+  font-weight: 700;
+  color: var(--teal-light);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.notice__join:hover {
+  color: var(--ink-100);
+}
+
 /* A session that's over is crossed out (16 October) */
 .notice__dates .is-done :is(.notice__label, .notice__date) {
   color: var(--ink-60);

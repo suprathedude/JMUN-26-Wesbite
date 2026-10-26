@@ -33,7 +33,7 @@ pageJs: [qr]
         <label class="qr__label" for="qr-email">Registration email</label>
         <div class="qr__row">
           <input class="qr__input" id="qr-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required aria-describedby="qr-note"{% if not open %} disabled{% endif %}>
-          <button class="btn btn--shiny{% if not open %} is-disabled{% endif %}" type="submit"{% if not open %} disabled{% endif %}>{{ shine() }}{{ q.button }}</button>
+          <button class="btn btn--shiny{% if not open %} is-disabled{% endif %}" type="submit"{% if not open %} disabled{% endif %}>{{ shine() }}<span class="qr__spin" aria-hidden="true"></span>{{ q.button }}</button>
         </div>
         <p class="qr__note" id="qr-note">{{ q.note if open else q.closedNote }}</p>
         <p class="qr__status" id="qr-status-text" role="status" data-qr-status></p>
@@ -58,7 +58,9 @@ pageJs: [qr]
     </div>
     {#- The pass: the QR code, then who it belongs to. Before a search each value is a quiet
         dash (qrPage.messages.empty; 23 October, "TBC" looked unfinished). -#}
-    <div class="qr__card" data-reveal="art">
+    {#- While a lookup runs the card is a pulsing skeleton (is-loading); a pass then settles in
+        (is-found). src/js/qr.js, 26 October. -#}
+    <div class="qr__card" data-reveal="art" data-qr-card>
       <div class="qr__code">
         <span class="qr__frame" data-qr-code aria-hidden="true">{{ icon("qr-code") }}</span>
         <span class="qr__placeholder" data-qr-placeholder>{{ q.placeholder }}</span>

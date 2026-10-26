@@ -169,7 +169,9 @@ In `site.json` → `notice`:
     hero (18 October: the extended registration dates are a pop-up of their own with it, after
     the allocations and training one, so the training links are near the top). A list has either
     `"trainingDates": true` (the training sessions from `newToMun.json`, so a changed date only
-    needs changing there) or `"dates"` (a list of `label` and `date`, and an optional `detail`,
+    needs changing there; `"upcoming"` leaves out the ones that are done, `"last"` shows only the
+    last one, crossed out once it's done; a session's Teams `link` shows under its date until
+    it's done) or `"dates"` (a list of `label` and `date`, and an optional `detail`,
     a smaller line under the label such as `"Grades 9 to 12"`), or both; and an optional `"note"`
     under it (`text`, and a `link` with `label` and `url`, now pointing to the training
     recordings on Resources, `/resources/#training`). For example:
@@ -337,6 +339,7 @@ In `site.json`:
 | `"imagePosition"` | Optional. Which part of a tall or wide photo to keep in view, across then down: `"50% 85%"` keeps the lower part (used for Doomsday). Leave it out to centre the photo. |
 | `"logo"` | `"assets/img/logos/un-women.png"` after uploading the logo circle, or `""` for a globe icon |
 | `"guide"` | `{ "status": "coming-soon", "file": "" }` |
+| `"docs"` | Optional. More documents as buttons under the guide, such as FCC's `[{ "title": "Delegate Handbook", "file": "" }]`. `file` is a PDF in `src/assets/docs/` (`"assets/docs/fcc-handbook.pdf"`) or a web address; while it's `""` the button reads "coming soon". |
 | `"eb"` | The three EB entries, with `"name": ""` until they're announced |
 
 Everything else updates by itself:

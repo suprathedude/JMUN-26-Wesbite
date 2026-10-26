@@ -89,7 +89,7 @@ pageCss: [new-to-mun]
         <h3 class="day-panel__title">{{ s.date }}</h3>
         {%- if s.recording | isSet %}
         <a class="training__link" href="{{ s.recording }}">{{ t.recordingLabel }}<span class="visually-hidden">, {{ s.date }}{% if s.recording | isExternal %} (opens in a new tab){% endif %}</span></a>
-        {%- elif s.link | isSet %}
+        {%- elif s.link | isSet and not s.done %}
         <a class="training__link" href="{{ s.link }}">{{ t.joinLabel }}<span class="visually-hidden">, {{ s.date }} (opens in a new tab)</span></a>
         {%- else %}
         <p class="training__soon">{{ t.recordingSoon }}</p>

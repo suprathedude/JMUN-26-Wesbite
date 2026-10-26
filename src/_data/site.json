@@ -74,7 +74,7 @@
         "lists": [
           {
             "title": "Training session on Microsoft Teams",
-            "trainingDates": "upcoming",
+            "trainingDates": "last",
             "note": {
               "text": "Missed a training session?",
               "link": {
@@ -235,7 +235,8 @@
     },
     "messages": {
       "empty": "–",
-      "searching": "Finding your registration.",
+      "searching": "Finding your registration",
+      "slow": "Still looking. This can take a few seconds",
       "choose": "This email is used by more than one delegate. Choose your name:",
       "found": "Here's your QR code. Show it at the registration desk when you arrive: save it as an image, or download the PDF to print.",
       "unknown": "We couldn't find that email. Check it's the one you registered with. If you haven't been allotted a country yet, your QR code will be here once you are.",

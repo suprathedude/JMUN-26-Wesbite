@@ -282,3 +282,194 @@
 .qr__field[hidden] {
   display: none;
 }
+
+/* Looking up a pass (26 October). The button shows a spinner; the card turns into a skeleton
+   that pulses, with a sheen across the code's square, until the answer comes. A pass then
+   settles in: the code pops up and the details follow one by one. The line under the form
+   gets a tick, three pulsing dots or a red dot and a small shake. Transform and opacity only,
+   and still with reduced motion. */
+.qr__spin {
+  display: none;
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+}
+
+.btn.is-loading .qr__spin {
+  display: inline-block;
+  animation: qr-spin 0.7s linear infinite;
+}
+
+.qr__card {
+  scroll-margin-top: 96px;
+}
+
+.qr__frame {
+  position: relative;
+  overflow: hidden;
+}
+
+.qr__card.is-loading .qr__frame > svg,
+.qr__card.is-loading .qr__placeholder {
+  animation: qr-pulse 1.2s var(--ease-standard) infinite;
+}
+
+.qr__card.is-loading .qr__frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 25%, rgb(var(--teal-rgb) / 0.22) 50%, transparent 75%);
+  transform: translateX(-100%);
+  animation: qr-sweep 1.2s var(--ease-standard) infinite;
+}
+
+.qr__field dd {
+  position: relative;
+}
+
+.qr__card.is-loading .qr__field dd {
+  color: transparent;
+}
+
+.qr__card.is-loading .qr__field dd::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 7em; /* wider than the dash it stands in for, growing to the left */
+  height: 0.75em;
+  margin-top: -0.375em;
+  border-radius: var(--radius-pill);
+  background: rgb(var(--ink-rgb) / 0.16);
+  animation: qr-pulse 1.2s var(--ease-standard) infinite;
+}
+
+.qr__card.is-loading .qr__field:nth-child(2) dd::before {
+  width: 5em;
+  animation-delay: 0.12s;
+}
+
+.qr__card.is-loading .qr__field:nth-child(3) dd::before {
+  width: 6em;
+  animation-delay: 0.24s;
+}
+
+.qr__card.is-loading .qr__field:last-child dd::before {
+  width: 8em;
+  animation-delay: 0.36s;
+}
+
+.qr__card.is-found .qr__frame {
+  animation: qr-pop 0.55s var(--ease-out-expo) both;
+}
+
+.qr__card.is-found .qr__saves {
+  animation: qr-in 0.45s var(--ease-out-expo) 0.2s both;
+}
+
+.qr__card.is-found .qr__field {
+  animation: qr-in 0.45s var(--ease-out-expo) both;
+}
+
+.qr__card.is-found .qr__field:nth-child(1) { animation-delay: 0.12s; }
+.qr__card.is-found .qr__field:nth-child(2) { animation-delay: 0.18s; }
+.qr__card.is-found .qr__field:nth-child(3) { animation-delay: 0.24s; }
+.qr__card.is-found .qr__field:nth-child(4) { animation-delay: 0.3s; }
+.qr__card.is-found .qr__field:nth-child(5) { animation-delay: 0.36s; }
+
+.qr__choice {
+  animation: qr-in 0.35s var(--ease-out-expo) both;
+}
+
+.qr__choice:nth-child(2) { animation-delay: 0.06s; }
+.qr__choice:nth-child(3) { animation-delay: 0.12s; }
+.qr__choice:nth-child(n + 4) { animation-delay: 0.18s; }
+
+.qr__status.is-busy {
+  color: var(--ink-75);
+}
+
+.qr__dots span {
+  animation: qr-dot 1.2s var(--ease-standard) infinite both;
+}
+
+.qr__dots span:nth-child(2) { animation-delay: 0.2s; }
+.qr__dots span:nth-child(3) { animation-delay: 0.4s; }
+
+.qr__status.is-ok,
+.qr__status.is-error {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.qr__status.is-ok::before {
+  content: "";
+  flex-shrink: 0;
+  width: 0.4em;
+  height: 0.8em;
+  border: solid var(--teal);
+  border-width: 0 2px 2px 0;
+  transform: translateY(-0.1em) rotate(45deg);
+}
+
+.qr__status.is-error::before {
+  content: "";
+  flex-shrink: 0;
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: var(--red);
+  transform: translateY(-0.05em);
+}
+
+.qr__status.is-error {
+  animation: qr-shake 0.4s var(--ease-standard);
+}
+
+@keyframes qr-spin {
+  to { transform: rotate(1turn); }
+}
+
+@keyframes qr-pulse {
+  50% { opacity: 0.45; }
+}
+
+@keyframes qr-sweep {
+  to { transform: translateX(100%); }
+}
+
+@keyframes qr-pop {
+  from { opacity: 0; transform: scale(0.88); }
+}
+
+@keyframes qr-in {
+  from { opacity: 0; transform: translateY(8px); }
+}
+
+@keyframes qr-dot {
+  0%, 80%, 100% { opacity: 0.2; }
+  40% { opacity: 1; }
+}
+
+@keyframes qr-shake {
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(2px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .qr__card *,
+  .qr__card *::before,
+  .qr__card *::after,
+  .qr__status,
+  .qr__dots span,
+  .qr__choice,
+  .qr__spin {
+    animation: none !important;
+  }
+}

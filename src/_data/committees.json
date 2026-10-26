@@ -9,7 +9,7 @@
     "logo": "assets/img/logos/unsc.png",
     "guide": {
       "status": "coming-soon",
-      "file": ""
+      "file": "assets/docs/guides/unsc.pdf"
     },
     "eb": [
       {
@@ -301,6 +301,12 @@
         "name": "Hasini Jaishetty",
         "photo": "assets/img/eb/fcc-hasini-jaishetty.jpg",
         "bio": "Hasini Jaishetty is a Grade 11 student at CHIREC International School studying Mathematics, Biology, Physics and Chemistry, with an interest in interdisciplinary fields such as bioinformatics and biotechnology. When she isn't procrastinating on her studies, she enjoys getting creative with graphic design or rewatching her favourite sitcoms for the hundredth time. She believes MUNs are the perfect platform to develop critical thinking skills while engaging in substantive discussions on pressing global issues."
+      }
+    ],
+    "docs": [
+      {
+        "title": "Delegate Handbook",
+        "file": "assets/docs/fcc-delegate-handbook.pdf"
       }
     ]
   },

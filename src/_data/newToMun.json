@@ -86,10 +86,10 @@
       },
       {
         "date": "Monday 26 October, 6:00 pm",
-        "done": false,
+        "done": true,
         "link": "https://teams.microsoft.com/meet/417354530036371?p=FzGnzz7iZLmfByEQrU",
-        "recording": "",
-        "slides": ""
+        "recording": "https://drive.google.com/file/d/159CK0hF43IuT0SjNz-Yqksv_V8o6ngtT/view?usp=sharing",
+        "slides": "https://canva.link/rmiricvnginm7kn"
       }
     ],
     "recordingSoon": "Recording coming later",

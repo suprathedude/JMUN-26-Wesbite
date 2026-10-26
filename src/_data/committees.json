@@ -9,7 +9,7 @@
     "logo": "assets/img/logos/unsc.png",
     "guide": {
       "status": "coming-soon",
-      "file": ""
+      "file": "assets/docs/guides/unsc.pdf"
     },
     "eb": [
       {
@@ -306,7 +306,7 @@
     "docs": [
       {
         "title": "Delegate Handbook",
-        "file": ""
+        "file": "assets/docs/fcc-delegate-handbook.pdf"
       }
     ]
   },

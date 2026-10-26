@@ -339,7 +339,7 @@ In `site.json`:
 | `"imagePosition"` | Optional. Which part of a tall or wide photo to keep in view, across then down: `"50% 85%"` keeps the lower part (used for Doomsday). Leave it out to centre the photo. |
 | `"logo"` | `"assets/img/logos/un-women.png"` after uploading the logo circle, or `""` for a globe icon |
 | `"guide"` | `{ "status": "coming-soon", "file": "" }` |
-| `"docs"` | Optional. More documents as buttons under the guide, such as FCC's `[{ "title": "Delegate Handbook", "file": "" }]`. `file` is a PDF in `src/assets/docs/` (`"assets/docs/fcc-handbook.pdf"`) or a web address; while it's `""` the button reads "coming soon". |
+| `"docs"` | Optional. More documents as cards beside the background guide, such as FCC's Delegate Handbook: `[{ "title": "Delegate Handbook", "text": "a line under the title", "image": "assets/img/committees/fcc-handbook.jpg", "file": "assets/docs/fcc-delegate-handbook.pdf" }]`. `file` is a PDF in `src/assets/docs/`; while it's `""` the card reads "Coming soon". Without an `image`, the committee's photo is used. |
 | `"eb"` | The three EB entries, with `"name": ""` until they're announced |
 
 Everything else updates by itself:

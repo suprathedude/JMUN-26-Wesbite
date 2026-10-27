@@ -60,7 +60,7 @@ The Doomsday committee page opens with the Marvel Studios intro, then a clip of 
 
 Done on 3 October: `url` (https://oakridgejmun.com; changed to https://oakridgejmun.in on 7 October, as the .com is taken), `contact.email` (jmun@oakridge.in; changed to j.mun@oakridge.in on 7 October), `contact.instagram` (oakjmun), `chapter` (XIV, confirmed), the conference times (7:45 am on 30 October to 7:30 pm on 31 October).
 
-### `committees.json` (12 committees)
+### `committees.json` (11 entries: 10 committees and International Press; COPUOS removed 27 October)
 
 | Field | Now | Needed |
 | --- | --- | --- |

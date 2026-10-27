@@ -313,41 +313,6 @@
     ]
   },
   {
-    "slug": "copuos",
-    "code": "COPUOS",
-    "name": "Committee on the Peaceful Uses of Outer Space",
-    "agenda": "Spin-off Benefits of Space Technology: Review of Current Status (Agenda\u00a0item\u00a010)",
-    "overview": "COPUOS was set up by the UN General Assembly in 1959 to look after the peaceful use and exploration of outer space. It has more than 100 member countries and meets in Vienna.",
-    "image": "assets/img/committees/copuos.jpg",
-    "logo": "assets/img/logos/copuos.png",
-    "guide": {
-      "status": "coming-soon",
-      "file": "assets/docs/guides/copuos.pdf"
-    },
-    "eb": [
-      {
-        "role": "Chair",
-        "name": "Shrey Vajpayee",
-        "photo": "assets/img/eb/copuos-shrey-vajpayee.jpg",
-        "focus": "58% center",
-        "bio": "Shrey is an IBDP 2 student at Oakridge International School, eyeing a career in finance. He has a deep interest in global politics, and wholeheartedly looks forward to another productive weekend of Model UN."
-      },
-      {
-        "role": "Vice Chair",
-        "name": "Harini Reddy",
-        "photo": "assets/img/eb/copuos-harini-reddy.jpg",
-        "focus": "55% center",
-        "bio": "Harini Reddy is an IBDP 2 student at Oakridge Gachibowli, balancing Business Management, Economics and Maths AI at Higher Level. She hopes to study quantitative finance and build a career in the field. Though she has always been a little shy of public speaking, guiding the participants of a Junior Model United Nations conference remains one of her favourite pursuits, and a role she approaches with great responsibility and excitement. She is thrilled to serve as your Vice Chair in COPUOS!"
-      },
-      {
-        "role": "Vice Chair",
-        "name": "Nitya Lanka",
-        "photo": "assets/img/eb/copuos-nitya-lanka.jpg",
-        "bio": "Nitya is an IBDP 2 student at Oakridge Gachibowli, studying Maths AA, Physics and Economics at Higher Level, with hopes of building a career in aerospace engineering. You will often find her behind a camera, capturing the defining moments of an MUN conference, but at a Junior MUN she steps out from behind the lens, helping first-timers find their footing. In COPUOS, a committee built around science and policy, she brings a technical grounding to the table, following the physics behind every resolution and keeping debate anchored in how things actually work. She can't wait to join you as Vice Chair!"
-      }
-    ]
-  },
-  {
     "slug": "doomsday",
     "code": "Doomsday",
     "name": "Avengers: Doomsday",

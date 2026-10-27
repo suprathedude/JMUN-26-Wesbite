@@ -77,22 +77,13 @@ eleventyComputed:
     {%- else %}
     {#- Background guide card. Releasing a guide = setting guide.file to its PDF. -#}
     {{ guideCard({ tag: c.code, title: "Background guide", text: agendas | join("; "), image: c.image, file: c.guide.file, linkLabel: "Open background guide" }) }}
+    {#- More documents for a committee (26 October: FCC's Delegate Handbook), as cards beside
+        the guide: a PDF in src/assets/docs/, with an optional photo and line of text. -#}
+    {%- for d in c.docs %}
+    {{ guideCard({ tag: c.code, title: d.title, text: d.text, image: d.image or c.image, file: d.file, linkLabel: "Open " ~ (d.title | lower) }) }}
+    {%- endfor %}
     {%- endif %}
   </div>
-
-  {#- More documents for a committee (26 October: FCC's Delegate Handbook), as buttons under the
-      guide: a PDF in src/assets/docs/ or a web address. Without a file, "coming soon". -#}
-  {%- if c.docs | length %}
-  <p class="c-apply" data-reveal>
-    {%- for d in c.docs %}
-    {%- if d.file | isSet %}
-    <a class="btn btn--outline" href="{{ d.file if (d.file | isExternal) else '/' ~ d.file }}" target="_blank" rel="noopener">{{ d.title }} ↗<span class="visually-hidden"> (opens in a new tab)</span></a>
-    {%- else %}
-    <span class="btn btn--outline is-disabled">{{ d.title }}: coming soon</span>
-    {%- endif %}
-    {%- endfor %}
-  </p>
-  {%- endif %}
 
   {%- if c.press %}
   {#- Joining IP (17 October): its application form, from the Register button's list. -#}

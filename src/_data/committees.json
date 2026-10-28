@@ -164,6 +164,13 @@
         "photo": "assets/img/eb/who-archith-ragi.jpg",
         "bio": "Archith Ragi is a DP1 student with a keen interest in finance, economics and entrepreneurship, and takes Mathematics AA, Economics and Physics at Higher Level. He is curious about financial markets, business strategy and the role of economics in shaping the world. Beyond academics, he is a committed vegan and passionate about animal liberation."
       }
+    ],
+    "docs": [
+      {
+        "title": "Quick Reference Guide",
+        "text": "A shorter, simpler version of the full background guide",
+        "file": "assets/docs/who-quick-reference-guide.pdf"
+      }
     ]
   },
   {

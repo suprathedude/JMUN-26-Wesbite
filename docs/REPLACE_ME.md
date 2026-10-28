@@ -95,7 +95,7 @@ Final as of 3 October: both days, with times.
 
 | Field | Now | Needed |
 | --- | --- | --- |
-| `documents` | Rules of Procedure and its slides added 14 October (`assets/docs/`); Consent Form ends "(TBC)", `file` `""`, shown as "Coming soon" (Delegate Guidelines removed 23 October: JMUN has no delegations) | The Consent Form PDF, and its description without "(TBC)" |
+| `documents` | Rules of Procedure and its slides added 14 October (`assets/docs/`); Liability Release Form added 28 October (it was the "Consent Form" placeholder) (Delegate Guidelines removed 23 October: JMUN has no delegations) | The Consent Form PDF, and its description without "(TBC)" |
 | `ipGuides` (IP Journalism, IP Photography) | Descriptions end "(TBC)"; `file` `""`, shown as "Coming soon"; IP Photography's photo supplied 4 October | The PDFs, and the descriptions checked |
 
 ### `socialNight.json`

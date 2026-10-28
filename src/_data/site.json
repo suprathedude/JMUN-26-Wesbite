@@ -167,7 +167,7 @@
       ]
     },
     "secondary": {
-      "label": "Consent form",
+      "label": "Liability form",
       "url": ""
     }
   },
@@ -269,7 +269,7 @@
       },
       "docs": {
         "title": "Essential Documents",
-        "sub": "Rules of Procedure · Slides · Consent Form"
+        "sub": "Rules of Procedure · Slides · Liability Release Form"
       },
       "training": {
         "title": "Training Sessions",

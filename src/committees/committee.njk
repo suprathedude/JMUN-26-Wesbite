@@ -46,6 +46,25 @@ eleventyComputed:
 <div class="c-page{% if c.cinematic %} c-page--doom{% endif %}">
 {{ cuts("committee", "gilt-cuts--soft") }}
 <div class="container c-body">
+  {#- Lead-in session recording (28 October): a wide banner with a big button at the top of the
+      page once the committee's recording is in (committees.json → leadIn), "Coming soon" until
+      then. Its words are in site.json → leadIn. -#}
+  {%- if not c.press %}
+  {%- set lead = c.leadIn | isSet %}
+  <section class="c-leadin{% if lead %} is-ready{% endif %}" aria-labelledby="leadin-title" data-reveal>
+    <span class="c-leadin__icon" aria-hidden="true">{{ icon("circle-play") }}</span>
+    <div class="c-leadin__body">
+      <h2 class="c-leadin__title" id="leadin-title">{{ site.leadIn.title }}</h2>
+      <p class="c-leadin__text">{{ site.leadIn.ready if lead else site.leadIn.soon }}</p>
+    </div>
+    {%- if lead %}
+    <a class="btn btn--primary c-leadin__btn" href="{{ c.leadIn }}">{{ icon("play") }}{{ site.leadIn.button }} ↗<span class="visually-hidden"> ({{ c.code }}, opens in a new tab)</span></a>
+    {%- else %}
+    <span class="c-leadin__soon">{{ site.leadIn.soonLabel }}</span>
+    {%- endif %}
+  </section>
+  {%- endif %}
+
   <section class="c-overview" aria-labelledby="overview-title">
     <h2 class="t-section" id="overview-title" data-reveal="mask">{{ c.code }} overview</h2>
     <p data-reveal>{{ c.overview }}</p>

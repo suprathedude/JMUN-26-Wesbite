@@ -1198,3 +1198,85 @@
     animation: none;
   }
 }
+
+/* Lead-in session recording (28 October): a wide banner at the top of the page body. Once the
+   recording is in, it glows teal with a big button; until then it's quiet, with "Coming soon". */
+.c-leadin {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px 28px;
+  margin-bottom: 56px;
+  padding: 28px 32px;
+  border: 1px solid rgb(var(--ink-rgb) / 0.12);
+  border-radius: var(--radius-tile);
+  background: rgb(var(--card-rgb) / 0.45);
+}
+
+.c-leadin.is-ready {
+  border-color: rgb(var(--teal-rgb) / 0.45);
+  background: linear-gradient(120deg, rgb(var(--teal-rgb) / 0.18), rgb(var(--card-rgb) / 0.7) 70%);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.c-leadin__icon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgb(var(--ink-rgb) / 0.08);
+  font-size: 2rem;
+  color: var(--ink-60);
+}
+
+.c-leadin.is-ready .c-leadin__icon {
+  background: rgb(var(--teal-rgb) / 0.2);
+  color: var(--teal-light);
+}
+
+.c-leadin__body {
+  flex: 1 1 280px;
+  min-width: 0;
+}
+
+.c-leadin__title {
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--ink-100);
+}
+
+.c-leadin__text {
+  margin-top: 6px;
+  color: var(--ink-75);
+}
+
+.c-leadin__btn {
+  padding: 18px 34px;
+  font-size: 1rem;
+}
+
+.c-leadin__soon {
+  padding: 10px 18px;
+  border: 1px solid rgb(var(--ink-rgb) / 0.2);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink-75);
+}
+
+@media (max-width: 640px) {
+  .c-leadin {
+    padding: 22px;
+  }
+
+  .c-leadin__btn {
+    width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+}

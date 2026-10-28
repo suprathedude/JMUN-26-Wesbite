@@ -62,8 +62,12 @@
     {%- for s in newToMun.training.sessions %}{% if not (l.trainingDates == "upcoming" and s.done) and not (l.trainingDates == "last" and not loop.last) %}{% set dates = (dates.push({ label: newToMun.training.sessionLabel ~ " " ~ loop.index, date: s.date, done: s.done, join: (s.link if not s.done else "") }), dates) %}{% endif %}{% endfor %}
     {%- endif %}
     {%- for d in l.dates %}{% set dates = (dates.push(d), dates) %}{% endfor %}
-    {%- if dates | length %}
+    {#- A list's title shows over its dates, or over its note alone (28 October: the lead-in
+        recordings and the liability form). -#}
+    {%- if l.title and (dates | length or l.note.text) %}
     <h3 class="notice__sub">{{ l.title }}</h3>
+    {%- endif %}
+    {%- if dates | length %}
     <ul class="notice__dates{% if not l.trainingDates %} notice__dates--even{% endif %}" role="list">
       {%- for d in dates %}
       <li{% if d.done %} class="is-done"{% endif %}><span class="notice__label">{% if d.detail %}<span class="notice__name">{{ d.label }}</span><span class="visually-hidden">, </span><span class="notice__detail">{{ d.detail }}</span>{% else %}{{ d.label }}{% endif %}</span><span class="notice__date">{{ d.date }}{% if d.done %}<span class="visually-hidden"> ({{ l.doneLabel or newToMun.training.doneLabel }})</span>{% endif %}
@@ -73,7 +77,8 @@
     {%- endif %}
     {%- if l.note.text %}
     <p class="notice__note">{{ l.note.text }}
-      {%- if l.note.link.url | isSet %} <a class="notice__note-link" href="{{ l.note.link.url }}">{{ l.note.link.label }}</a>{% endif %}</p>
+      {%- if l.note.link.url | isSet %}
+      {%- set pdf = l.note.link.url.endsWith(".pdf") %} <a class="notice__note-link" href="{{ l.note.link.url }}"{% if pdf %} target="_blank" rel="noopener"{% endif %}>{{ l.note.link.label }}{% if pdf %}<span class="visually-hidden"> (PDF, opens in a new tab)</span>{% endif %}</a>{% endif %}</p>
     {%- endif %}
     {%- endfor %}
     <div class="notice__actions">

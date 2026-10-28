@@ -73,8 +73,26 @@
         "text": "Rounds 1, 2 and 3 have all been released.",
         "lists": [
           {
-            "title": "Training session on Microsoft Teams",
-            "trainingDates": "last",
+            "title": "Lead-in session recordings",
+            "note": {
+              "text": "Each committee's lead-in recording goes up on its committee page. UNSC's is already up; the rest are coming soon.",
+              "link": {
+                "label": "Find your committee page",
+                "url": "/committees/"
+              }
+            }
+          },
+          {
+            "title": "Liability Release Form",
+            "note": {
+              "text": "Bring a printed copy, filled in and signed, on Day one. It's mandatory for attending Social Night.",
+              "link": {
+                "label": "Open the form",
+                "url": "/assets/docs/oakjmun-2026-liability-release-form.pdf"
+              }
+            }
+          },
+          {
             "note": {
               "text": "Missed a training session?",
               "link": {
@@ -98,6 +116,13 @@
         }
       }
     ]
+  },
+  "leadIn": {
+    "title": "Lead-in session recording",
+    "ready": "Watch the recording of this committee's lead-in session with its Executive Board.",
+    "soon": "The recording of this committee's lead-in session will be here soon.",
+    "button": "Watch the lead-in session",
+    "soonLabel": "Coming soon"
   },
   "nav": {
     "left": [
@@ -229,7 +254,10 @@
       ],
       "contact": "Having trouble getting your QR code? Email",
       "contacts": [
-        { "email": "saisantoshsupratik_koppuravuri@oakridge.in", "role": "Supratiik, USG of Tech" }
+        {
+          "email": "saisantoshsupratik_koppuravuri@oakridge.in",
+          "role": "Supratiik, USG of Tech"
+        }
       ],
       "contactEnd": "for help."
     },

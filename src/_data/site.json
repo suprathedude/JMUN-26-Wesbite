@@ -63,14 +63,14 @@
       {
         "flash": {
           "title": "QR codes are out!",
-          "text": "Your entry QR code is your pass at the registration desk in the Palm Court on Day one. Get yours with the email you registered with.",
+          "text": "Your entry QR code is your pass at the registration desk in the Palm Court on Day one. Get yours with the student's email address from the registration form.",
           "link": {
             "label": "Get your QR code",
             "url": "/qr/"
           }
         },
-        "title": "Final round of allocations coming soon!",
-        "text": "Rounds 1, 2 and 3 have all been released.",
+        "title": "Final allocations are rolling out!",
+        "text": "Rounds 1, 2 and 3 are out. Final allocations are now being approved and released one by one, rather than all at once.",
         "lists": [
           {
             "title": "Lead-in session recordings",
@@ -210,9 +210,9 @@
   },
   "qrPage": {
     "title": "Get your entry QR code",
-    "intro": "Your entry QR code is your pass for the registration desk in the Palm Court: show it when you arrive on Day one and you're checked in. Enter the email address you registered with to get it.",
+    "intro": "Your entry QR code is your pass for the registration desk in the Palm Court: show it when you arrive on Day one and you're checked in. Enter the student's email address from the registration form to get it.",
     "open": true,
-    "note": "Use the same email address as on your registration form.",
+    "note": "Only the student's email address from the registration form works.",
     "closedNote": "QR codes open soon (date TBC). Come back to this page to get yours.",
     "button": "Get QR code",
     "placeholder": "Your QR code will appear here",
@@ -243,7 +243,8 @@
     "help": {
       "title": "Good to know",
       "items": [
-        "If your registration form gave a parent's email address for both the student and the parent, use that parent's email address here."
+        "Only the student's email address from the registration form works. A parent's email, or any other email address, won't find you.",
+        "If the same email address was given for both the student and the parent on the registration form, just use that one."
       ],
       "contact": "Having trouble getting your QR code? Email",
       "contacts": [
@@ -260,7 +261,7 @@
       "slow": "Still looking. This can take a few seconds",
       "choose": "This email is used by more than one delegate. Choose your name:",
       "found": "Here's your QR code. Show it at the registration desk when you arrive: save it as an image, or download the PDF to print.",
-      "unknown": "We couldn't find that email. Check it's the one you registered with. If you haven't been allotted a country yet, your QR code will be here once you are.",
+      "unknown": "We couldn't find that email. Use the student's email address from the registration form: other email addresses won't work. If you haven't been allotted a country yet, your QR code will be here once you are.",
       "email": "Enter a full email address.",
       "closed": "QR codes aren't open yet. Check back here soon.",
       "busy": "Too many tries from this connection. Wait a few minutes and try again.",
@@ -272,7 +273,8 @@
       "title": "Entry pass",
       "instruction": "Show this pass at the registration desk in the Palm Court on Day one.",
       "note": "This code checks you in, so keep it to yourself. A printout or a screenshot both work."
-    }
+    },
+    "label": "Student's email address"
   },
   "resourcesPage": {
     "intro": "Background guides, International Press style guides, procedure documents, training session recordings and slides, and research links, added here as they are released.",
@@ -374,7 +376,7 @@
       {
         "name": "Final round",
         "status": "soon",
-        "label": "Coming soon",
+        "label": "Rolling out",
         "date": "",
         "note": ""
       }

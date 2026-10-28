@@ -24,7 +24,7 @@ Photos and PDFs live in `src/assets/`:
 | Folder | What goes in it |
 | --- | --- |
 | `src/assets/docs/guides/` | Background guide PDFs |
-| `src/assets/docs/` | Other PDFs (Rules of Procedure, the Consent Form and so on) |
+| `src/assets/docs/` | Other PDFs (Rules of Procedure, the Liability Release Form and so on) |
 | `src/assets/img/committees/` | One photo per committee. Colour is fine; it's made black and white automatically. |
 | `src/assets/img/logos/` | Committee logo circles (PNG) |
 | `src/assets/img/eb/` | Chair, Vice Chair and Rapporteur photos |
@@ -94,7 +94,7 @@ After, on the UNSC committee page:
 
 ![The background guide card on the UNSC page reading "Available" with "Open background guide"](img/guide-after-committee.jpg)
 
-The **essential documents** (Rules of Procedure and its slides, Consent Form) and the two **International Press style guides** (IP Journalism, IP Photography) work the same way. Upload the PDF to `src/assets/docs/`, then set its `"file"` in `src/_data/resources.json` (the style guides are under `"ipGuides"`), for example `"file": "assets/docs/rules-of-procedure.pdf"`. The card changes from "Coming soon" to "PDF".
+The **essential documents** (Rules of Procedure and its slides, Liability Release Form) and the two **International Press style guides** (IP Journalism, IP Photography) work the same way. Upload the PDF to `src/assets/docs/`, then set its `"file"` in `src/_data/resources.json` (the style guides are under `"ipGuides"`), for example `"file": "assets/docs/rules-of-procedure.pdf"`. The card changes from "Coming soon" to "PDF".
 
 ---
 
@@ -363,7 +363,7 @@ Everything else updates by itself:
 | **Turning QR passes on** (only when the Secretariat says go) | `site.json` → `qrPage` → `"open": true`. While it's `false`, the QR page says `closedNote` and gives out nothing. The check-in app must be connected and its admin switch on too: `docs/QR.md`, "Turning QR passes on". |
 | The Entry QR button in the nav (between More and Register) | `site.json` → `nav.qr`: `label` in the nav (keep it short, or the nav runs out of room), `sheetLabel` in the phone menu |
 | The Register button and its dropdown (nav, homepage hero, homepage closing banner and the New to MUN page): delegate registration, and applications to International Press and the Organising Committee | `site.json` → `nav` → `register` (17 October): `label` on the button, `sheetTitle` above the three buttons in the phone menu, and one entry per form in `options` (`title`, the small `tag` under it, `button` for the International Press button on the IP committee page, and the form's `url`). An entry with `"url": ""` shows as "link TBC". |
-| The "Consent form" button (hidden until it has a link) | `site.json` → `nav` → `secondary` → `url` |
+| The "Liability form" button in the nav (hidden until it has a link) | `site.json` → `nav` → `secondary` → `url` |
 | The contact email | `site.json` → `contact` → `email`, and the last answer in `faq.json` (with its button's `mailto:` link) |
 | The conference dates | `site.json` → `start` and `end`, written like `2026-10-30T08:00:00+05:30`. The countdown and every date on the site follow these. |
 | The Secretary-General's letter | `site.json` → `sgLetter`: `paragraphs` (one item per paragraph), `closing` (the line above the name), `photo`, `signature` |

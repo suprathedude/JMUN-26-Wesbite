@@ -76,7 +76,7 @@
         {
           "start": "4:15 pm",
           "end": "4:45 pm",
-          "title": "Snack and transition",
+          "title": "Snack break and transition",
           "type": "break"
         },
         {
@@ -152,7 +152,7 @@
         {
           "start": "3:15 pm",
           "end": "3:45 pm",
-          "title": "Snack and transition",
+          "title": "Break and transition",
           "type": "break"
         },
         {
@@ -164,7 +164,7 @@
         {
           "start": "5:15 pm",
           "end": "",
-          "title": "Dispersal",
+          "title": "Dispersal and snack",
           "type": "end"
         }
       ]

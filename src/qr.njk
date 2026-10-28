@@ -30,7 +30,7 @@ pageJs: [qr]
       <h1 class="t-page qr__title" data-reveal="mask">{{ q.title }}</h1>
       <p class="qr__intro" data-reveal>{{ q.intro }}</p>
       <form class="qr__form{% if not open %} is-closed{% endif %}" data-reveal data-qr-form data-pdf="/js/pass-pdf.js"{% if not open %} data-closed{% endif %} novalidate>
-        <label class="qr__label" for="qr-email">Registration email</label>
+        <label class="qr__label" for="qr-email">{{ q.label }}</label>
         <div class="qr__row">
           <input class="qr__input" id="qr-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required aria-describedby="qr-note"{% if not open %} disabled{% endif %}>
           <button class="btn btn--shiny{% if not open %} is-disabled{% endif %}" type="submit"{% if not open %} disabled{% endif %}>{{ shine() }}<span class="qr__spin" aria-hidden="true"></span>{{ q.button }}</button>
